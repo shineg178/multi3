@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +14,8 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+  
   <!-- Favicons -->
   <link href="${path}/resources/assets/img/favicon.png" rel="icon">
   <link href="${path}/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -40,7 +43,15 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
+<script>
+	
+	function openChat(num){
+		var target = document.getElementById("chatList");
+		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
+		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
+		window.open('chat','채팅창'+num,'top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+	}
+</script>
 <body>
 
   <!-- ======= Header ======= -->
@@ -149,65 +160,22 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
+            <span class="badge bg-success badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
           </a><!-- End Messages Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+		  <!-- 메시지 목록창  -->
+          <ul id="chatList" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" style="width:300px; height:500px;">
+            <li class="message-item" onclick="openChat(1)">
+            		<img src="" alt="" class="rounded-circle">
+            		첫번째 채팅방
+            		<button style="float:right; line-height: 1" class="btn btn-outline-warning">나가기</button>
             </li>
-            <li>
-              <hr class="dropdown-divider">
+            <li class="message-item" onclick="openChat(2)">
+            		<img src="" alt="" class="rounded-circle">
+            		두번째 채팅방
+            		<button style="float:right; line-height: 1" class="btn btn-outline-warning">나가기</button>
             </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="${path}/resources/assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="${path}/resources/assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="${path}/resources/assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
+          </ul><!-- 메시지 목록창 끝 -->
 
         </li><!-- End Messages Nav -->
 
@@ -278,33 +246,33 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="${home}">
+        <a class="nav-link " href="${path}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Notice</span></i>
+        <a class="nav-link collapsed"  href="${path}/noticeList">
+          <i class="bi bi-journal-text"></i><span>Notice</span>
         </a>
-      </li><!-- End Forms Nav -->
+      </li><!-- End Forms Nav --> 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span></i>
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>AddProduct</span></i>
+        <a class="nav-link collapsed"  href="#">
+          <i class="bi bi-bar-chart"></i><span>AddProduct</span>
         </a>
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Donation</span></i>
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-gem"></i><span>Donation</span>
         </a>
 
       <li class="nav-item">

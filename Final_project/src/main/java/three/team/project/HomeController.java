@@ -36,7 +36,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/users-profile")
-	public String userProfile() {
+	public String userProfile() { 
 		return "users-profile";
 	}
 	
@@ -44,6 +44,7 @@ public class HomeController {
 	public String top() {
 		return "top";
 	}
+	
 	@RequestMapping("/foot")
 	public String foot() {
 		return "foot";

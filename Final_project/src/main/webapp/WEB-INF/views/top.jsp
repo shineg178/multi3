@@ -43,14 +43,84 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+<style>
+	#chatExit{
+		float:right; 
+		line-height: 1 ;
+	}
+	#chatLink{
+		padding: 5px 0px;
+		width:160px;
+		float:left;
+	}
+	.message-item{
+		height:65px;
+	}
+</style>
 <script>
 	
-	function openChat(num){
+	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+	function openChat(){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
-		window.open('chat','채팅창'+num,'top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+		window.open('chat','채팅창','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
 	}
+	
+	//내 채팅 목록 가져오기
+	function myChatList(){
+		$.ajax({
+			type:'get',
+	 		url:'openChatList',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				str="";
+				if(res==null){
+					str+="<li class='message-item'><a id='chatLink'>존재하는 채팅방이 없습니다</a></li>";
+				}
+				if(res!=null){
+					$.each(res,function(i,data){
+						str+="<li class='message-item'>";
+						str+="<img src='' alt='' class='rounded-circle'>";
+						if(data.userNum1==${id}){
+							str+="<a id='chatLink' onclick='openChat()'>"+data.userNum2+"</a>";
+						}
+						if(data.userNum2==${id}){
+							str+="<a id='chatLink' onclick='openChat()'>"+data.userNum1+"</a>";
+						}
+						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
+						str+="</li>";
+					})
+				}
+				$('#chatList').html(str);
+			},	
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
+	
+	//채팅방 나가기
+	function deleteChat(rid){
+		$.ajax({
+			type:'post',
+			url:'deleteChat?',
+			data:'rid='+rid,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				if(res>0){
+					myChatList();
+				}
+			},
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
+		
+
 </script>
 <body>
 
@@ -159,23 +229,15 @@
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
+            <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
             <span class="badge bg-success badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
           </a><!-- End Messages Icon -->
 
 		  <!-- 메시지 목록창  -->
-          <ul id="chatList" class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" style="width:300px; height:500px;">
-            <li class="message-item" onclick="openChat(1)">
-            		<img src="" alt="" class="rounded-circle">
-            		첫번째 채팅방
-            		<button style="float:right; line-height: 1" class="btn btn-outline-warning">나가기</button>
-            </li>
-            <li class="message-item" onclick="openChat(2)">
-            		<img src="" alt="" class="rounded-circle">
-            		두번째 채팅방
-            		<button style="float:right; line-height: 1" class="btn btn-outline-warning">나가기</button>
-            </li>
-          </ul><!-- 메시지 목록창 끝 -->
+          <ul id="chatList"  class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" style="width:300px; height:500px;">
+      		 
+          </ul>
+          <!-- 메시지 목록창 끝 -->
 
         </li><!-- End Messages Nav -->
 

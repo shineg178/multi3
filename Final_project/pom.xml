@@ -214,7 +214,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-websocket</artifactId>
-			<version>5.0.7.RELEASE</version>
+			<version>${org.springframework-version}</version>
 		</dependency>
 
 	</dependencies>

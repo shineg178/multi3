@@ -60,11 +60,12 @@
 <script>
 	
 	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
-	function openChat(){
+	function openChat(roomid){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
-		window.open('chat','채팅창','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+		var pfrm=document.frmPost;
+		window.open('chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
 	}
 	
 	//내 채팅 목록 가져오기
@@ -84,11 +85,11 @@
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
 						if(data.userNum1==${id}){
-							str+="<a id='chatLink' onclick='openChat()'>"+data.userNum2+"</a>";
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum2+"</a>";
 						}
 						if(data.userNum2==${id}){
-							str+="<a id='chatLink' onclick='openChat()'>"+data.userNum1+"</a>";
-						}
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum1+"</a>";
+						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
 						str+="</li>";
 					})

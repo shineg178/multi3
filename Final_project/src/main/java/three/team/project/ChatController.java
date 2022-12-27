@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,9 @@ public class ChatController {
 	
 	//채팅창 여는 메서드
 	@GetMapping("/chat")
-	public String chatOpen() {
+	public String chatOpen(@RequestParam int roomid,Model m) {
+		log.info(roomid);
+		m.addAttribute("roomid",roomid);
 		return "chat/chat";
 	}
 

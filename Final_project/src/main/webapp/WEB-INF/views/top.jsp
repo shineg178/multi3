@@ -59,7 +59,7 @@
 </style>
 <script>
 	
-	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+	/* //채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
@@ -118,7 +118,7 @@
 				alert('error : '+err.status);
 			}
 		})
-	}
+	} */
 		
 
 </script>

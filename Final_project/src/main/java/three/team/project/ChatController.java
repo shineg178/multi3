@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
+import three.chat.model.ChatAlertVO;
 import three.chat.model.ChatRoomVO;
+import three.chat.model.ChatVO;
 import three.chat.service.ChatService;
 
 @Controller
@@ -25,9 +27,21 @@ public class ChatController {
 	
 	//채팅창 여는 메서드
 	@GetMapping("/chat")
-	public String chatOpen(@RequestParam int roomid,Model m) {
-		log.info(roomid);
-		m.addAttribute("roomid",roomid);
+	public String chatOpen(@RequestParam int roomid,Model m,HttpSession ses) {
+		int userid=(int)ses.getAttribute("id");
+		
+		//해당 방 정보 가져오기
+		ChatRoomVO roomvo=chatServiceImpl.selectRoom(roomid);
+
+		//접속시 읽지않은 메시지내역에서 삭제하기
+		chatServiceImpl.deleteNoRead(new ChatAlertVO(roomid,userid,0));
+				
+		//지난 채팅 내역 불러오기
+		List<ChatVO> clist=chatServiceImpl.findChatList(roomid);
+		log.info(clist);
+		
+		m.addAttribute("cList",clist);
+		m.addAttribute("Room",roomvo);
 		return "chat/chat";
 	}
 
@@ -52,8 +66,8 @@ public class ChatController {
 	
 	@GetMapping("/room1")
 	public String room1(HttpSession ses) {
-		int myid = (int) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myid,1);
+		int myNick = (int) ses.getAttribute("id");
+		ChatRoomVO vo=new ChatRoomVO(0,myNick,1);
 		ChatRoomVO a=chatServiceImpl.findRoomCheck(vo);
 		if(a==null) {
 			chatServiceImpl.createRoom(vo);
@@ -65,8 +79,8 @@ public class ChatController {
 	
 	@GetMapping("/room2")
 	public String room2(HttpSession ses) {
-		int myid = (int) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myid,2);
+		int myNick = (int) ses.getAttribute("id");
+		ChatRoomVO vo=new ChatRoomVO(0,myNick,2);
 		ChatRoomVO a=chatServiceImpl.findRoomCheck(vo);
 		if(a==null) {
 			chatServiceImpl.createRoom(vo);
@@ -78,9 +92,12 @@ public class ChatController {
 	
 	@GetMapping("/room3")
 	public String room3(HttpSession ses) {
-		int myid = (int) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myid,3);
+		int myNick = (int) ses.getAttribute("id");
+		ChatRoomVO vo=new ChatRoomVO(0,myNick,3);
+		
+		//이미 방이 만들어 졌는지 체크 
 		ChatRoomVO a=chatServiceImpl.findRoomCheck(vo);
+		//생성되지 않은 방일때
 		if(a==null) {
 			chatServiceImpl.createRoom(vo);
 		}
@@ -94,6 +111,7 @@ public class ChatController {
 		ChatRoomVO vo=new ChatRoomVO();
 		vo.setUserNum1((int)ses.getAttribute("id"));
 		List<ChatRoomVO> list = chatServiceImpl.myChatRoom(vo);
+		log.info(list);
 		return list;
 	}
 	
@@ -101,6 +119,13 @@ public class ChatController {
 	@ResponseBody
 	public int ExitChat(@RequestParam int rid) {
 		return chatServiceImpl.exitChat(new ChatRoomVO(rid,0,0));
+	}
+	
+	@GetMapping(value="/AllnoRead",produces="application/json")
+	@ResponseBody
+	public int AllnoRead(HttpSession ses) {
+		int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
+		return n;
 	}
 	
 	

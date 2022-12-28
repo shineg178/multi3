@@ -106,7 +106,7 @@
 	function deleteChat(rid){
 		$.ajax({
 			type:'post',
-			url:'deleteChat?',
+			url:'deleteChat',
 			data:'rid='+rid,
 			dataType:'json',
 			cache:false,
@@ -120,7 +120,26 @@
 			}
 		})
 	}
-		
+	
+	$(function(){
+		//주기적으로 읽지않은 메시지 수 가져오기
+		setInterval(function(){
+			$.ajax({
+				type:'get',
+				url:'AllnoRead',
+				dataType:'json',
+				cache:false,
+				success:function(res){
+					if(res>0){
+						$('#noRead').text(res);
+					}
+				},
+				error:function(err){
+					alert('error : '+err.status);
+				}
+			})
+		},2000)
+	});
 
 </script>
 <body>
@@ -231,7 +250,8 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
-            <span class="badge bg-success badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+            <span id="noRead"class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+            
           </a><!-- End Messages Icon -->
 
 		  <!-- 메시지 목록창  -->

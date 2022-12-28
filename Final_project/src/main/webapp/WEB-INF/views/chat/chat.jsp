@@ -56,24 +56,40 @@ div#right{
 	margin:25px 5px;
 }
 span#left{
-	padding:10px;
+	padding:5px;
 	background-color:white;
 	border-radius: 10px;
 }
 
 span#right{
-	padding:10px;
+	padding:5px;
 	background-color:yellow;
 	border-radius: 10px;
 }
 </style>
 <script>
 	$(function(){
-	
+		
+		//스크롤바 아래고정 메서드
+		function scrollBottom(){
+			$('#chatLog').scrollTop($('#chatLog').prop('scrollHeight'));	
+		}
+		//처음 들어왔을때 스크롤 아래 이동
+		scrollBottom();
+		
+		//받는이 지정 
+		var toUser;
+		if(${Room.userNum1}==${id}){
+			toUser=${Room.userNum2};
+		}else if(${Room.userNum2}==${id}){
+			toUser=${Room.userNum1};
+		}
+		
 		//전송 버튼 누를때 데이터 전송 
 		$("#sendBtn").click(function() {
 			if($('#msg').val()!=""){
-				sendMessage(${roomid}+":"+${id}+":"+$("#msg").val());
+				//"방번호:로그인유저:메시지" 형태
+				sendMessage(${Room.roomid}+":"+${id}+":"+toUser+":"+$("#msg").val());
 			}
 			$('#msg').val('');
 		});
@@ -86,7 +102,8 @@ span#right{
 		
 		//방에 입장 했을때 
 		function onOpen(){
-			sock.send(${roomid}+":"+${id}+":Enter");
+			//"방번호:로그인유저:방입장" 형태
+			sock.send(${Room.roomid}+":"+${id}+":"+":Enter");
 		}
 		
 		//메시지를 전송 했을때
@@ -104,12 +121,27 @@ span#right{
 			}else{
 				position="left";
 			}
-			$('#chatLog').append("<div id="+position+"><span id="+position+">" + data + "</span></div>");
+			$('#chatLog').append("<div id="+position+"><span id="+position+">" + data.split(":")[1] + "</span></div>");
+			//스크롤 이동
+			scrollBottom();
 		}
 	})
 </script>
 <div id="wrap">
 	<div id="chatLog">
+		<!-- 지난 채팅 내역 -->
+		<c:forEach var="data" items="${cList}">
+			<c:if test="${data.getSNum() eq id}">
+				<div id="right">
+					<span id="right">${data.getSendMsg()}</span>
+				</div>
+			</c:if>
+			<c:if test="${data.getSNum() ne id}">
+				<div id="left">
+					<span id="left">${data.getSendMsg()}</span>
+				</div>
+			</c:if>
+		</c:forEach>
 		<!-- 채팅 목록이 들어올 장소 -->
 	</div>
 	<div id="sendBox">

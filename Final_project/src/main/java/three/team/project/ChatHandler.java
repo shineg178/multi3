@@ -12,6 +12,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import lombok.extern.log4j.Log4j;
+import three.chat.model.ChatAlertVO;
+import three.chat.model.ChatVO;
 import three.chat.service.ChatService;
 
 @Controller
@@ -23,7 +25,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	private  Map<WebSocketSession, String> sessionList = new HashMap<WebSocketSession, String>();
 	
 	@Autowired
-	private ChatService chatServiceImpl;
+	ChatService chatServiceImpl;
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -33,17 +35,25 @@ public class ChatHandler extends TextWebSocketHandler {
 	 //클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-    	log.info(message.getPayload());
     	
     	//전달 받은 메시지 
     	String msg=message.getPayload();
-    	
-    	//전달 받은 메시지 3번째 ex > ( : :X)
+    	log.info(msg);
+    	//전달 받은 메시지 > (방번호:보낸이:받는이:내용)
     	String[] enter=msg.split(":");
-    	String roomid=enter[0];
     	
-    	//메시지 전송이 아니라 방에 입장했을때
-    	if(enter[2].equals("Enter")) {
+    	String roomid=enter[0];//방번호
+    	String sUser=enter[1];//보낸이
+    	String rUser=enter[2];//받는이
+    	String sendMsg=enter[3];//보낸 메시지
+    	
+    	//ChatVO 객체에 담기
+    	ChatVO chatvo=new ChatVO(Integer.parseInt(roomid),sUser,rUser,sendMsg,null);
+    	log.info(chatvo);
+    	
+    	
+    	//[1] 메시지 전송이 아니라 방에 입장했을때
+    	if(sendMsg.equals("Enter")) {
     		//이미 생성된 방이라면
     		if(roomList.get(roomid)!=null) {
     			roomList.get(roomid).add(session);
@@ -58,10 +68,26 @@ public class ChatHandler extends TextWebSocketHandler {
     			log.info(roomList);
     		}
     		
-    	//방 입장이 아니라 메시지 전송일 경우
+    	//[2] 방 입장이 아니라 메시지 전송일 경우
     	}else {
-    		TextMessage textMessage = new TextMessage(enter[1]+" : "+enter[2]);
+    		//ChatAlertVO 객체에 담기
+        	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),Integer.parseInt(rUser),0);
     		
+        	//DB에 메시지 내용 저장
+    		chatServiceImpl.insertMessage(chatvo);
+    		log.info(alertvo);
+    		
+    		//채팅방에 혼자 있을경우
+    		if(roomList.get(sessionList.get(session)).size()==1) {
+	    		//DB에 읽지 않은 메시지 추가
+	    		chatServiceImpl.addNoReadCount(alertvo);
+    		}
+    		
+    		
+    		//메시지 형태로 전환
+    		TextMessage textMessage = new TextMessage(sUser+" : "+sendMsg);
+    		
+    		//접속한 유저에게 메시지 출력
 	    	for(WebSocketSession ses:roomList.get(roomid)) {
 	    		ses.sendMessage(textMessage);
 	    	}

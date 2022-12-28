@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChatRoomVO {
-	private int roomid;//채팅방 번호
-	private int userNum1;//유저1 
-	private int userNum2;//유저2
+public class ChatAlertVO {
+	private int roomid;
+	private int usernum;
+	private int noReadCount;//읽지 않은 메시지 수 
 }

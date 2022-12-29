@@ -65,14 +65,14 @@
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
 		var pfrm=document.frmPost;
-		window.open('chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
 	}
 	
 	//내 채팅 목록 가져오기
 	function myChatList(){
 		$.ajax({
 			type:'get',
-	 		url:'openChatList',
+	 		url:'${path}/openChatList',
 			dataType:'json',
 			cache:false,
 			success:function(res){
@@ -106,7 +106,7 @@
 	function deleteChat(rid){
 		$.ajax({
 			type:'post',
-			url:'deleteChat',
+			url:'${path}/deleteChat',
 			data:'rid='+rid,
 			dataType:'json',
 			cache:false,
@@ -122,14 +122,19 @@
 	}
 	
 	$(function(){
-		//주기적으로 읽지않은 메시지 수 가져오기
-		setInterval(function(){
+		//2초마다 주기적으로 읽지않은 메시지 수 가져오기
+		let interval = setInterval(chatAlert,2000);
+		
+		
+		//읽지않은 메시지 가져오는 메서드
+		function chatAlert(){
 			$.ajax({
 				type:'get',
-				url:'AllnoRead',
+				url:'${path}/AllnoRead',
 				dataType:'json',
 				cache:false,
 				success:function(res){
+					if(res==0) $('#noRead').text('');
 					if(res>0){
 						$('#noRead').text(res);
 					}
@@ -138,7 +143,8 @@
 					alert('error : '+err.status);
 				}
 			})
-		},2000)
+		}
+
 	});
 
 </script>

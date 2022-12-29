@@ -6,12 +6,9 @@ import three.chat.model.ChatAlertVO;
 import three.chat.model.ChatRoomVO;
 import three.chat.model.ChatVO;
 
-public interface ChatMapper {
+public interface ChatMapper { 
 	//방생성 메서드
 	int createRoom(ChatRoomVO vo);
-	
-	//방 존재 여부 확인 메서드
-	ChatRoomVO findRoomCheck(ChatRoomVO vo);
 	
 	//자신의 채팅방 목록 불러오는 메서드
 	List<ChatRoomVO> myChatRoomList(ChatRoomVO vo); 

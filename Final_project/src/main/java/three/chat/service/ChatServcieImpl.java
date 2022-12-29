@@ -23,11 +23,6 @@ public class ChatServcieImpl implements ChatService{
 	}
 
 	@Override
-	public ChatRoomVO findRoomCheck(ChatRoomVO vo) {
-		return chatMapper.findRoomCheck(vo);
-	}
-
-	@Override
 	public List<ChatRoomVO> myChatRoom(ChatRoomVO vo) {
 		List<ChatRoomVO> list=chatMapper.myChatRoomList(vo);
 		return list;

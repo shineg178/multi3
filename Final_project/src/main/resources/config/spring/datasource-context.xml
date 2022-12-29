@@ -27,5 +27,5 @@
 		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
 	
-	<mybatis-spring:scan base-package="three.chat.mapper"/>
+	<mybatis-spring:scan base-package="three.chat.mapper,three.notice.mapper"/>
 </beans>

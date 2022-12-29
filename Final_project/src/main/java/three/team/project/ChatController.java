@@ -68,12 +68,9 @@ public class ChatController {
 	public String room1(HttpSession ses) {
 		int myNick = (int) ses.getAttribute("id");
 		ChatRoomVO vo=new ChatRoomVO(0,myNick,1);
-		ChatRoomVO a=chatServiceImpl.findRoomCheck(vo);
-		if(a==null) {
-			chatServiceImpl.createRoom(vo);
-		}
-		
-		
+
+		chatServiceImpl.createRoom(vo);
+	
 		return "index";
 	}
 	
@@ -81,12 +78,9 @@ public class ChatController {
 	public String room2(HttpSession ses) {
 		int myNick = (int) ses.getAttribute("id");
 		ChatRoomVO vo=new ChatRoomVO(0,myNick,2);
-		ChatRoomVO a=chatServiceImpl.findRoomCheck(vo);
-		if(a==null) {
-			chatServiceImpl.createRoom(vo);
-		}
 		
-		
+		chatServiceImpl.createRoom(vo);
+
 		return "index";
 	}
 	
@@ -95,12 +89,7 @@ public class ChatController {
 		int myNick = (int) ses.getAttribute("id");
 		ChatRoomVO vo=new ChatRoomVO(0,myNick,3);
 		
-		//이미 방이 만들어 졌는지 체크 
-		ChatRoomVO a=chatServiceImpl.findRoomCheck(vo);
-		//생성되지 않은 방일때
-		if(a==null) {
-			chatServiceImpl.createRoom(vo);
-		}
+		chatServiceImpl.createRoom(vo);
 			
 		return "index";
 	}
@@ -120,6 +109,7 @@ public class ChatController {
 	public int ExitChat(@RequestParam int rid) {
 		return chatServiceImpl.exitChat(new ChatRoomVO(rid,0,0));
 	}
+	
 	
 	@GetMapping(value="/AllnoRead",produces="application/json")
 	@ResponseBody

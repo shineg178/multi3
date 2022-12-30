@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="three.donation.mapper.DonationMapper">
+
+	<select id="totalDonation" resultType="Integer">
+		select sum(donAmount)
+		totalDonate from donation
+	</select>
+
+	<select id="totalDonateCount" resultType="Integer">
+		select count(donNum)
+		from donation
+	</select>
+
+	<select id="userListDonate" resultType="java.util.LinkedHashMap">
+		select row_number()
+		over(order by sum(donAmount) desc) rn,sum(donAmount) totalAmount,
+		userNum_fk from donation group by userNum_fk
+	</select>
+
+	<select id="donationLevelId" resultType="Integer">
+		select sum(donAmount)
+		totalDonate from donation where userNum_fk=#{userId}
+	</select>
+
+	<select id="donationOrgInfo" resultType="String">
+		select donOrgInfo from
+		donationOrg where donOrgNum=2002
+	</select>
+
+
+</mapper>

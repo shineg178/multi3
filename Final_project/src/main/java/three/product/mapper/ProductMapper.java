@@ -1,9 +1,4 @@
-package three.product.mapper;
-
-import three.product.model.ProductVO;
+package three.team.project.repository;
 
 public interface ProductMapper {
-	
-	ProductVO selectProductByProdNum(int prodNum);
-	
 }

@@ -1,5 +1,9 @@
 package three.team.project;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -38,14 +42,25 @@ public class AuctionController {
 			return "redirect:index";
 		}
 		ses.setAttribute("prodNum", prodNum);
-		log.info("prodNum: "+prodNum);
+		//log.info("prodNum: "+prodNum);
+		
+		//물품 정보 가져오기
 		ProductVO prod = this.auctionServiceImpl.selectProductByProdNum(prodNum);
-		
-		int userNum=prod.getUserNum_fk();
-		UserVO user=this.auctionServiceImpl.findUserByuserNum(userNum);
-		
 		m.addAttribute("prod", prod);
+		
+		//판매자 정보 가져오기
+		int userNum=prod.getUserNum_fk();
+		ses.setAttribute("userNum", userNum);
+		UserVO user=this.auctionServiceImpl.findUserByuserNum(userNum);
 		m.addAttribute("user",user);
+		
+		//종료시간 구하기
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(prod.getPIndate());
+		cal.add(Calendar.DATE, prod.getAuctionTime());
+		Date closeTime=cal.getTime();
+		m.addAttribute("closeTime",closeTime);
+		
 		return "auction/auctionDetail";
 	}
 

@@ -16,7 +16,7 @@ public class UserVO {
 	private String userPassword;
 	private String userTel;
 	private String userAddr;
-	private String userDetatilAddr;
+	private String userDetailAddr;
 	private String userInfo;
 	private String userEmail;
 	private String userImage;

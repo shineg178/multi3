@@ -8,12 +8,11 @@
 <SCRIPT type="text/javascript">
 function remaindTime() {
     var now = new Date(); //현재시간을 구한다. 
-    var close = new Date(2022,11,30,11,00,00); //
   
     var nowTime = now.getTime(); // 현재의 시간만 가져온다
-    var closeTime = close.getTime(); // 종료시간만 가져온다
+    var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
   
-   if(nowTime<closeTime){ //현재시간이 오픈시간보다 이르면 오픈시간까지의 남은 시간을 구한다.   
+   if(nowTime<closeTime){ //현재시간이 종료시간보다 이르면 종료시간까지의 남은 시간을 구한다.   
      sec = parseInt(closeTime - nowTime) / 1000;
      hour = parseInt(sec/60/60);
      sec = (sec - (hour*60*60));
@@ -33,6 +32,51 @@ function remaindTime() {
    }
   }
   setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다. 
+  
+	/* //websocket 생성
+	  const websocket = new WebSocket("ws://localhost:8080/auction");
+	  websocket.onmessage = onMessage;	// 소켓이 메세지를 받을 때
+	  websocket.onopen = onOpen;		// 소켓이 생성될때(클라이언트 접속)
+	  websocket.onclose = onClose;	// 소켓이 닫힐때(클라이언트 접속해제)
+	
+	  //on exit chat room
+	  function onClose(evt) {
+	  console.log("close event : " + evt);
+	  }
+	
+	  //on entering chat room
+	  function onOpen(evt) {
+	  console.log("open event : " + evt);
+	  }
+	
+	  // on message controller
+	  function onMessage(msg) {
+	  var data = JSON.parse(msg.data); // msg를 받으면 data 필드 안에 Json String으로 정보가 있음
+	  // 필요한 정보를 Json data에서 추출
+	   var senderId = data.senderId;
+	   var message = data.message;
+	   var time = data.time;
+	   var newOne = data.newOne;
+	   var outOne = data.outOne;
+	  }
+	  
+	  // send a message
+	  function send(){
+	  var message = document.getElementById("msg").value;
+	  
+	  // don't send when content is empty
+	  // 채팅 입력 칸이 비어있지 않을 경우만 정보를 Json형태로 전송
+	  if(message != "") {			
+		let msg = {
+	 	'receiverId' : receiverId,
+	  	'message' : message
+	    	}
+	
+	  	if(message != null) {
+	  	websocket.send(JSON.stringify(msg));	// websocket handler로 전송(서버로 전송)
+	  	}
+	  	document.getElementById("msg").value = '';
+		}  */
 </script>
 
 <main id="main" class="main">
@@ -86,8 +130,7 @@ function remaindTime() {
 					<br> <br>
 					<h3 class="fw-bolder">${prod.prodName }</h3>
 					<br>
-					<div class="small mb-1">${user.userNick}</div>
-					<div class="small mb-1">${user.userId}</div>
+					<div class="large mb-3">${user.userNick}  |  ( ${user.userId} )</div>
 					<br>
 					<div class="fs-5 mb-5">
 						<table>
@@ -102,7 +145,13 @@ function remaindTime() {
 							<tr>
 								<td>시작 시간</td>
 								<td class="text-decoration-underline d-flex justify-content-end">
-									<c:out value="${prod.getPIndate() }" />
+									<fmt:formatDate value="${prod.getPIndate() }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								</td>
+							</tr>
+							<tr>
+								<td>종료 시간</td>
+								<td class="text-decoration-underline d-flex justify-content-end">
+									<fmt:formatDate value="${closeTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
 								</td>
 							</tr>
 							<tr>

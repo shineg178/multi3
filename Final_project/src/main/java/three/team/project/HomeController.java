@@ -35,10 +35,10 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping("/users-profile")
-	public String userProfile() { 
-		return "users-profile";
-	}
+//	@RequestMapping("/profile")
+//	public String userProfile() { 
+//		return "users-profile";
+//	}
 	
 	@RequestMapping("/top")
 	public String top() {
@@ -51,3 +51,4 @@ public class HomeController {
 	}
 	
 }
+

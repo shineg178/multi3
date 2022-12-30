@@ -58,9 +58,15 @@
 	}
 </style>
 <script>
+
+	
+ //채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+	function openChat(){
+
 	myChatList();
 	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
+
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
@@ -119,11 +125,15 @@
 				alert('error : '+err.status);
 			}
 		})
+
+	} 
+
 	}
 	
 	$(function(){
 		//2초마다 주기적으로 읽지않은 메시지 수 가져오기
 		let interval = setInterval(chatAlert,2000);
+
 		
 		//읽지않은 메시지 가져오는 메서드
 		function chatAlert(){

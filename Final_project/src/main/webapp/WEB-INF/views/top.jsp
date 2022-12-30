@@ -58,7 +58,7 @@
 	}
 </style>
 <script>
-	
+	myChatList();
 	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
 		var target = document.getElementById("chatList");
@@ -124,7 +124,6 @@
 	$(function(){
 		//2초마다 주기적으로 읽지않은 메시지 수 가져오기
 		let interval = setInterval(chatAlert,2000);
-		
 		
 		//읽지않은 메시지 가져오는 메서드
 		function chatAlert(){

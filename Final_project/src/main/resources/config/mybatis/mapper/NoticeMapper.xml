@@ -26,4 +26,8 @@
 	<select id="findNotice" parameterType="int" resultType="Notice">
 		select*from Notice where nIdx=#{nidx}
 	</select>
+	
+	<update id="updateNotice" parameterType="Notice">
+		update Notice set ntitle=#{nTitle},nMessage=#{nMessage},nImage=#{nImage} where nidx=#{nIdx}
+	</update>
 </mapper>

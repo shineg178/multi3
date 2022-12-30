@@ -21,4 +21,7 @@ public interface NoticeService {
 	
 	//공지사항 번호로 정보 가져오기
 	NoticeVO findNotice(int nidx);
+	
+	//공지사항 업데이트
+	int updateNotice(NoticeVO vo);
 }

@@ -68,7 +68,14 @@ span#right{
 }
 </style>
 <script>
-	$(function(){
+//글 입력후 엔터 쳤을때 메시지 전송
+function sendMsg(e){
+	if(e.keyCode == 13){
+		$('#sendBtn').click();
+	}
+}
+
+	$(function(){	
 		
 		//스크롤바 아래고정 메서드
 		function scrollBottom(){
@@ -145,7 +152,7 @@ span#right{
 		<!-- 채팅 목록이 들어올 장소 -->
 	</div>
 	<div id="sendBox">
-		<input id="msg" />
+		<input id="msg" onkeypress="sendMsg(event)"/>
 		<button id="sendBtn" class="btn btn-primary rounded-pill">전송</button>
 	</div>
 </div>

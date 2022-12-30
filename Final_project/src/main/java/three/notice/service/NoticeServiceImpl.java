@@ -41,4 +41,9 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeMapper.findNotice(nidx);
 	}
 
+	@Override
+	public int updateNotice(NoticeVO vo) {
+		return noticeMapper.updateNotice(vo);
+	}
+
 }

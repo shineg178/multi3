@@ -74,8 +74,13 @@ public class NoticeController {
 	
 	//공지사항 수정 폼 이동
 	@GetMapping("admin/editNoticeForm")
-	public String editNoticeForm() {
-		return "notice/noticeForm";
+	public String editNoticeForm(@RequestParam int nIdx,Model m) {
+		
+		//공지사항 글번호로 글 내용 불러와 객체에 담기
+		NoticeVO vo=noticeServiceImpl.findNotice(nIdx);
+		
+		m.addAttribute("notice",vo);
+		return "notice/noticeEditForm";
 	}
 	
 	//공지사항 글 등록 
@@ -135,13 +140,57 @@ public class NoticeController {
 		return rs;
 	}
 	
-	//공지사항 번호로 정보 가져오기
+	//공지사항 세부 정보 보기
 	@GetMapping("noticeInfo")
 	public String noticeInfo(@RequestParam int nidx,Model m) {
 		
+		//글 번호로 글 정보 가져와 객체에 담기
 		NoticeVO vo=noticeServiceImpl.findNotice(nidx);
 		log.info(vo);
 		m.addAttribute("notice",vo);
 		return "notice/noticeInfo";
 	}
+	
+	@PostMapping("admin/editNotice")
+	public String editNotice(@ModelAttribute NoticeVO newVo,
+			@RequestParam(value="filename",required=false) MultipartFile file,
+			Model m,HttpSession ses) {
+		
+		ServletContext app=ses.getServletContext();
+		String upDir=app.getRealPath("/resources/Notice_Image");
+		
+		if(file != null) {
+			//기존 공지사항 내용 불러오기
+			NoticeVO oldVo=noticeServiceImpl.findNotice(newVo.getNIdx());
+			String oldFileName=oldVo.getNImage();//기존 파일이름
+			
+			//기존 파일이 있을경우 기존 파일 삭제
+			if(oldFileName!=null) {
+				File delf=new File(upDir,oldFileName);
+				if(delf.exists()) {
+					delf.delete();
+				}
+			}
+			
+			String originFname=file.getOriginalFilename();
+			UUID uuid=UUID.randomUUID();
+			String newfilename=uuid.toString()+"_"+originFname;
+			
+			//새로운 vo 객체에 파일 이름 넣기
+			newVo.setNImage(newfilename);
+			
+			//새로운 이미지 업로드
+			try {
+				file.transferTo(new File(upDir,newfilename));
+			}catch(Exception e) {
+				log.error(e);
+			}
+			
+			int n=noticeServiceImpl.updateNotice(newVo);
+			log.info(n);
+			
+		}
+		return "redirect:../noticeList";
+	}
+	
 }

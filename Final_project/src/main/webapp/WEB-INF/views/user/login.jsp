@@ -14,9 +14,9 @@
 			<div class="login">
 				<div class="login-type">
 					<h1>로그인</h1>
-					<form action="">
-						<input type="text" placeholder="아이디" class="signIn">
-						<input type="password" placeholder="비밀번호" class="signIn">
+					<form action="<%=request.getContextPath() %>/login" method="post" onsubmit="return validate();">
+						<input type="text" id="userId" name="userId" placeholder="아이디" class="signIn">
+						<input type="password" id="userPassword" name="userPassword" placeholder="비밀번호" class="signIn">
 						<input type="submit" id="btn" value="로그인"><br>
 						<p>
 							<input type="checkbox">아이디 저장
@@ -41,5 +41,27 @@
 			</div>
 		</div>
 	</div>
+	<script>
+    	function validate(){
+    		let userId = document.getElementById('userId');
+    		let userPassword = document.getElementById('userPassword');
+    		
+    		if(userId.value.length <= 0){
+    			alert("아이디를 입력해주세요!");
+    			userId.select();
+    			return false;
+    		}
+    		
+    		if(userPassword.value.length <= 0){
+    			alert("비밀번호를 입력해주세요!");
+    			userPwd.select();
+    			return false;
+    		}
+    		
+    		return true;
+    	}
+    
+    </script>
+	
 </body>
 </html>

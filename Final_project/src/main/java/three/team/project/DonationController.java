@@ -23,11 +23,10 @@ public class DonationController {
 	// donation 기부 페이지 메서드
 	@RequestMapping(value = "/donation", method=RequestMethod.GET)
 	public String donationForm(Model m) {
-		System.out.println("test ===================");
-		
+		log.info("==========donationForm==========");
 		m.addAttribute("totalDonation", donationService.totalDonation());
 		m.addAttribute("totalDonateCount", donationService.totalDonateCount());
-		log.info("순위목록=================");
+		
 		m.addAttribute("userListDonate", donationService.userListDonate());
 		m.addAttribute("donationOrgInfo", donationService.donationOrgInfo());
 		System.out.println(m);
@@ -38,11 +37,7 @@ public class DonationController {
 	@ResponseBody
 	public String donationLevelId(@RequestParam String userId) {// 기부자 기부순위
 		log.info("userId: "+userId);
-		ModelAndView mv = new ModelAndView("userLevel");
-		//m.addAttribute("donationLevelId", donationService.donationLevelId());
-		//log.info("mv: "+mv);
-		
-		
+
 		return userId;
 	}
 	

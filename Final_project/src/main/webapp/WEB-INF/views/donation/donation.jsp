@@ -10,10 +10,6 @@
 
 <script>
 
-/* $(document).ready(function(){
-	donationRanking();//경매 기부 전체 순위
-}) */
-
 $(function(){
 	$('#btn').on('click', function(){
 		searchId();
@@ -28,8 +24,6 @@ $(function(){
 			success: function(res){
 				//alert(JSON.stringify(res));
 				$('#searchMyDonLevel').html(res);
-				/* 본인 순위 숫자 3이 여기로 넘어온다. 여기에서 str에서 html 코드만들어서 
-				밑에 html 넣고싶은 부분에 ajax .html한다음에 str넣어주면 됨. */
 			},
 			error: function(err){
 				alert('error '+err.status);
@@ -79,38 +73,15 @@ $(function(){
 							<h3>12월 4주차 기부 순위</h3>
 						</td>
 					</tr> 
-					<c:forEach items="${userListDonate}" var="userListDonate">
+					<c:forEach items="${userListDonate}" var="userListDonate" begin="0" end="4">
 					<tr>
-						<td>순위</td>
-						<!-- 기부금 높은 순으로 1등의 기부액과 아이디 불러오기 -->
-						<td><c:out value="${userListDonate}"/></td>
-						<td>아이디</td>
+						<td><c:out value="${userListDonate.RN}"/>등</td>
+						<!-- 기부금 높은 순으로 1~5등의 기부액과 아이디 불러오기 (아이디 참조를 안해서 우선 회원번호로 받음)-->
+						<td><c:out value="${userListDonate.TOTALAMOUNT}"/>원</td>
+						<td><c:out value="${userListDonate.USERNUM_FK}"/>님</td>
 					</tr>
 					</c:forEach>
-					<tr>
-						<!-- 기부금 높은 순으로 2등의 기부액과 아이디 불러오기 -->
-						<td>2등 뱃지</td>
-						<td>기부액</td>
-						<td>아이디</td>
-					</tr>
-					<tr>
-						<!-- 기부금 높은 순으로 3등의 기부액과 아이디 불러오기 -->
-						<td>3등 뱃지</td>
-						<td>기부액</td>
-						<td>아이디</td>
-					</tr>
-					<tr>
-						<!-- 기부금 높은 순으로 4등의 기부액과 아이디 불러오기 -->
-						<td>4등 뱃지</td>
-						<td>기부액</td>
-						<td>아이디</td>
-					</tr>
-					<tr>
-						<!-- 기부금 높은 순으로 5등의 기부액과 아이디 불러오기 -->
-						<td>5등 뱃지</td>
-						<td>기부액</td>
-						<td>아이디</td>
-					</tr>
+					
 				</table>
 			</td>
  
@@ -134,6 +105,7 @@ $(function(){
 								<!-- 아이디값 넘어가서 일치하는 아이디의 등수 가져와 출력 -->
 								ID 입력: <input type="text" id="userId" name="userId" placeholder="ID를 입력해주세요" >
 								<button id="btn" class="btn btn-outline-primary mr-2">검색</button><br><br>
+								<!-- ************************* 기부 순위 해야함 !!!!  -->
 								<div><span id="searchMyDonLevel"></span></div>
 						</td>
 					</tr>
@@ -150,7 +122,10 @@ $(function(){
 				<table id="thirdTable" class="thirdTable" border="1" width="100%"
 					height="500">
 					<tr>
-						<!-- 정해진 단체의 db정보 가져와서 출력  -->
+						<!-- 정해진 단체의 db정보 가져와서 출력  
+							어떤 기준으로 단체를 정할지+그에 맞는 출력 방식 **********
+						-->
+						
 						<td>기부단체 설명<br>
 						${donationOrgInfo}
 						</td>

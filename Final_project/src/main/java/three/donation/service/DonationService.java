@@ -11,13 +11,12 @@ public interface DonationService {
 	int ServiceAmount(DonationVO vo);
 	
 	int totalDonation();
+	
 	int totalDonateCount();
 	
 	List<DonationVO> userListDonate();
 	
-	String donNameSearch(DonationVO vo); 
-	
-	String donationLevelId();
+	int donationLevelId();
 
 	
 	List<DonationOrgVO> donationOrgInfo();

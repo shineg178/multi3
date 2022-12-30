@@ -15,14 +15,11 @@ public class DonationServiceImpl implements DonationService {
 	@Autowired
 	private DonationMapper donationMapper;
 	
-	@Override
-	public int ServiceAmount(DonationVO vo) {
-		return this.donationMapper.ServiceAmount(vo);
-	} 
-
 	@Override 
 	public int totalDonation() { 
-		return this.donationMapper.totalDonation(); }
+		return this.donationMapper.totalDonation(); 
+	}
+	
 	@Override
 	public int totalDonateCount() {
 		return this.donationMapper.totalDonateCount();
@@ -32,16 +29,10 @@ public class DonationServiceImpl implements DonationService {
 	public List<DonationVO> userListDonate() {
 		return this.donationMapper.userListDonate();
 	}
-
-	@Override
-	public String donNameSearch(DonationVO vo) {
-		return this.donationMapper.donNameSearch(vo);
-	}
 	
 	@Override
-	public String donationLevelId(){
-		
-		return donationMapper.donationLevelId(); 
+	public int donationLevelId(){	
+		return this.donationMapper.donationLevelId(); 
 	}
 
 	@Override
@@ -49,8 +40,11 @@ public class DonationServiceImpl implements DonationService {
 		return donationMapper.donationOrgInfo();
 	}
 
-	
-
+	@Override
+	public int ServiceAmount(DonationVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	
 }

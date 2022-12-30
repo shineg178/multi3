@@ -12,10 +12,11 @@ public class DonationVO {
 	
 	private String userNum_fk;//회원번호
 	
-	private String ServiceAmount;//기부금액
+	private String totalAmount;//sum(Amount)
 	
-	private String donationLevelId;//기부자 아이디 검색 순위 확인 
+	private int rn;//전체기부 순위 번호
 	
+	private int donationLevelId;//기부자 아이디 검색 순위 확인 
 	
 	private int totalDonation;//전체 기부금액 (회원들의 donAmount 전체 합)
 	

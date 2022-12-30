@@ -21,14 +21,8 @@ public interface DonationMapper {
 	// 기부자 목록(기부금액 높은 순으로 금액, 아이디 출력)
 	List<DonationVO> userListDonate();
 
-	// 기부금액
-	int ServiceAmount(DonationVO vo);
-
-	// 기부자 이름 검색
-	String donNameSearch(DonationVO vo);
-
 	// 기부자 순위 검색
-	String donationLevelId();
+	int donationLevelId();
 
 	//기부단체설명
 	List<DonationOrgVO> donationOrgInfo();

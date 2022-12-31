@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +13,6 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-  
   <!-- Favicons -->
   <link href="${path}/resources/assets/img/favicon.png" rel="icon">
   <link href="${path}/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -43,120 +40,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-<style>
-	#chatExit{
-		float:right; 
-		line-height: 1 ;
-	}
-	#chatLink{
-		padding: 5px 0px;
-		width:160px;
-		float:left;
-	}
-	.message-item{
-		height:65px;
-	}
-</style>
-<script>
 
-	
- //채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
-	function openChat(){
-
-	myChatList();
-	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
-	function openChat(roomid){
-
-		var target = document.getElementById("chatList");
-		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
-		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
-		var pfrm=document.frmPost;
-		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
-	}
-	
-	//내 채팅 목록 가져오기
-	function myChatList(){
-		$.ajax({
-			type:'get',
-	 		url:'${path}/openChatList',
-			dataType:'json',
-			cache:false,
-			success:function(res){
-				str="";
-				if(res==null){
-					str+="<li class='message-item'><a id='chatLink'>존재하는 채팅방이 없습니다</a></li>";
-				}
-				if(res!=null){
-					$.each(res,function(i,data){
-						str+="<li class='message-item'>";
-						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userNum1==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum2+"</a>";
-						}
-						if(data.userNum2==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum1+"</a>";
-						}		
-						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
-						str+="</li>";
-					})
-				}
-				$('#chatList').html(str);
-			},	
-			error:function(err){
-				alert('error : '+err.status);
-			}
-		})
-	}
-	
-	//채팅방 나가기
-	function deleteChat(rid){
-		$.ajax({
-			type:'post',
-			url:'${path}/deleteChat',
-			data:'rid='+rid,
-			dataType:'json',
-			cache:false,
-			success:function(res){
-				if(res>0){
-					myChatList();
-				}
-			},
-			error:function(err){
-				alert('error : '+err.status);
-			}
-		})
-
-	} 
-
-	}
-	
-	$(function(){
-		//2초마다 주기적으로 읽지않은 메시지 수 가져오기
-		let interval = setInterval(chatAlert,2000);
-
-		
-		//읽지않은 메시지 가져오는 메서드
-		function chatAlert(){
-			$.ajax({
-				type:'get',
-				url:'${path}/AllnoRead',
-				dataType:'json',
-				cache:false,
-				success:function(res){
-					if(res==0) $('#noRead').text('');
-					if(res>0){
-						$('#noRead').text(res);
-					}
-				},
-				error:function(err){
-					alert('error : '+err.status);
-				}
-			})
-		}
-
-	});
-
-</script>
 <body>
 
   <!-- ======= Header ======= -->
@@ -264,16 +148,66 @@
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
-            <span id="noRead"class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
-            
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
           </a><!-- End Messages Icon -->
 
-		  <!-- 메시지 목록창  -->
-          <ul id="chatList"  class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" style="width:300px; height:500px;">
-      		 
-          </ul>
-          <!-- 메시지 목록창 끝 -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="${path}/resources/assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="${path}/resources/assets/img/messages-2.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="${path}/resources/assets/img/messages-3.jpg" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
 
         </li><!-- End Messages Nav -->
 
@@ -344,33 +278,33 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="${path}">
+        <a class="nav-link " href="${home}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="${path}/noticeList">
-          <i class="bi bi-journal-text"></i><span>Notice</span>
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Notice</span></i>
         </a>
-      </li><!-- End Forms Nav --> 
+      </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span></i>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="#">
-          <i class="bi bi-bar-chart"></i><span>AddProduct</span>
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>AddProduct</span></i>
         </a>
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-gem"></i><span>Donation</span>
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Donation</span></i>
         </a>
 
       <li class="nav-item">

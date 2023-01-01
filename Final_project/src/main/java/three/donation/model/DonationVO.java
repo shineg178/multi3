@@ -22,6 +22,6 @@ public class DonationVO {
 	
 	private int totalDonateCount;//전체 기부건수
 
-	
+	private String userId;//사용자 아이디
 	
 }  

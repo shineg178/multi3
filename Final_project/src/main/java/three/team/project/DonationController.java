@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.log4j.Log4j;
 import three.donation.service.DonationService;
@@ -35,7 +34,7 @@ public class DonationController {
 
 	@GetMapping(value = "/donationLevelSearch", produces = "application/json")
 	@ResponseBody
-	public String donationLevelId(@RequestParam String userId) {// 기부자 기부순위
+	public String donationLevelId(@RequestParam String userId, Model m) {// 기부자 기부순위
 		log.info("userId: "+userId);
 
 		return userId;

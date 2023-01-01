@@ -59,11 +59,6 @@
 </style>
 <script>
 
-	
- //채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
-	function openChat(){
-
-	myChatList();
 	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
 
@@ -106,7 +101,6 @@
 				alert('error : '+err.status);
 			}
 		})
-	}
 	
 	//채팅방 나가기
 	function deleteChat(rid){
@@ -147,8 +141,7 @@
 					if(res>0){
 						$('#noRead').text(res);
 					}
-				},
-				error:function(err){
+				},				error:function(err){
 					alert('error : '+err.status);
 				}
 			})

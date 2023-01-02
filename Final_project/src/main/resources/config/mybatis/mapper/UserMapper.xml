@@ -9,18 +9,21 @@
 			select user_seq.nextval from dual
 		</selectKey>
 		insert into project_user values(#{userNum},#{userId}, #{userPassword},
-		#{userName}, #{userNick:VARCHAR}, #{userEmail}, #{userAddr1},
-		#{userAddr2}, #{userAddr3}, 0, 100000, #{userBankName:VARCHAR},
-		#{userBankAccount:NUMERIC}, #{userBronzeBadge:NUMERIC},
-		#{userSilverBadge:NUMERIC}, #{userGoldBadge:NUMERIC})
+		#{userName}, #{userTel}, #{userEmail}, #{userAddr1}, #{userAddr2}, #{userAddr3}, 
+		#{userNick:VARCHAR}, 100000, #{userImage:VARCHAR}, #{userInfo:VARCHAR}, 
+		#{userBronzeBadge:NUMERIC}, #{userSilverBadge:NUMERIC}, #{userGoldBadge:NUMERIC},
+		#{userTwitter:VARCHAR}, #{userFacebook:VARCHAR}, #{userInstagram:VARCHAR}, #{userLinkedin:VARCHAR}, 
+		#{userStatus}
+		)
 	</insert>
 
 	<!-- 로그인 -->
-	<select id="userLogin" resultType="three.user.model.UserVO">
+	<select id="loginUser" resultType="three.user.model.UserVO">
 
-		select userNum, userId, userPassword, userName, userNick, userEmail,
-		userAddr1, userAddr2, userAddr3, adminCk, point, userBankName, userBankAccount,
-		userBronzeBadge, userSilverBadge, userGoldBadge
+		select userNum, userId, userPassword, userName, userTel, userEmail,
+		userAddr1, userAddr2, userAddr3, userNick, userPoint, userImage, userInfo, 
+		userBronzeBadge, userSilverBadge, userGoldBadge, userTwitter, 
+		userFacebook, userInstagram, userLinkedin, userStatus
 		from project_user where
 		userId = #{userId} and userPassword = #{userPassword}
 

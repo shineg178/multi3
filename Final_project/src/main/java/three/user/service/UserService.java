@@ -8,6 +8,6 @@ public interface UserService {
 	int joinUser(UserVO vo);
 	
 	/* 로그인 */
-    int loginUser(UserVO vo);
+    public UserVO loginUser(UserVO user) throws Exception;
 	
 }

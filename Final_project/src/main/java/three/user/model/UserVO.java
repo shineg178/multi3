@@ -39,26 +39,40 @@ public class UserVO {
 	// 회원 상세주소
 	private String userAddr3;
 
-	// 관리자 구분(0:일반사용자, 1:관리자)
-	private int adminCk;
-
 	// 회원 포인트
 	private int point;
 	
-	// 회원 은행명
-	private String userBankName;
+	// 회원 이미지
+	private String userImage;
 	
-	// 회원 은행계좌
-	private int userBankAccount;
+	// 회원 자기소개
+	private String userInfo;
 	
-	//회원 브론즈뱃지
+	// 회원 브론즈뱃지
 	private int userBronzeBadge;
 	
-	//회원 실버뱃지
+	// 회원 실버뱃지
 	private int userSilverBadge;
 	
-	//회원 골드뱃지
+	// 회원 골드뱃지
 	private int userGoldBadge;
+	
+	// 회원 트위터
+	private int userTwitter;
+		
+	// 회원 페이스북
+	private int userFacebook;
+		
+	// 회원 인스타그램
+	private int userInstagram;
+		
+	// 회원 링크드인
+	private int userLinkedin;
+	
+	// 회원 상태 (관리자, 일반회원, 소셜로그인, 탈퇴회원)
+	private int userStatus;
+	
+	
 
 	
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,18 +20,22 @@
 			<div class="login">
 				<div class="login-type">
 					<h1>로그인</h1>
-					<form id="login_form" method="post" onsubmit="return validate();">
+					<form id="login_form" method="post">
+
 						<input type="text" id="userId" name="userId" placeholder="아이디"
 							class="signIn"> <input type="password" id="userPassword"
 							name="userPassword" placeholder="비밀번호" class="signIn"> <input
-							type="submit" id="btn" value="로그인"><br>
+							type="submit" id="btn" class="btn" value="로그인"><br>
+						<c:if test="${result == 0 }">
+							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+						</c:if>
 						<p>
 							<input type="checkbox">아이디 저장
 						</p>
 					</form>
-					<span class="or-txt">또는</span> <a class="btn btn2" href="">네이버
-						로그인</a> <a class="btn btn3" href="">카카오 로그인</a> <a class="btn btn4"
-						href="">구글 로그인</a>
+					<span class="or-txt">또는</span> <a class="btn btn2" href="">네이버로그인</a>
+					<a class="btn btn3" href="">카카오 로그인</a> <a class="btn btn4" href="">구글
+						로그인</a>
 				</div>
 				<div class="footer">
 					<p>
@@ -47,24 +52,12 @@
 		</div>
 	</div>
 	<script>
-		function validate() {
-			let userId = document.getElementById('userId');
-			let userPassword = document.getElementById('userPassword');
+		$(".login_button").click(function() {
 
-			if (userId.value.length <= 0) {
-				alert("아이디를 입력해주세요!");
-				userId.select();
-				return false;
-			}
-
-			if (userPassword.value.length <= 0) {
-				alert("비밀번호를 입력해주세요!");
-				userPwd.select();
-				return false;
-			}
-
-			return true;
-		}
+			/* 로그인 메서드 서버 요청 */
+			$("#login_form").attr("action", "login");
+			$("#login_form").submit();
+		});
 	</script>
 
 </body>

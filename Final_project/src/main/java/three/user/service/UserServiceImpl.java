@@ -18,6 +18,13 @@ public class UserServiceImpl implements UserService{
 		return usermapper.joinUser(vo);
 	}
 	
+	/* 로그인 */
+	@Override
+	public UserVO loginUser(UserVO user) throws Exception {
+		
+		return usermapper.loginUser(user);
+	}
+	
 
 
 }

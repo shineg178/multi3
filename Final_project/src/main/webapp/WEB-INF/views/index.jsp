@@ -14,6 +14,10 @@
 			<a href="room2">2과 채팅방 생성</a><br> 
 			<a href="room3">3과 채팅방 생성</a><br>
 		</li>
+		<li>
+			<a href="join">회원가입</a><br>
+			<a href="login">로그인</a><br>
+		</li>
 		<li>${id}로그인중</li>
 	</ul>
 </main>

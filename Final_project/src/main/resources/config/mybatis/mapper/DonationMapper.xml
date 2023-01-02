@@ -18,14 +18,14 @@
 	<!-- 기부자 목록(기부금액 높은 순으로 금액, 아이디 출력) -->
 	<select id="userListDonate" resultType="java.util.LinkedHashMap">
 		select row_number()
-		over(order by sum(donAmount) desc) rn,sum(donAmount) totalAmount,
+		over(order by sum(donAmount) desc) rankingNumber,sum(donAmount) totalAmount,
 		userNum_fk from donation group by userNum_fk
 	</select>
 	
 	<!-- 기부자 순위 검색 -->
-	<select id="donationLevelId" resultType="Integer">
-		select sum(donAmount) totalDonate 
-		from donation where userNum_fk=#{userId}
+	<select id="donationRangkingId" resultType="Integer">
+		select sum(donAmount) totalAmount 
+		from donation <!-- where userNum_fk=#{userId} -->
 	</select>
 	
 	<!-- 기부 단체 설명 -->

@@ -22,7 +22,7 @@ public interface DonationMapper {
 	List<DonationVO> userListDonate();
 
 	// 기부자 순위 검색
-	int donationLevelId();
+	int donationRangkingId();
 
 	//기부단체설명
 	List<DonationOrgVO> donationOrgInfo();

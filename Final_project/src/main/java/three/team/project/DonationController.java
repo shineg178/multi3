@@ -1,5 +1,8 @@
 package three.team.project;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,12 +35,16 @@ public class DonationController {
 		return "donation/donation";
 	}
 
-	@GetMapping(value = "/donationLevelSearch", produces = "application/json")
+	@GetMapping(value = "/donationRankingSearch", produces = "application/json")
 	@ResponseBody
-	public String donationLevelId(@RequestParam String userId, Model m) {// 기부자 기부순위
+	public String donationRankingId(@RequestParam int userId, Model m) {// 기부자 기부순위
 		log.info("userId: "+userId);
-
-		return userId;
+		m.addAttribute("donationRangkingId",donationService.donationRangkingId());
+		System.out.println("**");
+		String str=String.valueOf(m);
+		
+		System.out.println(m);
+		return str;
 	}
 	
 	

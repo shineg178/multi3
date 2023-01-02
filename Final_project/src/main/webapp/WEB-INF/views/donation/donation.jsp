@@ -18,12 +18,12 @@ $(function(){
 		var userId= $("#userId").val();
 		$.ajax({
 			type:'get',
-			url:'donationLevelSearch?userId='+userId,
+			url:'donationRankingSearch?userId='+userId,
 			dataType:'json',
 			cache:false,
 			success: function(res){
 				//alert(JSON.stringify(res));
-				$('#searchMyDonLevel').html(res);
+				$('#searchMyDonRanking').html(res);
 			},
 			error: function(err){
 				alert('error '+err.status);
@@ -76,7 +76,7 @@ $(function(){
 					</tr> 
 					<c:forEach items="${userListDonate}" var="userListDonate" begin="0" end="4">
 					<tr>
-						<td><c:out value="${userListDonate.RN}"/>등</td>
+						<td><c:out value="${userListDonate.RANKINGNUMBER}"/>등</td>
 						<!-- 기부금 높은 순으로 1~5등의 기부액과 아이디 불러오기 (아이디 참조를 안해서 우선 회원번호로 받음)-->
 						<td><c:out value="${userListDonate.TOTALAMOUNT}"/>원</td>
 						<td><c:out value="${userListDonate.USERNUM_FK}"/>님</td>
@@ -107,7 +107,7 @@ $(function(){
 								ID 입력: <input type="text" id="userId" name="userId" placeholder="ID를 입력해주세요" >
 								<button id="btn" class="btn btn-outline-primary mr-2">검색</button><br><br>
 								<!-- ************************* 기부 순위 해야함 !!!!  -->
-								<div><span id="searchMyDonLevel"></span></div>
+								<div><span id="searchMyDonRanking"></span></div>
 						</td>
 					</tr>
 					

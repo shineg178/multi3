@@ -15,36 +15,30 @@ public class DonationServiceImpl implements DonationService {
 	@Autowired
 	private DonationMapper donationMapper;
 	
+	// 전체 기부 금액
 	@Override 
 	public int totalDonation() { 
 		return this.donationMapper.totalDonation(); 
 	}
-	
+	// 전체 기부 건수
 	@Override
 	public int totalDonateCount() {
 		return this.donationMapper.totalDonateCount();
 	}
-
+	// 기부자 목록
 	@Override
 	public List<DonationVO> userListDonate() {
 		return this.donationMapper.userListDonate();
 	}
-	
+	// 기부자 순위 검색
 	@Override
-	public int donationLevelId(){	
-		return this.donationMapper.donationLevelId(); 
+	public int donationRangkingId(){	
+		return this.donationMapper.donationRangkingId(); 
 	}
-
+	//기부단체설명
 	@Override
 	public List<DonationOrgVO> donationOrgInfo() {
 		return donationMapper.donationOrgInfo();
 	}
 
-	@Override
-	public int ServiceAmount(DonationVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
 }

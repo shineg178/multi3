@@ -10,24 +10,25 @@ import lombok.NoArgsConstructor;
 public class UserVO {
 	
 	private int userNum;
-	private String userName;
 	private String userId;
-	private String userNick;
 	private String userPassword;
+	private String userName;
+	private String userNick;
 	private String userTel;
-	private String userAddr;
-	private String userDetailAddr;
-	private String userInfo;
 	private String userEmail;
-	private String userImage;
+	private String userAddr1;
+	private String userAddr2;
+	private String userAddr3;
 	private int userPoint;
-	private int userGoldBadge;
-	private int userSilverBadge;
+	private String userImage;
+	private String userInfo;
 	private int userBronzeBadge;
+	private int userSilverBadge;
+	private int userGoldBadge;
 	private String userTwitter;
 	private String userFacebook;
 	private String userInstagram;
 	private String userLinkedin;
-	private String userStatus;
+	private int userStatus;
 	
 }

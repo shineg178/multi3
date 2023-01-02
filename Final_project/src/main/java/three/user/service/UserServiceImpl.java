@@ -6,17 +6,18 @@ import org.springframework.stereotype.Service;
 import three.user.mapper.UserMapper;
 import three.user.model.UserVO;
 
-@Service
+@Service("userservice")
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	UserMapper usermapper;
-	
+
 	@Override
-	public void userJoin(UserVO user) throws Exception{
+	public int joinUser(UserVO vo) {
 		
-		usermapper.userJoin(user);
-		
+		return usermapper.joinUser(vo);
 	}
+	
+
 
 }

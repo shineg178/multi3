@@ -1,54 +1,47 @@
 package three.team.project;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.log4j.Log4j;
 import three.user.model.UserVO;
 import three.user.service.UserService;
 
 @Controller
-@RequestMapping(value = "/user")
+@Log4j
 public class UserController {
-
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
 	private UserService userservice;
 	
 	//회원가입 페이지 이동
-	@RequestMapping(value = "join", method = RequestMethod.GET)
-	public void joinGET() {
+	@GetMapping("join")
+	public String joinGET() {
 		
-		logger.info("회원가입 페이지 진입");
-				
+		log.info("회원가입 페이지 진입");
+		
+		return "user/join";
 	}
 	
-	//회원가입
-		@RequestMapping(value="/join", method=RequestMethod.POST)
-		public String joinPOST(UserVO user) throws Exception{
-			
-			logger.info("join 진입");
-			
-			// 회원가입 서비스 실행
-			userservice.userJoin(user);
-			
-			logger.info("join Service 성공");
-			
-			return "redirect:/index";
-			
-		}
 		
+		@PostMapping("/joinUser")
+		public String joinUser(@ModelAttribute UserVO vo) {
+			log.info(vo);
+			int n= userservice.joinUser(vo);
+			return "index";
+		}
 	
 	//로그인 페이지 이동
-	@RequestMapping(value = "login", method = RequestMethod.GET)
-	public void loginGET() {
+	@GetMapping("login")
+	public String loginGET() {
 		
-		logger.info("로그인 페이지 진입");
+		log.info("로그인 페이지 진입");
 		
+		return "user/login";
 	}
 	
 }

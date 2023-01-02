@@ -8,9 +8,8 @@
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/join.css"
 	rel="stylesheet" type="text/css">
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+
 </head>
 <body>
 	<!-- index.jsp 생성 후 모든 페이지에 include할 menubar.jsp 생성 -->
@@ -18,7 +17,7 @@
 
 	<div class="outer">
 		<div id="joinInfoArea">
-			<form id="joinForm" method="post">
+			<form id="joinForm" method="post" action="joinUser">
 				<h1>회원 가입</h1>
 
 				<h4>* 아이디</h4>
@@ -75,14 +74,6 @@
 		});
 	</script>
 
-	<script>
-		$(document).ready(function() {
-			//회원가입 버튼(회원가입 기능 작동)
-			$("#joinBtn").click(function() {
-				$("#joinForm").attr("action", "/user/join");
-				$("#joinForm").submit();
-			});
-		});
-	</script>
+
 </body>
 </html>

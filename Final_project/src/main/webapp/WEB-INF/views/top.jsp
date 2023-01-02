@@ -57,16 +57,15 @@
 		height:65px;
 	}
 </style>
-<script>
 
+<script>
 	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
-
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
 		var pfrm=document.frmPost;
-		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
 	//내 채팅 목록 가져오기
@@ -101,6 +100,7 @@
 				alert('error : '+err.status);
 			}
 		})
+	}
 	
 	//채팅방 나가기
 	function deleteChat(rid){
@@ -119,36 +119,34 @@
 				alert('error : '+err.status);
 			}
 		})
-
-	} 
-
 	}
 	
-	$(function(){
-		//2초마다 주기적으로 읽지않은 메시지 수 가져오기
-		let interval = setInterval(chatAlert,2000);
-
-		
+$(function(){
+	
+	//2초마다 주기적으로 읽지않은 메시지 수 가져오기
+	let interval = setInterval(chatAlert,2000);
+	
 		//읽지않은 메시지 가져오는 메서드
-		function chatAlert(){
-			$.ajax({
-				type:'get',
-				url:'${path}/AllnoRead',
-				dataType:'json',
-				cache:false,
-				success:function(res){
-					if(res==0) $('#noRead').text('');
-					if(res>0){
-						$('#noRead').text(res);
-					}
-				},				error:function(err){
-					alert('error : '+err.status);
+	function chatAlert(){
+		$.ajax({
+			type:'get',
+			url:'${path}/AllnoRead',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				if(res==0) $('#noRead').text('');
+				if(res>0){
+					$('#noRead').text(res);
 				}
-			})
-		}
-
-	});
-
+			},				
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
+		
+		
+});
 </script>
 <body>
 
@@ -362,7 +360,7 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="${path}/donation">
           <i class="bi bi-gem"></i><span>Donation</span>
         </a>
 

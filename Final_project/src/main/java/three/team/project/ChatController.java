@@ -114,8 +114,12 @@ public class ChatController {
 	@GetMapping(value="/AllnoRead",produces="application/json")
 	@ResponseBody
 	public int AllnoRead(HttpSession ses) {
-		int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
-		return n;
+		if(ses.getAttribute("id")!=null) {
+			int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
+			return n;
+		}
+		return 0;
+
 	}
 	
 	

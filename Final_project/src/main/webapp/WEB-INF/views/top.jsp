@@ -150,7 +150,9 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
+		<li class="nav-item">
+			<a class="login" href="${path }/login">Login</a>
+		</li>
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">

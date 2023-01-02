@@ -190,7 +190,7 @@ var IMP = window.IMP;   // 생략 가능
 	    IMP.request_pay({
 	      pg: "html5_inicis.INIpayTest",
 	      pay_method: "card",
-	      merchant_uid: "iamport_test_id",   // 주문번호
+	      merchant_uid: "iamport_test_id2",   // 주문번호
 	      name: "기부앤테이크포인트",
 	      amount: $('#recharge-point').val(),   // 숫자 타입
 	      buyer_email: "${user.userEmail}",

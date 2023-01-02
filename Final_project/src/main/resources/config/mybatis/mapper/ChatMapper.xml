@@ -33,7 +33,7 @@
 	</select>
 	
 	<insert id="insertMessage" parameterType="Chat" >
-		insert into chat values(#{roomid},#{sNum},#{rNum},#{sendMsg},sysdate)
+		insert into chat values(#{roomid},#{sNum},#{rNum},#{sendMsg},null,sysdate)
 	</insert>
 	
 	<select id="findChatList" parameterType="int" resultType="Chat">
@@ -51,4 +51,12 @@
 	<delete id="deleteNoRead" parameterType="ChatAlert">
 		delete from chatAlert where roomid=#{roomid} and usernum_fk=#{usernum}
 	</delete>
+	
+	<insert id="sendImg" parameterType="Chat">
+		insert into chat values(#{roomid},#{sNum},#{rNum},#{sendMsg:VARCHAR},#{cImg},sysdate)
+	</insert>
+	
+	<select id="findImg" parameterType="Chat" resultType="String">
+		select cImg from chat where snum=#{sNum} and rnum=#{rNum} and sendMsg=#{sendMsg}
+	</select>
 </mapper>

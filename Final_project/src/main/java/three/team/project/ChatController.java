@@ -1,16 +1,21 @@
 package three.team.project;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
 import three.chat.model.ChatAlertVO;
@@ -114,7 +119,46 @@ public class ChatController {
 	@GetMapping(value="/AllnoRead",produces="application/json")
 	@ResponseBody
 	public int AllnoRead(HttpSession ses) {
-		int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
+		if(ses.getAttribute("id")!=null) {
+			int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
+			return n;
+		}
+		return 0;
+	}
+	
+	@PostMapping("sendImg")
+	@ResponseBody
+	public int sendImg(@RequestParam MultipartFile img,HttpSession ses,@ModelAttribute ChatVO vo) {
+		
+		int user=(int)ses.getAttribute("id");
+		
+		
+		vo.setSNum(String.valueOf(user));
+		
+		ServletContext app=ses.getServletContext();
+		String upDir=app.getRealPath("/resources/Chat_Image");
+		
+		//파일 경로가 존재하지 않을 경우 만듦
+		File dir=new File(upDir);
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		String originFname=img.getOriginalFilename();
+		UUID uuid=UUID.randomUUID();
+		String filename=uuid.toString()+"_"+originFname;
+		
+		vo.setCImg(filename);
+		vo.setSendMsg(originFname);
+		int n=chatServiceImpl.sendImg(vo);
+		
+		//파일 업로드
+		try {
+			img.transferTo(new File(upDir,filename));
+		}catch(Exception e) {
+			log.error(e);
+		}
+		
 		return n;
 	}
 	

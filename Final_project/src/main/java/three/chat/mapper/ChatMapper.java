@@ -33,4 +33,10 @@ public interface ChatMapper {
 	
 	//읽지않은 메시지 내역 삭제
 	int deleteNoRead(ChatAlertVO vo);
+	
+	//이미지 전송 
+	int sendImg(ChatVO vo);
+	
+	//이미지 이름으로 이미지 찾기
+	String findImg(ChatVO vo);
 }

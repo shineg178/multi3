@@ -62,6 +62,16 @@ public class ChatServcieImpl implements ChatService{
 	public int deleteNoRead(ChatAlertVO vo) {
 		return chatMapper.deleteNoRead(vo);
 	}
+
+	@Override
+	public int sendImg(ChatVO vo) {
+		return chatMapper.sendImg(vo);
+	}
+
+	@Override
+	public String findImg(ChatVO vo) {
+		return chatMapper.findImg(vo);
+	}
 	
 	
 	

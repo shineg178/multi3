@@ -46,14 +46,16 @@ public class ChatHandler extends TextWebSocketHandler {
     	String sUser=enter[1];//보낸이
     	String rUser=enter[2];//받는이
     	String sendMsg=enter[3];//보낸 메시지
+    	String type=enter[4];//메시지 타입
     	
     	//ChatVO 객체에 담기
-    	ChatVO chatvo=new ChatVO(Integer.parseInt(roomid),sUser,rUser,sendMsg,null);
+    	
+    	ChatVO chatvo=new ChatVO(Integer.parseInt(roomid),sUser,rUser,sendMsg,null,null);
     	log.info(chatvo);
     	
     	
     	//[1] 메시지 전송이 아니라 방에 입장했을때
-    	if(sendMsg.equals("Enter")) {
+    	if(type.equals("Enter")) {
     		//이미 생성된 방이라면
     		if(roomList.get(roomid)!=null) {
     			roomList.get(roomid).add(session);
@@ -69,7 +71,7 @@ public class ChatHandler extends TextWebSocketHandler {
     		}
     		
     	//[2] 방 입장이 아니라 메시지 전송일 경우
-    	}else {
+    	}else if(type.equals("msg")){
     		//ChatAlertVO 객체에 담기
         	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),Integer.parseInt(rUser),0);
     		
@@ -85,8 +87,25 @@ public class ChatHandler extends TextWebSocketHandler {
     		
     		
     		//메시지 형태로 전환
-    		TextMessage textMessage = new TextMessage(sUser+" : "+sendMsg);
+    		TextMessage textMessage = new TextMessage(sUser+":"+sendMsg+":msg");
     		
+    		//접속한 유저에게 메시지 출력
+	    	for(WebSocketSession ses:roomList.get(roomid)) {
+	    		ses.sendMessage(textMessage);
+	    	}
+	    	
+	    //[3] 이미지 전송일 경우
+    	}else if(type.equals("img")) {
+    		//ChatAlertVO 객체에 담기
+        	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),Integer.parseInt(rUser),0);
+        	
+        	//채팅방에 혼자 있을경우
+    		if(roomList.get(sessionList.get(session)).size()==1) {
+	    		//DB에 읽지 않은 메시지 추가
+	    		chatServiceImpl.addNoReadCount(alertvo);
+    		}
+    		
+    		TextMessage textMessage = new TextMessage(sUser+"::img");
     		//접속한 유저에게 메시지 출력
 	    	for(WebSocketSession ses:roomList.get(roomid)) {
 	    		ses.sendMessage(textMessage);

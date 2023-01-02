@@ -14,5 +14,6 @@ public class ChatVO {
 	private String sNum;//보낸이
 	private String rNum;//받는이
 	private String sendMsg;//메시지 내용
+	private String cImg;
 	private Date chatTime;//메시지 전송 시간
 }

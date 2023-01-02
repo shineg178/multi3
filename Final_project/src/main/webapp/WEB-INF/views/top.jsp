@@ -278,7 +278,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="${home}">
+        <a class="nav-link " href="${path}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>

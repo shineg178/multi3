@@ -33,7 +33,7 @@ public class ChatController {
 	//채팅창 여는 메서드
 	@GetMapping("/chat")
 	public String chatOpen(@RequestParam int roomid,Model m,HttpSession ses) {
-		int userid=(int)ses.getAttribute("id");
+		String userid=(String)ses.getAttribute("id");
 		
 		//해당 방 정보 가져오기
 		ChatRoomVO roomvo=chatServiceImpl.selectRoom(roomid);
@@ -53,26 +53,26 @@ public class ChatController {
 	//채팅창 테스트 --------------------------
 	@GetMapping("/1")
 	public String a(HttpSession ses) {
-		ses.setAttribute("id", 1);
+		ses.setAttribute("id", "1");
 		return "index";
 	}
 	
 	@GetMapping("/2")
 	public String b(HttpSession ses) {
-		ses.setAttribute("id", 2);
+		ses.setAttribute("id", "2");
 		return "index";
 	}
 	
 	@GetMapping("/3")
 	public String c(HttpSession ses) {
-		ses.setAttribute("id", 3);
+		ses.setAttribute("id", "3");
 		return "index";
 	}
 	
 	@GetMapping("/room1")
 	public String room1(HttpSession ses) {
-		int myNick = (int) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myNick,1);
+		String myNick = (String) ses.getAttribute("id");
+		ChatRoomVO vo=new ChatRoomVO(0,myNick,"1");
 
 		chatServiceImpl.createRoom(vo);
 	
@@ -81,8 +81,8 @@ public class ChatController {
 	
 	@GetMapping("/room2")
 	public String room2(HttpSession ses) {
-		int myNick = (int) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myNick,2);
+		String myNick = (String) ses.getAttribute("id");
+		ChatRoomVO vo=new ChatRoomVO(0,myNick,"2");
 		
 		chatServiceImpl.createRoom(vo);
 
@@ -91,8 +91,8 @@ public class ChatController {
 	
 	@GetMapping("/room3")
 	public String room3(HttpSession ses) {
-		int myNick = (int) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myNick,3);
+		String myNick = (String) ses.getAttribute("id");
+		ChatRoomVO vo=new ChatRoomVO(0,myNick,"3");
 		
 		chatServiceImpl.createRoom(vo);
 			
@@ -103,7 +103,7 @@ public class ChatController {
 	@ResponseBody
 	public List<ChatRoomVO> myChatList(HttpSession ses){
 		ChatRoomVO vo=new ChatRoomVO();
-		vo.setUserNum1((int)ses.getAttribute("id"));
+		vo.setUserId1((String)ses.getAttribute("id"));
 		List<ChatRoomVO> list = chatServiceImpl.myChatRoom(vo);
 		log.info(list);
 		return list;
@@ -112,7 +112,7 @@ public class ChatController {
 	@PostMapping(value="/deleteChat",produces="application/json")
 	@ResponseBody
 	public int ExitChat(@RequestParam int rid) {
-		return chatServiceImpl.exitChat(new ChatRoomVO(rid,0,0));
+		return chatServiceImpl.exitChat(new ChatRoomVO(rid,null,null));
 	}
 	
 	
@@ -120,7 +120,7 @@ public class ChatController {
 	@ResponseBody
 	public int AllnoRead(HttpSession ses) {
 		if(ses.getAttribute("id")!=null) {
-			int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
+			int n=chatServiceImpl.myNoRead((String)ses.getAttribute("id"));
 			return n;
 		}
 		return 0;
@@ -130,10 +130,10 @@ public class ChatController {
 	@ResponseBody
 	public int sendImg(@RequestParam MultipartFile img,HttpSession ses,@ModelAttribute ChatVO vo) {
 		
-		int user=(int)ses.getAttribute("id");
+		String user=(String)ses.getAttribute("id");
 		
 		
-		vo.setSNum(String.valueOf(user));
+		vo.setSUser(user);
 		
 		ServletContext app=ses.getServletContext();
 		String upDir=app.getRealPath("/resources/Chat_Image");

@@ -73,7 +73,7 @@ public class ChatHandler extends TextWebSocketHandler {
     	//[2] 방 입장이 아니라 메시지 전송일 경우
     	}else if(type.equals("msg")){
     		//ChatAlertVO 객체에 담기
-        	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),Integer.parseInt(rUser),0);
+        	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),rUser,0);
     		
         	//DB에 메시지 내용 저장
     		chatServiceImpl.insertMessage(chatvo);
@@ -97,7 +97,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	    //[3] 이미지 전송일 경우
     	}else if(type.equals("img")) {
     		//ChatAlertVO 객체에 담기
-        	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),Integer.parseInt(rUser),0);
+        	ChatAlertVO alertvo= new ChatAlertVO(Integer.parseInt(roomid),rUser,0);
         	
         	//채팅방에 혼자 있을경우
     		if(roomList.get(sessionList.get(session)).size()==1) {

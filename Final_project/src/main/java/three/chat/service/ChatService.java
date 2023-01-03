@@ -29,7 +29,7 @@ public interface ChatService {
 	int addNoReadCount(ChatAlertVO vo);
 	
 	//안읽은 메시지 가져오기
-	int myNoRead(int usernum);
+	int myNoRead(String userId);
 	
 	//읽지않은 메시지 내역 삭제
 	int deleteNoRead(ChatAlertVO vo);

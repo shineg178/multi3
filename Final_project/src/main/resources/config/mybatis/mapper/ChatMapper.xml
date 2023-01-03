@@ -6,15 +6,15 @@
 		<selectKey keyProperty="roomid"  resultType="int" order="BEFORE">
 			select croomlist_seq.nextval from dual
 		</selectKey>
-		insert into croomlist(roomid,userNum1,userNum2)
-		select #{roomid} , #{userNum1},#{userNum2} from dual
-		where not exists(select*from croomlist where usernum1=#{userNum1} and usernum2=#{userNum2}
-		or usernum1=#{userNum2} and usernum2=#{userNum1})
+		insert into croomlist(roomid,userId1,userId2)
+		select #{roomid} , #{userId1},#{userId2} from dual
+		where not exists(select*from croomlist where userId1=#{userId1} and userId2=#{userId2}
+		or userId1=#{userId2} and userId2=#{userId1})
 		 
 	</insert>
 	
 	<select id="myChatRoomList" parameterType="ChatRoom" resultType="ChatRoom">
-		select * from croomList where usernum1=#{userNum1} or usernum2=#{userNum1}  
+		select * from croomList where userId1=#{userId1} or userId2=#{userId1}  
 	</select>
 	
 	<delete id="exitChat" parameterType="ChatRoom">
@@ -33,7 +33,7 @@
 	</select>
 	
 	<insert id="insertMessage" parameterType="Chat" >
-		insert into chat values(#{roomid},#{sNum},#{rNum},#{sendMsg},null,sysdate)
+		insert into chat values(#{roomid},#{sUser},#{rUser},#{sendMsg},null,sysdate)
 	</insert>
 	
 	<select id="findChatList" parameterType="int" resultType="Chat">
@@ -41,22 +41,22 @@
 	</select>
 	
 	<insert id="addNoReadCount" parameterType="ChatAlert">
-		insert into chatAlert values(#{usernum},#{roomid},1)
+		insert into chatAlert values(#{userId},#{roomid},1)
 	</insert>
 	
-	<select id="myNoRead" parameterType="int" resultType="int">
-		select count(noreadcount) from chatAlert where usernum_fk=#{usernum}
+	<select id="myNoRead" parameterType="String" resultType="int">
+		select count(noreadcount) from chatAlert where userid=#{userId}
 	</select>
 	
 	<delete id="deleteNoRead" parameterType="ChatAlert">
-		delete from chatAlert where roomid=#{roomid} and usernum_fk=#{usernum}
+		delete from chatAlert where roomid=#{roomid} and userid=#{userId}
 	</delete>
 	
 	<insert id="sendImg" parameterType="Chat">
-		insert into chat values(#{roomid},#{sNum},#{rNum},#{sendMsg:VARCHAR},#{cImg},sysdate)
+		insert into chat values(#{roomid},#{sUser},#{rUser},#{sendMsg:VARCHAR},#{cImg},sysdate)
 	</insert>
 	
 	<select id="findImg" parameterType="Chat" resultType="String">
-		select cImg from chat where snum=#{sNum} and rnum=#{rNum} and sendMsg=#{sendMsg}
+		select cImg from chat where sUser=#{sUser} and rUser=#{rUser} and sendMsg=#{sendMsg}
 	</select>
 </mapper>

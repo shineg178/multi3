@@ -54,8 +54,8 @@ public class ChatServcieImpl implements ChatService{
 	}
 
 	@Override
-	public int myNoRead(int usernum) {
-		return chatMapper.myNoRead(usernum);
+	public int myNoRead(String userId) {
+		return chatMapper.myNoRead(userId);
 	}
 
 	@Override

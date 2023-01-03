@@ -29,7 +29,7 @@ public interface ChatMapper {
 	int addNoReadCount(ChatAlertVO vo);
 	
 	//안읽은 메시지 가져오기
-	int myNoRead(int usernum);
+	int myNoRead(String usernum);
 	
 	//읽지않은 메시지 내역 삭제
 	int deleteNoRead(ChatAlertVO vo);

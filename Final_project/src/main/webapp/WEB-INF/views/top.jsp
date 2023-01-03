@@ -100,11 +100,11 @@
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userNum1==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum2+"</a>";
+						if(data.userId1==${id}){
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
-						if(data.userNum2==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum1+"</a>";
+						if(data.userId2==${id}){
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
 						str+="</li>";
@@ -374,6 +374,13 @@ $(function(){
 			<li class="nav-item"><a class="nav-link collapsed"
 				href="${path}/users-profile"> <i class="bi bi-person"></i> <span>Mypage</span>
 			</a></li>
+			
+			<!-- 관리자 전용 페이지 -->
+			<c:if test="${id eq 3}">
+			<li class="nav-item"><a class="nav-link collapsed"
+				href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
+			</a></li>
+			</c:if>
 			<!-- End Profile Page Nav -->
 		</ul>
 	</aside>

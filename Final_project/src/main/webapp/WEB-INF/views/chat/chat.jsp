@@ -101,13 +101,22 @@ function sendMsg(e){
 		
 		//받는이 지정 
 		var toUser;
-		if(${Room.userNum1}==${id}){
-			toUser=${Room.userNum2};
-			$('#rNum').val(toUser);
-		}else if(${Room.userNum2}==${id}){
-			toUser=${Room.userNum1};
-			$('#rNum').val(toUser);
+		if(${Room.userId1}==${id}){
+			toUser=${Room.userId2};
+			$('#rUser').val(toUser);
+		}else if(${Room.userId2}==${id}){
+			toUser=${Room.userId1};
+			$('#rUser').val(toUser);
 		}
+		
+		//이미지 첨부하였을때 css 추가
+		$('#img').change(function(e){
+			$('#imgbtn').css({
+				"background-color":"tan",
+				"border-radius":"10px",
+				"padding":"4px 4px 0px 4px"
+			});
+		});
 		
 		
 		//전송 버튼 누를때 데이터 전송 
@@ -115,6 +124,7 @@ function sendMsg(e){
 			var imgCheck=$('#img').val();
 			//첨부파일을 넣었을때
 			if(imgCheck){
+				
 				var fileName=$('#img')[0].files[0].name;
 				var form = $('#imgfrm')[0];
 				var formData = new FormData(form);
@@ -198,12 +208,12 @@ function sendMsg(e){
 		<c:forEach var="data" items="${cList}">
 			<!-- 이미지가 첨부 되지않았을때 -->
 			<c:if test="${data.getCImg() eq null}">
-				<c:if test="${data.getSNum() eq id}">
+				<c:if test="${data.getSUser() eq id}">
 					<div id="right">
 						<span id="right">${data.getSendMsg()}</span>
 					</div>
 				</c:if>
-				<c:if test="${data.getSNum() ne id}">
+				<c:if test="${data.getSUser() ne id}">
 					<div id="left">
 						<span id="left">${data.getSendMsg()}</span>
 					</div>
@@ -212,14 +222,14 @@ function sendMsg(e){
 			
 			<!-- 이미지가 첨부 되었을때 -->
 			<c:if test="${data.getCImg() ne null}">
-				<c:if test="${data.getSNum() eq id}">
+				<c:if test="${data.getSUser() eq id}">
 					<div id="right">
 						<img id="right" src="${pageContext.request.contextPath}/resources/Chat_Image/${data.getCImg()}"/>
 						<br>
 						<%-- <span id="right">${data.getSendMsg()}</span> --%>
 					</div>
 				</c:if>
-				<c:if test="${data.getSNum() ne id}">
+				<c:if test="${data.getSUser() ne id}">
 					<div id="left">
 						<img id="left" src="${pageContext.request.contextPath}/resources/Chat_Image/${data.getCImg()}"/>
 						<br>
@@ -234,7 +244,7 @@ function sendMsg(e){
 		<form id="imgfrm" method="post" enctype="multipart/form-data">
 			<input id="img" type="file" style="display:none;" accept=".jpg, .png">
 			<input type="hidden" name="roomid" value="${Room.roomid}">
-			<input type="hidden" name="rNum" id="rNum">
+			<input type="hidden" name="rUser" id="rUser">
 		</form>
 		<input id="msg" onkeypress="sendMsg(event)"/>
 		<label for="img">

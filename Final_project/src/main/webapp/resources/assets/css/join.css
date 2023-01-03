@@ -1,49 +1,47 @@
 @charset "UTF-8";
 
-.outer{
-		width:60%;
-		min-width : 650px;
-		background: rgb(248, 249, 250);
-		box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
-		margin:auto;
-		margin-top : 70px;
-		margin-bottom : 70px;
-	}
-	
-	#joinForm {
-		width : 400px;
-		margin: auto;
-		padding: 10px;
-	}
-	
-	#joinForm h1 {
-		text-align:center;
-	}
-	
+.outer {
+	width: 60%;
+	min-width: 650px;
+	background: rgb(248, 249, 250);
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
+	margin: auto;
+	margin-top: 70px;
+	margin-bottom: 70px;
+}
 
-	.input_area {
-	    border: solid 1px #dadada;
-	    padding : 10px 10px 14px 10px;
-	    background : white;
-	}
-	
+#joinForm {
+	width: 400px;
+	margin: auto;
+	padding: 10px;
+}
 
-	.input_area input:not([type=checkbox]) {
-		width : 250px;
-		height : 30px;
-		border: 0px;
-	}
-	
-	.btnArea {
-		text-align:center;
-		padding : 50px;
-	}
-	
-	button {
-		width : 100px;
-		height : 35px;
-		border : 0px;
-		color:white;
-		background:#282A35;
-		margin : 5px;
-	}
+#joinForm h1 {
+	text-align: center;
+}
+
+.input_area {
+	border: solid 1px #dadada;
+	padding: 10px 10px 14px 10px;
+	background: white;
+}
+
+.input_area input:not([type=checkbox]) {
+	width: 250px;
+	height: 30px;
+	border: 0px;
+}
+
+.btnArea {
+	text-align: center;
+	padding: 50px;
+}
+
+button {
+	width: 100px;
+	height: 35px;
+	border: 0px;
+	color: white;
+	background: #282A35;
+	margin: 5px;
+}

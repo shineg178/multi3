@@ -29,9 +29,6 @@
 						<c:if test="${result == 0 }">
 							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
 						</c:if>
-						<p>
-							<input type="checkbox">아이디 저장
-						</p>
 					</form>
 					<span class="or-txt">또는</span> <a class="btn btn2" href="">네이버로그인</a>
 					<a class="btn btn3" href="">카카오 로그인</a> <a class="btn btn4" href="">구글
@@ -39,13 +36,10 @@
 				</div>
 				<div class="footer">
 					<p>
-						<a href="">아이디 찾기</a>
+						<a href="find-id">아이디 찾기</a> / <a href="find-password">비밀번호 찾기</a>
 					</p>
 					<p>
-						<a href="">비밀번호 찾기</a>
-					</p>
-					<p>
-						기부앤테이크가 처음이신가요? <a href="">회원가입</a>
+						기부앤테이크가 처음이신가요? <a href="join">회원가입</a>
 					</p>
 				</div>
 			</div>

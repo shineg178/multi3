@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
@@ -179,6 +180,14 @@
           </a>
         </li><!-- End Search Icon-->
 
+		<!-- 로그인 하지 않은 상태 -->
+                <c:if test = "${user == null }">
+                    <div class="login_button"><a href="login">로그인</a><a>  /  </a>
+                    <span><a href="join">회원가입</a></span></div><a>　</a>               
+                </c:if>
+        <!-- 로그인한 상태 -->
+                <c:if test="${ user != null }">
+
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -270,17 +279,17 @@
 
         </li><!-- End Messages Nav -->
 
-        <li class="nav-item dropdown pe-3">
-
+        <li class="nav-item dropdown pe-3">                    
+                
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="${path}/resources/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">${user.userNick}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6>${user.userName}</h6>
+              <span>포인트 : <fmt:formatNumber value="${user.userPoint}" pattern="#,###" /></span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -289,7 +298,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>마이페이지</span>
               </a>
             </li>
             <li>
@@ -299,7 +308,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>개인정보 변경</span>
               </a>
             </li>
             <li>
@@ -307,22 +316,12 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="logout.do">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>로그아웃</span>
+                </c:if>
               </a>
             </li>
-
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
 

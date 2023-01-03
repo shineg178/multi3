@@ -21,7 +21,7 @@ public class UserVO {
 	// 회원 이름
 	private String userName;
 	
-	//회원 닉네임
+	// 회원 닉네임
 	private String userNick;
 
 	// 회원 연락처
@@ -40,7 +40,7 @@ public class UserVO {
 	private String userAddr3;
 
 	// 회원 포인트
-	private int point;
+	private int userPoint;
 	
 	// 회원 이미지
 	private String userImage;

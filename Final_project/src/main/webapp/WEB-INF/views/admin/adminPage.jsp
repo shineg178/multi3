@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <style>
@@ -31,6 +32,14 @@
 		text-align:center;
 	}
 	
+	#exTable tr th{
+		text-align:center; 
+	}
+	
+	#payTable tr th{
+		text-align:center; 
+	}
+	
 	
 </style>
 <script>
@@ -51,7 +60,6 @@
 			}
 		})
 	}
-
 </script>
 <c:import url="/top" />
 <main id="main" class="main">
@@ -62,27 +70,33 @@
               <!-- Default Tabs -->
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="user home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">회원관리</button>
+                  <button class="nav-link active" id="user home-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab" aria-controls="user" aria-selected="true">회원관리</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="donation profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">기부단체관리</button>
+                  <button class="nav-link" id="donation profile-tab" data-bs-toggle="tab" data-bs-target="#donation" type="button" role="tab" aria-controls="donation" aria-selected="false">기부단체관리</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="auction contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">경매관리</button>
+                  <button class="nav-link" id="auction contact-tab" data-bs-toggle="tab" data-bs-target="#auction" type="button" role="tab" aria-controls="auction" aria-selected="false">경매관리</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="exchange contact-tab" data-bs-toggle="tab" data-bs-target="#exchange" type="button" role="tab" aria-controls="exchange" aria-selected="false">환불요청</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <div id="paybtn"><button class="nav-link" id="payment contact-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab" aria-controls="payment" aria-selected="false">결재내역</button></div>
                 </li>
               </ul>
               <div class="tab-content pt-2" id="myTabContent">
               
               	<!-- 유저관리 -->
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
                 	<input class="form-control" type="text" placeholder="검색할 아이디를 입력해주세요">
                 </div>
                 
                 <!-- 기부관리 -->
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="donation" role="tabpanel" aria-labelledby="donation-tab">
 					<table id="mainOrg" class="table table-bordered">
 						<tr>
-							<th>현재 기부단체</th>
+							<th style="background-color:#FFC107">현재 기부단체</th>
 						</tr>
 						<tr>
 							<td><c:out value="${main.donName}"/></td>
@@ -112,11 +126,71 @@
                 </div>
                 
                 <!-- 경매 관리 -->
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="auction-tab">
                 	<input class="form-control" type="text" placeholder="검색할 물품 이름을 입력하세요">
+                
                 </div>
+                
+                <!-- 환불 요청 -->
+                <div class="tab-pane fade" id="exchange" role="tabpanel" aria-labelledby="exchange-tab">
+                	<table class="table" id="exTable">
+						<tr>
+							<th>번호</th>
+							<th>아이디</th>
+							<th>내용</th>
+							<th>요청 날짜</th>
+							<th></th>
+						</tr>
+						<c:forEach items="${exchange}" var="data">
+							<tr>
+								<td><c:out value="${data.exchangeNum}"/></td>
+								<td><c:out value="${data.userName}"/></td>
+								<td>
+									요청 포인트 : <c:out value="${data.exchangePoint}"/><br>
+									<div class="badge bg-warning text-dark">
+										<c:out value="${data.bankName}"/> : <c:out value="${data.bankAccountNum}"/>
+									</div>
+								</td>
+								<td>
+									<fmt:formatDate  var="date" value="${data.exchangeTime}" type="DATE" pattern="yyyy-MM-dd"/>${date}
+								</td>
+								<td>
+									<a class="btn btn-primary" href="successEmail?Email=${data.userEmail}&num=${data.exchangeNum}&point=${data.exchangePoint}">처리 완료</a> 
+									<a class="btn btn-warning" href="deleteExchange?num=${data.exchangeNum}">취소</a>
+								</td>
+							</tr>
+						</c:forEach>
+                	</table>
+                </div>
+                
+                <!-- 결재 내역 -->
+                <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
+                	<input id="search"class="form-control" type="text" placeholder="검색할 아이디를 입력해주세요">
+                	<table class="table" id="payTable">
+                		<tr>
+                			<th>번호</th>
+                			<th>아이디</th>
+                			<th>결제 금액</th>
+                			<th>결제 날짜</th>
+                			<th></th>
+                		</tr>
+                		<c:forEach items="${pay}" var="data">
+                			<tr>
+                				<td><c:out value="${data.merchant_uid}"/></td>
+                				<td><c:out value="${data.buyer_id}"/></td>
+                				<td><c:out value="${data.paid_amount}"/></td>
+                				<td>
+                					<fmt:formatDate  var="date2" value="${data.payTime}" type="DATE" pattern="yyyy-MM-dd HH:mm:ss"/>${date2}
+                				</td>
+                				<td>
+                					<a class="btn btn-danger" href="cancelPay?num=${data.merchant_uid}">결제 취소</a>
+                				</td>
+                			</tr>
+                		</c:forEach>
+                	</table>
+                </div>
+                
               </div><!-- End Default Tabs -->
-
             </div>
           </div>
 </main>

@@ -93,11 +93,11 @@ function sendMsg(e){
 	$(function(){	
 		//스크롤바 아래고정 메서드
 		function scrollBottom(){
-			$('#chatLog').scrollTop($('#chatLog').prop('scrollHeight'));	
+			$('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);	
 		}
 		
 		//처음 들어왔을때 스크롤 아래 이동
-		
+		scrollBottom();
 		
 		//받는이 지정 
 		var toUser;
@@ -189,17 +189,14 @@ function sendMsg(e){
 			//메시지만 전송 받았을때
 			if(type=="msg"){
 				$('#chatLog').append("<div id="+position+"><span id="+position+">" + data.split(":")[1] + "</span></div>");
-				scrollBottom();
 			}
 			//이미지를 전송 받았을때
-			if(type="img"){
+			if(type=="img"){
 				location.reload();
-				scrollBottom();
 			}
-			$('#msg').focus();
+			scrollBottom();
 		}
 		
-		scrollBottom();
 	})
 </script>
 <div id="wrap">

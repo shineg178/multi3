@@ -3,6 +3,8 @@ package three.admin.service;
 import java.util.List;
 
 import three.donation.model.DonationOrgVO;
+import three.exchange.model.ExchangeVO;
+import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
@@ -28,4 +30,16 @@ public interface AdminService {
 	
 	//메인 기부단체 변경하기
 	int changeDon(int donOrgNum);
+	
+	//환불 요청 내역 가져오기
+	List<ExchangeVO> exchangeList();
+	
+	//환불요청 삭제하기
+	int exchangeDelete(int exchangeNum);
+	
+	//결제 내역 가져오기
+	List<PaymentVO> payList();
+	
+	//결제 내역 취소하기
+	int cancelPay(int merchant_uid);
 }

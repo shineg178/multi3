@@ -99,6 +99,7 @@ public class ChatController {
 		return "index";
 	}
 	
+	//내 채팅방 목록 가져오기
 	@GetMapping(value="/openChatList",produces="application/json")
 	@ResponseBody
 	public List<ChatRoomVO> myChatList(HttpSession ses){
@@ -109,13 +110,14 @@ public class ChatController {
 		return list;
 	}
 	
+	//채팅방 나가기
 	@PostMapping(value="/deleteChat",produces="application/json")
 	@ResponseBody
 	public int ExitChat(@RequestParam int rid) {
 		return chatServiceImpl.exitChat(new ChatRoomVO(rid,null,null));
 	}
 	
-	
+	//안읽은 메시지 가져오기
 	@GetMapping(value="/AllnoRead",produces="application/json")
 	@ResponseBody
 	public int AllnoRead(HttpSession ses) {
@@ -126,6 +128,7 @@ public class ChatController {
 		return 0;
 	}
 	
+	//이미지 전송시 이미지 저장
 	@PostMapping("sendImg")
 	@ResponseBody
 	public int sendImg(@RequestParam MultipartFile img,HttpSession ses,@ModelAttribute ChatVO vo) {
@@ -160,6 +163,17 @@ public class ChatController {
 		}
 		
 		return n;
+	}
+	
+	@GetMapping(value="/myNoread",produces="application/json")
+	@ResponseBody
+	public List<ChatAlertVO> myNoread(HttpSession ses){
+		
+		String userId=(String)ses.getAttribute("id");
+		
+		List<ChatAlertVO> list=chatServiceImpl.myNoread(userId);
+		log.info(list);
+		return list;
 	}
 	
 	

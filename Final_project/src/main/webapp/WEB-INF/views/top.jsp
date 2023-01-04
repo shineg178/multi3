@@ -93,9 +93,6 @@
 			cache:false,
 			success:function(res){
 				str="";
-				if(res==null){
-					str+="<li class='message-item'><a id='chatLink'>존재하는 채팅방이 없습니다</a></li>";
-				}
 				if(res!=null){
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
@@ -104,7 +101,7 @@
 							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
 						if(data.userId2==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
+							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
 						str+="</li>";
@@ -119,6 +116,7 @@
 	}
 	
 	myChatList();
+	
 	
 	//채팅방 나가기
 	function deleteChat(rid){
@@ -144,7 +142,7 @@ $(function(){
 	//2초마다 주기적으로 읽지않은 메시지 수 가져오기
 	let interval = setInterval(chatAlert,2000);
 	
-		//읽지않은 메시지 가져오는 메서드
+	//읽지않은 메시지 가져오는 메서드
 	function chatAlert(){
 		$.ajax({
 			type:'get',
@@ -204,8 +202,7 @@ $(function(){
 				<li class="nav-item dropdown"><a class="nav-link nav-icon"
 					href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
 						<span class="badge bg-primary badge-number">4</span>
-				</a>
-				<!-- End Notification Icon -->
+				</a> <!-- End Notification Icon -->
 
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
@@ -267,22 +264,20 @@ $(function(){
 						<li class="dropdown-footer"><a href="#">Show all
 								notifications</a></li>
 
-					</ul>
-					<!-- End Notification Dropdown Items --></li>
+					</ul> <!-- End Notification Dropdown Items --></li>
 				<!-- End Notification Nav -->
 
-				<li class="nav-item dropdown"><a class="nav-link nav-icon"
-					href="#" data-bs-toggle="dropdown"> <i
-						class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
-						<span id="noRead" class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+				<li class="nav-item dropdown">
+				<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> 
+					<i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
+					<span id="noRead" class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
 
-				</a>
-				<!-- End Messages Icon --> <!-- 메시지 목록창  -->
+				</a> <!-- End Messages Icon --> <!-- 메시지 목록창  -->
 					<ul id="chatList"
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages"
 						style="width: 300px; height: 500px;">
-
-					</ul> <!-- 메시지 목록창 끝 --></li>
+					</ul> <!-- 메시지 목록창 끝 -->
+				</li>
 				<!-- End Messages Nav -->
 
 				<li class="nav-item dropdown pe-3"><a
@@ -291,8 +286,7 @@ $(function(){
 						src="${path}/resources/assets/img/profile-img.jpg" alt="Profile"
 						class="rounded-circle"> <span
 						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-				</a>
-				<!-- End Profile Iamge Icon -->
+				</a> <!-- End Profile Iamge Icon -->
 
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -332,8 +326,7 @@ $(function(){
 									Out</span>
 						</a></li>
 
-					</ul>
-					<!-- End Profile Dropdown Items --></li>
+					</ul> <!-- End Profile Dropdown Items --></li>
 				<!-- End Profile Nav -->
 
 			</ul>
@@ -374,12 +367,12 @@ $(function(){
 			<li class="nav-item"><a class="nav-link collapsed"
 				href="${path}/users-profile"> <i class="bi bi-person"></i> <span>Mypage</span>
 			</a></li>
-			
+
 			<!-- 관리자 전용 페이지 -->
 			<c:if test="${id eq 3}">
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
-			</a></li>
+				<li class="nav-item"><a class="nav-link collapsed"
+					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
+				</a></li>
 			</c:if>
 			<!-- End Profile Page Nav -->
 		</ul>

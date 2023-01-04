@@ -59,4 +59,8 @@
 	<select id="findImg" parameterType="Chat" resultType="String">
 		select cImg from chat where sUser=#{sUser} and rUser=#{rUser} and sendMsg=#{sendMsg}
 	</select>
+	
+	<select id="myNoread" parameterType="String" resultType="ChatAlert">
+		select roomid from chatAlert where userid=#{value} group by roomid
+	</select>
 </mapper>

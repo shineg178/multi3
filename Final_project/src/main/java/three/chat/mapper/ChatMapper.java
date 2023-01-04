@@ -39,4 +39,7 @@ public interface ChatMapper {
 	
 	//이미지 이름으로 이미지 찾기
 	String findImg(ChatVO vo);
+	
+	//채팅방 별 안읽은 방 가져오기
+	List<ChatAlertVO> myNoread(String userId);
 }

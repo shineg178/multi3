@@ -30,4 +30,20 @@
 		end
 	}
 	</update>
+	
+	<select id="exchangeList" resultType="Exchange">
+		select * from exchange order by exchangeTime asc
+	</select>
+	
+	<delete id="exchangeDelete" parameterType="int">
+		delete from exchange where exchangenum=#{value}	
+	</delete>
+	
+	<select id="payList" resultType="Payment">
+		select * from payment order by payTime
+	</select>
+	
+	<delete id="cancelPay" parameterType="int">
+		delete from payment where merchant_uid=#{merchant_uid}
+	</delete>
 </mapper>

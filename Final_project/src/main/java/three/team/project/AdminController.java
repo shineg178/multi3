@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.log4j.Log4j;
 import three.admin.service.AdminService;
 import three.donation.model.DonationOrgVO;
+import three.exchange.model.ExchangeVO;
+import three.mail.service.MailService;
+import three.payment.model.PaymentVO;
 
 //관리자 페이지 컨트롤러
 @Controller
@@ -25,6 +29,9 @@ public class AdminController {
 	
 	@Inject
 	private AdminService adminServiceImpl;
+	
+	@Autowired
+	private MailService mailService;
 	
 	//관리자 페이지 이동
 	@GetMapping("/adminPage")
@@ -37,6 +44,14 @@ public class AdminController {
 		List<DonationOrgVO> orglist=adminServiceImpl.dOrgList();
 		log.info(orglist);
 		
+		//환불 요청 내역 가져오기
+		List<ExchangeVO> exList=adminServiceImpl.exchangeList();
+		
+		//결재 내역 가져오기
+		List<PaymentVO> payList=adminServiceImpl.payList();
+		
+		m.addAttribute("pay",payList);
+		m.addAttribute("exchange",exList);
 		m.addAttribute("main",donVO);
 		m.addAttribute("Org",orglist);
 		
@@ -78,10 +93,46 @@ public class AdminController {
 	@GetMapping("/changeDon")
 	public String changeDon(@RequestParam int donOrgNum) {
 		log.info(donOrgNum);
+		//기부단체 데이터 베이스 변경 
+		adminServiceImpl.changeDon(donOrgNum);
 		
-		int n=adminServiceImpl.changeDon(donOrgNum);
 		return "redirect:adminPage";
 	}
 	
+	//환불처리 성공 메일 전송
+	@GetMapping("/successEmail")
+	public String successEmail(@RequestParam String Email,@RequestParam int num,@RequestParam int point) {
+		log.info(num);
+		
+		//메일 전송 내용
+		String addr = "dmsrb9810@gmail.com";
+		String subject = "환불처리 요청";
+		String body = "환불처리 요청이 정상적으로 처리되었습니다.\r\n요청하신 "+point+" 포인트가 정상 환급처리 되었습니다.\r\n환불 요청시 입력하신 계좌를 확인해 주세요";
+		
+		//메일 전송
+		mailService.sendEmail(Email, addr, subject, body);
+		
+		adminServiceImpl.exchangeDelete(num);
+		
+		return "redirect:adminPage";
+	}
+	
+	//환불요청 삭제
+	@GetMapping("/deleteExchange")
+	public String deleteExchange(@RequestParam int num) {
+		
+		adminServiceImpl.exchangeDelete(num);
+				
+		return "redirect:adminPage";
+	}
+	
+	//결제 내역 취소
+	@GetMapping("/cancelPay")
+	public String cancelPay(@RequestParam int num) {
+		
+		adminServiceImpl.cancelPay(num);
+		
+		return "redirect:adminPage";
+	}
 	
 }

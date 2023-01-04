@@ -72,6 +72,11 @@ public class ChatServcieImpl implements ChatService{
 	public String findImg(ChatVO vo) {
 		return chatMapper.findImg(vo);
 	}
+
+	@Override
+	public List<ChatAlertVO> myNoread(String userId) {
+		return chatMapper.myNoread(userId);
+	}
 	
 	
 	

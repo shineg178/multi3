@@ -27,7 +27,7 @@ public class ChatController {
 	
 	//채팅창 여는 메서드
 	@GetMapping("/chat")
-	public String chatOpen(@RequestParam int roomid, Model m,HttpSession ses) {
+	public String chatOpen(@RequestParam int roomid,Model m,HttpSession ses) {
 		int userid=(int)ses.getAttribute("id");
 		
 		//해당 방 정보 가져오기
@@ -117,6 +117,7 @@ public class ChatController {
 		int n=chatServiceImpl.myNoRead((int)ses.getAttribute("id"));
 		return n;
 	}
+	
 	
 	//테스트 끝-----------------------------------
 }

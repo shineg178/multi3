@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <c:import url="/top" />
 
@@ -99,10 +100,15 @@
                   <div class="col-lg-3 col-md-4 label">Phone</div>
                   <div class="col-lg-9 col-md-8">${user.userTel }</div>
                 </div>
-
+				
+				<div class="row text-center">
+                  <div class="col-lg-3 col-md-4 label">Postcode</div>
+                  <div class="col-lg-9 col-md-8">${user.userAddr1}</div>
+                </div>
+				
                 <div class="row text-center">
                   <div class="col-lg-3 col-md-4 label">Address</div>
-                  <div class="col-lg-9 col-md-8">${user.userAddr}  /  ${user.userDetailAddr }</div>
+                  <div class="col-lg-9 col-md-8">${user.userAddr2 } / ${user.userAddr3 }</div>
                 </div>
 
                 <div class="row text-center">
@@ -142,7 +148,7 @@
 					<div class="row mb-3">
 	                    <label for="pointAmount" class="col-md-4 col-lg-3 col-form-label">포인트 잔액</label>
 	                    <div class="col-md-8 col-lg-9">
-	                      <input name="pointAmount" type="text" class="form-control" id="pointAmount" value="${user.userPoint } 포인트">
+	                      <input name="pointAmount" type="text" class="form-control" id="pointAmount" value="${user.userPoint } 포인트" readonly>
 	                    </div>
                   	</div>
 
@@ -151,11 +157,12 @@
                      충전
                     </button>
                     <button type="button" class="btn btn-primary px-md-5" data-bs-toggle="modal" data-bs-target="#exchange" >
-                      환급
+                      환전
                      </button>
                      <button type="button" class="btn btn-primary px-md-5" data-bs-toggle="modal" data-bs-target="#donate" >
                       기부
                      </button>
+	
 	
                         <!-- 포인트 충전 Modal -->
                         <div class="modal fade" id="recharge" tabindex="-1">
@@ -167,74 +174,164 @@
                               </div>
                               <div class="modal-body">
                                 충전할 포인트를 적으세요.
-                                <input type="number" class="form-control" id="recharge-point">
                               </div>
+                              <div class="modal-body" style="width:70%;margin:auto">
+                                <input type="number" class="form-control" id="recharge-point" value=0>
+                              </div>  
+                              <div class="modal-body">
+	                              <button type="button" onclick=plus("10k","recharge") class="btn btn-outline-primary btn-sm">+10000</button>
+	                              <button type="button" onclick=plus("5k","recharge") class="btn btn-outline-primary btn-sm">+5000</button>
+	                              <button type="button" onclick=plus("1k","recharge") class="btn btn-outline-primary btn-sm">+1000</button>
+	                              <button type="button" onclick=plus("0.1k","recharge") class="btn btn-outline-primary btn-sm">+100</button>
+	                              <button type="button" onclick=plus("reset","recharge") class="btn btn-outline-primary btn-sm">Reset</button>
+                              </div>  
                               <div class="modal-footer">
-                                <button type="button" id="tradecheck" class="btn btn-primary">충전하기</button>      
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                <button type="button" id="recharge-process" class="btn btn-primary">충전하기</button>      
+                                <button type="button" id="recharge-list" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#rechargeList">충전내역</button>      
+                                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                               </div>
                             </div>
                           </div>
                         </div><!-- End 포인트 충전 Modal-->
+                        
+                        <!-- 포인트 충전 List Modal -->
+                        <div class="modal fade" id="rechargeList" tabindex="-1">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="text-center modal-header">
+                                <h5 class="modal-title">포인트 충전내역</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div id="re-list" class="modal-body"> 
+                              </div>  
+                              <div class="modal-footer">
+                                <button type="button" id="recharge-process" class="btn btn-primary" 
+                                data-bs-toggle="modal" data-bs-target="#recharge">충전하기</button>      
+                                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div><!-- 포인트 충전 List Modal-->
 				
 <script>
+function plus(amount,type){
+	let number = $('#'+type+'-point').val();
+	if(amount === '10k'){
+		number = parseInt(number)+10000;
+	}else if(amount === '5k'){
+		number = parseInt(number)+5000;
+	}else if(amount === '1k'){
+		number = parseInt(number)+1000;
+	}else if(amount === '0.1k'){
+		number = parseInt(number)+100;
+	}else if(amount === 'reset'){
+		number = 0;
+	}
+	$('#'+type+'-point').attr("value",number);
+}
+
+
 $(document).ready(function(){
-	$('#tradecheck').click(function(){
+	$('#recharge-process').click(function(){
 		requestPay();
 	})
+	$('#recharge-list').click(function(){
+		rechargeList();
+	})
 });
-	
-var IMP = window.IMP;   // 생략 가능
-  IMP.init("imp07481554"); // 예: imp00000000 
+	var IMP = window.IMP;  
+  	IMP.init("imp07481554"); 
 	 function requestPay() {
+		 if($('#recharge-point').val()<=100){
+			 alert('100원부터 결제 가능합니다')
+			 return;
+		 }
 	    IMP.request_pay({
 	      pg: "html5_inicis.INIpayTest",
 	      pay_method: "card",
-	      merchant_uid: "iamport_test_id2",   // 주문번호
+	      merchant_uid: "${user.userNum}"+new Date().getTime(),   // 주문번호(회원번호+현재시간)
 	      name: "기부앤테이크포인트",
 	      amount: $('#recharge-point').val(),   // 숫자 타입
 	      buyer_email: "${user.userEmail}",
 	      buyer_name: "${user.userName}",
 	      buyer_tel: "${user.userTel}",
-	      buyer_addr: "${user.userAddr} ${user.userDetailAddr}",
-	    }, function (rsp) { // callback
-	    	if(rsp.success){
-	    		alert("완료 -> imp_uid : "+rsp.imp_uid+" / merchant_uid(orderkey) : "+rsp.merchant_uid);
-	    		/* //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-	        	jQuery.ajax({
-	        		url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
-	        		type: 'POST',
-	        		dataType: 'json',
-	        		data: {
-	    	    		imp_uid : rsp.imp_uid,
-	    	    		merchant_uid : rsp.merchant_uid,
-	    	    		amount : rsp.amout,
-	    	    		//기타 필요한 데이터가 있으면 추가 전달
-	        		}
-	        	}).done(function(data) {
-	        		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-	        		if ( everythings_fine ) {
-	        			var msg = '결제가 완료되었습니다.';
-	        			msg += '\n고유ID : ' + rsp.imp_uid;
-	        			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	        			msg += '\결제 금액 : ' + rsp.paid_amount;
-	        			msg += '카드 승인번호 : ' + rsp.apply_num;
-	        			
-	        			alert(msg);
-	        		} else {
-	        			//[3] 아직 제대로 결제가 되지 않았습니다.
-	        			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-	        		}
-	        	}); */
-	    	}else {
-	    		alert("실패 : 코드("+rsp.error_code+") / 메세지("+rsp.error_msg+")");
-	    	}
+	      buyer_postcode : "${user.userAddr1}",
+	      buyer_addr: "${user.userAddr2} ${user.userAddr3}"
+	    }, function(rsp) {
+			//console.log(rsp);
+		    if ( rsp.success ) {
+		    	var paymentData={
+	    			"imp_uid":rsp.imp_uid,
+	        		"merchant_uid":rsp.merchant_uid,
+	        		"buyer_email":rsp.buyer_email,
+	        		"buyer_id":"${user.userId}",
+	        		"paid_amount":rsp.paid_amount
+		    	}
+		        $.ajax({
+		        	type:'post',
+		        	url:'users-profile/payment',
+		        	dataType:'json',
+		        	contentType:'application/json',
+		        	data:JSON.stringify(paymentData)
+		        }).done(function(data){
+		        	//alert(data);
+				    	var msg = '결제가 완료되었습니다.\n';
+				        msg += '상점 거래ID : ' + rsp.merchant_uid+'\n';
+				        msg += '결제 금액 : ' + rsp.paid_amount;
+					    alert(msg);
+					    history.go(0);
+		        });
+		    } else {
+		    	 var msg = '결제에 실패하였습니다.';
+		         msg += '에러내용 : ' + rsp.error_msg;
+				    alert(msg);
+		    }
 	    });
 	}
+	function rechargeList(){
+			$('#recharge-point').attr("value",0);
+			let userId="${user.userId}";
+			$.ajax({
+				type:'get',
+				url:'users-profile/rechargeList',
+				data:'userId='+userId,
+				dataType:'json',
+				success:function(res){
+					let str = '<table class="table table-striped">';
+					str += '<thead>';
+					str += '<tr>';
+					str += '<th>결제번호</th>';
+					str += '<th>ID</th>';
+					str += '<th>결제 포인트</th>';
+					str += '<th>날짜</th>';
+					str += '</tr>';
+					str += '</thead>';
+					str += '<tbody>';
+					$.each(res,function(i,rvo){
+					let fdate=new Date(rvo.payTime);
+					let date=fdate.getFullYear()+"-"+(fdate.getMonth()+1)+"-"+fdate.getDate();
+						str += '<tr>'; 
+						str += '<td>'+rvo.merchant_uid+'</td>'; 
+						str += '<td>'+rvo.buyer_id+'</td>'; 
+						str += '<td>'+rvo.paid_amount+'포인트</td>'; 
+						str += '<td>'+date+'</td>'; 
+						str += '</tr>'; 
+					})
+						str += '</tbody>';
+						$('#re-list').html(str);
+				},
+				error:function(err){
+					var msg = "목록 불러오기에 실패했습니다";
+					mag += "err: "+err.status;
+					alert(msg)
+				}
+			})
+		}
 	
   </script>
              
-                         <!-- 포인트 환급 Modal -->
+                         <!-- 포인트 환급 Modal -->       
                          <div class="modal fade" id="exchange" tabindex="-1">
                           <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -243,17 +340,162 @@ var IMP = window.IMP;   // 생략 가능
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                환급받을 포인트를 적으세요.
-                                <input type="number" class="form-control" id="exchange-point">
+                              <table class="modal-body">
+                              	<tr>
+                              		<td style="width:30%">은행명 :</td>
+                              		<td>
+                              			<input id="bankName" class="form-control text-center" type="text" placeholder="OO은행">
+                              		</td>
+                              	</tr>
+                              	<tr>
+                              		<td>계좌번호 :</td>
+                              		<td>
+                                		<input type="number" id="bankAccountNum" class="form-control text-center" type="text" placeholder="숫자만 써주세요">
+                              		</td>
+                              	</tr>
+                              	<tr>
+                              		<td>이름 :</td>
+                              		<td>
+                                		<input id="userName" class="form-control text-center" type="text" value="${user.userName }" required>
+                              		</td>
+                              	</tr>
+                              	<tr>
+                              		<td>환급받을 포인트 :</td>
+                              		<td>
+                              			<input type="number" class="form-control" id="exchange-point" value=0 >
+                              		</td>
+                              	</tr>
+                              </table>
                               </div>
+                              <div class="modal-body" >
+	                              <button type="button" onclick=plus("10k","exchange") class="btn btn-outline-primary btn-sm">+10000</button>
+	                              <button type="button" onclick=plus("5k","exchange") class="btn btn-outline-primary btn-sm">+5000</button>
+	                              <button type="button" onclick=plus("1k","exchange") class="btn btn-outline-primary btn-sm">+1000</button>
+	                              <button type="button" onclick=plus("0.1k","exchange") class="btn btn-outline-primary btn-sm">+100</button>
+	                               <button type="button" onclick=plus("reset","exchange") class="btn btn-outline-primary btn-sm">Reset</button>
+                              </div>  
                               <div class="modal-footer">
-                                <button type="button" id="trade check" class="btn btn-primary">환급받기</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                <button type="button" id="exchange-process" class="btn btn-primary">환전하기</button>
+                                <button type="button" id="exchange-list" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#exchangeList">환전내역</button>
+                                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                               </div>
                             </div>
                           </div>
                         </div><!-- End 포인트 환급 Modal-->
-
+                        
+                        <!-- 포인트 환전 List Modal -->
+                         <div class="modal fade" id="exchangeList" tabindex="-1">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="text-center modal-header">
+                                <h5 class="modal-title">포인트 환전내역</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div id="ex-list" class="modal-body">
+                              </div> 
+                              <div class="modal-footer">
+                                <button type="button" id="donate-process" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#exchange">환전하기</button>
+                                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div><!-- 포인트 환전 List Modal-->
+            
+<script>
+$(document).ready(function(){
+	$('#exchange-process').click(function(){
+		exchangePoint();
+	})
+	$('#exchange-list').click(function(){
+		exchangeList();
+	})
+});
+function exchangePoint(){
+	var dataObj={
+		    "bankName":$('#bankName').val(), 
+		    "bankAccountNum":$('#bankAccountNum').val(), 
+		    "userName":"${user.userName}" ,
+		    "userEmail":"${user.userEmail}",
+		    "userId":"${user.userId}",
+		    "exchangePoint":$('#exchange-point').val()
+	}
+	if($('#exchange-point').val()>${user.userPoint}){
+		alert("보유하신 포인트가 부족합니다");
+		$('#exchange-point').attr("value",0);
+		$('#exchange-point').focus();
+		return;
+	}
+	$.ajax({
+		type:'post',
+       	url:'users-profile/exchange',
+       	dataType:'json',
+       	contentType:'application/json',
+       	data:JSON.stringify(dataObj),
+ 			success:function(res){
+ 				var msg = "환전요청이 완료되었습니다\n";
+ 				msg += "은행명"+res["bankName"]+"\n";
+ 				msg += "계좌번호"+res["bankAccountNum"];
+ 				alert(msg);
+ 				history.go(0);
+ 				
+ 			},
+ 			error:function(err){
+ 				alert('환전요청이 실패하였습니다');
+ 				alert('err: '+err.status);
+ 			}	
+ 		})
+ 		$('#bankName').val('');
+	$('#bankAccountNum').val('');
+	$('#exchange-point').attr("value",0);
+	$('#exchange-point').focus();
+}
+function exchangeList(){
+	$('#bankName').val('');
+	$('#bankAccountNum').val('');
+	$('#exchange-point').val('0');
+	let userId="${user.userId}";
+	$.ajax({
+		type:'get',
+		url:'users-profile/exchangeList',
+		data:'userId='+userId,
+		dataType:'json',
+		success:function(res){
+			let str = '<table class="table table-striped">';
+			str += '<thead>';
+			str += '<tr>';
+			str += '<th>은행명</th>';
+			str += '<th>계좌번호</th>';
+			str += '<th>ID</th>';
+			str += '<th>환전 포인트</th>';
+			str += '<th>날짜</th>';
+			str += '</tr>';
+			str += '</thead>';
+			str += '<tbody>';
+			$.each(res,function(i,rvo){
+			let fdate=new Date(rvo.exchangeTime);
+			let date=fdate.getFullYear()+"-"+(fdate.getMonth()+1)+"-"+fdate.getDate();
+				str += '<tr>'; 
+				str += '<td>'+rvo.bankName+'</td>'; 
+				str += '<td>'+rvo.bankAccountNum+'</td>'; 
+				str += '<td>'+rvo.userId+'</td>'; 
+				str += '<td>'+rvo.exchangePoint+'포인트</td>'; 
+				str += '<td>'+date+'</td>'; 
+				str += '</tr>'; 
+			})
+				str += '</tbody>';
+				$('#ex-list').html(str);
+		},
+		error:function(err){
+			var msg = "목록 불러오기에 실패했습니다";
+			mag += "err: "+err.status;
+			alert(msg)
+		}
+	})
+}
+	
+</script>
                          <!-- 포인트 기부 Modal -->
                          <div class="modal fade" id="donate" tabindex="-1">
                           <div class="modal-dialog modal-dialog-centered">
@@ -264,19 +506,50 @@ var IMP = window.IMP;   // 생략 가능
                               </div>
                               <div class="modal-body">
                               기부할 포인트를 적으세요.
-                              <input type="number" class="form-control" id="exchange-point">
+                              </div>
+                              <div class="modal-body">
+	                              <button type="button" onclick=plus("10k","donate") class="btn btn-outline-primary btn-sm">+10000</button>
+	                              <button type="button" onclick=plus("5k","donate") class="btn btn-outline-primary btn-sm">+5000</button>
+	                              <button type="button" onclick=plus("1k","donate") class="btn btn-outline-primary btn-sm">+1000</button>
+	                              <button type="button" onclick=plus("0.1k","donate") class="btn btn-outline-primary btn-sm">+100</button>
+	                               <button type="button" onclick=plus("reset","donate") class="btn btn-outline-primary btn-sm">Reset</button>
+                              </div> 
+                              <div class="modal-body" style="width:70%;margin:auto"> 
+                              	<input type="number" class="form-control" id="donate-point"  value=0>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" id="trade check" class="btn btn-primary">기부하기</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                <button type="button" id="donate-process" class="btn btn-primary">기부하기</button>
+                                <button type="button" id="donate-list" class="btn btn-primary"
+                                 data-bs-toggle="modal" data-bs-target="#donateList">기부내역</button>
+                                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                               </div>
                             </div>
                           </div>
                         </div><!-- End 포인트 기부 Modal-->
+                        
+                        <!-- 포인트 기부 List Modal -->
+                         <div class="modal fade" id="donateList" tabindex="-1">
+                          <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="text-center modal-header">
+                                <h5 class="modal-title">포인트 기부내역</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                              </div> 
+                              <div class="modal-footer">
+                                <button type="button" id="donate-process" class="btn btn-primary"
+                                 data-bs-toggle="modal" data-bs-target="#donate">기부하기</button>
+                                <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div><!-- End 포인트 기부List Modal-->
+                        
                 </div>
-                </form>
               </div>
               <!-- End settings Form -->
+
               <!-- trade-status Form -->
               <div class="tab-pane trade-status fade pt-3" id="trade-status">
               <table class="table">
@@ -399,7 +672,7 @@ var IMP = window.IMP;   // 생략 가능
                     <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="address" type="text" class="form-control" id="Address" 
-                      value="${user.userAddr},${user.userDetailAddr}">
+                      value="[${user.userAddr1}], ${user.userAddr2} ${user.userAddr3}">
                     </div>
                   </div>
 
@@ -493,7 +766,7 @@ var IMP = window.IMP;   // 생략 가능
                             정말 탈퇴하시겠습니까?
                           </div>
                           <div class="modal-footer">
-                            <button type="button" id="trade check" class="btn btn-primary">예</button>
+                            <button type="button" id="check" class="btn btn-primary">예</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
                           </div>
                         </div>

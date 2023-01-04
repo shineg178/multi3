@@ -3,63 +3,52 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="three.chat.mapper.ChatMapper">
 	<insert id="createRoom" parameterType="ChatRoom">
-		<selectKey keyProperty="roomid" resultType="int"
-			order="BEFORE">
+		<selectKey keyProperty="roomid"  resultType="int" order="BEFORE">
 			select croomlist_seq.nextval from dual
 		</selectKey>
 		insert into croomlist(roomid,userNum1,userNum2)
-		select #{roomid} ,
-		#{userNum1},#{userNum2} from dual
-		where not exists(select*from
-		croomlist where usernum1=#{userNum1} and usernum2=#{userNum2}
-		or
-		usernum1=#{userNum2} and usernum2=#{userNum1})
-
+		select #{roomid} , #{userNum1},#{userNum2} from dual
+		where not exists(select*from croomlist where usernum1=#{userNum1} and usernum2=#{userNum2}
+		or usernum1=#{userNum2} and usernum2=#{userNum1})
+		 
 	</insert>
-
-	<select id="myChatRoomList" parameterType="ChatRoom"
-		resultType="ChatRoom">
-		select * from croomList where usernum1=#{userNum1} or
-		usernum2=#{userNum1}
+	
+	<select id="myChatRoomList" parameterType="ChatRoom" resultType="ChatRoom">
+		select * from croomList where usernum1=#{userNum1} or usernum2=#{userNum1}  
 	</select>
-
+	
 	<delete id="exitChat" parameterType="ChatRoom">
-		{call
+	{call
 		declare
 		begin
-		delete from chatAlert where roomid=#{roomid};
-		delete from chat where roomid_fk=#{roomid};
-		delete from croomList where roomid=#{roomid};
+			delete from chatAlert where roomid=#{roomid};
+			delete from chat where roomid_fk=#{roomid};
+			delete from croomList where roomid=#{roomid};
 		end
-		}
-	</delete>
-
-	<select id="selectRoom" parameterType="int"
-		resultType="ChatRoom">
+	}
+	</delete> 
+	
+	<select id="selectRoom" parameterType="int" resultType="ChatRoom">
 		select*from croomlist where roomid=#{roomid}
 	</select>
-
-	<insert id="insertMessage" parameterType="Chat">
-		insert into chat
-		values(#{roomid},#{sNum},#{rNum},#{sendMsg},sysdate)
+	
+	<insert id="insertMessage" parameterType="Chat" >
+		insert into chat values(#{roomid},#{sNum},#{rNum},#{sendMsg},sysdate)
 	</insert>
-
+	
 	<select id="findChatList" parameterType="int" resultType="Chat">
 		select*from chat where roomid_fk=#{roomid} order by chatTime
 	</select>
-
+	
 	<insert id="addNoReadCount" parameterType="ChatAlert">
-		insert into chatAlert
-		values(#{usernum},#{roomid},1)
+		insert into chatAlert values(#{usernum},#{roomid},1)
 	</insert>
-
+	
 	<select id="myNoRead" parameterType="int" resultType="int">
-		select
-		count(noreadcount) from chatAlert where usernum_fk=#{usernum}
+		select count(noreadcount) from chatAlert where usernum_fk=#{usernum}
 	</select>
-
+	
 	<delete id="deleteNoRead" parameterType="ChatAlert">
-		delete from chatAlert
-		where roomid=#{roomid} and usernum_fk=#{usernum}
+		delete from chatAlert where roomid=#{roomid} and usernum_fk=#{usernum}
 	</delete>
 </mapper>

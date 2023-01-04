@@ -58,20 +58,20 @@
 	}
 </style>
 <script>
-	
-	/* //채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
-	function openChat(){
+	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+	function openChat(roomid){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
-		window.open('chat','채팅창','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+		var pfrm=document.frmPost;
+		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
 	//내 채팅 목록 가져오기
 	function myChatList(){
 		$.ajax({
 			type:'get',
-	 		url:'openChatList',
+	 		url:'${path}/openChatList',
 			dataType:'json',
 			cache:false,
 			success:function(res){
@@ -84,11 +84,11 @@
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
 						if(data.userNum1==${id}){
-							str+="<a id='chatLink' onclick='openChat()'>"+data.userNum2+"</a>";
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum2+"</a>";
 						}
 						if(data.userNum2==${id}){
-							str+="<a id='chatLink' onclick='openChat()'>"+data.userNum1+"</a>";
-						}
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum1+"</a>";
+						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
 						str+="</li>";
 					})
@@ -105,7 +105,7 @@
 	function deleteChat(rid){
 		$.ajax({
 			type:'post',
-			url:'deleteChat?',
+			url:'${path}/deleteChat',
 			data:'rid='+rid,
 			dataType:'json',
 			cache:false,
@@ -118,9 +118,34 @@
 				alert('error : '+err.status);
 			}
 		})
-	} */
+	}
+	
+$(function(){
+	
+	//2초마다 주기적으로 읽지않은 메시지 수 가져오기
+	let interval = setInterval(chatAlert,2000);
+	
+		//읽지않은 메시지 가져오는 메서드
+	function chatAlert(){
+		$.ajax({
+			type:'get',
+			url:'${path}/AllnoRead',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				if(res==0) $('#noRead').text('');
+				if(res>0){
+					$('#noRead').text(res);
+				}
+			},				
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
 		
-
+		
+});
 </script>
 <body>
 
@@ -150,9 +175,7 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-		<li class="nav-item">
-			<a class="login" href="${path }/login">Login</a>
-		</li>
+
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -232,7 +255,8 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
-            <span class="badge bg-success badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+            <span id="noRead"class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+            
           </a><!-- End Messages Icon -->
 
 		  <!-- 메시지 목록창  -->

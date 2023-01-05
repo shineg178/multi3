@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
+
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -171,215 +174,235 @@ $(function(){
 </script>
 <body>
 
-	<!-- ======= Header ======= -->
-	<header id="header" class="header fixed-top d-flex align-items-center">
 
-		<div class="d-flex align-items-center justify-content-between">
-			<a href="${path}" class="logo d-flex align-items-center"> <img
-				src="${path}/resources/assets/img//logo.png" alt=""> <span
-				class="d-none d-lg-block">NiceAdmin</span>
-			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
-		</div>
-		<!-- End Logo -->
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
 
-		<div class="search-bar">
-			<form class="search-form d-flex align-items-center" method="POST"
-				action="#">
-				<input type="text" name="query" placeholder="Search"
-					title="Enter search keyword">
-				<button type="submit" title="Search">
-					<i class="bi bi-search"></i>
-				</button>
-			</form>
-		</div>
-		<!-- End Search Bar -->
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="${path}" class="logo d-flex align-items-center">
+        <img src="${path}/resources/assets/img//logo.png" alt="">
+        <span class="d-none d-lg-block">NiceAdmin</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
 
-		<nav class="header-nav ms-auto">
-			<ul class="d-flex align-items-center">
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
 
-				<li class="nav-item d-block d-lg-none"><a
-					class="nav-link nav-icon search-bar-toggle " href="#"> <i
-						class="bi bi-search"></i>
-				</a></li>
-				<!-- End Search Icon-->
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
 
-				<li class="nav-item dropdown"><a class="nav-link nav-icon"
-					href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
-						<span class="badge bg-primary badge-number">4</span>
-				</a> <!-- End Notification Icon -->
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
 
-					<ul
-						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-						<li class="dropdown-header">You have 4 new notifications <a
-							href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View
-									all</span></a>
-						</li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+		<!-- 로그인 하지 않은 상태 -->
+                <c:if test = "${user == null }">
+                    <div class="login_button"><a href="login">로그인</a><a>  /  </a>
+                    <span><a href="join">회원가입</a></span></div><a>　</a>               
+                </c:if>
+        <!-- 로그인한 상태 -->
+                <c:if test="${ user != null }">
 
-						<li class="notification-item"><i
-							class="bi bi-exclamation-circle text-warning"></i>
-							<div>
-								<h4>Lorem Ipsum</h4>
-								<p>Quae dolorem earum veritatis oditseno</p>
-								<p>30 min. ago</p>
-							</div></li>
+        <li class="nav-item dropdown">
 
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
 
-						<li class="notification-item"><i
-							class="bi bi-x-circle text-danger"></i>
-							<div>
-								<h4>Atque rerum nesciunt</h4>
-								<p>Quae dolorem earum veritatis oditseno</p>
-								<p>1 hr. ago</p>
-							</div></li>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
 
-						<li class="notification-item"><i
-							class="bi bi-check-circle text-success"></i>
-							<div>
-								<h4>Sit rerum fuga</h4>
-								<p>Quae dolorem earum veritatis oditseno</p>
-								<p>2 hrs. ago</p>
-							</div></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
 
-						<li class="notification-item"><i
-							class="bi bi-info-circle text-primary"></i>
-							<div>
-								<h4>Dicta reprehenderit</h4>
-								<p>Quae dolorem earum veritatis oditseno</p>
-								<p>4 hrs. ago</p>
-							</div></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-						<li class="dropdown-footer"><a href="#">Show all
-								notifications</a></li>
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
 
-					</ul> <!-- End Notification Dropdown Items --></li>
-				<!-- End Notification Nav -->
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-				<li class="nav-item dropdown">
-				<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> 
-					<i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
-					<span id="noRead" class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
 
-				</a> <!-- End Messages Icon --> <!-- 메시지 목록창  -->
-					<ul id="chatList"
-						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages"
-						style="width: 300px; height: 500px;">
-					</ul> <!-- 메시지 목록창 끝 -->
-				</li>
-				<!-- End Messages Nav -->
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
 
-				<li class="nav-item dropdown pe-3"><a
-					class="nav-link nav-profile d-flex align-items-center pe-0"
-					href="#" data-bs-toggle="dropdown"> <img
-						src="${path}/resources/assets/img/profile-img.jpg" alt="Profile"
-						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-				</a> <!-- End Profile Iamge Icon -->
+          </ul><!-- End Notification Dropdown Items -->
 
-					<ul
-						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-						<li class="dropdown-header">
-							<h6>Kevin Anderson</h6> <span>Web Designer</span>
-						</li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+        </li><!-- End Notification Nav -->
 
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-person"></i> <span>My
-									Profile</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+        <li class="nav-item dropdown">
 
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-gear"></i> <span>Account
-									Settings</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
+            <span id="noRead"class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
+            
+          </a><!-- End Messages Icon -->
 
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="pages-faq.html"> <i class="bi bi-question-circle"></i>
-								<span>Need Help?</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
+		  <!-- 메시지 목록창  -->
+          <ul id="chatList"  class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" style="width:300px; height:500px;">
+      		 
+          </ul>
+          <!-- 메시지 목록창 끝 -->
 
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
-									Out</span>
-						</a></li>
+        </li><!-- End Messages Nav -->
 
-					</ul> <!-- End Profile Dropdown Items --></li>
-				<!-- End Profile Nav -->
+        <li class="nav-item dropdown pe-3">                    
+                
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="${path}/resources/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">${user.userNick}</span>
+          </a><!-- End Profile Iamge Icon -->
 
-			</ul>
-		</nav>
-		<!-- End Icons Navigation -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>${user.userName}</h6>
+              <span>포인트 : <fmt:formatNumber value="${user.userPoint}" pattern="#,###" /></span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-	</header>
-	<!-- End Header -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>마이페이지</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-	<!-- ======= Sidebar ======= -->
-	<aside id="sidebar" class="sidebar">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>개인정보 변경</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
 
-		<ul class="sidebar-nav" id="sidebar-nav">
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="logout.do">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>로그아웃</span>
+                </c:if>
+              </a>
+            </li>
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
 
-			<li class="nav-item"><a class="nav-link " href="${path}"> <i
-					class="bi bi-grid"></i> <span>Home</span>
-			</a></li>
-			<!-- End Dashboard Nav -->
+      </ul>
+    </nav><!-- End Icons Navigation -->
 
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="${path}/noticeList"> <i class="bi bi-journal-text"></i><span>Notice</span>
-			</a></li>
-			<!-- End Forms Nav -->
+  </header><!-- End Header -->
 
-			<li class="nav-item"><a class="nav-link collapsed" href="#">
-					<i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
-			</a></li>
-			<!-- End Tables Nav -->
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
 
-			<li class="nav-item"><a class="nav-link collapsed" href="#">
-					<i class="bi bi-bar-chart"></i><span>AddProduct</span>
-			</a></li>
-			<!-- End Charts Nav -->
+    <ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link collapsed" href="#">
-					<i class="bi bi-gem"></i><span>Donation</span>
-			</a>
-			<li class="nav-item"><a class="nav-link collapsed"
-				href="${path}/users-profile"> <i class="bi bi-person"></i> <span>Mypage</span>
-			</a></li>
+      <li class="nav-item">
+        <a class="nav-link " href="${path}">
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
 
-			<!-- 관리자 전용 페이지 -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="${path}/noticeList">
+          <i class="bi bi-journal-text"></i><span>Notice</span>
+        </a>
+      </li><!-- End Forms Nav --> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
+        </a>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="#">
+          <i class="bi bi-bar-chart"></i><span>AddProduct</span>
+        </a>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-gem"></i><span>Donation</span>
+        </a>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="${path}/users-profile">
+          <i class="bi bi-person"></i>
+          <span>Mypage</span>
+        </a>
+        
+      <!-- 관리자 전용 페이지 -->
 			<c:if test="${id eq 3}">
 				<li class="nav-item"><a class="nav-link collapsed"
 					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
 				</a></li>
 			</c:if>
-			<!-- End Profile Page Nav -->
-		</ul>
-	</aside>
-	<!-- End Sidebar-->
+      </li><!-- End Profile Page Nav -->
+    </ul>
+  </aside><!-- End Sidebar-->
+
+
+
 

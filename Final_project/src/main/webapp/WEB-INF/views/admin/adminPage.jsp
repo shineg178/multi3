@@ -40,6 +40,14 @@
 		text-align:center; 
 	}
 	
+	#userTable tr th{
+		text-align:center;
+	}
+	
+	#userTable tr td:nth-child(6n+4){
+		text-align:left;
+	}
+	
 	
 </style>
 <script>
@@ -59,6 +67,23 @@
 				alert('error : '+err.status);
 			}
 		})
+	}
+	function findUser(){
+		let userId=$('#findUser').val();
+		$.ajax({
+			url:'adminfindUser',
+			type:'post',
+			data:'userId='+userId,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				
+			},
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	
 	}
 </script>
 <c:import url="/top" />
@@ -89,7 +114,42 @@
               
               	<!-- 유저관리 -->
                 <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
-                	<input class="form-control" type="text" placeholder="검색할 아이디를 입력해주세요">
+                	<input id="findUser"class="form-control" type="text" placeholder="검색할 아이디를 입력해주세요" onkeyup="findUser()">
+               		<table class="table" id="userTable">
+               			<tr id="userResult">
+               				<th>번호</th>
+               				<th>이름</th>
+               				<th>아이디</th>
+               				<th>회원 정보</th>
+               				<th>회원상태</th>
+               				<th>회원 전환</th>
+               			</tr>
+               			<c:forEach items="${userList}" var="data">
+	               			<tr>
+	               				<td><c:out value="${data.userNum}"/></td>
+	               				<td><c:out value="${data.userName}"/></td>
+	               				<td><c:out value="${data.userId}"/></td>
+	               				<td>
+	               					연락처 : <c:out value="${data.userTel}"/><br>
+	               					이메일 : <c:out value="${data.userEmail}"/><br>
+	               					주 소 : <c:out value="${data.userAddr2}"/>(<c:out value="${data.userAddr1}"/>)<br>
+	               					상세 주소	: <c:out value="${data.userAddr3}"/><br>
+	               					포인트 : <c:out value="${data.userPoint}"/>
+	               				</td>
+	               				<td>
+	               					<c:if test="${data.userStatus eq 0}">
+	               						<div class="badge bg-primary">일반회원</div>
+	               					</c:if>
+	               					<c:if test="${data.userStatus eq 3}">
+	               						<div class="badge bg-warning">정지회원</div>
+	               					</c:if>
+	               				</td>
+	               				<td>
+	               					<a class="btn btn-primary" href="normalUser?userNum=${data.userNum}">일반</a> <a class="btn btn-warning" href="stopUser?userNum=${data.userNum}">정지</a>
+	               				</td>
+	               			</tr>
+               			</c:forEach>
+               		</table>
                 </div>
                 
                 <!-- 기부관리 -->

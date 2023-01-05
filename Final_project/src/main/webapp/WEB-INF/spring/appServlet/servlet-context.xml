@@ -67,4 +67,13 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+	
+	<!-- Interceptor 설정 ============================== -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<beans:bean class="three.common.interceptor.AdminInterCeptor"/>
+		</interceptor>
+
+	</interceptors>
 </beans:beans>

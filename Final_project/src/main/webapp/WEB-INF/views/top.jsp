@@ -19,6 +19,7 @@
 
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+	
 
 <!-- Favicons -->
 <link href="${path}/resources/assets/img/favicon.png" rel="icon">
@@ -83,7 +84,6 @@
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
-		var pfrm=document.frmPost;
 		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
@@ -203,12 +203,12 @@ $(function(){
         </li><!-- End Search Icon-->
 
 		<!-- 로그인 하지 않은 상태 -->
-                <c:if test = "${user == null }">
-                    <div class="login_button"><a href="login">로그인</a><a>  /  </a>
-                    <span><a href="join">회원가입</a></span></div><a>　</a>               
+                <c:if test = "${user eq null }">
+                    <div class="login_button"><a href="${path}/login">로그인</a>  /  
+                    <span><a href="${path}/join">회원가입</a></span></div>               
                 </c:if>
         <!-- 로그인한 상태 -->
-                <c:if test="${ user != null }">
+                <c:if test="${ user ne null }">
 
         <li class="nav-item dropdown">
 
@@ -311,7 +311,7 @@ $(function(){
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>${user.userName}</h6>
-              <span>포인트 : <fmt:formatNumber value="${user.userPoint}" pattern="#,###" /></span>
+              <span>포인트 : <fmt:formatNumber value="${user.userPoint}" pattern="###,###,###" /></span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -341,13 +341,12 @@ $(function(){
               <a class="dropdown-item d-flex align-items-center" href="logout.do">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>로그아웃</span>
-                </c:if>
               </a>
             </li>
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
-
-      </ul>
+		</c:if>
+     </ul>
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
@@ -383,7 +382,7 @@ $(function(){
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="${path}/donation">
           <i class="bi bi-gem"></i><span>Donation</span>
         </a>
 
@@ -394,7 +393,7 @@ $(function(){
         </a>
         
       <!-- 관리자 전용 페이지 -->
-			<c:if test="${id eq 3}">
+			<c:if test="${user.userStatus eq 1}">
 				<li class="nav-item"><a class="nav-link collapsed"
 					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
 				</a></li>

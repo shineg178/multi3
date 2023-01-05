@@ -46,4 +46,20 @@
 	<delete id="cancelPay" parameterType="int">
 		delete from payment where merchant_uid=#{merchant_uid}
 	</delete>
+	
+	<select id="userList" resultType="User">
+		select * from project_user where userStatus!=1
+	</select>
+	
+	<update id="normalUser" parameterType="int">
+		update project_user set userStatus=0 where userNum=#{value}
+	</update>
+	
+	<update id="stopUser" parameterType="int">
+		update project_user set userStatus=3 where userNum=#{value}
+	</update>
+	
+	<select id="findUser" parameterType="String" resultType="User">
+		select * from project_user where userId like '%'||#{value}||'%'  
+	</select>
 </mapper>

@@ -42,4 +42,13 @@ public interface AdminService {
 	
 	//결제 내역 취소하기
 	int cancelPay(int merchant_uid);
+	
+	//회원상태 일반 변경
+	int normalUser(int userNum);
+	
+	//회원상태 정지 변경
+	int stopUser(int userNum);
+	
+	//아이디 검색으로 회원 정보 가져오기
+	List<UserVO> findUser(String userId);
 }

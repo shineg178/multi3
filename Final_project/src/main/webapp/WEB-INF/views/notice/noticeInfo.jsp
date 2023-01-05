@@ -41,7 +41,7 @@
 		<table class="table">
 			<tr>
 				<td><h4>${notice.getNTitle()}</h4></td>
-				<td style="font-weight:bold">${notice.getNUserNum_fk()}</td>
+				<td style="font-weight:bold">${notice.getNUserId()}</td>
 				<td>${notice.getNDate()}</td>
 			</tr>
 			<tr>
@@ -58,7 +58,7 @@
 			</tr>
 		</table>
 		<!-- 관리자일 경우 -->
-		<c:if test="${id eq 3}">
+		<c:if test="${user.userStatus eq 1}">
 			<a href="admin/editNoticeForm?nIdx=${notice.getNIdx()}" class="btn btn-outline-warning">수정</a> 
 			<a onclick="deleteNotice(${notice.getNIdx()})" class="btn btn-outline-danger">삭제</a>
 		</c:if>

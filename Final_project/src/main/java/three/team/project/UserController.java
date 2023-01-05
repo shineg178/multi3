@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.log4j.Log4j;
+import three.mail.service.MailService;
 import three.user.model.UserVO;
 import three.user.service.UserService;
 
@@ -23,6 +25,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userservice;
+	
+	@Autowired
+	private MailService mailService;
 
 	// 회원가입 페이지 이동
 	@GetMapping("join")
@@ -112,6 +117,35 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 
+	}
+	
+	@PostMapping(value="/findIdAction",produces="text/plain; charset=UTF-8")
+	@ResponseBody
+	public String findIdAction(@RequestParam String userName,@RequestParam String userEmail) {
+		UserVO vo= new UserVO();
+		vo.setUserName(userName);
+		vo.setUserEmail(userEmail);
+		String userId = userservice.findId(vo);
+		return userId;
+	}
+	
+	@PostMapping(value="/findPwdAction",produces="text/plain; charset=UTF-8")
+	@ResponseBody
+	public String findPwdAction(@ModelAttribute UserVO vo) {
+		String userPwd=userservice.findPwd(vo);
+		if(userPwd==null) {
+			return "아이디, 이메일을 다시 한번 확인해주세요.";
+		}
+		//메일 전송 내용
+		String addr = "dmsrb9810@gmail.com";
+		String subject = "비밀번호 찾기 결과";
+		String body = vo.getUserId()+" 회원님의 비밀번호는 "+userPwd+" 입니다";
+				
+				//메일 전송
+		mailService.sendEmail(vo.getUserEmail(), addr, subject, body);
+		
+		
+		return "이메일을 확인해 주세요";
 	}
 
 }

@@ -15,5 +15,10 @@ public interface UserService {
 	 * 
 	 * // 구글로그인 public UserVO loginUserByGoogle(UserVO vo);
 	 */
-
+	
+	//아이디 찾기 
+	String findId(UserVO vo);
+	
+	//비밀번호 찾기
+	String findPwd(UserVO vo);
 }

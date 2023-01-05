@@ -35,7 +35,15 @@
 		from project_user where
 		userId
 		= #{userId} and userPassword = #{userPassword}
-
+		
+	</select>
+	
+	<select id="findId" parameterType="User" resultType="String">
+		select userid from project_user where userName=#{userName} and userEmail=#{userEmail}
+	</select>
+	
+	<select id="findPwd" parameterType="User" resultType="String">
+		select userPassword from project_user where userId=#{userId} and userEmail=#{userEmail}
 	</select>
 
 </mapper>

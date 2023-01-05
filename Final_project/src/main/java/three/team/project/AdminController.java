@@ -20,6 +20,7 @@ import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.mail.service.MailService;
 import three.payment.model.PaymentVO;
+import three.user.model.UserVO;
 
 //관리자 페이지 컨트롤러
 @Controller
@@ -50,10 +51,14 @@ public class AdminController {
 		//결재 내역 가져오기
 		List<PaymentVO> payList=adminServiceImpl.payList();
 		
+		//회원정보 가져오기
+		List<UserVO> userList=adminServiceImpl.userList();
+		
 		m.addAttribute("pay",payList);
 		m.addAttribute("exchange",exList);
 		m.addAttribute("main",donVO);
 		m.addAttribute("Org",orglist);
+		m.addAttribute("userList",userList);
 		
 		return "admin/adminPage";
 	}
@@ -133,6 +138,33 @@ public class AdminController {
 		adminServiceImpl.cancelPay(num);
 		
 		return "redirect:adminPage";
+	}
+	
+	//회원 상태 정지로 변경
+	@GetMapping("/stopUser")
+	public String stopUser(@RequestParam int userNum) {
+		adminServiceImpl.stopUser(userNum);
+		
+		return "redirect:adminPage";
+	}
+	
+	//회원 상태 일반으로 변경
+	@GetMapping("/normalUser")
+	public String normalUser(@RequestParam int userNum) {
+		
+		adminServiceImpl.normalUser(userNum);
+		
+		return "redirect:adminPage";
+	}
+	
+	//아이디 검색으로 찾기
+	@PostMapping(value="/adminfindUser",produces="application/json")
+	@ResponseBody
+	public List<UserVO> adminfindUser(@RequestParam String userId){
+		
+		List<UserVO> userList=adminServiceImpl.findUser(userId);
+		
+		return userList;
 	}
 	
 }

@@ -1,43 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
 
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-  
-  <!-- Favicons -->
-  <link href="${path}/resources/assets/img/favicon.png" rel="icon">
-  <link href="${path}/resources/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<!-- Favicons -->
+<link href="${path}/resources/assets/img/favicon.png" rel="icon">
+<link href="${path}/resources/assets/img/apple-touch-icon.png"
+	rel="apple-touch-icon">
 
-  <!-- Vendor CSS Files -->
-  <link href="${path}/resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${path}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="${path}/resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="${path}/resources/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="${path}/resources/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="${path}/resources/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="${path}/resources/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="${path}/resources/assets/css/style.css" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link
+	href="${path}/resources/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="${path}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link
+	href="${path}/resources/assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
+<link href="${path}/resources/assets/vendor/quill/quill.snow.css"
+	rel="stylesheet">
+<link href="${path}/resources/assets/vendor/quill/quill.bubble.css"
+	rel="stylesheet">
+<link href="${path}/resources/assets/vendor/remixicon/remixicon.css"
+	rel="stylesheet">
+<link href="${path}/resources/assets/vendor/simple-datatables/style.css"
+	rel="stylesheet">
 
-  <!-- =======================================================
+<!-- Template Main CSS File -->
+<link href="${path}/resources/assets/css/style.css" rel="stylesheet">
+
+<!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Author: BootstrapMade.com
@@ -45,29 +61,30 @@
   ======================================================== -->
 </head>
 <style>
-	#chatExit{
-		float:right; 
-		line-height: 1 ;
-	}
-	#chatLink{
-		padding: 5px 0px;
-		width:160px;
-		float:left;
-	}
-	.message-item{
-		height:65px;
-	}
-</style>
-<script>
+#chatExit {
+	float: right;
+	line-height: 1;
+}
 
+#chatLink {
+	padding: 5px 0px;
+	width: 160px;
+	float: left;
+}
+
+.message-item {
+	height: 65px;
+}
+</style>
+
+<script>
 	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
-
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
 		var targetLeft = window.screenLeft+target.getBoundingClientRect().left-450;
 		var pfrm=document.frmPost;
-		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=600, menubar=0 ,resizable=0')
+		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
 	//내 채팅 목록 가져오기
@@ -79,18 +96,15 @@
 			cache:false,
 			success:function(res){
 				str="";
-				if(res==null){
-					str+="<li class='message-item'><a id='chatLink'>존재하는 채팅방이 없습니다</a></li>";
-				}
 				if(res!=null){
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userNum1==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum2+"</a>";
+						if(data.userId1==${id}){
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
-						if(data.userNum2==${id}){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userNum1+"</a>";
+						if(data.userId2==${id}){
+							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
 						str+="</li>";
@@ -102,6 +116,11 @@
 				alert('error : '+err.status);
 			}
 		})
+	}
+
+	myChatList();
+	
+
 	
 	//채팅방 나가기
 	function deleteChat(rid){
@@ -123,35 +142,38 @@
 
 	} 
 
-	}
 	
-	$(function(){
-		//2초마다 주기적으로 읽지않은 메시지 수 가져오기
-		let interval = setInterval(chatAlert,2000);
+$(function(){
+	
+	//2초마다 주기적으로 읽지않은 메시지 수 가져오기
+	let interval = setInterval(chatAlert,2000);
+	
 
-		
-		//읽지않은 메시지 가져오는 메서드
-		function chatAlert(){
-			$.ajax({
-				type:'get',
-				url:'${path}/AllnoRead',
-				dataType:'json',
-				cache:false,
-				success:function(res){
-					if(res==0) $('#noRead').text('');
-					if(res>0){
-						$('#noRead').text(res);
-					}
-				},				error:function(err){
-					alert('error : '+err.status);
+	//읽지않은 메시지 가져오는 메서드
+
+	function chatAlert(){
+		$.ajax({
+			type:'get',
+			url:'${path}/AllnoRead',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				if(res==0) $('#noRead').text('');
+				if(res>0){
+					$('#noRead').text(res);
 				}
-			})
-		}
-
-	});
-
+			},				
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
+		
+		
+});
 </script>
 <body>
+
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -370,9 +392,17 @@
           <i class="bi bi-person"></i>
           <span>Mypage</span>
         </a>
+        
+      <!-- 관리자 전용 페이지 -->
+			<c:if test="${id eq 3}">
+				<li class="nav-item"><a class="nav-link collapsed"
+					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
+				</a></li>
+			</c:if>
       </li><!-- End Profile Page Nav -->
     </ul>
   </aside><!-- End Sidebar-->
 
 
- 
+
+

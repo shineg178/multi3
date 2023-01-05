@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ChatAlertVO {
 	private int roomid;
-	private int usernum;
+	private String userId;
 	private int noReadCount;//읽지 않은 메시지 수 
 }

@@ -54,13 +54,33 @@ public class ChatServcieImpl implements ChatService{
 	}
 
 	@Override
-	public int myNoRead(int usernum) {
-		return chatMapper.myNoRead(usernum);
+	public int myNoRead(String userId) {
+		return chatMapper.myNoRead(userId);
 	}
 
 	@Override
 	public int deleteNoRead(ChatAlertVO vo) {
 		return chatMapper.deleteNoRead(vo);
+	}
+
+	@Override
+	public int sendImg(ChatVO vo) {
+		return chatMapper.sendImg(vo);
+	}
+
+	@Override
+	public String findImg(ChatVO vo) {
+		return chatMapper.findImg(vo);
+	}
+
+	@Override
+	public List<ChatAlertVO> myNoread(String userId) {
+		return chatMapper.myNoread(userId);
+	}
+
+	@Override
+	public List<String> exitRoomImg(int roomid) {
+		return chatMapper.exitRoomImg(roomid);
 	}
 	
 	

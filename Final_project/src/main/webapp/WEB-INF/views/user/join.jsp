@@ -56,11 +56,11 @@
 					class="postcodify_details"></span>
 				<div class="btnArea">
 					<button id="joinBtn">가입하기</button>
+					<button type="button" onClick="location.href='/project'">돌아가기</button>
 				</div>
 			</form>
 		</div>
 	</div>
-
 	<!-- 주소 API 스크립트 -->
 	<!-- jQuery와 Postcodify를 로딩한다 -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -70,32 +70,6 @@
 		$(function() {
 			$("#postcodify_search_button").postcodifyPopUp();
 		});
-	</script>
-	<script>
-		/* 유효성 검사 통과유무 변수 */
-		var idCheck = false; // 아이디
-		var passwordCheck = false; // 비번
-		var passwordckCheck = false; // 비번 확인
-		var passwordckcorCheck = false; // 비번 확인 일치 확인
-		var nameCheck = false; // 이름
-		var mailCheck = false; // 이메일
-		var addressCheck = false // 주소
-
-		$(document).ready(function() {
-			//회원가입 버튼(회원가입 기능 작동)
-			$("#joinBtn").click()
-			/* 입력값 변수 */
-        var id = $('#userId').val();                 // id 입력란
-        var pw = $('#userPassword').val();                // 비밀번호 입력란
-        var pwck = $('#userPassword').val();            // 비밀번호 확인 입력란
-        var name = $('#userName').val();            // 이름 입력란
-        var mail = $('#userEmail').val();            // 이메일 입력란
-        var addr = $('#userAddr3').val();        // 주소 입력란
-			
-				//$("#join_form").attr("action", "/user/join");
-				//$("#join_form").submit();
-			}
-		})
 	</script>
 </body>
 </html>

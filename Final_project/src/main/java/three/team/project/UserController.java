@@ -62,37 +62,7 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	/*
-	 * 구글아이디로 로그인
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/loginGoogle", method = RequestMethod.POST) public
-	 * String loginGooglePOST(UserVO vo, HttpSession session, RedirectAttributes
-	 * rttr, UserVO mvo) throws Exception { UserVO returnVO =
-	 * userservice.loginUserByGoogle(vo); String mvo_ajaxid = mvo.getUserId();
-	 * System.out.println("C: 구글아이디 포스트 db에서 가져온 vo " + vo);
-	 * System.out.println("C: 구글아이디 포스트 ajax에서 가져온 id " + mvo_ajaxid);
-	 * 
-	 * if (returnVO == null) { // 아이디가 DB에 존재하지 않는 경우 // 구글 회원가입
-	 * userservice.joinUserByGoogle(vo);
-	 * 
-	 * // 구글 로그인 returnVO = userservice.loginUserByGoogle(vo);
-	 * session.setAttribute("id", returnVO.getUserId());
-	 * rttr.addFlashAttribute("mvo", returnVO); }
-	 * 
-	 * if (mvo_ajaxid.equals(returnVO.getUserId())) { // 아이디가 DB에 존재하는 경우 // 구글 로그인
-	 * userservice.loginUserByGoogle(vo); session.setAttribute("id",
-	 * returnVO.getUserId()); rttr.addFlashAttribute("mvo", returnVO); } else {//
-	 * 아이디가 DB에 존재하지 않는 경우 // 구글 회원가입 userservice.joinUserByGoogle(vo);
-	 * 
-	 * // 구글 로그인 returnVO = userservice.loginUserByGoogle(vo);
-	 * session.setAttribute("id", returnVO.getUserId());
-	 * rttr.addFlashAttribute("mvo", returnVO); }
-	 * 
-	 * return "redirect:/"; }
-	 */
-
+	
 	// 아이디 찾기 페이지 이동
 	@GetMapping("find-id")
 	public String findIdGet() {

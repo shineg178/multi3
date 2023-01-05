@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script
@@ -50,11 +51,11 @@
 }
 div#left{
 	text-align:left;
-	margin:25px 5px;
+	margin:10px 5px;
 }
 div#right{
 	text-align:right;
-	margin:25px 5px;
+	margin:10px 5px;
 }
 span#left{
 	padding:5px;
@@ -78,7 +79,6 @@ span#right{
 
 img{
 	width:80%;
-	margin-bottom:10px;
 }
 
 </style>
@@ -182,6 +182,9 @@ function sendMsg(e){
 			var userid = data.split(":")[0];
 			var type= data.split(":")[2];
 			var position;
+			var date = new Date();
+			var time=date.getHours()+":"+date.getMinutes();
+			
 			if(userid == ${id} ){
 				position="right";
 			}else{
@@ -189,7 +192,8 @@ function sendMsg(e){
 			}
 			//메시지만 전송 받았을때
 			if(type=="msg"){
-				$('#chatLog').append("<div id="+position+"><span id="+position+">" + data.split(":")[1] + "</span></div>");
+				$('#chatLog').append("<div id="+position+"><span id="+position+">" + data.split(":")[1] + "</span><br><span style='font-size:8px;'>"+time+"<span></div>");
+				
 			}
 			//이미지를 전송 받았을때
 			if(type=="img"){
@@ -206,14 +210,39 @@ function sendMsg(e){
 		<c:forEach var="data" items="${cList}">
 			<!-- 이미지가 첨부 되지않았을때 -->
 			<c:if test="${data.getCImg() eq null}">
+			<c:set var="now" value="<%=new java.util.Date() %>"/>
+			<fmt:formatDate var="today" value="${now}" pattern="dd"/>
+			<fmt:formatDate var="dbtoday" value="${data.getChatTime()}" pattern="dd"/>
 				<c:if test="${data.getSUser() eq id}">
 					<div id="right">
 						<span id="right">${data.getSendMsg()}</span>
+						<br>
+						<c:if test="${dbtoday<today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="MM-dd HH:ss"/>${date}
+							</span>
+						</c:if>
+						<c:if test="${dbtoday eq today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="HH:ss"/>${date}
+							</span>
+						</c:if>
 					</div>
 				</c:if>
 				<c:if test="${data.getSUser() ne id}">
 					<div id="left">
 						<span id="left">${data.getSendMsg()}</span>
+						<br>
+						<c:if test="${dbtoday<today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="MM-dd HH:ss"/>${date}
+							</span>
+						</c:if>
+						<c:if test="${dbtoday eq today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="HH:ss"/>${date}
+							</span>
+						</c:if>
 					</div>
 				</c:if>
 			</c:if>
@@ -224,14 +253,32 @@ function sendMsg(e){
 					<div id="right">
 						<img id="right" src="${pageContext.request.contextPath}/resources/Chat_Image/${data.getCImg()}"/>
 						<br>
-						<%-- <span id="right">${data.getSendMsg()}</span> --%>
+						<c:if test="${dbtoday<today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="MM-dd HH:ss"/>${date}
+							</span>
+						</c:if>
+						<c:if test="${dbtoday eq today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="HH:ss"/>${date}
+							</span>
+						</c:if>
 					</div>
 				</c:if>
 				<c:if test="${data.getSUser() ne id}">
 					<div id="left">
 						<img id="left" src="${pageContext.request.contextPath}/resources/Chat_Image/${data.getCImg()}"/>
 						<br>
-						<%-- <span id="left">${data.getSendMsg()}</span> --%>
+						<c:if test="${dbtoday<today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="MM-dd HH:ss"/>${date}
+							</span>
+						</c:if>
+						<c:if test="${dbtoday eq today}">
+							<span style="font-size:8px;">
+								<fmt:formatDate  var="date" value="${data.getChatTime()}" type="DATE" pattern="HH:ss"/>${date}
+							</span>
+						</c:if>
 					</div>
 				</c:if>
 			</c:if>

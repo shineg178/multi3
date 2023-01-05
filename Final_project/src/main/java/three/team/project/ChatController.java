@@ -113,7 +113,22 @@ public class ChatController {
 	//채팅방 나가기
 	@PostMapping(value="/deleteChat",produces="application/json")
 	@ResponseBody
-	public int ExitChat(@RequestParam int rid) {
+	public int ExitChat(@RequestParam int rid,HttpSession ses) {
+		//방에 있는 이미지 이름 목록 가져오기
+		List<String> imgList=chatServiceImpl.exitRoomImg(rid);
+		
+		ServletContext app=ses.getServletContext();
+		String upDir=app.getRealPath("/resources/Chat_Image");
+		
+		for(String fname:imgList) {
+			if(fname!=null) {
+				File delf=new File(upDir,fname);
+				if(delf.exists()) {
+					delf.delete();
+				}
+			}
+		}
+		
 		return chatServiceImpl.exitChat(new ChatRoomVO(rid,null,null));
 	}
 	
@@ -161,7 +176,6 @@ public class ChatController {
 		}catch(Exception e) {
 			log.error(e);
 		}
-		
 		return n;
 	}
 	

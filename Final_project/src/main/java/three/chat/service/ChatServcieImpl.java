@@ -77,6 +77,11 @@ public class ChatServcieImpl implements ChatService{
 	public List<ChatAlertVO> myNoread(String userId) {
 		return chatMapper.myNoread(userId);
 	}
+
+	@Override
+	public List<String> exitRoomImg(int roomid) {
+		return chatMapper.exitRoomImg(roomid);
+	}
 	
 	
 	

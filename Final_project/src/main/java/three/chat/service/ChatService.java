@@ -42,4 +42,7 @@ public interface ChatService {
 	
 	//채팅방 별 안읽은 방 가져오기
 	List<ChatAlertVO> myNoread(String userId);
+	
+	//나가는 채팅방 이미지 이름 가져오기
+	List<String> exitRoomImg(int roomid);
 }

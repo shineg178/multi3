@@ -63,4 +63,8 @@
 	<select id="myNoread" parameterType="String" resultType="ChatAlert">
 		select roomid from chatAlert where userid=#{value} group by roomid
 	</select>
+	
+	<select id="exitRoomImg" parameterType="int" resultType="String">
+		select cimg from chat where roomid_fk=#{roomid}
+	</select>
 </mapper>

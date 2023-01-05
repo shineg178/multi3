@@ -138,12 +138,13 @@ function sendMsg(e){
 					data:formData,
 					cache:false,
 					success:function(res){
+						sendMessage(${Room.roomid}+":"+${id}+":"+toUser+":"+fileName+":img");	
 					},
 					error:function(err){
 						alert('error : '+err.status);
 					}	
 				})
-				sendMessage(${Room.roomid}+":"+${id}+":"+toUser+":"+fileName+":img");
+				
 			}
 			
 			//첨부파일을 넣지 않았을때

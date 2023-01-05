@@ -1,8 +1,13 @@
+
 package three.donation.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class DonationVO {
 	
 	
@@ -25,3 +30,4 @@ public class DonationVO {
 	private String userId;//사용자 아이디
 	
 }  
+

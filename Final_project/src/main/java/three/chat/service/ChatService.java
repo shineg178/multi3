@@ -29,8 +29,20 @@ public interface ChatService {
 	int addNoReadCount(ChatAlertVO vo);
 	
 	//안읽은 메시지 가져오기
-	int myNoRead(int usernum);
+	int myNoRead(String userId);
 	
 	//읽지않은 메시지 내역 삭제
 	int deleteNoRead(ChatAlertVO vo);
+	
+	//이미지 전송 
+	int sendImg(ChatVO vo);
+	
+	//이미지 이름으로 이미지 찾기
+	String findImg(ChatVO vo);
+	
+	//채팅방 별 안읽은 방 가져오기
+	List<ChatAlertVO> myNoread(String userId);
+	
+	//나가는 채팅방 이미지 이름 가져오기
+	List<String> exitRoomImg(int roomid);
 }

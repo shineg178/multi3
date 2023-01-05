@@ -151,6 +151,7 @@ public class NoticeController {
 		return "notice/noticeInfo";
 	}
 	
+	//공지사항 수정
 	@PostMapping("admin/editNotice")
 	public String editNotice(@ModelAttribute NoticeVO newVo,
 			@RequestParam(value="filename",required=false) MultipartFile file,

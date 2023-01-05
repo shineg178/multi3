@@ -25,7 +25,7 @@
 				</div>
 				<div class="footer">
 					<p>
-						<a href="find-password">비밀번호 찾기</a> / <a href="login">로그인</a> / <a href="join">회원가입</a>
+						<a href="find-password">비밀번호 찾기</a> / <a href="login">로그인</a> / <a href="join">회원가입</a> / <a href="/project">돌아가기</a>
 					</p>
 				</div>
 			</div>

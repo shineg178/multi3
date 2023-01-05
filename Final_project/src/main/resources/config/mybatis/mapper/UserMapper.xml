@@ -13,7 +13,7 @@
 		insert into project_user values(#{userNum},#{userId}, #{userPassword},
 		#{userName}, #{userTel}, #{userEmail}, #{userAddr1}, #{userAddr2},
 		#{userAddr3},
-		#{userNick:VARCHAR}, 100000, #{userImage:VARCHAR}, #{userInfo:VARCHAR},
+		#{userNick:VARCHAR}, 0, #{userImage:VARCHAR}, #{userInfo:VARCHAR},
 		#{userBronzeBadge:NUMERIC}, #{userSilverBadge:NUMERIC},
 		#{userGoldBadge:NUMERIC},
 		#{userTwitter:VARCHAR},
@@ -22,13 +22,6 @@
 		#{userStatus}
 		)
 	</insert>
-	
-	<!-- 아이디 중복검사 -->
-  	<select id="idCheck" resultType="int">
-  	
-  		select count(*) from project_user where userId = #{userId}
-  	
-  	</select>
 
 	<!-- 로그인 -->
 	<select id="loginUser" resultType="three.user.model.UserVO">

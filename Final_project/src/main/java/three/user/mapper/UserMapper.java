@@ -10,6 +10,4 @@ public interface UserMapper {
 	/* 로그인 */
 	public UserVO loginUser(UserVO user);
 
-	// 아이디 중복 검사
-	public int idCheck(String userId);
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
+<title>비밀번호 찾기</title>
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/find-password.css"
 	rel="stylesheet" type="text/css">
@@ -25,7 +25,7 @@
 				</div>
 				<div class="footer">
 					<p>
-						<a href="find-id">아이디 찾기</a> / <a href="login">로그인</a> / <a href="join">회원가입</a>
+						<a href="find-id">아이디 찾기</a> / <a href="login">로그인</a> / <a href="join">회원가입</a> / <a href="/project">돌아가기</a>
 					</p>
 				</div>
 			</div>

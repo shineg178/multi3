@@ -9,21 +9,11 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/join.css"
 	rel="stylesheet" type="text/css">
 <script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js">
+	
+</script>
 
 </head>
-<style>
-/* 중복아이디 존재하지 않는경우 */
-.id_input_re_1 {
-	color: green;
-	display: none;
-}
-/* 중복아이디 존재하는 경우 */
-.id_input_re_2 {
-	color: red;
-	display: none;
-}
-</style>
 <body>
 	<div class="outer">
 		<div id="joinInfoArea">
@@ -32,10 +22,8 @@
 
 				<h4>* 아이디</h4>
 				<span class="input_area"><input type="text" maxlength="13"
-					name="userId" required></span><br> <br> <span
-					class="id_input_re_1">사용 가능한 아이디입니다.</span> <span
-					class="id_input_re_2">아이디가 이미 존재합니다.</span>
-				<!-- <button id="idCheck" type="button">중복확인</button> -->
+					name="userId" required></span>
+				<button id="idCheck" type="button">중복확인</button>
 				<h4>* 비밀번호</h4>
 				<span class="input_area"><input type="password"
 					maxlength="15" name="userPassword" required></span>
@@ -77,42 +65,37 @@
 	<!-- jQuery와 Postcodify를 로딩한다 -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-
-
 	<script>
 	<!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
 		$(function() {
 			$("#postcodify_search_button").postcodifyPopUp();
 		});
-
-		//아이디 중복검사
-		$("input[name=userId]").on(
-				"propertychange change keyup paste input",
-				function() {
-					var userId = $("input[name=userId]").val(); // .userId에 입력되는 값
-					var data = {
-						userId : userId
-					} // '컨트롤에 넘길 데이터 이름' : '데이터(.userId에 입력되는 값)'
-					$.ajax({
-						type : "post",
-						url : "/user/userIdChk",
-						data : data,
-						success : function(result) {
-							if (result != 'fail') {
-								$('.id_input_re_1').css("display",
-										"inline-block");
-								$('.id_input_re_2').css("display", "none");
-							} else {
-								$('.id_input_re_2').css("display",
-										"inline-block");
-								$('.id_input_re_1').css("display", "none");
-							}
-						}// success 종료
-					}); // ajax 종료
-
-				});// function 종료
 	</script>
+	<script>
+		/* 유효성 검사 통과유무 변수 */
+		var idCheck = false; // 아이디
+		var passwordCheck = false; // 비번
+		var passwordckCheck = false; // 비번 확인
+		var passwordckcorCheck = false; // 비번 확인 일치 확인
+		var nameCheck = false; // 이름
+		var mailCheck = false; // 이메일
+		var addressCheck = false // 주소
 
-
+		$(document).ready(function() {
+			//회원가입 버튼(회원가입 기능 작동)
+			$("#joinBtn").click()
+			/* 입력값 변수 */
+        var id = $('#userId').val();                 // id 입력란
+        var pw = $('#userPassword').val();                // 비밀번호 입력란
+        var pwck = $('#userPassword').val();            // 비밀번호 확인 입력란
+        var name = $('#userName').val();            // 이름 입력란
+        var mail = $('#userEmail').val();            // 이메일 입력란
+        var addr = $('#userAddr3').val();        // 주소 입력란
+			
+				//$("#join_form").attr("action", "/user/join");
+				//$("#join_form").submit();
+			}
+		})
+	</script>
 </body>
 </html>

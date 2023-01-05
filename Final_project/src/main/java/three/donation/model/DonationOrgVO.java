@@ -1,3 +1,4 @@
+
 package three.donation.model;
 
 import lombok.AllArgsConstructor;
@@ -16,4 +17,5 @@ public class DonationOrgVO {
 	private int status;
 	
 }
+
  

@@ -23,19 +23,22 @@ public class DonationController {
 	// donation 기부 페이지 메서드
 	@RequestMapping(value = "/donation", method = RequestMethod.GET)
 	public String donationForm(Model m) {
+		//기부페이지 상단 거래수와 총기부금액
 		log.info("==========donationForm==========");
 		m.addAttribute("totalDonation", donationService.totalDonation());
 		m.addAttribute("totalDonateCount", donationService.totalDonateCount());
 
+		//기부 순위, 기부단체설명
 		m.addAttribute("userListDonate", donationService.userListDonate());
 		m.addAttribute("donationOrgInfo", donationService.donationOrgInfo());
 		System.out.println(m);
 		return "donation/donation";
 	}
 
+	// 기부 페이지 내 기부자 순위 검색
 	@GetMapping(value = "/donationRankingSearch", produces = "application/json")
 	@ResponseBody
-	public int donationRankingId(@RequestParam int userId) {// 기부자 기부순위
+	public int donationRankingId(@RequestParam int userId) {
 		log.info("userId: " + userId);
 
 		String user=donationService.donationRankingId(userId);
@@ -44,8 +47,6 @@ public class DonationController {
 		}
 
 		return Integer.parseInt(user);
-
-
 
 	}
 

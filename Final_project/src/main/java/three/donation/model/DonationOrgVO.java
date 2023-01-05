@@ -8,7 +8,5 @@ public class DonationOrgVO {
 	private String donName;
 	private int donBankAccount;
 	private String donBankName;
-	
-	
 }
  

@@ -18,7 +18,8 @@
 	<!-- 기부자 목록(기부금액 높은 순으로 금액, 아이디 출력) -->
 	<select id="userListDonate" resultType="java.util.LinkedHashMap">
 		select row_number()
-		over(order by sum(donAmount) desc) rankingNumber,sum(donAmount) totalAmount,
+		over(order by sum(donAmount) desc) rankingNumber,
+		sum(donAmount) totalAmount,
 		userNum_fk from donation group by userNum_fk
 	</select>
 	
@@ -26,13 +27,14 @@
 	<select id="donationRankingId" resultType="String">
 		select *from (select row_number() 
     over(order by sum(donAmount) desc) rankingNumber,
-    userNum_fk from donation group by userNum_fk)  where userNum_fk=#{userId}
+    userNum_fk from donation 
+    group by userNum_fk)  where userNum_fk=#{userId}
 	</select>
 	
 	<!-- 기부 단체 설명 -->
 	<select id="donationOrgInfo" resultType="String">
 		select donOrgInfo from
 		donationOrg where donOrgNum=2002
-	</select>
+	</select> 
 
 </mapper>

@@ -29,8 +29,8 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public int insertAuction(ProductVO pvo, AuctionVO avo) {
-		return 0;
+	public int insertAuction(AuctionVO avo) {
+		return this.auctionMapper.insertAuction(avo);
 	}
 
 	@Override

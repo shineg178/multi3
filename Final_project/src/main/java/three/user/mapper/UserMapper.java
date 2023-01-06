@@ -6,5 +6,4 @@ public interface UserMapper {
 	
 	UserVO findUserByuserNum(int userNum);
 	
-	
 }

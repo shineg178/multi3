@@ -4,7 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <c:import url="/top" />
-
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <SCRIPT type="text/javascript">
 function remaindTime() {
     var now = new Date(); //현재시간을 구한다. 
@@ -31,54 +33,108 @@ function remaindTime() {
     $("#d-day-sec").html('00');
    }
   }
-  setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다. 
-  
-	/* //websocket 생성
-	  const websocket = new WebSocket("ws://localhost:8080/auction");
-	  websocket.onmessage = onMessage;	// 소켓이 메세지를 받을 때
-	  websocket.onopen = onOpen;		// 소켓이 생성될때(클라이언트 접속)
-	  websocket.onclose = onClose;	// 소켓이 닫힐때(클라이언트 접속해제)
-	
-	  //on exit chat room
-	  function onClose(evt) {
-	  console.log("close event : " + evt);
-	  }
-	
-	  //on entering chat room
-	  function onOpen(evt) {
-	  console.log("open event : " + evt);
-	  }
-	
-	  // on message controller
-	  function onMessage(msg) {
-	  var data = JSON.parse(msg.data); // msg를 받으면 data 필드 안에 Json String으로 정보가 있음
-	  // 필요한 정보를 Json data에서 추출
-	   var senderId = data.senderId;
-	   var message = data.message;
-	   var time = data.time;
-	   var newOne = data.newOne;
-	   var outOne = data.outOne;
-	  }
-	  
-	  // send a message
-	  function send(){
-	  var message = document.getElementById("msg").value;
-	  
-	  // don't send when content is empty
-	  // 채팅 입력 칸이 비어있지 않을 경우만 정보를 Json형태로 전송
-	  if(message != "") {			
-		let msg = {
-	 	'receiverId' : receiverId,
-	  	'message' : message
-	    	}
-	
-	  	if(message != null) {
-	  	websocket.send(JSON.stringify(msg));	// websocket handler로 전송(서버로 전송)
-	  	}
-	  	document.getElementById("msg").value = '';
-		}  */
+  setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
+let number=$('#inputPrice').val();
+function plus(amount){
+	if(number==null){
+		number=0;
+	}
+	if(amount === '10k'){
+		number = number+10000;
+	}else if(amount === '5k'){
+		number = number+5000;
+	}else if(amount === '1k'){
+		number = number+1000;
+	}else if(amount === '0.1k'){
+		number = number+100;
+	}else if(amount === 'reset'){
+		number = 0;
+	}
+	$('#inputPrice').val(number);
+}
 </script>
+<script>
+//전역변수 설정
+var socket  = null;
+	var url = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/auction";
+	sock = new SockJS(url);
+	socket = sock;
+$(document).ready(function(){
+	// 웹소켓 연결
+    connect();
+ 	$('#btnBid').click(function(){
+    	bid();
+    	sock.onmessage();
+    })
+});
 
+function connect(){
+	// 데이터를 전달 받았을때 
+	//sock.onmessage = onMessage;
+	//sock.onclose = onClose;
+	sock.onopen = function() {
+		console.log('info: connection opened.');
+		let str = '<div id="aucPrice">';
+		str += "${auction.aucPrice}원";
+		str += '</div>';
+		$('#tableAuc').html(str);
+	};
+}//connect---
+
+function bid(){
+	let prodNum=${prod.prodNum}
+	let userNum=${userNum}
+	let aucPrice=$('#inputPrice').val();
+	//전송정보 db에 저장
+	var dataObj={
+			"prodNum":prodNum,
+	        "userNum":userNum,
+	        "aucPrice":aucPrice
+	}
+	
+	$.ajax({
+	       type: 'post',
+	       url: 'auctionDetail/bid',
+	       contentType:'application/json',
+	       dataType: 'json',
+	       data: JSON.stringify(dataObj),
+	       success: function(){    // db전송 성공시 실시간 알림 전송
+	           // 소켓에 전달되는 메시지
+	           // 위에 기술한 EchoHandler에서 ,(comma)를 이용하여 분리시킨다.
+	           socket.send("${prod.prodName},"+aucPrice);
+	       		alert('입찰완료되었습니다')
+	       }
+	   });
+	$('#inputPrice').val('');
+}//----
+
+sock.onmessage=function(evt){
+	if(evt!=null){
+		var data = evt.data;
+		console.log(evt);
+		console.log(data);
+		var prodName = data.split(":")[0];
+		var aucPrice = data.split(":")[1];
+	}
+	if (evt==null) {
+		var aucPrice = "${auction.aucPrice}";
+	}
+	let str = '<div id="aucPrice">';
+	str += aucPrice+"원";
+	str += '</div>';
+	$('#tableAuc').html(str);
+	
+}//------
+
+
+/* function sock.onclose() {
+	console.log('connect close');
+	setTimeout(function(){
+		conntect();
+		} , 100000);
+}; */
+
+</script>
 <main id="main" class="main">
 	<!-- Product section-->
 	<section class="py-5">
@@ -130,7 +186,7 @@ function remaindTime() {
 					<br> <br>
 					<h3 class="fw-bolder">${prod.prodName }</h3>
 					<br>
-					<div class="large mb-3">${user.userNick}  |  ( ${user.userId} )</div>
+					<div class="large mb-3">${seller.userNick}  |  ( ${seller.userId} )</div>
 					<br>
 					<div class="fs-5 mb-5">
 						<table>
@@ -140,7 +196,7 @@ function remaindTime() {
 							</tr>
 							<tr>
 								<td>현재 입찰가</td>
-								<td class="d-flex justify-content-end">${prod.aucStartPrice }원</td>
+								<td id="tableAuc" class="d-flex justify-content-end"></td>
 							</tr>
 							<tr>
 								<td>시작 시간</td>
@@ -171,17 +227,62 @@ function remaindTime() {
 								<td>입찰 참여 인원 현황</td>
 								<td class="d-flex justify-content-end">XX명</td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center">
+									<input class="form-control text-end" 
+										id="inputPrice" type="number" 
+										placeholder="입찰포인트를 정해주세요" style="width:95%; letter-spacing: 3px"
+									>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="text-center">
+		                              <button type="button" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
+		                              <button type="button" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
+		                              <button type="button" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
+		                              <button type="button" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
+		                               <button type="button" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
+	                             	</div>
+								</td>
+							</tr>
 						</table>
-						<br> <input class="form-control" id="inputQuantity"
-							type="number" value="" style="max-width: 20rem" /> <br> <span
-							class="text-start">
-							<button class="btn btn-success btn-lg" type="button">
-								입찰하기</button>
-						</span> <span class="text-end col-3">
-							<button class="btn btn-info btn-lg" type="button">판매자와
-								채팅</button>
+						<br> 
+						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
+						<span class="text-start">
+							<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
+						</span> 
+						<span class="text-end col-3">
+							<button class="btn btn-info btn-lg" id="btnChat" type="button">판매자와 채팅</button>
 						</span>
-
+					<!-- Vertically centered Modal -->
+		            <!-- <div class="modal fade" id="bid" tabindex="-1">
+		                <div class="modal-dialog modal-dialog-centered">
+		                  <div class="modal-content">
+		                    <div class="modal-header text-center">
+		                      <h5 class="modal-title">입찰하기</h5>
+		                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		                    </div>
+		                    <div class="modal-body">
+		                    	<input class="form-control text-end" 
+										id="inputPrice" type="number" 
+										placeholder="입찰포인트를 정해주세요" style="width:95%; letter-spacing: 3px"
+									>
+		                    </div>
+		                     <div class="modal-body text-center">
+	                              <button type="button" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
+	                              <button type="button" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
+	                              <button type="button" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
+	                              <button type="button" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
+	                               <button type="button" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
+                              </div>  
+		                    <div class="modal-footer">
+		                      <button type="button" id="bidBtn" class="btn btn-primary">입찰하기</button>
+		                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		                    </div>
+		                  </div>
+		                </div>
+		              </div> --><!-- End Vertically centered Modal-->
 					</div>
 				</div>
 			</div>
@@ -197,7 +298,7 @@ function remaindTime() {
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="js/scripts.js"></script>
+    <!-- <script src="js/scripts.js"></script> -->
 
 </main>
 <!-- End #main -->

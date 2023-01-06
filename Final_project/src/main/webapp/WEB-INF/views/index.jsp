@@ -14,6 +14,7 @@
 			<a href="room2">2과 채팅방 생성</a><br> 
 			<a href="room3">3과 채팅방 생성</a><br>
 		</li>
+			<a href="auction/auctionDetail?prodNum=1&userNum=1">상품상세페이지</a><br>
 		<li>${id}로그인중</li>
 	</ul>
 </main>

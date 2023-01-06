@@ -243,7 +243,7 @@ $(document).ready(function(){
 	var IMP = window.IMP;  
   	IMP.init("imp07481554"); 
 	 function requestPay() {
-		 if($('#recharge-point').val()<=100){
+		 if($('#recharge-point').val()<100){
 			 alert('100원부터 결제 가능합니다')
 			 return;
 		 }

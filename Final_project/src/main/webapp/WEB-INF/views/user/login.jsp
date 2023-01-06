@@ -6,13 +6,29 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 - 기부앤테이크</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-	integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- 구글 라이브러리 -->
+
+<meta name="google-client_id" content="564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com">
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/login.css"
 	rel="stylesheet" type="text/css">
+<script>
+function onSignIn(){
+	var auth2 = gapi.auth2.getAuthInstance()
+	if(auth2.isSignedIn.get()){
+	 var profile = auth2.currentUser.get().getBasicProfile();
+	 googleLoginPro(profile)
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	}
+}
+</script>
 </head>
+
+
 <body>
 
 	<div class="container">
@@ -31,9 +47,9 @@
 						</c:if>
 					</form>
 					<span class="or-txt">또는</span> 
-					<a class="btn btn2">네이버 로그인</a>
-					<a class="btn btn3">카카오 로그인</a>
-					<a id="google_login" class="btn btn4" onclick="init();"><i class="fa fa-google-plus fa-fw">구글 로그인</i></a>
+					<a class="btn btn2" >네이버 로그인</a>
+					<a class="btn btn3" >카카오 로그인</a>
+					<a class="btn btn4" id="googleBtn">구글 로그인</a>
 				</div>
 				<div class="footer">
 					<p>
@@ -53,54 +69,14 @@
 			$("#login_form").attr("action", "login");
 			$("#login_form").submit();
 		});
+		
+		const onClickGoogleLogin = (e) => {
+			window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com&redirect_uri=http://localhost:9090/project/login/google/auth&response_type=code&scope=email%20profile%20openid&access_type=offline")
+		}
+		
+		const googleBtn = document.getElementById("googleBtn");
+		googleBtn.addEventListener("click",onClickGoogleLogin);
 	</script>
 
-	<!-- google signin api -->
-	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	<script>
-// google signin API
-var googleUser = {};
-function init() {
-	 gapi.load('auth2', function() {
-	  console.log("init()시작");
-	  auth2 = gapi.auth2.init({
-	        client_id: '565772189866-4uoto6esdde4qhfhpe3m22d85ravclu7.apps.googleusercontent.com'
-	        cookiepolicy: 'single_host_origin',
-	      });
-	      attachSignin(document.getElementById('google_login'));
-	 });
-}
-
-//google signin API2
-function attachSignin(element) {
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-    	var profile = googleUser.getBasicProfile();
-    	var id_token = googleUser.getAuthResponse().id_token;
-	  	  console.log('ID: ' + profile.getuserId()); // Do not send to your backend! Use an ID token instead.
-	  	  console.log('Name: ' + profile.getUserName());
-	  	  console.log('Email: ' + profile.getUserEmail()); // This is null if the 'email' scope is not present.
-			$(function() {
-				$.ajax({
-				    url: '/user/loginGoogle',
-				    type: 'post',
-				    data: {
-						"userId" : <!-- 필요한 데이터 담기 -->,
-						"userPassword" : <!-- 필요한 데이터 담기 -->,
-				        "userName": profile.getUserName(),
-						"userEmail": profile.getUserEmail()
-					    },
-				    success: function (data) {
-				            alert("구글아이디로 로그인 되었습니다");
-				            location.href="/";
-				        }
-				});
-			})
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-    console.log("구글API 끝");
-  }
-</script>
 </body>
 </html>

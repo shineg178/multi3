@@ -74,6 +74,7 @@
 			<mapping path="/admin/**"/>
 			<beans:bean class="three.common.interceptor.AdminInterCeptor"/>
 		</interceptor>
-
 	</interceptors>
+	
+		
 </beans:beans>

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import lombok.extern.log4j.Log4j;
 import three.mail.service.MailService;
+import three.social.google.GoogleLogin;
 import three.user.model.UserVO;
 import three.user.service.UserService;
 
@@ -28,12 +32,47 @@ public class UserController {
 	
 	@Autowired
 	private MailService mailService;
+	
 
 	// 회원가입 페이지 이동
 	@GetMapping("join")
 	public String joinGET() {
 		return "user/join";
 	}
+	
+	@GetMapping("/login/google/auth")
+	public String googleLogin(Model m,@RequestParam String code,HttpSession session) {
+		log.info(code);
+		
+		JsonNode jsonToken = GoogleLogin.getAccessToken(code);
+		String accessToken = jsonToken.get("access_token").toString();
+		String refreshToken ="";
+		if(jsonToken.has("refresh_token")) {
+			refreshToken = jsonToken.get("refresh_token").toString();
+		}
+		
+		String expiresTime = jsonToken.get("expires_in").toString();
+ 
+        // Access Token으로 사용자 정보 반환
+        JsonNode userInfo = GoogleLogin.getGoogleUserInfo(accessToken);
+        
+        String email = userInfo.get("email").asText();
+        String Name= userInfo.get("name").asText();
+        
+        UserVO vo=new UserVO();
+        vo.setUserId(email);
+        vo.setUserEmail(email);
+        vo.setUserName(Name);
+        
+        // 사용자 정보 출력
+        log.info(vo);
+        
+        // 받아온 사용자 정보를 view에 전달
+        m.addAttribute("socialMail", email);
+        
+		return "redirect:/";
+	}
+
 
 	// 회원가입 서비스 실행
 	@PostMapping("/joinUser")
@@ -45,9 +84,12 @@ public class UserController {
 
 	// 로그인 페이지 이동
 	@GetMapping("login")
-	public String loginGET() {
+	public String loginGET() throws Exception{
+
+				
 		return "user/login";
 	}
+
 
 	/* 로그인 */
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -147,5 +189,7 @@ public class UserController {
 		
 		return "이메일을 확인해 주세요";
 	}
+	
+	
 
 }

@@ -9,5 +9,8 @@ public interface UserMapper {
 
 	/* 로그인 */
 	public UserVO loginUser(UserVO user);
+	
+	/* 유저찾기 */
+	UserVO findUserByuserNum(int userNum);;
 
 }

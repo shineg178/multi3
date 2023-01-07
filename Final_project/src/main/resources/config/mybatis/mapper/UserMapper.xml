@@ -38,4 +38,14 @@
 
 	</select>
 
+	<!-- 유저 찾기 -->
+	<select id="findUserByuserNum" resultType="three.user.model.UserVO" parameterType="int">
+		select userNum, userId,
+		userPassword, userName, userTel, userEmail,
+		userAddr1, userAddr2,
+		userAddr3, userNick, userPoint, userImage, userInfo,
+		userBronzeBadge, userSilverBadge, userGoldBadge, userTwitter,
+		userFacebook, userInstagram, userLinkedin, userStatus from project_user where userNum=#{value}	
+	</select>
+	
 </mapper>

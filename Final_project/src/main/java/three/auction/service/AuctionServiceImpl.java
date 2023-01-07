@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import three.auction.mapper.AuctionMapper;
 import three.auction.model.AuctionVO;
+import three.product.mapper.ProductMapper;
 import three.product.model.ProductVO;
 import three.user.mapper.UserMapper;
 import three.user.model.UserVO;
@@ -15,7 +16,8 @@ public class AuctionServiceImpl implements AuctionService {
 	@Autowired
 	private AuctionMapper auctionMapper;
 	
-
+	@Autowired
+	private ProductMapper productMapper;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -27,10 +29,15 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public int insertAuction(ProductVO pvo, AuctionVO avo) {
-		return 0;
+	public int insertAuction(AuctionVO avo) {
+		return this.auctionMapper.insertAuction(avo);
 	}
 
+	@Override
+	public ProductVO selectProductByProdNum(int prodNum) {
+		
+		return this.productMapper.selectProductByProdNum(prodNum);
+	}
 
 	@Override
 	public AuctionVO selectAuctionByProdNum(int prodNum) {
@@ -41,12 +48,6 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public UserVO findUserByuserNum(int userNum) {
 		return this.userMapper.findUserByuserNum(userNum);
-	}
-
-	@Override
-	public ProductVO selectProductByProdNum(int prodNum) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -4,7 +4,12 @@
 <mapper namespace="three.auction.mapper.AuctionMapper">
 	
 	<select id="selectAuctionByProdNum" resultType="Auction" parameterType="_int">
-		select * from auction where prodNum_fk=#{value}	
+		select * from auction 
+		where prodNum_fk=#{value} and aucPrice=(select MAX(aucPrice) from auction)
 	</select>
+	
+	<insert id="insertAuction" parameterType="Auction">
+		insert into auction values(auc_seq.nextval,#{prodNum_fk},#{userNum_fk},#{aucPrice},sysdate)
+	</insert>
 	
 </mapper>

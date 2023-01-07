@@ -79,6 +79,10 @@ public class ProfileController {
 		String userid=map.get("userId").toString();
 		int exchangePoint=Integer.parseInt(map.get("exchangePoint").toString());
 		
+		if(bankName==null || bankAccountNum==null || userName==null || exchangePoint < 1000 ) {
+			return null;
+		}
+		
 		ExchangeVO vo=new ExchangeVO(0,bankName,bankAccountNum,userName,userEmail,userid,exchangePoint,null);
 		int n=this.profileServiceImpl.addExchange(vo);
 		int a=this.profileServiceImpl.minusPoint(vo);

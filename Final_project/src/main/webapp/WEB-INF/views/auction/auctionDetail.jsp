@@ -91,6 +91,17 @@ function bid(){
 	        "userNum":userNum,
 	        "aucPrice":aucPrice
 	}
+	if(aucPrice==0){
+		alert('입찰가를 적어주세요');
+		$('#inputPrice').focus();
+		return;
+	}
+	if(aucPrice<=${auction.aucPrice}){
+		alert('현재입찰가보다 높은금액으로 입찰해야합니다')
+		$('#inputPrice').val('');
+		$('#inputPrice').focus();
+		return;
+	}
 	
 	$.ajax({
 	       type: 'post',
@@ -98,11 +109,10 @@ function bid(){
 	       contentType:'application/json',
 	       dataType: 'json',
 	       data: JSON.stringify(dataObj),
-	       success: function(){    // db전송 성공시 실시간 알림 전송
+	       success: function(){   
 	           // 소켓에 전달되는 메시지
-	           // 위에 기술한 EchoHandler에서 ,(comma)를 이용하여 분리시킨다.
-	           socket.send("${prod.prodName},"+aucPrice);
-	       		alert('입찰완료되었습니다')
+	        socket.send("${prod.prodName},"+aucPrice);
+	       	alert('입찰완료되었습니다')
 	       }
 	   });
 	$('#inputPrice').val('');
@@ -125,15 +135,6 @@ sock.onmessage=function(evt){
 	$('#tableAuc').html(str);
 	
 }//------
-
-
-/* function sock.onclose() {
-	console.log('connect close');
-	setTimeout(function(){
-		conntect();
-		} , 100000);
-}; */
-
 </script>
 <main id="main" class="main">
 	<!-- Product section-->
@@ -222,10 +223,6 @@ sock.onmessage=function(evt){
 										<span class="col">초</span>
 									</div>
 								</td>
-							</tr>
-							<tr>
-								<td>입찰 참여 인원 현황</td>
-								<td class="d-flex justify-content-end">XX명</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center">

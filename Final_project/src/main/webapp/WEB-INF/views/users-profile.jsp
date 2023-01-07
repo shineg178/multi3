@@ -350,7 +350,7 @@ $(document).ready(function(){
                               	<tr>
                               		<td>계좌번호 :</td>
                               		<td>
-                                		<input type="number" id="bankAccountNum" class="form-control text-center" type="text" placeholder="숫자만 써주세요">
+                                		<input type="text" id="bankAccountNum" class="form-control text-center" placeholder="숫자만 써주세요">
                               		</td>
                               	</tr>
                               	<tr>
@@ -412,20 +412,59 @@ $(document).ready(function(){
 		exchangeList();
 	})
 });
+function isBank(input){
+	let val=input;
+	let pattern=/^[가-힣a-zA-Z]+$/;
+	let b=pattern.test(val); //정규식 패턴에 맞으면 true를 반환하고, 틀리면 false를 반환한다
+	return b;
+}
+function isNum(input){
+	let val=input;
+	let pattern=/^[0-9]+$/;
+	let b=pattern.test(val); //정규식 패턴에 맞으면 true를 반환하고, 틀리면 false를 반환한다
+	return b;
+}
+function isName(input){
+	let val=input;
+	let pattern=/^[가-힣]+$/;
+	let b=pattern.test(val); //정규식 패턴에 맞으면 true를 반환하고, 틀리면 false를 반환한다
+	return b;
+}
 function exchangePoint(){
-	var dataObj={
-		    "bankName":$('#bankName').val(), 
-		    "bankAccountNum":$('#bankAccountNum').val(), 
-		    "userName":"${user.userName}" ,
-		    "userEmail":"${user.userEmail}",
-		    "userId":"${user.userId}",
-		    "exchangePoint":$('#exchange-point').val()
+	if(!isBank($('#bankName').val())){
+		alert('은행명을 정확히 입력하세요');
+		$('#bankName').val('');
+		$('#bankName').focus();
+		return;
+	}
+	if(!isNum($('#bankAccountNum').val())){
+		alert('계좌번호를 숫자로만 입력하세요');
+		$('#bankAccountNum').val('');
+		$('#bankAccountNum').focus();
+		return;
+	}
+	if(!isName($('#userName').val())){
+		alert('이름을 정확히 입력하세요');
+		$('#bankAccountNum').focus();
+		return;
+	}
+	if($('#exchange-point').val() < 1000){
+		alert('환전은 1000포인트 이상부터 가능합니다');
+		return;
 	}
 	if($('#exchange-point').val()>${user.userPoint}){
 		alert("보유하신 포인트가 부족합니다");
 		$('#exchange-point').attr("value",0);
 		$('#exchange-point').focus();
 		return;
+	}
+	var dataObj={
+		    "bankName":$('#bankName').val(), 
+		    "bankAccountNum":$('#bankAccountNum').val(), 
+		    "userName":$('#userName').val(),
+		    "userEmail":"${user.userEmail}",
+		    "userId":"${user.userId}",
+		    "exchangePoint":$('#exchange-point').val()
 	}
 	$.ajax({
 		type:'post',

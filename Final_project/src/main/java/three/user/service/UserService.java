@@ -29,4 +29,7 @@ public interface UserService {
 	//구글 회원가입
 	int joinGoogle(UserVO vo);
 
+	int checkId(String userId);
+
+	
 }

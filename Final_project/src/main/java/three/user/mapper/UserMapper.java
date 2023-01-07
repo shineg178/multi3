@@ -32,4 +32,8 @@ public interface UserMapper {
 
 	UserVO findUserByuserNum(int userNum);
 
+	UserVO findUserByuserNum(int userNum);
+
+	//아이디 중복체크
+	int checkId(String userId);
 }

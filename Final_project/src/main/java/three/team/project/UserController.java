@@ -1,6 +1,14 @@
 package three.team.project;
 
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.UUID;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -183,4 +191,15 @@ public class UserController {
 	
 	
 
+	// 아이디 중복 검사
+	@PostMapping(value = "/IdCheckService", produces = "application/json")
+	@ResponseBody
+	public int checkId(@RequestParam("userId") String userId) throws Exception { // 유저가 입력한 값을 매개변수로 한다
+
+		int cnt = userservice.checkId(userId);
+		return cnt;
+	}
+
+
+	
 }

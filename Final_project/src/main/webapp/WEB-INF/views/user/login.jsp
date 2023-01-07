@@ -33,6 +33,8 @@ function onSignIn(){
 
 <body>
 
+
+
 	<div class="container">
 		<div class="inner">
 			<div class="login">
@@ -53,6 +55,7 @@ function onSignIn(){
 					<a class="btn btn2" >네이버 로그인</a>
 					<a class="btn btn3" >카카오 로그인</a>
 					<a class="btn btn4" id="googleBtn">구글 로그인</a>
+
 				</div>
 				<div class="footer">
 					<p>
@@ -79,5 +82,6 @@ function onSignIn(){
 		const googleBtn = document.getElementById("googleBtn");
 		googleBtn.addEventListener("click",onClickGoogleLogin);
 	</script>
+
 </body>
 </html>

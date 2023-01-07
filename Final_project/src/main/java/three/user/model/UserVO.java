@@ -72,7 +72,7 @@ public class UserVO {
 	// 회원 상태 (관리자, 일반회원, 소셜로그인, 탈퇴회원)
 	private int userStatus;
 	
-	
+
 
 	
 

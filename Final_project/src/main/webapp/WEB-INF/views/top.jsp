@@ -383,7 +383,7 @@ $(function(){
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="${path}/donation">
           <i class="bi bi-gem"></i><span>Donation</span>
         </a>
 

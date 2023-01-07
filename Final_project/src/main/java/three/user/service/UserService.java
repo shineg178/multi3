@@ -16,4 +16,7 @@ public interface UserService {
 	 * // 구글로그인 public UserVO loginUserByGoogle(UserVO vo);
 	 */
 
+	int checkId(String userId);
+
+	
 }

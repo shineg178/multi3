@@ -13,7 +13,10 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/login.css"
 	rel="stylesheet" type="text/css">
 </head>
+
 <body>
+
+
 
 	<div class="container">
 		<div class="inner">
@@ -32,7 +35,10 @@
 					</form>
 					<span class="or-txt">또는</span> 
 					<a class="btn btn2">네이버 로그인</a>
-					<a class="btn btn3">카카오 로그인</a>
+					<div class="col-lg-12 text-center mt-3">
+    
+    <img alt="카카오로그인" src="${pageContext.request.contextPath}/resources/assets/img/kakao_login_medium_wide.png" onclick="loginWithKakao()">
+</div>
 					<a id="google_login" class="btn btn4" onclick="init();"><i class="fa fa-google-plus fa-fw">구글 로그인</i></a>
 				</div>
 				<div class="footer">
@@ -55,52 +61,6 @@
 		});
 	</script>
 
-	<!-- google signin api -->
-	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-	<script>
-// google signin API
-var googleUser = {};
-function init() {
-	 gapi.load('auth2', function() {
-	  console.log("init()시작");
-	  auth2 = gapi.auth2.init({
-	        client_id: '565772189866-4uoto6esdde4qhfhpe3m22d85ravclu7.apps.googleusercontent.com'
-	        cookiepolicy: 'single_host_origin',
-	      });
-	      attachSignin(document.getElementById('google_login'));
-	 });
-}
 
-//google signin API2
-function attachSignin(element) {
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-    	var profile = googleUser.getBasicProfile();
-    	var id_token = googleUser.getAuthResponse().id_token;
-	  	  console.log('ID: ' + profile.getuserId()); // Do not send to your backend! Use an ID token instead.
-	  	  console.log('Name: ' + profile.getUserName());
-	  	  console.log('Email: ' + profile.getUserEmail()); // This is null if the 'email' scope is not present.
-			$(function() {
-				$.ajax({
-				    url: '/user/loginGoogle',
-				    type: 'post',
-				    data: {
-						"userId" : <!-- 필요한 데이터 담기 -->,
-						"userPassword" : <!-- 필요한 데이터 담기 -->,
-				        "userName": profile.getUserName(),
-						"userEmail": profile.getUserEmail()
-					    },
-				    success: function (data) {
-				            alert("구글아이디로 로그인 되었습니다");
-				            location.href="/";
-				        }
-				});
-			})
-        }, function(error) {
-          alert(JSON.stringify(error, undefined, 2));
-        });
-    console.log("구글API 끝");
-  }
-</script>
 </body>
 </html>

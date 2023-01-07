@@ -8,11 +8,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <SCRIPT type="text/javascript">
+var now = new Date(); //현재시간을 구한다. 
+var nowTime = now.getTime(); // 현재의 시간만 가져온다
+var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
+//var closeTime = new Date(2023,00,07,14,22,30);
 function remaindTime() {
-    var now = new Date(); //현재시간을 구한다. 
-  
-    var nowTime = now.getTime(); // 현재의 시간만 가져온다
-    var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
   
    if(nowTime<closeTime){ //현재시간이 종료시간보다 이르면 종료시간까지의 남은 시간을 구한다.   
      sec = parseInt(closeTime - nowTime) / 1000;
@@ -33,7 +33,26 @@ function remaindTime() {
     $("#d-day-sec").html('00');
    }
   }
-  setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
+  function checkTime(){
+	  if($("#d-day-hour").val()!="00" && $("#d-day-min").val()!="00" && $("#d-day-sec").val()!="00"){
+	  	setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
+	  };
+	  if(nowTime>=closeTime){
+		  closeBid();
+	  };
+  }
+  function closeBid(){
+	  alert('끝1');
+	  $('#btnBid').prop('disabled',"false");
+	  $('#10kBtn').prop('disabled',"false");
+	  $('#5kBtn').prop('disabled',"false");
+	  $('#1kBtn').prop('disabled',"false");
+	  $('#01kBtn').prop('disabled',"false");
+	  $('#resetBtn').prop('disabled',"false");
+	  
+  }
+  
+  
 let number=$('#inputPrice').val();
 function plus(amount){
 	if(number==null){
@@ -66,6 +85,7 @@ $(document).ready(function(){
     	bid();
     	sock.onmessage();
     })
+   	checkTime();
 });
 
 function connect(){
@@ -235,11 +255,11 @@ sock.onmessage=function(evt){
 							<tr>
 								<td colspan="2">
 									<div class="text-center">
-		                              <button type="button" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
-		                              <button type="button" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
-		                              <button type="button" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
-		                              <button type="button" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
-		                               <button type="button" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
+		                              <button type="button" id="10kBtn" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
+		                              <button type="button" id="5kBtn" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
+		                              <button type="button" id="1kBtn" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
+		                              <button type="button" id="01kBtn" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
+		                              <button type="button" id="resetBtn" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
 	                             	</div>
 								</td>
 							</tr>

@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
 		return usermapper.loginUser(user);
 	}
 
+
 	@Override
 	public String findId(UserVO vo) {
 		return usermapper.findId(vo);
@@ -61,5 +62,6 @@ public class UserServiceImpl implements UserService {
 	 * e.printStackTrace(); returnVO = null; // 실행하다 문제가 생겼을때 해당 데이터를 보내지않겠다는 의미 =
 	 * 예외처리 } return returnVO; }
 	 */
+
 
 }

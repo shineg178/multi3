@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 - 기부앤테이크</title>
+
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- 구글 라이브러리 -->
 
 <meta name="google-client_id" content="564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com">
+
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/login.css"
 	rel="stylesheet" type="text/css">
@@ -47,6 +49,7 @@ function onSignIn(){
 						</c:if>
 					</form>
 					<span class="or-txt">또는</span> 
+
 					<a class="btn btn2" >네이버 로그인</a>
 					<a class="btn btn3" >카카오 로그인</a>
 					<a class="btn btn4" id="googleBtn">구글 로그인</a>
@@ -64,7 +67,6 @@ function onSignIn(){
 	</div>
 	<script>
 		$(".login_button").click(function() {
-
 			/* 로그인 메서드 서버 요청 */
 			$("#login_form").attr("action", "login");
 			$("#login_form").submit();
@@ -77,6 +79,5 @@ function onSignIn(){
 		const googleBtn = document.getElementById("googleBtn");
 		googleBtn.addEventListener("click",onClickGoogleLogin);
 	</script>
-
 </body>
 </html>

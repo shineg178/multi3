@@ -10,6 +10,7 @@ public interface UserService {
 	/* 로그인 */
 	UserVO loginUser(UserVO user) throws Exception;
 
+
 	/*
 	 * // 구글회원가입 public void joinUserByGoogle(UserVO vo);
 	 * 
@@ -27,4 +28,5 @@ public interface UserService {
 	
 	//구글 회원가입
 	int joinGoogle(UserVO vo);
+
 }

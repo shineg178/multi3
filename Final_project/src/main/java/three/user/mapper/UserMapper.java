@@ -30,4 +30,6 @@ public interface UserMapper {
 	UserVO findUserByuserNum(int userNum);;
 
 
+	UserVO findUserByuserNum(int userNum);
+
 }

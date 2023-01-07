@@ -24,4 +24,10 @@ public interface UserMapper {
 	//구글 회원가입
 	int joinGoogle(UserVO vo);
 
+	public UserVO loginUser(UserVO user);
+	
+	/* 유저찾기 */
+	UserVO findUserByuserNum(int userNum);;
+
+
 }

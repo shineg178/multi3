@@ -16,7 +16,7 @@ public class ExchangeVO {
 	private String bankAccountNum;
 	private String userName;
 	private String userEmail;
-	private String userid;
+	private String userId;
 	private int exchangePoint;
 	private Date exchangeTime;
 }

@@ -29,7 +29,7 @@
 		<input type="text" name="nTitle"  placeholder="제목" class="form-control" required="required">
 		<textarea rows="20" cols="100"  class="form-control" name="nMessage" required="required"></textarea>
 		<input type="file" class="form-control" name="filename">
-		<input type="hidden" name="nUserNum_fk" value="${id}">
+		<input type="hidden" name="nUserId" value="${user.userId}">
 		
 		<div id="btnWrap">
 			<button class="btn btn-primary">글 작성</button><a href="${pageContext.request.contextPath}/noticeList" class="btn btn-warning">돌아가기</a>

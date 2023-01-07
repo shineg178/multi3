@@ -7,7 +7,7 @@ public interface AuctionMapper {
 	
 	int insertProduct(ProductVO pvo);
 	
-	int insertAuction(ProductVO pvo, AuctionVO avo);
+	int insertAuction(AuctionVO avo);
 	
 	AuctionVO selectAuctionByProdNum(int prodNum);
 	

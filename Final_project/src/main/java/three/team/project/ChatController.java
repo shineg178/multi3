@@ -54,19 +54,19 @@ public class ChatController {
 	@GetMapping("/1")
 	public String a(HttpSession ses) {
 		ses.setAttribute("id", "1");
-		return "index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/2")
 	public String b(HttpSession ses) {
 		ses.setAttribute("id", "2");
-		return "index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/3")
 	public String c(HttpSession ses) {
 		ses.setAttribute("id", "3");
-		return "index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/room1")
@@ -76,7 +76,7 @@ public class ChatController {
 
 		chatServiceImpl.createRoom(vo);
 	
-		return "index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/room2")
@@ -86,7 +86,7 @@ public class ChatController {
 		
 		chatServiceImpl.createRoom(vo);
 
-		return "index";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/room3")
@@ -96,7 +96,7 @@ public class ChatController {
 		
 		chatServiceImpl.createRoom(vo);
 			
-		return "index";
+		return "redirect:/";
 	}
 	
 	//내 채팅방 목록 가져오기

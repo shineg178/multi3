@@ -43,7 +43,7 @@ function onSignIn(){
 							name="userPassword" placeholder="비밀번호" class="signIn"> <input
 							type="submit" id="btn" class="btn" value="로그인"><br>
 						<c:if test="${result == 0 }">
-							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나 정지된 계정입니다.</div>
 						</c:if>
 					</form>
 					<span class="or-txt">또는</span> 

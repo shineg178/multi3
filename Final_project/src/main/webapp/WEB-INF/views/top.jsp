@@ -117,8 +117,9 @@
 			}
 		})
 	}
-
 	myChatList();
+
+	
 	
 
 	
@@ -147,7 +148,7 @@ $(function(){
 	
 	//2초마다 주기적으로 읽지않은 메시지 수 가져오기
 	let interval = setInterval(chatAlert,2000);
-	
+
 
 	//읽지않은 메시지 가져오는 메서드
 
@@ -338,7 +339,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="logout.do">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/logout.do">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>로그아웃</span>
               </a>

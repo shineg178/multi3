@@ -8,7 +8,7 @@ public interface UserService {
 	int joinUser(UserVO vo);
 
 	/* 로그인 */
-	public UserVO loginUser(UserVO user) throws Exception;
+	UserVO loginUser(UserVO user) throws Exception;
 
 	/*
 	 * // 구글회원가입 public void joinUserByGoogle(UserVO vo);
@@ -21,4 +21,10 @@ public interface UserService {
 	
 	//비밀번호 찾기
 	String findPwd(UserVO vo);
+	
+	//구글로그인 유저 찾기
+	UserVO findGoogleUser(UserVO vo);
+	
+	//구글 회원가입
+	int joinGoogle(UserVO vo);
 }

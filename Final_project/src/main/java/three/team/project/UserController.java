@@ -1,5 +1,7 @@
 package three.team.project;
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -41,7 +43,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/login/google/auth")
-	public String googleLogin(Model m,@RequestParam String code,HttpSession session) {
+	public String googleLogin(Model m,@RequestParam String code,HttpSession ses) {
 		log.info(code);
 		
 		JsonNode jsonToken = GoogleLogin.getAccessToken(code);
@@ -52,6 +54,7 @@ public class UserController {
 		}
 		
 		String expiresTime = jsonToken.get("expires_in").toString();
+		log.info(expiresTime);
  
         // Access Token으로 사용자 정보 반환
         JsonNode userInfo = GoogleLogin.getGoogleUserInfo(accessToken);
@@ -63,9 +66,27 @@ public class UserController {
         vo.setUserId(email);
         vo.setUserEmail(email);
         vo.setUserName(Name);
+        UUID uid=UUID.randomUUID();
+        String password=uid.toString();
+        vo.setUserPassword(password);
         
         // 사용자 정보 출력
         log.info(vo);
+        
+        //가입된 아이디인지 검색
+        UserVO findUser= userservice.findGoogleUser(vo);
+        
+        //이미 가입된 아이디라면 세션에 추가
+        if(findUser!=null) {
+        	ses.setAttribute("user", findUser);
+        }
+        
+        //가입 되지 않은 아이디라면 DB에 추가하고 세션에 추가
+        if(findUser==null) {
+        	
+        	userservice.joinGoogle(vo);
+        	ses.setAttribute("user", vo);
+        }
         
         // 받아온 사용자 정보를 view에 전달
         m.addAttribute("socialMail", email);
@@ -181,7 +202,7 @@ public class UserController {
 		//메일 전송 내용
 		String addr = "dmsrb9810@gmail.com";
 		String subject = "비밀번호 찾기 결과";
-		String body = vo.getUserId()+" 회원님의 비밀번호는 "+userPwd+" 입니다";
+		String body = vo.getUserId()+" 회원님의 비밀번호는 "+userPwd+" 입니다. 로그인하여 비밀번호를 변경해주세요";
 				
 				//메일 전송
 		mailService.sendEmail(vo.getUserEmail(), addr, subject, body);

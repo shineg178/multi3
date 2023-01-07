@@ -60,6 +60,24 @@
 	</update>
 	
 	<select id="findUser" parameterType="String" resultType="User">
-		select * from project_user where userId like '%'||#{value}||'%'  
+		select * from project_user where userId like '%'||#{value}||'%' and userstatus != 1 
 	</select>
+	
+	<select id="findPayment" parameterType="int" resultType="Payment">
+			select * from payment where merchant_uid=#{value}
+	</select>
+	
+	<update id="resetPoint" parameterType="Payment">
+		update project_user set userpoint=userpoint-#{paid_amount} where userId=#{buyer_id}
+	</update>
+	
+	<select id="findExchange"  parameterType="int" resultType="Exchange">
+		select * from exchange where exchangeNum=#{value}
+	</select>
+	
+	<update id="rechargePoint" parameterType="Exchange" >
+		update project_user set userPoint=userPoint+#{exchangePoint} where userid=#{userid}
+	</update>
+	
+	
 </mapper>

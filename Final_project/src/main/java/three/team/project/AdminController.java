@@ -51,16 +51,21 @@ public class AdminController {
 		//결재 내역 가져오기
 		List<PaymentVO> payList=adminServiceImpl.payList();
 		
-		//회원정보 가져오기
-		List<UserVO> userList=adminServiceImpl.userList();
-		
+
 		m.addAttribute("pay",payList);
 		m.addAttribute("exchange",exList);
 		m.addAttribute("main",donVO);
 		m.addAttribute("Org",orglist);
-		m.addAttribute("userList",userList);
+
 		
 		return "admin/adminPage";
+	}
+	
+	@GetMapping(value="/adminAllUser",produces="application/json")
+	@ResponseBody
+	public List<UserVO> adminAllUser(){
+		
+		return adminServiceImpl.userList();
 	}
 	
 	//기부단체 추가 폼 이동
@@ -109,6 +114,8 @@ public class AdminController {
 	public String successEmail(@RequestParam String Email,@RequestParam int num,@RequestParam int point) {
 		log.info(num);
 		
+		
+		
 		//메일 전송 내용
 		String addr = "dmsrb9810@gmail.com";
 		String subject = "환불처리 요청";
@@ -126,6 +133,14 @@ public class AdminController {
 	@GetMapping("/deleteExchange")
 	public String deleteExchange(@RequestParam int num) {
 		
+		//번호로 환전 정보 가져오기
+		ExchangeVO vo=adminServiceImpl.findExchange(num);
+		
+		//포인트 다시 되돌리기
+		adminServiceImpl.rechargePoint(vo);
+		
+		
+		//DB에서 환불요청 삭제
 		adminServiceImpl.exchangeDelete(num);
 				
 		return "redirect:adminPage";
@@ -135,6 +150,13 @@ public class AdminController {
 	@GetMapping("/cancelPay")
 	public String cancelPay(@RequestParam int num) {
 		
+		//결제 내역 가져오기
+		PaymentVO vo=adminServiceImpl.findPayment(num);
+		
+		//결제 내역 정보로 포인트 다시 되돌리기
+		adminServiceImpl.resetPoint(vo);
+		
+		//결제 취소
 		adminServiceImpl.cancelPay(num);
 		
 		return "redirect:adminPage";

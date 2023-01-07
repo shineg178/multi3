@@ -89,4 +89,24 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.findUser(userId);
 	}
 
+	@Override
+	public int resetPoint(PaymentVO vo) {
+		return adminMapper.resetPoint(vo);
+	}
+
+	@Override
+	public PaymentVO findPayment(int num) {
+		return adminMapper.findPayment(num);
+	}
+
+	@Override
+	public ExchangeVO findExchange(int num) {
+		return adminMapper.findExchange(num);
+	}
+
+	@Override
+	public int rechargePoint(ExchangeVO vo) {
+		return adminMapper.rechargePoint(vo);
+	}
+
 }

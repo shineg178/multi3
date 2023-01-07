@@ -36,6 +36,16 @@ public class UserServiceImpl implements UserService {
 		return usermapper.findPwd(vo);
 	}
 
+	@Override
+	public UserVO findGoogleUser(UserVO vo) {
+		return usermapper.findGoogleUser(vo);
+	}
+
+	@Override
+	public int joinGoogle(UserVO vo) {
+		return usermapper.joinGoogle(vo);
+	}
+
 	// 구글 회원가입
 	/*
 	 * @Override public void joinUserByGoogle(UserVO vo) { usermapper.joinUser(vo);

@@ -43,10 +43,27 @@
 	#userTable tr th{
 		text-align:center;
 	}
-	
+	#userTable tr td:nth-child(6n+1){
+		width:5%;
+	}
+	#userTable tr td:nth-child(6n+2){
+		width:10%;
+	}
+	#userTable tr td:nth-child(6n+3){
+		width:20%;
+	}
 	#userTable tr td:nth-child(6n+4){
+		width:30%;
 		text-align:left;
 	}
+	#userTable tr td:nth-child(6n+5){
+		width:10%;
+	}
+	#userTable tr td:nth-child(6n+6){
+		width:15%;
+	}
+	
+	
 	
 	
 </style>
@@ -68,23 +85,123 @@
 			}
 		})
 	}
+	
 	function findUser(){
 		let userId=$('#findUser').val();
+		if(userId!=""){
+			$.ajax({
+				url:'adminfindUser',
+				type:'post',
+				data:'userId='+userId,
+				dataType:'json',
+				cache:false,
+				success:function(res){
+					str="<table class='table'>"
+						str+="<tr>";
+						str+="<th>번호</th>";
+						str+="<th>이름</th>";
+						str+="<th>아이디</th>";
+						str+="<th>회원정보</th>";
+						str+="<th>회원상태</th>";
+						str+="<th>회원전환</th>";
+						str+="</tr>";
+						$.each(res,function(i,data){
+							str+="<tr>";
+							str+="<td>"+data.userNum+"</td>";
+							str+="<td>"+data.userName+"</td>";
+							str+="<td>"+data.userId+"</td>";
+							str+="<td>";
+							str+="연락처 : "+data.userTel+"<br>";
+							str+="이메일 : "+data.userEmail+"<br>";
+							if(data.userAddr2 !=null){
+								str+="주소 : "+data.userAddr2+"("+data.userAddr1+")<br>";
+								str+="상세 주소 : "+data.userAddr3+"<br>";
+							}
+							str+="포인트 : "+data.userPoint+"<br>";
+							str+="</td>";
+							str+="<td>";
+							if(data.userStatus == 0){
+							str+="<div class='badge bg-primary'>일반회원</div>";
+							}else if(data.userStatus == 3){
+							str+="<div class='badge bg-warning'>정지회원</div>";
+							}else if(data.userStatus == 4){
+							str+="<div class='badge bg-success'>소셜회원</div>";
+							}
+							str+="</td>";
+							str+="<td>";
+							str+="<a class='btn btn-primary' href='normalUser?userNum="+data.userNum+"'>일반</a> <a class='btn btn-warning' href='stopUser?userNum="+data.userNum+"'>정지</a>"
+							str+="</td>";
+							str+="</tr>";				
+						})
+						str+="</table>";
+						$('#userTable').html(str);
+				},
+				error:function(err){
+					alert('error : '+err.status);
+				}
+			})
+		}else if(userId==""){
+			userList();
+		}
+	
+	}
+	
+	function userList(){
 		$.ajax({
-			url:'adminfindUser',
-			type:'post',
-			data:'userId='+userId,
+			url:'adminAllUser',
+			type:'get',
 			dataType:'json',
 			cache:false,
 			success:function(res){
-				
+				str="<table class='table'>"
+				str+="<tr>";
+				str+="<th>번호</th>";
+				str+="<th>이름</th>";
+				str+="<th>아이디</th>";
+				str+="<th>회원정보</th>";
+				str+="<th>회원상태</th>";
+				str+="<th>회원전환</th>";
+				str+="</tr>";
+				$.each(res,function(i,data){
+					str+="<tr>";
+					str+="<td>"+data.userNum+"</td>";
+					str+="<td>"+data.userName+"</td>";
+					str+="<td>"+data.userId+"</td>";
+					str+="<td>";
+					str+="연락처 : "+data.userTel+"<br>";
+					str+="이메일 : "+data.userEmail+"<br>";
+					if(data.userAddr2 !=null){
+						str+="주소 : "+data.userAddr2+"("+data.userAddr1+")<br>";
+						str+="상세 주소 : "+data.userAddr3+"<br>";
+					}
+					str+="포인트 : "+data.userPoint+"<br>";
+					str+="</td>";
+					str+="<td>";
+					if(data.userStatus == 0){
+					str+="<div class='badge bg-primary'>일반회원</div>";
+					}else if(data.userStatus == 3){
+					str+="<div class='badge bg-warning'>정지회원</div>";
+					}else if(data.userStatus == 4){
+					str+="<div class='badge bg-success'>소셜회원</div>";
+					}
+					str+="</td>";
+					str+="<td>";
+					str+="<a class='btn btn-primary' href='normalUser?userNum="+data.userNum+"'>일반</a> <a class='btn btn-warning' href='stopUser?userNum="+data.userNum+"'>정지</a>"
+					str+="</td>";
+					str+="</tr>";				
+				})
+				str+="</table>";
+				$('#userTable').html(str);
 			},
 			error:function(err){
 				alert('error : '+err.status);
 			}
 		})
-	
 	}
+	
+	$(function(){
+		userList();
+	})
 </script>
 <c:import url="/top" />
 <main id="main" class="main">
@@ -114,42 +231,10 @@
               
               	<!-- 유저관리 -->
                 <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
-                	<input id="findUser"class="form-control" type="text" placeholder="검색할 아이디를 입력해주세요" onkeyup="findUser()">
-               		<table class="table" id="userTable">
-               			<tr id="userResult">
-               				<th>번호</th>
-               				<th>이름</th>
-               				<th>아이디</th>
-               				<th>회원 정보</th>
-               				<th>회원상태</th>
-               				<th>회원 전환</th>
-               			</tr>
-               			<c:forEach items="${userList}" var="data">
-	               			<tr>
-	               				<td><c:out value="${data.userNum}"/></td>
-	               				<td><c:out value="${data.userName}"/></td>
-	               				<td><c:out value="${data.userId}"/></td>
-	               				<td>
-	               					연락처 : <c:out value="${data.userTel}"/><br>
-	               					이메일 : <c:out value="${data.userEmail}"/><br>
-	               					주 소 : <c:out value="${data.userAddr2}"/>(<c:out value="${data.userAddr1}"/>)<br>
-	               					상세 주소	: <c:out value="${data.userAddr3}"/><br>
-	               					포인트 : <c:out value="${data.userPoint}"/>
-	               				</td>
-	               				<td>
-	               					<c:if test="${data.userStatus eq 0}">
-	               						<div class="badge bg-primary">일반회원</div>
-	               					</c:if>
-	               					<c:if test="${data.userStatus eq 3}">
-	               						<div class="badge bg-warning">정지회원</div>
-	               					</c:if>
-	               				</td>
-	               				<td>
-	               					<a class="btn btn-primary" href="normalUser?userNum=${data.userNum}">일반</a> <a class="btn btn-warning" href="stopUser?userNum=${data.userNum}">정지</a>
-	               				</td>
-	               			</tr>
-               			</c:forEach>
-               		</table>
+                	<input id="findUser" class="form-control" type="text" placeholder="검색할 아이디를 입력해주세요" onkeyup="findUser()">
+               		
+               		<!-- 유저 목록 넣을곳 -->
+               		<div id="userTable"></div>
                 </div>
                 
                 <!-- 기부관리 -->
@@ -196,7 +281,8 @@
                 	<table class="table" id="exTable">
 						<tr>
 							<th>번호</th>
-							<th>아이디</th>
+							<th>이름</th>
+							<th>아이디<th>
 							<th>내용</th>
 							<th>요청 날짜</th>
 							<th></th>
@@ -205,6 +291,7 @@
 							<tr>
 								<td><c:out value="${data.exchangeNum}"/></td>
 								<td><c:out value="${data.userName}"/></td>
+								<td><c:out value="${data.userid}"/></td>
 								<td>
 									요청 포인트 : <c:out value="${data.exchangePoint}"/><br>
 									<div class="badge bg-warning text-dark">

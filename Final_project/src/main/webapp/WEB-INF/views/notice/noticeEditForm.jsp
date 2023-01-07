@@ -29,7 +29,7 @@
 		<input type="text" name="nTitle"  placeholder="제목" class="form-control" required="required" value="${notice.getNTitle()}">
 		<textarea rows="20" cols="100"  class="form-control" name="nMessage" required="required">${notice.getNMessage()}</textarea>
 		<input type="file" class="form-control" name="filename">
-		<input type="hidden" name="nUserNum_fk" value="${id}">
+		<input type="hidden" name="nUserNum_fk" value="${user.userId}">
 		<input type="hidden" name="nIdx" value="${notice.getNIdx()}">
 		
 		<div id="btnWrap">

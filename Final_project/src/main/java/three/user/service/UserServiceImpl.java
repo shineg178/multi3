@@ -37,11 +37,34 @@ public class UserServiceImpl implements UserService {
 		return usermapper.loginUser(user);
 	}
 
+
 	@Override
 	public int checkId(String userId) {
 		int cnt = usermapper.checkId(userId);
 		System.out.println("cnt: "+cnt);
 		return cnt;
 	}
+
+	@Override
+	public String findId(UserVO vo) {
+		return usermapper.findId(vo);
+	}
+
+	@Override
+	public String findPwd(UserVO vo) {
+		return usermapper.findPwd(vo);
+	}
+
+	@Override
+	public UserVO findGoogleUser(UserVO vo) {
+		return usermapper.findGoogleUser(vo);
+	}
+
+	@Override
+	public int joinGoogle(UserVO vo) {
+		return usermapper.joinGoogle(vo);
+	}
+
+
 
 }

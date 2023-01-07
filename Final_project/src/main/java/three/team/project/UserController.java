@@ -1,17 +1,21 @@
 package three.team.project;
 
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.UUID;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import lombok.extern.log4j.Log4j;
+import three.mail.service.MailService;
+import three.social.google.GoogleLogin;
 import three.user.model.UserVO;
 import three.user.service.UserService;
 
@@ -31,12 +39,69 @@ public class UserController {
 
 	@Autowired
 	private UserService userservice;
+	
+	@Autowired
+	private MailService mailService;
+	
 
 	// 회원가입 페이지 이동
 	@GetMapping("join")
 	public String joinGET() {
 		return "user/join";
 	}
+	
+	@GetMapping("/login/google/auth")
+	public String googleLogin(Model m,@RequestParam String code,HttpSession ses) {
+		log.info(code);
+		
+		JsonNode jsonToken = GoogleLogin.getAccessToken(code);
+		String accessToken = jsonToken.get("access_token").toString();
+		String refreshToken ="";
+		if(jsonToken.has("refresh_token")) {
+			refreshToken = jsonToken.get("refresh_token").toString();
+		}
+		
+		String expiresTime = jsonToken.get("expires_in").toString();
+		log.info(expiresTime);
+ 
+        // Access Token으로 사용자 정보 반환
+        JsonNode userInfo = GoogleLogin.getGoogleUserInfo(accessToken);
+        
+        String email = userInfo.get("email").asText();
+        String Name= userInfo.get("name").asText();
+        
+        UserVO vo=new UserVO();
+        vo.setUserId(email);
+        vo.setUserEmail(email);
+        vo.setUserName(Name);
+        UUID uid=UUID.randomUUID();
+        String password=uid.toString();
+        vo.setUserPassword(password);
+        
+        // 사용자 정보 출력
+        log.info(vo);
+        
+        //가입된 아이디인지 검색
+        UserVO findUser= userservice.findGoogleUser(vo);
+        
+        //이미 가입된 아이디라면 세션에 추가
+        if(findUser!=null) {
+        	ses.setAttribute("user", findUser);
+        }
+        
+        //가입 되지 않은 아이디라면 DB에 추가하고 세션에 추가
+        if(findUser==null) {
+        	
+        	userservice.joinGoogle(vo);
+        	ses.setAttribute("user", vo);
+        }
+        
+        // 받아온 사용자 정보를 view에 전달
+        m.addAttribute("socialMail", email);
+        
+		return "redirect:/";
+	}
+
 
 	// 회원가입 서비스 실행
 	@PostMapping("/joinUser")
@@ -48,9 +113,12 @@ public class UserController {
 
 	// 로그인 페이지 이동
 	@GetMapping("login")
-	public String loginGET() {
+	public String loginGET() throws Exception{
+
+				
 		return "user/login";
 	}
+
 
 	/* 로그인 */
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -70,37 +138,7 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	/*
-	 * 구글아이디로 로그인
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/loginGoogle", method = RequestMethod.POST) public
-	 * String loginGooglePOST(UserVO vo, HttpSession session, RedirectAttributes
-	 * rttr, UserVO mvo) throws Exception { UserVO returnVO =
-	 * userservice.loginUserByGoogle(vo); String mvo_ajaxid = mvo.getUserId();
-	 * System.out.println("C: 구글아이디 포스트 db에서 가져온 vo " + vo);
-	 * System.out.println("C: 구글아이디 포스트 ajax에서 가져온 id " + mvo_ajaxid);
-	 * 
-	 * if (returnVO == null) { // 아이디가 DB에 존재하지 않는 경우 // 구글 회원가입
-	 * userservice.joinUserByGoogle(vo);
-	 * 
-	 * // 구글 로그인 returnVO = userservice.loginUserByGoogle(vo);
-	 * session.setAttribute("id", returnVO.getUserId());
-	 * rttr.addFlashAttribute("mvo", returnVO); }
-	 * 
-	 * if (mvo_ajaxid.equals(returnVO.getUserId())) { // 아이디가 DB에 존재하는 경우 // 구글 로그인
-	 * userservice.loginUserByGoogle(vo); session.setAttribute("id",
-	 * returnVO.getUserId()); rttr.addFlashAttribute("mvo", returnVO); } else {//
-	 * 아이디가 DB에 존재하지 않는 경우 // 구글 회원가입 userservice.joinUserByGoogle(vo);
-	 * 
-	 * // 구글 로그인 returnVO = userservice.loginUserByGoogle(vo);
-	 * session.setAttribute("id", returnVO.getUserId());
-	 * rttr.addFlashAttribute("mvo", returnVO); }
-	 * 
-	 * return "redirect:/"; }
-	 */
-
+	
 	// 아이디 찾기 페이지 이동
 	@GetMapping("find-id")
 	public String findIdGet() {
@@ -121,6 +159,37 @@ public class UserController {
 		return "redirect:/";
 
 	}
+	
+	@PostMapping(value="/findIdAction",produces="text/plain; charset=UTF-8")
+	@ResponseBody
+	public String findIdAction(@RequestParam String userName,@RequestParam String userEmail) {
+		UserVO vo= new UserVO();
+		vo.setUserName(userName);
+		vo.setUserEmail(userEmail);
+		String userId = userservice.findId(vo);
+		return userId;
+	}
+	
+	@PostMapping(value="/findPwdAction",produces="text/plain; charset=UTF-8")
+	@ResponseBody
+	public String findPwdAction(@ModelAttribute UserVO vo) {
+		String userPwd=userservice.findPwd(vo);
+		if(userPwd==null) {
+			return "아이디, 이메일을 다시 한번 확인해주세요.";
+		}
+		//메일 전송 내용
+		String addr = "dmsrb9810@gmail.com";
+		String subject = "비밀번호 찾기 결과";
+		String body = vo.getUserId()+" 회원님의 비밀번호는 "+userPwd+" 입니다. 로그인하여 비밀번호를 변경해주세요";
+				
+				//메일 전송
+		mailService.sendEmail(vo.getUserEmail(), addr, subject, body);
+		
+		
+		return "이메일을 확인해 주세요";
+	}
+	
+	
 
 	// 아이디 중복 검사
 	@PostMapping(value = "/IdCheckService", produces = "application/json")

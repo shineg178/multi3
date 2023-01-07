@@ -53,28 +53,28 @@
 
 				<h4>연락처</h4>
 				<span class="input_area"><input type="tel" maxlength="11"
-					name="userTel" placeholder="(-없이)01012345678"></span>
+					name="userTel" placeholder="(-없이)01012345678" required></span>
 
 				<h4>이메일</h4>
-				<span class="input_area"><input type="email" name="userEmail"></span>
+				<span class="input_area"><input type="email" name="userEmail" required></span>
 
 				<h4>우편번호</h4>
 				<span class="input_area"><input type="text" name="userAddr1"
-					class="postcodify_postcode5"></span>
+					class="postcodify_postcode5" required></span>
 				<button type="button" id="postcodify_search_button">검색</button>
 				<h4>도로명주소</h4>
 				<span class="input_area"><input type="text" name="userAddr2"
-					class="postcodify_address"></span>
+					class="postcodify_address" required></span>
 				<h4>상세주소</h4>
 				<span class="input_area"><input type="text" name="userAddr3"
-					class="postcodify_details"></span>
+					class="postcodify_details" required></span>
 				<div class="btnArea">
 					<button id="joinBtn">가입하기</button>
+					<button type="button" onClick="location.href='/project'">돌아가기</button>
 				</div>
 			</form>
 		</div>
 	</div>
-
 	<!-- 주소 API 스크립트 -->
 	<!-- jQuery와 Postcodify를 로딩한다 -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>

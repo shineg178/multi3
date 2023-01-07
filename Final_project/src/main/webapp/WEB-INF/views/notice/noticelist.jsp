@@ -82,10 +82,10 @@ h2 {
 				<c:forEach items="${nList}" var="data">
 					<tr>			
 						<td><a href="noticeInfo?nidx=${data.getNIdx()}"><c:out value="${data.getNTitle()}"/></a></td>
-						<td><c:out value="${data.getNUserNum_fk()}"/></td>
+						<td><c:out value="${data.getNUserId()}"/></td>
 						<td><c:out value="${data.getNDate()}"/></td>
 						<td>
-						<c:if test="${id eq 3}">
+						<c:if test="${user.userStatus eq 1}">
 							<a href="admin/editNoticeForm?nIdx=${data.getNIdx()}" class="btn btn-outline-warning">수정</a> 
 							<a onclick="deleteNotice(${data.getNIdx()})" class="btn btn-outline-danger">삭제</a>
 						</c:if>
@@ -95,7 +95,7 @@ h2 {
 			</tbody>
 		</table>
 	</div>
-	<c:if test="${id eq 3}">
+	<c:if test="${user.userStatus eq 1}">
 		<a class="btn btn-warning" id="addNotice" href="admin/addNoticeForm">공지 글쓰기</a>
 	</c:if>
 	<div id="wrap2">

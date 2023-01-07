@@ -67,6 +67,14 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+
+	<!-- Interceptor 설정 ============================== -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<beans:bean class="three.common.interceptor.AdminInterCeptor"/>
+		</interceptor>
+	</interceptors>
 	
 	<!-- 경매 웹소켓 핸들러 등록 -->
 	<beans:bean id="auctionHandler" class="three.team.project.AuctionHandler" />
@@ -78,4 +86,5 @@
 	    <websocket:sockjs />
 	</websocket:handlers>
 	
+
 </beans:beans>

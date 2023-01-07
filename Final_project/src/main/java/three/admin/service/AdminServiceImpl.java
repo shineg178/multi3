@@ -74,4 +74,39 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.cancelPay(merchant_uid);
 	}
 
+	@Override
+	public int normalUser(int userNum) {
+		return adminMapper.normalUser(userNum);
+	}
+
+	@Override
+	public int stopUser(int userNum) {
+		return adminMapper.stopUser(userNum);
+	}
+
+	@Override
+	public List<UserVO> findUser(String userId) {
+		return adminMapper.findUser(userId);
+	}
+
+	@Override
+	public int resetPoint(PaymentVO vo) {
+		return adminMapper.resetPoint(vo);
+	}
+
+	@Override
+	public PaymentVO findPayment(int num) {
+		return adminMapper.findPayment(num);
+	}
+
+	@Override
+	public ExchangeVO findExchange(int num) {
+		return adminMapper.findExchange(num);
+	}
+
+	@Override
+	public int rechargePoint(ExchangeVO vo) {
+		return adminMapper.rechargePoint(vo);
+	}
+
 }

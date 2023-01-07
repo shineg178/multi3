@@ -42,4 +42,25 @@ public interface AdminMapper {
 	
 	//결제 내역 취소하기
 	int cancelPay(int merchant_uid);
+	
+	//회원상태 일반 변경
+	int normalUser(int userNum);
+		
+	//회원상태 정지 변경
+	int stopUser(int userNum);
+	
+	//아이디 검색으로 회원 정보 가져오기
+	List<UserVO> findUser(String userId);
+	
+	//결제 취소 금액 다시 포인트로 충전
+	int resetPoint(PaymentVO vo);
+	
+	//결제 번호로 결제 정보 가져오기
+	PaymentVO findPayment(int num);
+	
+	//환불 번호로 환불 정보 가져오기
+	ExchangeVO findExchange(int num);
+	
+	//환불 취소로 다시 포인트 충전
+	int rechargePoint(ExchangeVO vo);
 }

@@ -34,9 +34,30 @@
 		userFacebook, userInstagram, userLinkedin, userStatus
 		from project_user where
 		userId
-		= #{userId} and userPassword = #{userPassword}
-
+		= #{userId} and userPassword = #{userPassword} and userStatus != 3
+		
 	</select>
+
+	
+	<select id="findId" parameterType="User" resultType="String">
+		select userid from project_user where userName=#{userName} and userEmail=#{userEmail}
+	</select>
+	
+	<select id="findPwd" parameterType="User" resultType="String">
+		select userPassword from project_user where userId=#{userId} and userEmail=#{userEmail}
+	</select>
+	
+	<select id="findGoogleUser" parameterType="User" resultType="User">
+		select * from project_user where userid=#{userId} 
+	</select>
+	
+	<insert id="joinGoogle" parameterType="User">
+		<selectKey keyProperty="userNum" resultType="int" order="BEFORE">
+			select user_seq.nextval from dual		
+		</selectKey>
+		insert into project_user(usernum,userid,userpassword,username,useremail,userstatus)
+		values(#{userNum},#{userId},#{userPassword},#{userName},#{userEmail},4)
+	</insert>
 
 	<!-- 유저 찾기 -->
 	<select id="findUserByuserNum" resultType="three.user.model.UserVO" parameterType="int">

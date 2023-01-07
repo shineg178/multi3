@@ -10,4 +10,6 @@ public interface UserMapper {
 	/* 로그인 */
 	public UserVO loginUser(UserVO user);
 
+	UserVO findUserByuserNum(int userNum);
+
 }

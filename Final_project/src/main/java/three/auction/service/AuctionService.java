@@ -8,7 +8,7 @@ public interface AuctionService {
 	
 	int insertProduct(ProductVO pvo);
 	
-	int insertAuction(ProductVO pvo, AuctionVO avo);
+	int insertAuction(AuctionVO avo);
 	
 	ProductVO selectProductByProdNum(int prodNum);
 	

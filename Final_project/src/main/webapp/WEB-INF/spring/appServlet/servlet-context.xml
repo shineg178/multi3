@@ -35,7 +35,7 @@
 
 	<context:component-scan base-package="three.*" />
 	
-	<!-- 웹소켓 핸들러 등록 -->
+	<!-- 채팅 웹소켓 핸들러 등록 -->
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler"
 			path="/chat" />
@@ -67,4 +67,15 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+	
+	<!-- 경매 웹소켓 핸들러 등록 -->
+	<beans:bean id="auctionHandler" class="three.team.project.AuctionHandler" />
+	<websocket:handlers>
+	    <websocket:mapping handler="auctionHandler" path="/auction" />
+	    <websocket:handshake-interceptors>
+	        <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+	    </websocket:handshake-interceptors>	
+	    <websocket:sockjs />
+	</websocket:handlers>
+	
 </beans:beans>

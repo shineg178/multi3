@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.main{
+	margin:3em;
+}
+.home-main-section-top{
+	background: #fff;
+}
+.home-main-top{
+	padding-top: 24px;
+	position: relative;
+	width: 100%;
+	height: 21rem;
+	background: #fff;
+	overflow: hidden; 
+}
+
+.home-main-title{
+	padding-top: 5rem;
+	line-height: 1.3;/*줄높이*/
+	font-size: 2.5rem;
+    margin-bottom: 3.2rem;
+    
+}
+
+.text-m{
+	font-size: 1rem !important;
+}
+
+.home-main-image-top{
+	position: absolute;
+	margin-bottom: 1rem;
+    right: 30px;
+    bottom: 0;
+    width: 15rem;
+    height: 15rem;
+    
+    background-repeat: no-repeat;
+ 
+}
+
+.carousel{
+	height: 250px;
+	width: 100%;
+	background: #c0c0c0;
+}
+.banner1-title{
+	margin-top: 5rem;
+	font-size: 1.5rem;
+	color: #000000;
+	text-align: center;
+}
+.banner1-subtitle{
+	margin-top: 1rem;
+	font-size: 1rem;
+	color: #000000;
+	text-align: center;
+}
+.banner2-title{
+	margin-top: 5rem;
+	font-size: 1.5rem;
+	color: #000000;
+	text-align: center;
+}
+.banner2-subtitle{
+	margin-top: 1rem;
+	font-size: 1rem;
+	color: #000000;
+	text-align: center;
+}
+.banner3-title{
+	margin-top: 5rem;
+	font-size: 1.5rem;
+	color: #000000;
+	text-align: center;
+}
+.banner3-subtitle{
+	margin-top: 1rem;
+	font-size: 1rem;
+	color: #000000;
+	text-align: center;
+}

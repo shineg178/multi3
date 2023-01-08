@@ -53,7 +53,6 @@
 
 <!-- Template Main CSS File -->
 <link href="${path}/resources/assets/css/style.css" rel="stylesheet">
-
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -174,7 +173,7 @@ $(function(){
 });
 </script>
 <body>
-
+  
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -182,7 +181,7 @@ $(function(){
     <div class="d-flex align-items-center justify-content-between">
       <a href="${path}" class="logo d-flex align-items-center">
         <img src="${path}/resources/assets/img//logo.png" alt="">
-        <span class="d-none d-lg-block">NiceAdmin</span>
+        <span class="d-none d-lg-block" id="title">기부앤테이크</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

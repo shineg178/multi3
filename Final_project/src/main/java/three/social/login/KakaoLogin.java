@@ -1,4 +1,4 @@
-package three.social.google;
+package three.social.login;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

@@ -1,14 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 
+<!-- 카카오맵 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd88de1b8477ef4c5df424305ccb757f"></script>
 <c:import url="/top" />
 
 <style>
+
 #carouselExampleIndicators{
 	border:1px solid black;
-	
 }
+
+#map{
+	width:100%;height:400px;
+	margin:15px auto;
+}
+
 </style>
 <main id="main" class="main">
 	<ul>
@@ -60,5 +70,18 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+<!-- 카카오맵 지도 위치 -->
+<div id="map" ></div>
+
+
+<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+</script>
 </main>
 <c:import url="/foot" />

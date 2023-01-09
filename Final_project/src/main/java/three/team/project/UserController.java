@@ -27,9 +27,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.extern.log4j.Log4j;
 import three.mail.service.MailService;
-import three.social.google.GoogleLogin;
-import three.social.google.KakaoLogin;
-import three.social.google.NaverLogin;
+import three.social.login.GoogleLogin;
+import three.social.login.KakaoLogin;
+import three.social.login.NaverLogin;
 import three.user.model.UserVO;
 import three.user.service.UserService;
 

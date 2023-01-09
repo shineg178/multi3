@@ -373,13 +373,13 @@ $(function(){
       </li><!-- End Forms Nav --> 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="${path}/productList">
           <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="#">
+        <a class="nav-link collapsed"  href="${path}/addProductForm">
           <i class="bi bi-bar-chart"></i><span>AddProduct</span>
         </a>
       </li><!-- End Charts Nav -->

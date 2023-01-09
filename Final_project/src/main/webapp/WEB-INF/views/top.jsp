@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>기부앤테이크 중고경매거래 기부 플랫폼</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -204,8 +204,8 @@ $(function(){
 
 		<!-- 로그인 하지 않은 상태 -->
                 <c:if test = "${user eq null }">
-                    <div class="login_button"><a href="${path}/login">로그인</a>  /  
-                    <span><a href="${path}/join">회원가입</a></span></div>               
+                    <div class="login_button"><a class="login_button_login" href="${path}/login">로그인</a> | 
+                    <a class="login_button_join" href="${path}/join">회원가입</a></div>               
                 </c:if>
         <!-- 로그인한 상태 -->
                 <c:if test="${ user ne null }">

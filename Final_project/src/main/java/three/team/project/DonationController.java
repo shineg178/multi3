@@ -38,7 +38,7 @@ public class DonationController {
 	// 기부 페이지 내 기부자 순위 검색
 	@GetMapping(value = "/donationRankingSearch", produces = "application/json")
 	@ResponseBody
-	public int donationRankingId(@RequestParam int userId) {
+	public int donationRankingId(@RequestParam String userId) {
 		log.info("userId: " + userId);
 
 		String user=donationService.donationRankingId(userId);

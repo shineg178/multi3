@@ -44,7 +44,8 @@ h3 {
 	width: 100%;
 	height: 21rem;
 	background: #fff;
-	overflow: hidden; 
+	overflow: hidden;
+	border-radius: 8px; 
 }
 
 section {

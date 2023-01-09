@@ -99,7 +99,7 @@
 							<td class="donation-ranking-totalamount"><c:out
 									value="${userListDonate.TOTALAMOUNT}" />원</td>
 							<td class="donation-ranking-user"><c:out
-									value="${userListDonate.USERNUM_FK}" />님</td>
+									value="${userListDonate.USERID_FK}" />님</td>
 						</tr>
 					</c:forEach> 
 				</table>

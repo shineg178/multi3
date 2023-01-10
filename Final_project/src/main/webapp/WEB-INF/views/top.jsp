@@ -181,6 +181,7 @@ $(function(){
     <div class="d-flex align-items-center justify-content-between">
       <a href="${path}" class="logo d-flex align-items-center">
         <img src="${path}/resources/assets/img//logo.png" alt="">
+
         <span class="d-none d-lg-block" id="title">기부앤테이크</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>

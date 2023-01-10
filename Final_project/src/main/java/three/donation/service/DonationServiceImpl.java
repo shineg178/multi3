@@ -32,7 +32,7 @@ public class DonationServiceImpl implements DonationService {
 	}
 	// 기부자 순위 검색
 	@Override
-	public String donationRankingId(int userId){	
+	public String donationRankingId(String userId){	
 		return this.donationMapper.donationRankingId(userId); 
 	}
 	//기부단체설명

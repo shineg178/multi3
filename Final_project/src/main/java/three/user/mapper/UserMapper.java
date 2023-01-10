@@ -17,13 +17,13 @@ public interface UserMapper {
 	String findPwd(UserVO vo);
 	
 	//구글로그인 유저 찾기
-	UserVO findGoogleUser(UserVO vo);
+	UserVO findSocialUser(UserVO vo);
 	
 	//구글 회원가입
-	int joinGoogle(UserVO vo);
+	int joinSocial(UserVO vo);
 
 	/* 유저찾기 */
-	UserVO findUserByuserNum(int userNum);
+	UserVO findUserByuserNum(int userNum);;
 
 	//아이디 중복체크
 	int checkId(String userId);

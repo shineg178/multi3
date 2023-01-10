@@ -1,9 +1,8 @@
 package three.product.model;
 
-import java.util.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +17,7 @@ public class ProductVO {
 	
 	private int userNum_fk;
 	
-	private int prodCategoryNum_fk;
+	private String prodCategoryNum_fk;
 	
 	private String prodName;
 	
@@ -38,10 +37,10 @@ public class ProductVO {
 	
 	private String sellerAddr1;
 	
-	private String sellerAddr2;	
+	private String sellerAddr2;
 	
 	private String sellerAddr3;
 	
 	private int status;
-		
+	
 }

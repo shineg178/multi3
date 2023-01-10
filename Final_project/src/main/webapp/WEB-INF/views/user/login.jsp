@@ -11,7 +11,7 @@
 <!-- 구글 라이브러리 -->
 
 <meta name="google-client_id" content="564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com">
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/login.css"
 	rel="stylesheet" type="text/css">
@@ -52,8 +52,8 @@ function onSignIn(){
 					</form>
 					<span class="or-txt">또는</span> 
 
-					<a class="btn btn2" >네이버 로그인</a>
-					<a class="btn btn3" >카카오 로그인</a>
+					<a class="btn btn2" id="naverBtn">네이버 로그인</a>
+					<a class="btn btn3" id="kakaoBtn">카카오 로그인</a>
 					<a class="btn btn4" id="googleBtn">구글 로그인</a>
 
 				</div>
@@ -81,6 +81,21 @@ function onSignIn(){
 		
 		const googleBtn = document.getElementById("googleBtn");
 		googleBtn.addEventListener("click",onClickGoogleLogin);
+		
+		const onClickNaverLogin = (e) => {
+			window.location.replace("https://nid.naver.com/oauth2.0/authorize?client_id=GF2vmLo7gThkjpDqkTMs&redirect_uri=http://localhost:9090/project/login/naver/auth&response_type=code&state=9kgsGTfH4j7IyAkg&scope=email%20profile%20openid&access_type=offline")
+		}
+		
+		const naverBtn = document.getElementById("naverBtn");
+		naverBtn.addEventListener("click",onClickNaverLogin);
+		
+		const onClickKakaoLogin = (e) => {
+			window.location.replace("https://kauth.kakao.com/oauth/authorize?client_id=c2d7dca68a4ebec26ef05bbb1502fd2d&redirect_uri=http://localhost:9090/project/login/kakao/auth&response_type=code")
+		}
+		
+		const kakaoBtn = document.getElementById("kakaoBtn");
+		kakaoBtn.addEventListener("click",onClickKakaoLogin);
+
 	</script>
 
 </body>

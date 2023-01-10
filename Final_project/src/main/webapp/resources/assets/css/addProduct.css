@@ -1,0 +1,145 @@
+@charset "UTF-8";
+.main{
+	min-width: 600px;	
+}
+
+#textInput {
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	border: 1px solid #ced4da;
+	appearance: none;
+	border-radius: 0.375rem;
+}
+
+#prodInfo {
+	height: 150px;
+	margin: 10px 0px;
+}
+
+#addr1 {
+	width: 20%;
+}
+
+#addr2 {
+	width: 50%;
+}
+
+#addr3 {
+	width: 30%;
+}
+
+#donatePer {
+	width: 20%;
+}
+
+#wrap>* {
+	margin: 5px 0px;
+}
+.prod-main-section-top {
+	background: #fff;
+	border-radius: 8px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.prod-main-top {
+	padding-top: 24px;
+	position: relative;
+	width: 100%;
+	height: 21rem;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 8px;
+	
+}
+
+.prod-main-title {
+	padding-top: 5rem;
+	line-height: 1.3; /*줄높이*/
+	font-size: 2.5rem;
+	margin-bottom: 3.2rem;
+}
+.text-m {
+	font-size: 1rem !important;
+}
+
+@media (min-width: 550px) {
+  .home-main-image-top {
+    position: absolute;
+	margin-bottom: 1rem;
+	right: 30px;
+	bottom: 0;
+	width: 15rem;
+	height: 15rem;
+	background-repeat: no-repeat;
+  }
+ }
+ 
+ @media (max-width: 770px){
+ 	.home-main-image-top{
+ 		display: none;
+ 	}
+ }
+.total-div{
+	width: 80%;
+	text-align:center;
+}
+
+.prodImg{
+	display: flex;
+	flex-direction: row;
+}
+
+ul{
+	list-style:none;
+	
+}
+
+.prod-img-span, .prod-category-span, 
+.prod-addr-span, .prod-info-span
+ {
+ 	margin-top:1rem;
+	height: 10rem;
+	width:30%;
+	float:left;
+	text-align: center;
+	
+}
+.prod-auction-span, .prod-name-span, 
+.prod-percent-span
+{
+	height: 4rem;
+	width:30%;
+	float:left;
+	text-align: center;
+}
+.prod-img-input, .prod-category-select,
+.prod-addr-input, .prod-info-textarea
+ {
+	height: 10rem;
+	width:70%;
+	overflow:hidden;
+}
+.prod-auction-input, .prod-name-input, 
+.prod-percent-input
+{
+	height: 4rem;
+	width:60%;
+	overflow:hidden;
+}
+.prod-img-input input{
+	margin-top:1rem;
+	height: 3rem;
+}
+.prod-category-select{
+	margin-top:2rem;
+}
+.prod-addr-input input{
+	margin-top: .1rem;
+	margin-bottom: .1rem;
+}
+.btn-signup{
+	text-align: center;
+}

@@ -24,7 +24,7 @@
 </script>
 <main id="main" class="main">
 <div id="wrap">
-	<h3>공지사항 글쓰기</h3>
+	<h3 style="text-align: center;">공지사항 글쓰기</h3>
 	<form id="frm" action="addNotice" method="POST" enctype="multipart/form-data">
 		<input type="text" name="nTitle"  placeholder="제목" class="form-control" required="required">
 		<textarea rows="20" cols="100"  class="form-control" name="nMessage" required="required"></textarea>

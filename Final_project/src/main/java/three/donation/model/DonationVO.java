@@ -15,7 +15,7 @@ public class DonationVO {
 	
 	private int donOrgNum_fk;//기부단체번호
 	
-	private String userNum_fk;//회원번호
+	private String userId_fk;//회원번호
 	
 	private String totalAmount;//sum(Amount)
 	

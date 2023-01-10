@@ -15,7 +15,7 @@ public interface DonationService {
 	// 기부자 목록
 	List<DonationVO> userListDonate();
 	// 기부자 순위 검색
-	String donationRankingId(int userId);
+	String donationRankingId(String userId);
 	//기부단체설명
 	List<DonationOrgVO> donationOrgInfo();
 

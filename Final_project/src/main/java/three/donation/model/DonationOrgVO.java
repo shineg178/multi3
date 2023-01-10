@@ -15,7 +15,6 @@ public class DonationOrgVO {
 	private int donBankAccount;
 	private String donBankName;
 	private int status;
-	
 }
 
  

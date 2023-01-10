@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import three.auction.mapper.AuctionMapper;
+import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
 import three.product.mapper.ProductMapper;
 import three.product.model.ProductVO;
@@ -32,7 +33,12 @@ public class AuctionServiceImpl implements AuctionService {
 	public int insertAuction(AuctionVO avo) {
 		return this.auctionMapper.insertAuction(avo);
 	}
-
+	
+	@Override
+	public int insertAuctionEnd(AuctionEndVO endVo) {
+		return this.auctionMapper.insertAuctionEnd(endVo);
+	}
+	
 	@Override
 	public ProductVO selectProductByProdNum(int prodNum) {
 		
@@ -40,9 +46,9 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 
 	@Override
-	public AuctionVO selectAuctionByProdNum(int prodNum) {
+	public AuctionVO selectMaxAuctionByProdNum(int prodNum) {
 		
-		return this.auctionMapper.selectAuctionByProdNum(prodNum);
+		return this.auctionMapper.selectMaxAuctionByProdNum(prodNum);
 	}
 	
 	@Override

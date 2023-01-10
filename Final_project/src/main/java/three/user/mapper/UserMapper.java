@@ -9,8 +9,6 @@ public interface UserMapper {
 
 	/* 로그인 */
 	UserVO loginUser(UserVO user);
-
-	UserVO findUserByuserNum(int userNum);
 	
 	//아이디 찾기 
 	String findId(UserVO vo);
@@ -24,14 +22,7 @@ public interface UserMapper {
 	//구글 회원가입
 	int joinGoogle(UserVO vo);
 
-	public UserVO loginUser(UserVO user);
-	
 	/* 유저찾기 */
-	UserVO findUserByuserNum(int userNum);;
-
-
-	UserVO findUserByuserNum(int userNum);
-
 	UserVO findUserByuserNum(int userNum);
 
 	//아이디 중복체크

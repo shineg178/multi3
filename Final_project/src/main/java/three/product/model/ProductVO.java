@@ -36,15 +36,12 @@ public class ProductVO {
 	
 	private int auctionTime;
 	
-	private Date getCloseTime(Date pIndate, int auctionTime) {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date closeTime;
-		Calendar cal=Calendar.getInstance();
-		cal.setTime(pIndate);
-		cal.add(Calendar.DATE, auctionTime);
-		closeTime=cal.getTime();
-		return closeTime;
-		
-	}
+	private String sellerAddr1;
 	
+	private String sellerAddr2;	
+	
+	private String sellerAddr3;
+	
+	private int status;
+		
 }

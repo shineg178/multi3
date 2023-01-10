@@ -8,10 +8,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <SCRIPT type="text/javascript">
-var now = new Date(); //현재시간을 구한다. 
-var nowTime = now.getTime(); // 현재의 시간만 가져온다
+var now=new Date();
+var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
 var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
-//var closeTime = new Date(2023,00,07,14,22,30);
+//var closeTime = new Date(2023,00,07,17,27,30);
+alert(nowTime);
 function remaindTime() {
   
    if(nowTime<closeTime){ //현재시간이 종료시간보다 이르면 종료시간까지의 남은 시간을 구한다.   
@@ -33,10 +34,8 @@ function remaindTime() {
     $("#d-day-sec").html('00');
    }
   }
+setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
   function checkTime(){
-	  if($("#d-day-hour").val()!="00" && $("#d-day-min").val()!="00" && $("#d-day-sec").val()!="00"){
-	  	setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
-	  };
 	  if(nowTime>=closeTime){
 		  closeBid();
 	  };
@@ -49,7 +48,6 @@ function remaindTime() {
 	  $('#1kBtn').prop('disabled',"false");
 	  $('#01kBtn').prop('disabled',"false");
 	  $('#resetBtn').prop('disabled',"false");
-	  
   }
   
   

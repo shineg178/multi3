@@ -152,7 +152,6 @@
 			userPassword.focus();
 			return false;
 		}
-		
 		// A-Z, a-z, 0-9, 특수문자가 포함되어 있는지, 8자 이상
 		const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,15}$/;
 	    if(!reg.test(userPassword.value)){
@@ -160,7 +159,6 @@
 		    userPassword.focus();
 		    return false;
 		}
-
 	    //비밀번호 같은 문자 연속 4번
 	    const reg2 = /(\w)\1\1\1/;
 	    if(reg2.test(userPassword.value)){

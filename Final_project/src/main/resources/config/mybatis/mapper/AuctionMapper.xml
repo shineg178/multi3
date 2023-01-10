@@ -3,13 +3,17 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="three.auction.mapper.AuctionMapper">
 	
-	<select id="selectAuctionByProdNum" resultType="Auction" parameterType="_int">
+	<select id="selectMaxAuctionByProdNum" resultType="Auction" parameterType="_int">
 		select * from auction 
 		where prodNum_fk=#{value} and aucPrice=(select MAX(aucPrice) from auction)
 	</select>
 	
 	<insert id="insertAuction" parameterType="Auction">
 		insert into auction values(auc_seq.nextval,#{prodNum_fk},#{userNum_fk},#{aucPrice},sysdate)
+	</insert>
+	
+	<insert id="insertAuctionEnd" parameterType="AuctionEnd">
+		insert into Auction_end values(auc_end_seq.nextval,#{prodNum_fk},#{buyUser_fk},#{sellUser_fk},sysdate,#{endPrice},0)		
 	</insert>
 	
 </mapper>

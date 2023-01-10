@@ -67,4 +67,8 @@
 	<select id="exitRoomImg" parameterType="int" resultType="String">
 		select cimg from chat where roomid_fk=#{roomid}
 	</select>
+	
+	<select id="findUserIdByNum" parameterType="int" resultType="String">
+		select userId from project_user where usernum=#{value}
+	</select>
 </mapper>

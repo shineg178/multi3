@@ -22,6 +22,7 @@ import three.chat.model.ChatAlertVO;
 import three.chat.model.ChatRoomVO;
 import three.chat.model.ChatVO;
 import three.chat.service.ChatService;
+import three.user.model.UserVO;
 
 @Controller
 @Log4j
@@ -33,7 +34,8 @@ public class ChatController {
 	//채팅창 여는 메서드
 	@GetMapping("/chat")
 	public String chatOpen(@RequestParam int roomid,Model m,HttpSession ses) {
-		String userid=(String)ses.getAttribute("id");
+		UserVO uvo=(UserVO)ses.getAttribute("user");
+		String userid=uvo.getUserId();
 		
 		//해당 방 정보 가져오기
 		ChatRoomVO roomvo=chatServiceImpl.selectRoom(roomid);
@@ -50,12 +52,35 @@ public class ChatController {
 		return "chat/chat";
 	}
 	
+	//채팅방 만들기
+	@GetMapping("/addChatRoom")
+	public String addChatRoom(@RequestParam int sellerNum,HttpSession ses) {
+		//내 아이디 정보 가져오기
+		UserVO vo=(UserVO)ses.getAttribute("user");
+		String myid=vo.getUserId();
+		
+		//상대방 아이디 정보 가져오기
+		String sellerid=chatServiceImpl.findUserIdByNum(sellerNum);
+		
+		ChatRoomVO roomvo=new ChatRoomVO(0,myid,sellerid);
+		//방생성
+		chatServiceImpl.createRoom(roomvo);
+		
+		return "javascript:history.back();";
+	}
+	
 	//내 채팅방 목록 가져오기
 	@GetMapping(value="/openChatList",produces="application/json")
 	@ResponseBody
 	public List<ChatRoomVO> myChatList(HttpSession ses){
 		ChatRoomVO vo=new ChatRoomVO();
-		vo.setUserId1((String)ses.getAttribute("id"));
+		UserVO uvo=(UserVO)ses.getAttribute("user");
+
+		if(uvo!=null) {
+			vo.setUserId1(uvo.getUserId());
+		}
+		log.info(vo);
+		
 		List<ChatRoomVO> list = chatServiceImpl.myChatRoom(vo);
 		log.info(list);
 		return list;
@@ -87,9 +112,10 @@ public class ChatController {
 	@GetMapping(value="/AllnoRead",produces="application/json")
 	@ResponseBody
 	public int AllnoRead(HttpSession ses) {
-		if(ses.getAttribute("id")!=null) {
-
-			int n=chatServiceImpl.myNoRead((String)ses.getAttribute("id"));
+		UserVO uvo=(UserVO)ses.getAttribute("user");
+		if(uvo!=null) {
+			String userid=uvo.getUserId();
+			int n=chatServiceImpl.myNoRead(userid);
 			return n;
 		}
 		return 0;
@@ -100,7 +126,8 @@ public class ChatController {
 	@ResponseBody
 	public int sendImg(@RequestParam MultipartFile img,HttpSession ses,@ModelAttribute ChatVO vo) {
 		
-		String user=(String)ses.getAttribute("id");
+		UserVO uvo=(UserVO)ses.getAttribute("user");
+		String user=uvo.getUserId();
 		
 		
 		vo.setSUser(user);
@@ -135,8 +162,9 @@ public class ChatController {
 	@GetMapping(value="/myNoread",produces="application/json")
 	@ResponseBody
 	public List<ChatAlertVO> myNoread(HttpSession ses){
-		
-		String userId=(String)ses.getAttribute("id");
+		UserVO uvo=(UserVO)ses.getAttribute("user");
+		String userId=uvo.getUserId();
+
 		
 		List<ChatAlertVO> list=chatServiceImpl.myNoread(userId);
 		log.info(list);

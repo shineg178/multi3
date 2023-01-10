@@ -86,6 +86,8 @@
 		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
+	
+
 	//내 채팅 목록 가져오기
 	function myChatList(){
 		$.ajax({
@@ -99,10 +101,10 @@
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userId1==${id}){
+						if(data.userId1=='${user.userId}'){
 							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
-						if(data.userId2==${id}){
+						if(data.userId2=='${user.userId}'){
 							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
@@ -116,9 +118,10 @@
 			}
 		})
 	}
-	myChatList();
+	if(${user ne null}){
+		myChatList();
+	}
 
-	
 	
 
 	
@@ -246,7 +249,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${paths}users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-person"></i>
                 <span>마이페이지</span>
               </a>
@@ -256,7 +259,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${paths}users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-gear"></i>
                 <span>개인정보 변경</span>
               </a>
@@ -317,7 +320,7 @@ $(function(){
         </a>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="${paths}users-profile">
+        <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
           <span>마이페이지</span>
         </a>

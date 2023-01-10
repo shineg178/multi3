@@ -7,4 +7,20 @@
 		select * from product where prodNum=#{value}	
 	</select>
 	
+	<insert id="addProduct">
+		<selectKey keyProperty="prodNum" resultType="int" order="BEFORE">
+			select prod_seq.nextval from dual
+		</selectKey>
+		insert into product values(#{prodNum},#{userNum_fk},#{prodCategoryNum_fk},#{prodName},
+		#{prodSpec},sysdate,#{prodImage1:VARCHAR},#{prodImage2:VARCHAR},#{aucStartPrice},#{donatePercent},#{auctionTime},
+		#{sellerAddr1},#{sellerAddr2},#{sellerAddr3},1)
+	</insert>
+	
+	<select id="allProduct" resultType="Product">
+		select * from product where status=1 order by pindate desc	
+	</select>
+	
+	<select id="cateProduct" parameterType="int" resultType="Product">
+		select * from product where prodCategoryNum_fk=#{value} and status=1 order by pIndate desc
+	</select>
 </mapper>

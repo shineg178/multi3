@@ -1,4 +1,4 @@
-package three.social.google;
+package three.social.login;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -18,17 +18,18 @@ import org.apache.http.message.BasicNameValuePair;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class GoogleLogin {
-	public static JsonNode getAccessToken(String autorize_code) {
+public class NaverLogin {
+	public static JsonNode getAccessToken(String autorize_code,String state) {
 		 
-        final String RequestUrl = "https://www.googleapis.com/oauth2/v4/token";
+        final String RequestUrl = "https://nid.naver.com/oauth2.0/token";
  
         final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
         postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        postParams.add(new BasicNameValuePair("client_id", "564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com"));
-        postParams.add(new BasicNameValuePair("client_secret", "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"));
-        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:9090/project/login/google/auth")); // 리다이렉트 URI
+        postParams.add(new BasicNameValuePair("client_id", "GF2vmLo7gThkjpDqkTMs"));
+        postParams.add(new BasicNameValuePair("client_secret", "cgHpTxGrGo"));
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:9090/project/login/naver/auth")); // 리다이렉트 URI
         postParams.add(new BasicNameValuePair("code", autorize_code)); // 로그인 과정중 얻은 code 값
+        postParams.add(new BasicNameValuePair("state", state)); // 로그인 과정중 얻은 code 값
  
         final HttpClient client = HttpClientBuilder.create().build();
         final HttpPost post = new HttpPost(RequestUrl);
@@ -64,7 +65,7 @@ public class GoogleLogin {
 	
 	 public static JsonNode getGoogleUserInfo(String autorize_code) {
 		 
-	        final String RequestUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
+	        final String RequestUrl = "https://openapi.naver.com/v1/nid/me";
 	 
 	        final HttpClient client = HttpClientBuilder.create().build();
 	        final HttpGet get = new HttpGet(RequestUrl);
@@ -97,7 +98,4 @@ public class GoogleLogin {
 	        return returnNode;
 	 
 	    }
-
-
-	
 }

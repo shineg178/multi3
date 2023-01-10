@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.main{
+	min-width: 550px;
+}
+.notice-main-section-top {
+	background: #fff;
+	border-radius: 8px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.notice-main-top {
+	padding-top: 24px;
+	position: relative;
+	width: 100%;
+	height: 21rem;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 8px;
+}
+
+.notice-main-title {
+	padding-top: 5rem;
+	line-height: 1.3; /*줄높이*/
+	font-size: 2.5rem;
+	margin-bottom: 3.2rem;
+}
+
+.text-m {
+	font-size: 1rem !important;
+}
+@media (min-width: 660px) {
+  .notice-main-image-top {
+    position: absolute;
+	margin-bottom: 1rem;
+	right: 30px;
+	bottom: 0;
+	width: 15rem;
+	height: 15rem;
+	background-repeat: no-repeat;
+  }
+ }
+ @media (max-width: 660px){
+ 	.notice-main-image-top{
+ 		display: none;
+ 	}
+ }
+ 
+ .footer{
+ 	clear:both;
+ }

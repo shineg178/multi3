@@ -24,10 +24,10 @@ public interface UserService {
 	String findPwd(UserVO vo);
 	
 	//구글로그인 유저 찾기
-	UserVO findGoogleUser(UserVO vo);
+	UserVO findSocialUser(UserVO vo);
 	
 	//구글 회원가입
-	int joinGoogle(UserVO vo);
+	int joinSocial(UserVO vo);
 
 	int checkId(String userId);
 

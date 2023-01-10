@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -9,13 +9,10 @@
 
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-
+<link href="${path}/resources/assets/css/donation.css" rel="stylesheet">
 
 <script>
 	$(function() {
-		//나의 기부 순위 검색 결과 div 숨기기
-		$("#searchText").hide();
-		$("#nothingId").hide();
 
 		$('#btn').on('click', function() {
 			searchId();
@@ -47,116 +44,97 @@
 	})
 </script>
 
-<style>
-.title {
-	text-align: center;
-	border: 3px solid black;
-	border-radius: 50px;
-}
-
-.main {
-	text-align: center;
-	border: 1px solid black;
-}
-</style>
 
 <!-- http://localhost:9090/project/donation -->
+
 <body>
 
 </body>
 <main id="main" class="main">
+	<section class="donation-main-section">
+		<div class="donation-main-div">
+			<div>
+				<h1 class="donation-main-title">${totalDonateCount}건의
+					경매로
+					<!--  -->
+					<br> ${totalDonation}원 기부금 달성
+					<!--  -->
+				</h1>
+				<br>
+				<div class="donation-main-image">
+					<span> <img src="${path}/resources/assets/img/donate.png">
+					</span>
+				</div>
+				<p class="donation-main-subtitle">기부 순위를 확인 후, 기부앤테이크로 경매거래에
+					참여해보세요.</p>
+			</div>
 
+		</div>
+	</section>
+	<br>
+	<section class="donation-ranking-section">
+		<div class="row">
+			<div class="card col-lg-6">
+				<div>
+					<br>
+					<h1 class="donation-ranking-title">실시간 기부 순위</h1>
 
-	<!-- 경매 완료된 거래의 건수와 총기부합계 가져와서 출력하기 -->
-	<div id="title" class="title">
-
-		<h3>${totalDonateCount}건의 경매로 ${totalDonation}원 기부금 달성</h3>
-	</div>
-
-<br>
-
-	<table id="mainTable" class="mainTable" width="100%">
-
-		<tr>
-			<td>
-				<table id="firstTable" class="firstTable" border="1" width="100%"
-					height="400">
-					<tr>
-		 				<td colspan="3">
-		 				<h3>실시간 기부 순위</h3>
-		 				</td>
-					</tr>
+				</div>
+				<table class="donation-ranking-table" height="400">
+	<tr>
+						<td class="donation-ranking-number">
+						</td>
+						<td class="donation-ranking-totalamount">기부금
+						</td>
+						<td class="donation-ranking-user">ID
+						</td>
+						</tr>
+						
 					<c:forEach items="${userListDonate}" var="userListDonate" begin="0"
 						end="4">
-						<tr>
-							<td><c:out value="${userListDonate.RANKINGNUMBER}" />등</td>
+					<tr>
+							<td class="donation-ranking-number"><c:out
+									value="${userListDonate.RANKINGNUMBER}" />등</td>
 							<!-- 기부금 높은 순으로 1~5등의 기부액과 아이디 불러오기 (아이디 참조를 안해서 우선 회원번호로 받음)-->
-							<td><c:out value="${userListDonate.TOTALAMOUNT}" />원</td>
-							<td><c:out value="${userListDonate.USERNUM_FK}" />님</td>
+							<td class="donation-ranking-totalamount"><c:out
+									value="${userListDonate.TOTALAMOUNT}" />원</td>
+							<td class="donation-ranking-user"><c:out
+									value="${userListDonate.USERID_FK}" />님</td>
 						</tr>
-					</c:forEach>
-
+					</c:forEach> 
 				</table>
-			</td>
 
-
-			<td>
-				<table id="secondTable" class="secondTable" border="1" width="100%"
-					height="400">
-
+				<br>
+				<h3 class="donation-ranking-title">나의 순위는?</h3>
+				<p class="donation-ranking-subtitle">현재 나의 기부 순위를 검색해보세요!</p>
+				<table class="donation-ranking-table" height="200">
 					<tr>
-						<td>
-							<h3>나의 순위는?</h3>
-						</td>
-					</tr>
-
-					<tr>
-						<td>이번주 나의 기부 순위를 검색해보세요</td>
-					</tr>
-
-					<tr>
-						<td>
-							<!-- 아이디값 넘어가서 일치하는 아이디의 등수 가져와 출력 --> ID 입력: <input type="text"
-							id="userId" name="userId" placeholder="ID를 입력해주세요">
+						<td class="donation-ranking-searchline"><input type="text" id="userId" name="userId"
+							placeholder="ID를 입력해주세요">
 							<button id="btn" class="btn btn-outline-primary mr-2">검색</button>
-							<br>
-						<br>
+							<br><br>
 							<div id="searchText">
 								당신의 순위는 <span id="searchMyDonRanking"></span>등 입니다!
 							</div>
-							<div id="nothingId">해당 Id는 존재하지 않습니다.</div>
-
-
-						</td>
+							<div id="nothingId">해당 Id는 존재하지 않습니다.</div></td>
 					</tr>
-
 				</table>
-			</td>
-
-		</tr>
+			</div>
 
 
-		<tr>
 
-			<td colspan="2">
-				<table id="thirdTable" class="thirdTable" border="1" width="100%"
-					height="500">
+			<div class="card col-lg-5 offset-lg-1">
+				<br>
+				<h3 class="donation-ranking-title">기부 단체 설명</h3>
+				<p class="donation-main-subtitle">현재 진행중인 기부 단체에 대해 알려드립니다.</p>
+				<table id="donation-ranking-table" height="600" >
 					<tr>
-						<!-- 정해진 단체의 db정보 가져와서 출력  
-							어떤 기준으로 단체를 정할지+그에 맞는 출력 방식 **********
-						-->
-
-						<td>기부단체 설명
-						<br><br> ${donationOrgInfo}
+						<td>${donationOrgInfo}
 						</td>
 					</tr>
 				</table>
-
-			</td>
-		</tr>
-
-	</table>
-	<!--전체 윤곽 테이블 끝-->
-
+			</div>
+		</div>
+	</section>
 </main>
 <c:import url="/foot" />

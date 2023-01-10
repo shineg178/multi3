@@ -1,10 +1,14 @@
 package three.team.project;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -14,8 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
+import three.donation.model.DonateVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.profile.service.ProfileService;
@@ -29,18 +35,18 @@ public class ProfileController {
 	private ProfileService profileServiceImpl;
 	
 	@GetMapping("/users-profile")
-	public String userProfile(Model m, @RequestParam(defaultValue = "0") int userNum, HttpSession ses) { 
-//		if (userNum == 0) {
-//			return "redirect:/";
-//		}
-		ses.setAttribute("userNum", userNum);
-		log.info("userNum:"+userNum);
-		UserVO user=this.profileServiceImpl.findUserByuserNum(userNum);
+	public String userProfile(Model m, HttpSession ses) { 
+		UserVO user=(UserVO)ses.getAttribute("user");
+		if (user == null) {
+			return "redirect:/";
+		}
+		//UserVO user=this.profileServiceImpl.findUserByuserNum(userNum);
 		
 		m.addAttribute("user",user);
 		return "users-profile";
 	}
 	
+	//결제요청 & 결제정보저장
 	@PostMapping(value="/users-profile/payment")
 	@ResponseBody
 	public Map<String, Object> requestPayment (
@@ -54,20 +60,14 @@ public class ProfileController {
 		
 		PaymentVO vo=new PaymentVO(merchant_uid,imp_uid,buyer_email,buyer_id,paid_amount,null);
 		
-//		log.info(imp_uid);
-//		log.info(merchant_uid);
-//		log.info(buyer_email);
-//		log.info(paid_amount);
-//		log.info("vo==="+vo);
-		
-		int n=this.profileServiceImpl.insertPayment(vo);
-		int a=this.profileServiceImpl.plusPoint(vo);
+		int addPayment=this.profileServiceImpl.insertPayment(vo);
+		int plusPoint=this.profileServiceImpl.plusPoint(vo);
 		m.addAttribute("payment",vo);
 		
 		return map;
 		
 	}
-
+	//환전요청 & 환전정보 저장
 	@PostMapping("/users-profile/exchange")
 	@ResponseBody
 	public Map<String, Object> exchange(@RequestBody Map<String, Object> map,
@@ -84,12 +84,31 @@ public class ProfileController {
 		}
 		
 		ExchangeVO vo=new ExchangeVO(0,bankName,bankAccountNum,userName,userEmail,userid,exchangePoint,null);
-		int n=this.profileServiceImpl.addExchange(vo);
-		int a=this.profileServiceImpl.minusPoint(vo);
+		int insertExchange=this.profileServiceImpl.addExchange(vo);
+		int minusPoint=this.profileServiceImpl.minusPointByExchange(vo);
 		m.addAttribute("exchange",vo);
 		return map;
 	}
-	
+	//기부내역 저장
+	@PostMapping("/users-profile/donate")
+	@ResponseBody
+	public Map<String, Object> donate(@RequestBody Map<String, Object> map,
+			Model m) {
+		String userId=map.get("userId").toString();
+		int donAmount=Integer.parseInt(map.get("donAmount").toString());
+		int donOrgNum=this.profileServiceImpl.getDonOrgNum();
+		String donOrgName=this.profileServiceImpl.getDonOrgName(donOrgNum);
+		
+		if(userId==null || donAmount <100 || donOrgNum < 2000) {
+			return null;
+		}
+		
+		DonateVO dvo=new DonateVO(0,userId,donOrgNum,donOrgName,donAmount,2,null);
+		int insertDonate=this.profileServiceImpl.addDonation(dvo);
+		int minusPoint=this.profileServiceImpl.minusPointByDonation(dvo);
+		return map;
+	}
+	//포인트충전리스트
 	@GetMapping(value="/users-profile/rechargeList", produces = "application/json")
 	@ResponseBody
 	public List<PaymentVO> rechargeList(String userId, Model m){
@@ -99,7 +118,7 @@ public class ProfileController {
 		m.addAttribute("payList",payList);
 		return payList;
 	}
-	
+	//포인트 환전 리스트
 	@GetMapping(value="/users-profile/exchangeList", produces = "application/json")
 	@ResponseBody
 	public List<ExchangeVO> exchangeList(String userId, Model m){
@@ -108,5 +127,118 @@ public class ProfileController {
 		exList=this.profileServiceImpl.findExchangeByUserId(userId);
 		m.addAttribute("exList",exList);
 		return exList;
+	}
+	//포인트 기부 리스트
+	@GetMapping(value="/users-profile/donateList", produces = "application/json")
+	@ResponseBody
+	public List<DonateVO> donateList(String userId, Model m){
+		log.info("userId==="+userId);
+		List<DonateVO> doList=new ArrayList<DonateVO>();
+		doList=this.profileServiceImpl.findDonationByUserId(userId);
+		m.addAttribute("doList",doList);
+		return doList;
+	}
+	//프로필이미지등록&수정
+	@PostMapping("/users-profile/updateImg")
+	public String updateImg(@RequestParam("userImage") MultipartFile file, 
+			@RequestParam("userNum") int userNum,
+			Model m, HttpSession ses) {
+		
+		ServletContext app=ses.getServletContext();
+		String upDir=app.getRealPath("/resources/User_Image");
+		log.info(upDir);
+		File dir=new File(upDir);
+		if(!dir.exists()){
+			dir.mkdirs();
+		}
+		if(file != null) {
+			//기존 공지사항 내용 불러오기
+			UserVO vo=this.profileServiceImpl.findUserByuserNum(userNum);
+			String oldFileName=vo.getUserImage();//기존 파일이름
+			
+			//기존 파일이 있을경우 기존 파일 삭제
+			if(oldFileName!=null) {
+				File delf=new File(upDir,oldFileName);
+				if(delf.exists()) {
+					delf.delete();
+				}
+			}
+			
+			String originFname=file.getOriginalFilename();
+			UUID uuid=UUID.randomUUID();
+			String newfilename=uuid.toString()+"_"+originFname;
+			
+			//새로운 vo 객체에 파일 이름 넣기
+			vo.setUserImage(newfilename);
+			
+			//새로운 이미지 업로드
+			try {
+				file.transferTo(new File(upDir,newfilename));
+			}catch(Exception e) {
+				log.error(e);
+			}
+			
+			int n=profileServiceImpl.updateUserImage(vo);
+			log.info(n);
+			
+		}
+		return "redirect:/users-profile";
+	}
+	//비밀번호체크 
+	@PostMapping("/users-profile/updateProfile/loginCheck")
+	@ResponseBody
+	public String passwordCheck(@RequestParam("userNum") int userNum,
+			@RequestParam("password") String password, Model m) {
+		String realPassword=this.profileServiceImpl.getPassword(userNum);
+		String code;
+		//log.info(realPassword);
+		//log.info(password);
+		if(realPassword.equals(password) ) {
+			code="success";
+		}else {
+			code="fail";
+		}
+		return code;
+	}
+	//개인정보수정 
+	@PostMapping("/users-profile/updateProfile")
+	@ResponseBody
+	public Map<String, Object> updateProfile(@RequestBody Map<String, Object> map,
+	Model m) {
+		int userNum=Integer.parseInt(map.get("userNum").toString());
+		String userInfo=map.get("userInfo").toString();
+		String userNick=map.get("userNick").toString();
+		String userAddr1=map.get("userAddr1").toString();
+		String userAddr2=map.get("userAddr2").toString();
+		String userAddr3=map.get("userAddr3").toString();
+		String userTel=map.get("userTel").toString();
+		String userEmail=map.get("userEmail").toString();
+		
+		UserVO vo=new UserVO(userNum,null,null,null,userNick,userTel,userEmail,userAddr1,userAddr2,userAddr3,0,null,userInfo,0,0,0,0);
+		int updateProfile=this.profileServiceImpl.updateProfile(vo);
+		
+		return map;
+	}
+	//비밀번호 수정
+	@PostMapping("/users-profile/updatePassword")
+	@ResponseBody
+	public Map<String, String> updatePassword(@RequestParam("newPassword") String newPassword, HttpSession ses) {
+		//log.info(newPassword);
+		UserVO vo=(UserVO)ses.getAttribute("user");
+		vo.setUserPassword(newPassword);
+		int updatePassword=this.profileServiceImpl.updatePassword(vo);
+		Map<String, String> map=new HashMap<>();
+		map.put("password",newPassword);
+		return map;
+	}
+	//탈퇴회원전환
+	@PostMapping("/users-profile/deleteUser")
+	@ResponseBody
+	public Map<String, String> deleteUser(@RequestParam("userNum") int userNum, HttpSession ses) {
+		Map<String, String> map=new HashMap<>();
+		UserVO user=(UserVO)ses.getAttribute("user");
+		int deleteUser=this.profileServiceImpl.deleteUser(user);
+		ses.removeAttribute("user");
+		return map;
 	}
 }

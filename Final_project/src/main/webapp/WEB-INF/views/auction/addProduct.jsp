@@ -9,7 +9,7 @@
 
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
-<link href="resources/assets/css/addProduct.css" rel="stylesheet">
+<link href="${path}/resources/assets/css/addProduct.css" rel="stylesheet">
 
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>

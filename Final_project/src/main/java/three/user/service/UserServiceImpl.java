@@ -56,13 +56,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO findGoogleUser(UserVO vo) {
-		return usermapper.findGoogleUser(vo);
+	public UserVO findSocialUser(UserVO vo) {
+		return usermapper.findSocialUser(vo);
 	}
 
 	@Override
-	public int joinGoogle(UserVO vo) {
-		return usermapper.joinGoogle(vo);
+	public int joinSocial(UserVO vo) {
+		return usermapper.joinSocial(vo);
 	}
 
 

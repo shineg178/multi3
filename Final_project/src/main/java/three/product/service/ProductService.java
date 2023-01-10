@@ -1,12 +1,10 @@
-package three.product.mapper;
+package three.product.service;
 
 import java.util.List;
 
 import three.product.model.ProductVO;
 
-public interface ProductMapper {
-	
-	ProductVO selectProductByProdNum(int prodNum);
+public interface ProductService {
 	
 	//상품 등록
 	int addProduct(ProductVO vo);
@@ -16,5 +14,4 @@ public interface ProductMapper {
 	
 	//카테고리 번호로 물품 가져오기
 	List<ProductVO> cateProduct(int cno);
-	
 }

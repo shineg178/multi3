@@ -25,7 +25,7 @@ public class UserVO {
 	private String userNick;
 
 	// 회원 연락처
-	private int userTel;
+	private String userTel;
 	
 	// 회원 이메일
 	private String userEmail;
@@ -56,18 +56,6 @@ public class UserVO {
 	
 	// 회원 골드뱃지
 	private int userGoldBadge;
-	
-	// 회원 트위터
-	private int userTwitter;
-		
-	// 회원 페이스북
-	private int userFacebook;
-		
-	// 회원 인스타그램
-	private int userInstagram;
-		
-	// 회원 링크드인
-	private int userLinkedin;
 	
 	// 회원 상태 (관리자, 일반회원, 소셜로그인, 탈퇴회원)
 	private int userStatus;

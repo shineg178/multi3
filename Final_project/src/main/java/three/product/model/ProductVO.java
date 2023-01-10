@@ -1,6 +1,9 @@
 package three.product.model;
 
 import java.util.Date;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,7 +21,7 @@ public class ProductVO {
 	
 	private int userNum_fk;
 	
-	private int prodCategoryNum_fk;
+	private String prodCategoryNum_fk;
 	
 	private String prodName;
 	
@@ -35,6 +38,14 @@ public class ProductVO {
 	private int donatePercent;
 	
 	private int auctionTime;
+	
+	private String sellerAddr1;
+	
+	private String sellerAddr2;
+	
+	private String sellerAddr3;
+	
+	private int status;
 	
 	private Date getCloseTime(Date pIndate, int auctionTime) {
 		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -317,7 +317,7 @@ $(function(){
         </a>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="${paths}users-profile">
+        <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
           <span>마이페이지</span>
         </a>

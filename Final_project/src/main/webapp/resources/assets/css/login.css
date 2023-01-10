@@ -3,7 +3,7 @@
 
 body {
 	font-family: 'nanumgothic';
-	font-size: 13px;
+	font-size: 15px;
 	color: #222;
 	margin: 0;
 	padding: 0;
@@ -11,21 +11,15 @@ body {
 
 /* 로그인 실패시 경고글 */
 .login_warn{
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
+    color:#ff0000;
 }
 
-input.signIn {
-	width:100%;
-	padding :10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border : none;
-	margin-bottom:10px;
-}
-
+input.signIn, 
 input#btn {
-	width:100%;
+	width:80%;
+	height:50px;
 	padding :10px;
 	box-sizing: border-box;
 	border-radius: 5px;
@@ -58,18 +52,14 @@ input#btn {
 }
 a.btn {
 	display: block;
-	text-decoration: none;
-	color: #fff;
 	text-align: center;
-	border-radius: 2px;
-	font-size: 16px;
 	opacity: 0.8;
+	margin-bottom: 10px;
 }
 a.btn:hover {
 	opacity: 1;
 }
 a.btn1 {
-
 	background-color: #fff;
 	color: #222;
 }
@@ -78,23 +68,17 @@ a.btn1 {
 	margin-top: 10px;
 }
 
-.footer p:nth-child(1) a {
+.footer p:nth-child(1) a, .footer p:nth-child(2) a{
 	text-align: left;
 	color: #222;
 	text-decoration: none;
 }
-.footer p:nth-child(1) a:hover {
+.footer p:nth-child(1) a:hover, .footer p:nth-child(2) a:hover
+,.footer p:nth-child(3) a:hover {
 	text-decoration: underline;
 }
 
-.footer p:nth-child(2) a {
-	text-align: left;
-	color: #222;
-	text-decoration: none;
-}
-.footer p:nth-child(2) a:hover {
-	text-decoration: underline;
-}
+
 .footer p:nth-child(3) {
 	text-align: center;
 }
@@ -104,9 +88,6 @@ a.btn1 {
 	text-decoration: none;
 }
 
-.footer p:nth-child(3) a:hover{
-	text-decoration: underline;
-}
 
 span.or-txt {
 	display: block;
@@ -132,72 +113,7 @@ span.or-txt:after {
 	width: 44%;
 	height: 1px;
 }
-.social{
-	text-align: center;
+
+.naver, .kakao, .google {
+	width:190px;
 }
-.btn-naver{
-	margin-top: 10px;
-	width:300px;
-	height: 45px;
-	background: #00C73C;
-	padding: 0;
-	margin:0;
-}
-.naver{
-	position:fixed;
-	width: 30px;
-	right: 20rem;
-	top: 19.75rem;
-
-}
-.btn-kakao{
-	margin-top: 10px;
-}
-.btn-google{
-	margin-top: 10px;
-	width:300px;
-	height: 45px;
-	background: #1a6bf2;
-	padding: 0;
-	margin:0;
-}
-.google{
-	position:fixed;
-	width: 30px;
-	right: 20rem;
-	top: 25.99rem;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

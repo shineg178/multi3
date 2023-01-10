@@ -7,12 +7,13 @@
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd88de1b8477ef4c5df424305ccb757f&libraries=services"></script>
+<link href="resources/assets/css/productList.css" rel="stylesheet">
 <style>
 .card-wrap {
 	overflow: hidden;
 	width: 100%;
 	background: #fff;
-	border:1px solid black;
+	border: 1px solid black;
 	border-radius: 8px;
 }
 
@@ -22,7 +23,7 @@
 	text-align: center;
 	display: table;
 	border: 1px solid #fff;
-	width:280px;
+	width: 280px;
 	height: 250px;
 	margin: 10px;
 	background: #fff;
@@ -55,9 +56,30 @@
 
 <c:import url="/top" />
 <main id="main" class="main">
-	<!-- 카카오맵 지도 위치 -->
-	<div id="map"></div>
+	<section class="prod-main-section-top">
+		<div class="prod-main-top">
+			<div class="prod-main-desc">
+				<h1 class="prod-main-title">상품 목록</h1>
 
+				<p class="text-m">
+					내 주변의 상품을 찾을 수 있습니다. <br> 지도를 움직이며 관심있는 상품을 둘러보세요!
+				</p>
+			</div>
+			<div class="home-main-image-top">
+				<span> <img class="home-main-image-top"
+					src="resources/assets/img/products.png">
+			</div>
+		</div>
+	</section>
+
+	<!-- 카카오맵 지도 위치 -->
+	<div class="map-box">
+		<div id="map"></div>
+		<a class="mapIcon">
+		<img class="myLocImg" src="resources/assets/img/myLoc.png"> 내 위치 &nbsp;&nbsp;
+		<img class="LocImg" src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"> 상품 위치</a>
+	</div>
+	
 	<div class="card">
 		<div class="card-body">
 			<!-- Default Tabs -->
@@ -106,26 +128,38 @@
 			</ul>
 			<div class="tab-content pt-2" id="myTabContent">
 				<!-- 전체 목록 -->
-				<div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+				<div class="tab-pane fade show active" id="all" role="tabpanel"
+					aria-labelledby="all-tab">
 					<c:forEach items="${allList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
 											<img src="resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
 											<img src="resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
@@ -134,26 +168,40 @@
 				</div>
 
 				<!-- 디지털/가전 목록 -->
-				<div class="tab-pane fade" id="digital" role="tabpanel" aria-labelledby="digital-tab">
+				<div class="tab-pane fade" id="digital" role="tabpanel"
+					aria-labelledby="digital-tab">
 					<c:forEach items="${digiList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
@@ -162,26 +210,40 @@
 				</div>
 
 				<!-- 가구/인테리어 목록 -->
-				<div class="tab-pane fade" id="furniture" role="tabpanel" aria-labelledby="furniture-tab">
+				<div class="tab-pane fade" id="furniture" role="tabpanel"
+					aria-labelledby="furniture-tab">
 					<c:forEach items="${funiList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
@@ -190,26 +252,40 @@
 				</div>
 
 				<!-- 생활/가공식품 목록 -->
-				<div class="tab-pane fade" id="food" role="tabpanel" aria-labelledby="food-tab">
+				<div class="tab-pane fade" id="food" role="tabpanel"
+					aria-labelledby="food-tab">
 					<c:forEach items="${foodList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
@@ -218,89 +294,131 @@
 				</div>
 
 				<!-- 의류 목록 -->
-				<div class="tab-pane fade" id="cloth" role="tabpanel"	aria-labelledby="cloth-tab">
+				<div class="tab-pane fade" id="cloth" role="tabpanel"
+					aria-labelledby="cloth-tab">
 					<c:forEach items="${clothList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
 						</section>
 					</c:forEach>
 				</div>
-				
+
 				<!-- 게임/취미 목록 -->
-				<div class="tab-pane fade" id="game" role="tabpanel"	aria-labelledby="game-tab">
+				<div class="tab-pane fade" id="game" role="tabpanel"
+					aria-labelledby="game-tab">
 					<c:forEach items="${gameList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
 						</section>
 					</c:forEach>
 				</div>
-				
+
 				<!-- 도서 목록 -->
-				<div class="tab-pane fade" id="book" role="tabpanel"	aria-labelledby="book-tab">
+				<div class="tab-pane fade" id="book" role="tabpanel"
+					aria-labelledby="book-tab">
 					<c:forEach items="${bookList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
-								<a class="card-link" data-event-label="" href="auction/auctionDetail?prodNum=${list.prodNum}">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
 										<c:if test="${list.prodImage1 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
-											<img src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img
+												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title"><c:out value="${list.prodName}"/></h2>
-										<div class="card-price">경매 시작가 : <c:out value="${list.aucStartPrice}"/>원</div>
-										<div class="card-region-name"><c:out value="${list.sellerAddr2}"/></div>
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
 									</div>
 								</a>
 							</article>
 						</section>
 					</c:forEach>
 				</div>
-			
+
 
 			</div>
 			<!-- End Default Tabs -->

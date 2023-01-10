@@ -47,14 +47,22 @@ function onSignIn(){
 							name="userPassword" placeholder="비밀번호" class="signIn"> <input
 							type="submit" id="btn" class="btn" value="로그인"><br>
 						<c:if test="${result == 0 }">
-							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나 정지된 계정입니다.</div>
+							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나<br>정지된 계정입니다.</div>
 						</c:if>
 					</form>
 					<span class="or-txt">또는</span> 
 
-					<a class="btn btn2" id="naverBtn">네이버 로그인</a>
-					<a class="btn btn3" id="kakaoBtn">카카오 로그인</a>
-					<a class="btn btn4" id="googleBtn">구글 로그인</a>
+				<div class="social">
+                  
+                  <a class="btn btn-naver"><img class="naver"
+                     src="resources/assets/img/naverLogin.png"></a> 
+                  
+                  <a class="btn btn-kakao"><img class="kakao"
+                     src="resources/assets/img/kakaoLogin.png"></a> 
+                  
+                  <a class="btn btn-google" id="googleBtn"><img class="google"
+                     src="resources/assets/img/googleLogin.png"></a>
+               </div> 
 
 				</div>
 				<div class="footer">

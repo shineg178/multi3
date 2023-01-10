@@ -5,8 +5,6 @@
 <c:import url="/top" />
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
-<style>
-</style>
 <main id="main" class="main">
 	<section class="home-main-section-top">
 		<div class="home-main-top">

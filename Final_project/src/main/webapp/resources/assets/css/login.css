@@ -60,33 +60,19 @@ a.btn {
 	display: block;
 	text-decoration: none;
 	color: #fff;
-	border: 1px solid lightgray;
 	text-align: center;
 	border-radius: 2px;
 	font-size: 16px;
-	padding: 15px;
 	opacity: 0.8;
-	margin-bottom: 10px;
 }
 a.btn:hover {
 	opacity: 1;
 }
 a.btn1 {
+
 	background-color: #fff;
 	color: #222;
 }
-a.btn2{
-	background-color: #11ce00;
-}
-a.btn3{
-	background-color: #ffff00;
-	color: black;
-}
-a.btn4{
-	background-color: #898c9b;
-
-}
-
 .footer{
 	padding: 5px;
 	margin-top: 10px;
@@ -146,10 +132,41 @@ span.or-txt:after {
 	width: 44%;
 	height: 1px;
 }
+.social{
+	text-align: center;
+}
+.btn-naver{
+	margin-top: 10px;
+	width:300px;
+	height: 45px;
+	background: #00C73C;
+	padding: 0;
+	margin:0;
+}
+.naver{
+	position:fixed;
+	width: 30px;
+	right: 20rem;
+	top: 19.75rem;
 
-
-
-
+}
+.btn-kakao{
+	margin-top: 10px;
+}
+.btn-google{
+	margin-top: 10px;
+	width:300px;
+	height: 45px;
+	background: #1a6bf2;
+	padding: 0;
+	margin:0;
+}
+.google{
+	position:fixed;
+	width: 30px;
+	right: 20rem;
+	top: 25.99rem;
+}
 
 
 

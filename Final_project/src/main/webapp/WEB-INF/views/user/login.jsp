@@ -10,7 +10,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- 구글 라이브러리 -->
 
-<meta name="google-client_id" content="564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com">
+<meta name="google-client_id"
+	content="564844281319-rhk3r281rcukserl0bp008ofbsl596pd.apps.googleusercontent.com">
 
 <link
 	href="${pageContext.request.contextPath}/resources/assets/css/login.css"
@@ -47,19 +48,28 @@ function onSignIn(){
 							name="userPassword" placeholder="비밀번호" class="signIn"> <input
 							type="submit" id="btn" class="btn" value="로그인"><br>
 						<c:if test="${result == 0 }">
-							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나 정지된 계정입니다.</div>
+							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나 정지된
+								계정입니다.</div>
 						</c:if>
 					</form>
-					<span class="or-txt">또는</span> 
-
-					<a class="btn btn2" >네이버 로그인</a>
-					<a class="btn btn3" >카카오 로그인</a>
-					<a class="btn btn4" id="googleBtn">구글 로그인</a>
-
+					<span class="or-txt">또는</span>
+					
+					<div class="social">
+						
+						<a class="btn btn-naver"><img class="naver"
+							src="resources/assets/img/naverLogo.png">네이버 로그인</a> 
+						
+						<a class="btn btn-kakao"><img class="kakao"
+							src="resources/assets/img/kakaoLogin.png"></a> 
+						
+						<a class="btn btn-google" id="googleBtn"><img class="google"
+							src="resources/assets/img/googleLogo.png">구글 로그인</a>
+					</div>
 				</div>
 				<div class="footer">
 					<p>
-						<a href="find-id">아이디 찾기</a> / <a href="find-password">비밀번호 찾기</a> / <a href="/project">돌아가기</a>
+						<a href="find-id">아이디 찾기</a> / <a href="find-password">비밀번호 찾기</a>
+						/ <a href="/project">돌아가기</a>
 					</p>
 					<p>
 						기부앤테이크가 처음이신가요? <a href="join">회원가입</a>

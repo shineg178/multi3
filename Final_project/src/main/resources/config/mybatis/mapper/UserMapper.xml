@@ -30,8 +30,7 @@
 		userPassword, userName, userTel, userEmail,
 		userAddr1, userAddr2,
 		userAddr3, userNick, userPoint, userImage, userInfo,
-		userBronzeBadge, userSilverBadge, userGoldBadge, userTwitter,
-		userFacebook, userInstagram, userLinkedin, userStatus
+		userBronzeBadge, userSilverBadge, userGoldBadge, userStatus
 		from project_user where
 		userId
 		= #{userId} and userPassword = #{userPassword} and userStatus != 3
@@ -72,8 +71,7 @@
 		userPassword, userName, userTel, userEmail,
 		userAddr1, userAddr2,
 		userAddr3, userNick, userPoint, userImage, userInfo,
-		userBronzeBadge, userSilverBadge, userGoldBadge, userTwitter,
-		userFacebook, userInstagram, userLinkedin, userStatus from project_user where userNum=#{value}	
+		userBronzeBadge, userSilverBadge, userGoldBadge, userStatus from project_user where userNum=#{value}	
 	</select>
 
 </mapper>

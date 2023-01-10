@@ -20,15 +20,15 @@
 		select row_number()
 		over(order by sum(donAmount) desc) rankingNumber,
 		sum(donAmount) totalAmount,
-		userNum_fk from donation group by userNum_fk
+		userId_fk from donation group by userId_fk
 	</select>
 	
 	<!-- 기부자 순위 검색 -->
 	<select id="donationRankingId" resultType="String">
 		select *from (select row_number() 
     over(order by sum(donAmount) desc) rankingNumber,
-    userNum_fk from donation 
-    group by userNum_fk)  where userNum_fk=#{userId}
+    userId_fk from donation 
+    group by userId_fk)  where userId_fk=#{userId}
 	</select>
 	
 	<!-- 기부 단체 설명 -->

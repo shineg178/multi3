@@ -50,7 +50,7 @@
 	rel="stylesheet">
 <link href="${path}/resources/assets/vendor/simple-datatables/style.css"
 	rel="stylesheet">
-
+<style> @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap'); </style>
 <!-- Template Main CSS File -->
 <link href="${path}/resources/assets/css/style.css" rel="stylesheet">
 <!-- =======================================================
@@ -182,7 +182,7 @@ $(function(){
       <a href="${path}" class="logo d-flex align-items-center">
         <img src="${path}/resources/assets/img//logo.png" alt="">
 
-        <span class="d-none d-lg-block" id="title">기부앤테이크</span>
+        <span class="d-none d-lg-block" style="font-size:50px;font-family:'Dongle', sans-serif;">기부앤테이크</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->

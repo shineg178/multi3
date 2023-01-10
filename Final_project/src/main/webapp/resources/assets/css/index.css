@@ -2,6 +2,7 @@
 
 .main {
 	margin: 3em;
+	min-width: 550px;
 }
 
 .home-main-section-top {
@@ -19,6 +20,7 @@
 	background: #fff;
 	overflow: hidden;
 	border-radius: 8px;
+	
 }
 
 .home-main-title {
@@ -32,21 +34,29 @@
 	font-size: 1rem !important;
 }
 
-.home-main-image-top {
-	position: absolute;
+@media (min-width: 770px) {
+  .home-main-image-top {
+    position: absolute;
 	margin-bottom: 1rem;
 	right: 30px;
 	bottom: 0;
 	width: 15rem;
 	height: 15rem;
 	background-repeat: no-repeat;
-}
-
+  }
+ }
+ 
+ @media (max-width: 770px){
+ 	.home-main-image-top{
+ 		display: none;
+ 	}
+ }
 .carousel {
 	border-radius: 8px;
 	height: 250px;
 	width: 100%;
 	background: #c0c0c0;
+	
 }
 
 .banner1-title {
@@ -133,7 +143,7 @@
     width: 100%;
     background: #fff;
     border-radius: 8px;
-
+	
 }
 
 .card-top{
@@ -143,20 +153,22 @@
     display:table;
     border:1px solid #fff;
     width:280px;
-    height:250px;
+    height:300px;
 	margin:10px;
 	background: #fff;
     border-radius: 8px;
 
 }
 .card-photo{
-	  display:table-cell;
+	display:table-cell;
     vertical-align:middle;
     margin-bottom: 1rem;
+    width:210px;
+    height:210px;
 }
 .card-photo img {
-	max-width:180px;
-    max-height:180px;
+	max-width:200px;
+    max-height:200px;
     margin-top: 1rem;
 
 }

@@ -19,12 +19,12 @@ body {
 }
 
 a {
-  color: #000000;
+  color: #444444;
   text-decoration: none;
 }
 
 a:hover {
-  color: #717ff5;
+  color: #808080;
   text-decoration: none;
 }
 
@@ -63,7 +63,7 @@ h6 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #012970;
+  color: #444444;
 }
 
 /*--------------------------------------------------------------

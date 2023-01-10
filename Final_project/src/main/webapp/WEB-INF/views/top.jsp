@@ -212,11 +212,6 @@ $(function(){
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
-
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
@@ -361,43 +356,43 @@ $(function(){
       <li class="nav-item">
         <a class="nav-link " href="${path}">
           <i class="bi bi-grid"></i>
-          <span>Home</span>
+          <span>홈</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed"  href="${path}/noticeList">
-          <i class="bi bi-journal-text"></i><span>Notice</span>
+          <i class="bi bi-journal-text"></i><span>공지사항</span>
         </a>
       </li><!-- End Forms Nav --> 
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
+          <i class="bi bi-layout-text-window-reverse"></i><span>상품 조회</span>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="#">
-          <i class="bi bi-bar-chart"></i><span>AddProduct</span>
+        <a class="nav-link collapsed"  href="${path}/auction">
+          <i class="bi bi-layout-text-window-reverse"></i><span>상품 등록</span>
         </a>
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/donation">
-          <i class="bi bi-gem"></i><span>Donation</span>
+          <i class="bi bi-gem"></i><span>기부 현황</span>
         </a>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
-          <span>Mypage</span>
+          <span>마이페이지</span>
         </a>
         
       <!-- 관리자 전용 페이지 -->
 			<c:if test="${user.userStatus eq 1}">
 				<li class="nav-item"><a class="nav-link collapsed"
-					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
+					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>관리자전용</span>
 				</a></li>
 			</c:if>
       </li><!-- End Profile Page Nav -->

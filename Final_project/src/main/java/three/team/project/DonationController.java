@@ -34,7 +34,13 @@ public class DonationController {
 		System.out.println(m);
 		return "donation/donation";
 	}
-
+	@RequestMapping(value = "/auction", method = RequestMethod.GET)
+	public String auctionForm() {
+		//기부페이지 상단 거래수와 총기부금액
+		log.info("==========addProduct==========");
+		
+		return "auction/addProduct";
+	}
 	// 기부 페이지 내 기부자 순위 검색
 	@GetMapping(value = "/donationRankingSearch", produces = "application/json")
 	@ResponseBody

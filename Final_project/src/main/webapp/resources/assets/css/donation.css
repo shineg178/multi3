@@ -23,6 +23,7 @@
 
 .main{
 	margin:3em;
+	min-width: 650px;
 }
 h3 {
 	text-align: center;
@@ -67,6 +68,7 @@ section {
     width: 10rem;
     height:10rem;
     object-fit: cover;
+    z-index: 20;
 }
 div {
 	display: block;
@@ -85,6 +87,7 @@ div {
 	font-size: 1.5rem;
 	color: #000000;
 	text-align: center;
+	z-index: 40;
 }
 
 .donation-main-subtitle, .donation-ranking-subtitle {
@@ -93,5 +96,6 @@ div {
 	font-size: 1rem;
 	color: #000000;
 	padding: 1.5rem 1rem 0;
+	z-index: 30;
 	
 }

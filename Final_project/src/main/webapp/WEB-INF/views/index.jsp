@@ -223,6 +223,66 @@
 				</div>
 			</a>
 		</article>
+		<article class="card-top">
+			<a class="card-link" data-event-label="" href="">
+				<div class="card-photo">
+					<img alt="1번 상품" src="resources/assets/img/donation.png">
+				</div>
+				<div class="card-desc">
+					<h2 class="card-title">캠핑용품 판매</h2>
+					<div class="card-price">100,000원</div>
+					<div class="card-region-name">서울 서초구 잠원동</div>
+				</div>
+			</a>
+		</article>
+		<article class="card-top">
+			<a class="card-link" data-event-label="" href="">
+				<div class="card-photo">
+					<img alt="1번 상품" src="resources/assets/img/donation.png">
+				</div>
+				<div class="card-desc">
+					<h2 class="card-title">캠핑용품 판매</h2>
+					<div class="card-price">100,000원</div>
+					<div class="card-region-name">서울 서초구 잠원동</div>
+				</div>
+			</a>
+		</article>
+		<article class="card-top">
+			<a class="card-link" data-event-label="" href="">
+				<div class="card-photo">
+					<img alt="1번 상품" src="resources/assets/img/tv2.png">
+				</div>
+				<div class="card-desc">
+					<h2 class="card-title">캠핑용품 판매</h2>
+					<div class="card-price">100,000원</div>
+					<div class="card-region-name">서울 서초구 잠원동</div>
+				</div>
+			</a>
+		</article>
+		<article class="card-top">
+			<a class="card-link" data-event-label="" href="">
+				<div class="card-photo">
+					<img alt="1번 상품" src="resources/assets/img/trome1.png">
+				</div>
+				<div class="card-desc">
+					<h2 class="card-title">캠핑용품 판매</h2>
+					<div class="card-price">100,000원</div>
+					<div class="card-region-name">서울 서초구 잠원동</div>
+				</div>
+			</a>
+		</article>
+		<article class="card-top">
+			<a class="card-link" data-event-label="" href="">
+				<div class="card-photo">
+					<img alt="1번 상품" src="resources/assets/img/notice.png">
+				</div>
+				<div class="card-desc">
+					<h2 class="card-title">캠핑용품 판매</h2>
+					<div class="card-price">100,000원</div>
+					<div class="card-region-name">서울 서초구 잠원동</div>
+				</div>
+			</a>
+		</article>
 	</section>
 </main>
 <c:import url="/foot" />

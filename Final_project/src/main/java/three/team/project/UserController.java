@@ -71,7 +71,7 @@ public class UserController {
 		String Name = userInfo.get("name").asText();
 
 		UserVO vo = new UserVO();
-		vo.setUserId(email);
+		vo.setUserId("(google)"+email);
 		vo.setUserEmail(email);
 		vo.setUserName(Name);
 		UUID uid = UUID.randomUUID();
@@ -130,7 +130,7 @@ public class UserController {
 		 
 		UserVO vo=new UserVO();
 		vo.setUserName(Name);
-		vo.setUserId(email);
+		vo.setUserId("(naver)"+email);
 		vo.setUserEmail(email);
 		UUID uid = UUID.randomUUID();
 		String password = uid.toString();

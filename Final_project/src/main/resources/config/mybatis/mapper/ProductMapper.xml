@@ -17,6 +17,10 @@
 	</insert>
 	
 	<select id="allProduct" resultType="Product">
-		select * from product order by pindate desc	
+		select * from product where status=1 order by pindate desc	
+	</select>
+	
+	<select id="cateProduct" parameterType="int" resultType="Product">
+		select * from product where prodCategoryNum_fk=#{value} and status=1 order by pIndate desc
 	</select>
 </mapper>

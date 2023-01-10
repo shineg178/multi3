@@ -21,14 +21,6 @@
 
 </style>
 <main id="main" class="main">
-	<ul>
-		<li><a href="1">1 접속</a> <br> <a href="2">2 접속</a> <br>
-			<a href="3">3 접속</a> <br></li>
-		<li><a href="room1">1과 채팅방 생성</a><br> <a href="room2">2과
-				채팅방 생성</a><br> <a href="room3">3과 채팅방 생성</a><br></li>
-		<li>${id}로그인중</li>
-		<li><a href="auction/auctionDetail?prodNum=1&userNum=1">상품상세페이지(userNum=1,prdoNum=1)</a><br></li>
-	</ul>
 
 <!-- 배너 // 배너 내용과 이미지는 추후 변경 예정 -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">

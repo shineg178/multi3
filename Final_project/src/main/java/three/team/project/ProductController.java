@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,30 @@ public class ProductController {
 	
 	//물품 목록 페이지 이동 
 	@GetMapping("/productList")
-	public String prodList() {
+	public String prodList(Model m) {
+
+		//모든 제품 목록 리스트
+		List<ProductVO> allList=productServiceImpl.allProduct();
+		//디지털/가전 제품 목록 리스트
+		List<ProductVO> digiList=productServiceImpl.cateProduct(10);
+		//가구인테리어 목록 리스트
+		List<ProductVO> funiList=productServiceImpl.cateProduct(20);
+		//생활/가공식품 제품 목록 리스트
+		List<ProductVO> foodList=productServiceImpl.cateProduct(30);
+		//의류 제품 목록 리스트
+		List<ProductVO> clothList=productServiceImpl.cateProduct(40);
+		//게임/취미 제품 목록 리스트
+		List<ProductVO> gameList=productServiceImpl.cateProduct(50);
+		//도서 제품 목록 리스트
+		List<ProductVO> bookList=productServiceImpl.cateProduct(60);
+		
+		m.addAttribute("allList",allList);
+		m.addAttribute("digiList",digiList);
+		m.addAttribute("funiList",funiList);
+		m.addAttribute("bookList",bookList);
+		m.addAttribute("foodList",foodList);
+		m.addAttribute("gameList",gameList);
+		m.addAttribute("clothList",clothList);
 		
 		return "product/productList";
 	}
@@ -98,7 +122,7 @@ public class ProductController {
 		//DB에 물품 정보 저장
 		productServiceImpl.addProduct(vo);
 		
-		return "product/productList";
+		return "redirect:productList";
 	}
 	
 	//모든 물품 정보 가져오기

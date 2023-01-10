@@ -25,4 +25,9 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.allProduct();
 	}
 
+	@Override
+	public List<ProductVO> cateProduct(int cno) {
+		return productMapper.cateProduct(cno);
+	}
+
 }

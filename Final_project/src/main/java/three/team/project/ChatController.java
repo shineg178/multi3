@@ -49,55 +49,6 @@ public class ChatController {
 		m.addAttribute("Room",roomvo);
 		return "chat/chat";
 	}
-
-	//채팅창 테스트 --------------------------
-	@GetMapping("/1")
-	public String a(HttpSession ses) {
-		ses.setAttribute("id", "1");
-		return "redirect:/";
-	}
-	
-	@GetMapping("/2")
-	public String b(HttpSession ses) {
-		ses.setAttribute("id", "2");
-		return "redirect:/";
-	}
-	
-	@GetMapping("/3")
-	public String c(HttpSession ses) {
-		ses.setAttribute("id", "3");
-		return "redirect:/";
-	}
-	
-	@GetMapping("/room1")
-	public String room1(HttpSession ses) {
-		String myNick = (String) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myNick,"1");
-
-		chatServiceImpl.createRoom(vo);
-	
-		return "redirect:/";
-	}
-	
-	@GetMapping("/room2")
-	public String room2(HttpSession ses) {
-		String myNick = (String) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myNick,"2");
-		
-		chatServiceImpl.createRoom(vo);
-
-		return "redirect:/";
-	}
-	
-	@GetMapping("/room3")
-	public String room3(HttpSession ses) {
-		String myNick = (String) ses.getAttribute("id");
-		ChatRoomVO vo=new ChatRoomVO(0,myNick,"3");
-		
-		chatServiceImpl.createRoom(vo);
-			
-		return "redirect:/";
-	}
 	
 	//내 채팅방 목록 가져오기
 	@GetMapping(value="/openChatList",produces="application/json")

@@ -316,7 +316,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile?userNum=${user.userNum}">
                 <i class="bi bi-person"></i>
                 <span>마이페이지</span>
               </a>
@@ -368,13 +368,15 @@ $(function(){
       </li><!-- End Forms Nav --> 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+
+        <a class="nav-link collapsed" href="${path}/productList">
           <i class="bi bi-layout-text-window-reverse"></i><span>상품 조회</span>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="${path}/auction">
+
+        <a class="nav-link collapsed"  href="${path}/addProductForm">
           <i class="bi bi-layout-text-window-reverse"></i><span>상품 등록</span>
         </a>
       </li><!-- End Charts Nav -->

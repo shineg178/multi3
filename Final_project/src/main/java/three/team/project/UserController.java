@@ -199,7 +199,21 @@ public class UserController {
 		int cnt = userservice.checkId(userId);
 		return cnt;
 	}
-
-
+	
+	// 이용약관 페이지 이동
+		@GetMapping("rules")
+		public String rulesGET() throws Exception{	
+			return "user/rules";
+	}
+	// 위치기반 이용약관 페이지 이동
+		@GetMapping("rules2")
+		public String rules2GET() throws Exception{
+			return "user/rules2";
+	}
+	// 위치기반 이용약관 페이지 이동
+		@GetMapping("privacy")
+		public String privacyGET() throws Exception{
+			return "user/privacy";
+	}
 	
 }

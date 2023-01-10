@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* .card {
+	
+	font-family: 'GmarketSansMedium';
+	text-align: center;
+	text-shadow:5px 5px #f9f391;
+	
+} */
+* {
+	font-family: 'GmarketSansMedium';
+	
+}
+
+.main{
+	margin:3em;
+	min-width: 650px;
+}
+h3 {
+	text-align: center;
+	color: #4154f1;
+}
+
+/* .rankingClass {
+	text-align: right;
+} */
+#searchText, #nothingId {
+	display: none;
+}
+#nothingId {
+	color:#ff0000;
+}
+
+.donation-main-section {
+	position: relative;
+	width: 100%;
+	height: 21rem;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 8px; 
+}
+
+section {
+	display: block;
+}
+
+.donation-main-div {
+	color: #fff;
+	margin: 0 auto;
+	max-width: 48rem;
+	padding: 1.5rem 1rem 0;
+	overflow: hidden;
+} 
+.donation-main-image, .donation-ranking-searchline{
+	text-align:center;	
+}
+.donation-main-image img{
+	text-align:center;
+    width: 10rem;
+    height:10rem;
+    object-fit: cover;
+    z-index: 20;
+}
+div {
+	display: block;
+}
+.donation-ranking-number, .donation-ranking-user{
+	text-align:center;
+}
+.donation-ranking-totalamount{
+	text-align: right;
+}
+
+
+.donation-main-title, .donation-ranking-title {
+	font-weight: 700;
+	line-height: 1.3;
+	font-size: 1.5rem;
+	color: #000000;
+	text-align: center;
+	z-index: 40;
+}
+
+.donation-main-subtitle, .donation-ranking-subtitle {
+	text-align:center;
+	line-height: 1.4;
+	font-size: 1rem;
+	color: #000000;
+	padding: 1.5rem 1rem 0;
+	z-index: 30;
+	
+}

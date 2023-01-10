@@ -5,6 +5,7 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
+
       &copy;<strong><span>기부앤테이크</span></strong><br>
       <span><strong>대표</strong> 홍길동 | <strong>사업자번호</strong> 123-45-67890 <br></span>
     </div>
@@ -12,7 +13,9 @@
       
       <strong>전화</strong> 070-1234-5678 | <strong>고객문의</strong> dt@dtservice.com <br><br>
       <a href="rules">이용약관</a> | <a href="rules2">위치기반서비스 이용약관</a> | <strong><a href="privacy">개인정보처리방침</a></strong> 
+      &copy; Copyright <strong><span>기부앤테이크</span></strong>. All Rights Reserved
     </div>
+
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

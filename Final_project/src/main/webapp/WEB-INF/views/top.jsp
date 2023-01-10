@@ -13,7 +13,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<title>기부앤테이크 중고경매거래 기부 플랫폼</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 
@@ -53,7 +53,6 @@
 
 <!-- Template Main CSS File -->
 <link href="${path}/resources/assets/css/style.css" rel="stylesheet">
-
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -174,7 +173,7 @@ $(function(){
 });
 </script>
 <body>
-
+  
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -182,7 +181,8 @@ $(function(){
     <div class="d-flex align-items-center justify-content-between">
       <a href="${path}" class="logo d-flex align-items-center">
         <img src="${path}/resources/assets/img//logo.png" alt="">
-        <span class="d-none d-lg-block">기부앤테이크</span>
+
+        <span class="d-none d-lg-block" id="title">기부앤테이크</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -205,18 +205,13 @@ $(function(){
 
 		<!-- 로그인 하지 않은 상태 -->
                 <c:if test = "${user eq null }">
-                    <div class="login_button"><a href="${path}/login">로그인</a>  /  
-                    <span><a href="${path}/join">회원가입</a></span></div>               
+                    <div class="login_button"><a class="login_button_login" href="${path}/login">로그인</a> | 
+                    <a class="login_button_join" href="${path}/join">회원가입</a></div>               
                 </c:if>
         <!-- 로그인한 상태 -->
                 <c:if test="${ user ne null }">
 
         <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
@@ -362,43 +357,43 @@ $(function(){
       <li class="nav-item">
         <a class="nav-link " href="${path}">
           <i class="bi bi-grid"></i>
-          <span>Home</span>
+          <span>홈</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed"  href="${path}/noticeList">
-          <i class="bi bi-journal-text"></i><span>Notice</span>
+          <i class="bi bi-journal-text"></i><span>공지사항</span>
         </a>
       </li><!-- End Forms Nav --> 
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Auction</span>
+          <i class="bi bi-layout-text-window-reverse"></i><span>상품 조회</span>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="#">
-          <i class="bi bi-bar-chart"></i><span>AddProduct</span>
+        <a class="nav-link collapsed"  href="${path}/auction">
+          <i class="bi bi-layout-text-window-reverse"></i><span>상품 등록</span>
         </a>
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/donation">
-          <i class="bi bi-gem"></i><span>Donation</span>
+          <i class="bi bi-gem"></i><span>기부 현황</span>
         </a>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
-          <span>Mypage</span>
+          <span>마이페이지</span>
         </a>
         
       <!-- 관리자 전용 페이지 -->
 			<c:if test="${user.userStatus eq 1}">
 				<li class="nav-item"><a class="nav-link collapsed"
-					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>Adminpage</span>
+					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>관리자전용</span>
 				</a></li>
 			</c:if>
       </li><!-- End Profile Page Nav -->

@@ -24,27 +24,22 @@
 
   <section class="section profile">
     <div class="row">
+    
       <div class="col-xl-2">
-
         <div class="card">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-            <img src="${path}/resources/assets/img//${user.userImage}" alt="Profile" class="rounded-circle">
+            <img 
+            src="${path}\resources\User_Image/${user.userImage}" 
+            alt="Profile" class="rounded-circle">
             <h2>${user.userName }</h2>
             <h3>${user.userNick }</h3>
-            <div class="social-links mt-2">
-              <a href="https://twitter.com/${user.userTwitter }" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="https://facebook.com/${user.userFacebook }" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="https://instagram.com/${user.userInstagram }" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="https://linkedin.com/${user.userLinkedin }" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
+            <h3>${user.userEmail }</h3>
           </div>
         </div>
-
       </div>
 
       <div class="col-xl-9">
-
         <div class="card">
           <div class="card-body pt-3">
             <!-- Bordered Tabs -->
@@ -71,13 +66,21 @@
               </li>
 
             </ul>
+            
+            
             <div class="tab-content pt-2">
               <!-- profile start -->
               <div class="tab-pane fade show active profile" id="profile">
-                <h5 class="card-title">About</h5>
-                <p class="middle fst-italic">
+                <h5 class="card-title">Introduction</h5>
+                <div class="row text-center">
+                  <div class="col-lg-3 col-md-4 label "></div>
+                  <div class="col-lg-9 col-md-8">
+                  <p class="middle fst-italic">
                   ${user.userInfo }
                 </p>
+                  </div>
+                </div>
+                
 
                 <h5 class="card-title">Profile Details</h5>
 
@@ -98,7 +101,7 @@
 
                 <div class="row text-center">
                   <div class="col-lg-3 col-md-4 label">Phone</div>
-                  <div class="col-lg-9 col-md-8">${user.userTel }</div>
+                  <div class="col-lg-9 col-md-8">${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</div>
                 </div>
 				
 				<div class="row text-center">
@@ -115,9 +118,9 @@
                   <div class="col-lg-3 col-md-4 label">Point</div>
                   <div class="col-lg-9 col-md-8">${user.userPoint } 포인트</div>
                 </div>
-
               </div>
               <!-- End profile start -->
+              
               <!-- badge  Form -->
               <div class="tab-pane fade badge" id="badge">
 
@@ -144,13 +147,12 @@
 
               <!-- Point Form -->
               <div class="tab-pane fade point pt-3" id="point">
-                <form id="frm-point" enctype="multipart/form-data" action="">
-					<div class="row mb-3">
-	                    <label for="pointAmount" class="col-md-4 col-lg-3 col-form-label">포인트 잔액</label>
-	                    <div class="col-md-8 col-lg-9">
-	                      <input name="pointAmount" type="text" class="form-control" id="pointAmount" value="${user.userPoint } 포인트" readonly>
-	                    </div>
-                  	</div>
+			      <div class="row mb-3">
+                  <label for="pointAmount" class="col-md-4 col-lg-3 col-form-label">포인트 잔액</label>
+                  <div class="col-md-8 col-lg-9">
+                      <input name="pointAmount" type="text" class="form-control" id="pointAmount" value="${user.userPoint } 포인트" readonly>
+                  </div>
+              </div>
 
                   <div class="text-center">
                     <button type="button" class="btn btn-primary px-md-5" data-bs-toggle="modal" data-bs-target="#recharge" >
@@ -395,7 +397,7 @@ $(document).ready(function(){
                               <div id="ex-list" class="modal-body">
                               </div> 
                               <div class="modal-footer">
-                                <button type="button" id="donate-process" class="btn btn-primary"
+                                <button type="button" class="btn btn-primary"
                                 data-bs-toggle="modal" data-bs-target="#exchange">환전하기</button>
                                 <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                               </div>
@@ -477,7 +479,7 @@ function exchangePoint(){
  				msg += "은행명"+res["bankName"]+"\n";
  				msg += "계좌번호"+res["bankAccountNum"];
  				alert(msg);
- 				history.go(0);
+ 				//history.go(0);
  				
  			},
  			error:function(err){
@@ -546,6 +548,9 @@ function exchangeList(){
                               <div class="modal-body">
                               기부할 포인트를 적으세요.
                               </div>
+                              <div class="modal-body" style="width:70%;margin:auto"> 
+                              	<input type="number" class="form-control" id="donate-point"  value=0>
+                              </div>
                               <div class="modal-body">
 	                              <button type="button" onclick=plus("10k","donate") class="btn btn-outline-primary btn-sm">+10000</button>
 	                              <button type="button" onclick=plus("5k","donate") class="btn btn-outline-primary btn-sm">+5000</button>
@@ -553,9 +558,6 @@ function exchangeList(){
 	                              <button type="button" onclick=plus("0.1k","donate") class="btn btn-outline-primary btn-sm">+100</button>
 	                               <button type="button" onclick=plus("reset","donate") class="btn btn-outline-primary btn-sm">Reset</button>
                               </div> 
-                              <div class="modal-body" style="width:70%;margin:auto"> 
-                              	<input type="number" class="form-control" id="donate-point"  value=0>
-                              </div>
                               <div class="modal-footer">
                                 <button type="button" id="donate-process" class="btn btn-primary">기부하기</button>
                                 <button type="button" id="donate-list" class="btn btn-primary"
@@ -574,17 +576,108 @@ function exchangeList(){
                                 <h5 class="modal-title">포인트 기부내역</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
-                              <div class="modal-body">
+                              <div id="do-list" class="modal-body">
                               </div> 
                               <div class="modal-footer">
-                                <button type="button" id="donate-process" class="btn btn-primary"
+                                <button type="button" class="btn btn-primary"
                                  data-bs-toggle="modal" data-bs-target="#donate">기부하기</button>
                                 <button type="button" class="close btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                               </div>
                             </div>
                           </div>
                         </div><!-- End 포인트 기부List Modal-->
-                        
+<script>
+$(document).ready(function(){
+	$('#donate-process').click(function(){
+		//alert('기부');
+		donatePoint();
+	})
+	$('#donate-list').click(function(){
+		//alert('기부리스트');
+		donateList();
+	})
+});
+
+function donatePoint(){
+	var donAmount=$('#donate-point').val();
+	if(donAmount > ${user.userPoint}){
+		alert("보유하신 포인트가 부족합니다");
+		$('#donate-point').attr("value",0);
+		$('#donate-point').focus();
+		return;
+	}
+	if(donAmount < 100){
+		alert('100포인트이상부터 기부가 가능합니다');
+		$('#donate-point').attr("value",0);
+    	$('#donate-point').focus();
+    	return;
+	}
+	var dataObj={
+			"donAmount":donAmount,
+			"userId":"${user.userId}",
+	}
+	$.ajax({
+		type:'post',
+       	url:'users-profile/donate',
+       	dataType:'json',
+       	contentType:'application/json',
+       	data:JSON.stringify(dataObj),
+       	success:function(res){
+       		alert('포인트로 기부하기가 완료되었습니다')
+       		$('#donate-point').attr("value",0);
+    		$('#donate-point').focus();
+    		$('#pointAmount').val('${user.userPoint}원');
+       		
+       	},
+       	error:function(err){
+       		alert('포인트로 기부하기가 실패하였습니다')
+       		$('#donate-point').attr("value",0);
+    		$('#donate-point').focus();
+       		return;
+       	}
+	})
+}//----------------
+
+function donateList(){
+	$('#donate-point').val('0');
+	let userId="${user.userId}";
+	$.ajax({
+		type:'get',
+		url:'users-profile/donateList',
+		data:'userId='+userId,
+		dataType:'json',
+		success:function(res){
+			let str = '<table class="table table-striped">';
+			str += '<thead>';
+			str += '<tr>';
+			str += '<th>회원 ID</th>';
+			str += '<th>기부 단체</th>';
+			str += '<th>기부 금액</th>';
+			str += '<th>날짜</th>';
+			str += '</tr>';
+			str += '</thead>';
+			str += '<tbody>';
+			$.each(res,function(i,rvo){
+			let fdate=new Date(rvo.donationTime);
+			let date=fdate.getFullYear()+"-"+(fdate.getMonth()+1)+"-"+fdate.getDate();
+				str += '<tr>'; 
+				str += '<td>'+rvo.userId_fk+'</td>'; 
+				str += '<td>'+rvo.donOrgName+'</td>'; 
+				str += '<td>'+rvo.donAmount+'포인트</td>'; 
+				str += '<td>'+date+'</td>'; 
+				str += '</tr>'; 
+			})
+				str += '</tbody>';
+				$('#do-list').html(str);
+		},
+		error:function(err){
+			var msg = "목록 불러오기에 실패했습니다";
+			mag += "err: "+err.status;
+			alert(msg)
+		}
+	})
+}//---------
+</script>     
                 </div>
               </div>
               <!-- End settings Form -->
@@ -667,132 +760,157 @@ function exchangeList(){
               </table>
               </div>
               <!-- End trade-status Form -->
-
-
+              
+              
+              
               <!-- profile-change Form -->
               <div class="tab-pane profile-change fade pt-3" id="profile-change">
-                <form id="frm-profile-change" enctype="multipart/form-data" action="">
+              <!-- 프로필 변경 -->
+              <div id="profileWrap">
                   <div class="row mb-3">
-                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                    <label class="col-md-4 col-lg-3 col-form-label text-center" style="margin:auto"><div>Profile Image</div></label>
                     <div class="col-md-8 col-lg-9">
-                      <img src="${path}/resources/assets/img//${user.userImage}" alt="Profile">
-                      <div class="pt-2">
-                        <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><input class="bi bi-upload"></a>
-                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                      <div id=image_container class="pt-2 text-center">
+                      </div> 
+                      <div id=image class="pt-2 text-center">
+                      	<img id=profileImg class="rounded-circle" src="${path}\resources\User_Image/${user.userImage}" 
+                      	alt="Profile" style="width:20%;height:auto;">
                       </div>
+                      <br>
+                      <div class="input-group">
+						  <input type="file" class="form-control" id="userImage" name="userImage"
+						   accept="image/*" onchange="setThumbnail(event)" aria-describedby="changeImg" aria-label="Upload">
+						  <button class="btn btn-outline-success" type="button" id="changeImg">프로필 이미지 수정</button>
+					  </div>
+					<br>
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">이름</label>
+                    <label for="userName" class="col-md-4 col-lg-3 col-form-label text-center">이름</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="fullName" type="text" class="form-control" id="fullName" value="${user.userName }">
+                    <span id="userName">${user.userName }</span>
+                    </div>
+                  </div>
+                  
+                  <div class="row mb-3">
+                    <label for="userId" class="col-md-4 col-lg-3 col-form-label text-center">회원아이디</label>
+                    <div class="col-md-8 col-lg-9">
+                    <span id="userId">${user.userId }</span>
+                     
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="about" class="col-md-4 col-lg-3 col-form-label">자기소개</label>
+                    <label for="userInfo" class="col-md-4 col-lg-3 col-form-label text-center">자기소개</label>
                     <div class="col-md-8 col-lg-9">
-                      <textarea name="about" class="form-control" id="about" style="height: 100px">
-                      	${user.userInfo }
-                      </textarea>
+                      <textarea name="userInfo" class="form-control" id="userInfo" style="height: 100px">${user.userInfo}</textarea>
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="company" class="col-md-4 col-lg-3 col-form-label">닉네임</label>
+                    <label for="userNick" class="col-md-4 col-lg-3 col-form-label text-center">닉네임</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="Nickname" type="text" class="form-control" id="company" 
+                      <input name="userNick" type="text" class="form-control" id="userNick" 
                       value="${user.userNick }">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <label for="userAddr1" class="col-md-4 col-lg-3 col-form-label text-center">우편번호</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="address" type="text" class="form-control" id="Address" 
-                      value="[${user.userAddr1}], ${user.userAddr2} ${user.userAddr3}">
+                      	<input style="width:50%;display:inline" name="userAddr1" type="text"
+                      class="postcodify_postcode5 form-control" id="userAddr1" value="${user.userAddr1}">
+	                  	<button style="display:inline;margin-bottom:3px" id="searchAddr" type="button" class="btn btn-outline-success">주소 검색</button>
+                    </div>
+                    <label for="userAddr2" class="col-md-4 col-lg-3 col-form-label text-center">주소</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="userAddr2" type="text" class="postcodify_address form-control" id="userAddr2" value="${user.userAddr2}">
+                    </div>
+                    <label for="userAddr3" class="col-md-4 col-lg-3 col-form-label text-center">상세주소
+                    </label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="userAddr3" type="text" class="postcodify_details form-control" id="userAddr3" value="${user.userAddr3}">
+                    </div>
+                    <br><br>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="userTel" class="col-md-4 col-lg-3 col-form-label text-center">연락처</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="userTel" type="number" class="form-control" id="userTel" 
+                      value="${user.userTel}">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                    <label for="userEmail" class="col-md-4 col-lg-3 col-form-label text-center">이메일</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="phone" type="text" class="form-control" id="Phone" 
-                      value="${user.userTel }">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="email" type="email" class="form-control" id="Email" 
+                      <input name="userEmail" type="email" class="form-control" id="userEmail" 
                       value="${user.userEmail }">
                     </div>
                   </div>
-
-                  <div class="row mb-3">
-                    <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="twitter" type="text" class="form-control" id="Twitter" 
-                      value="https://twitter.com/${user.userTwitter }">
+                  <br>
+					<div class="text-center">
+	                    <button type="submit" id="checkBeforUpdate" class="btn btn-primary">회원정보수정</button>
+	                    <button type="button" id="updatePasswordForm" class="btn btn-success">비밀번호변경</button>
+	                     <button type="button" id="deleteUser2" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">회원 탈퇴</button>
+					</div>
+					
+					 <!-- 비밀번호 확인 Modal -->
+                     <div class="modal fade" id="checkPassword" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="text-center modal-header">
+                            <h5 class="modal-title">회원정보수정-비밀번호 확인</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body text-center" style="width:70%;margin:auto"> 
+                            	<h5>비밀번호를 입력하세요</h5>
+                              	<input type="password" class="form-control" id="updatePasswordCheck" >
+                              </div>
+                          <div class="modal-footer">
+                            <button type="button" id="updateProfile" class="btn btn-primary">회원정보변경</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
+                  <!-- 비밀번호확인 Modal 끝-->
+                </div>
+				<!-- 프로필 변경 end -->
+				
+				<!-- 패스워드 변경 -->
+				<div id="passwordWrap" style="display:none">
                   <div class="row mb-3">
-                    <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="facebook" type="text" class="form-control" id="Facebook" 
-                      value="https://facebook.com/${user.userFacebook }">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="instagram" type="text" class="form-control" id="Instagram" 
-                      value="https://instagram.com/${user.userInstagram}">
-                    </div>
-                  </div>
-
-                  <div class="row mb-3">
-                    <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                    <div class="col-md-8 col-lg-9">
-                      <input name="linkedin" type="text" class="form-control" id="Linkedin" 
-                      value="https://linkedin.com/${user.userLinkedin}">
-                    </div>
-                  </div>
-
-                  
-                </form>
-
-                <form>
-        
-                  <div class="row mb-3">
-                    <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                    <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">현재 비밀번호</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="password" type="password" class="form-control" id="currentPassword">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">새로운 비밀번호</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="newpassword" type="password" class="form-control" id="newPassword">
                     </div>
                   </div>
 
                   <div class="row mb-3">
-                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">새로운 비밀번호 확인</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="renewpassword" type="password" class="form-control" id="renewPassword">
                     </div>
                   </div>
                   
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary">회원 정보 변경</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">회원 탈퇴</button>
-
+                    <button type="button" id="updatePassword" class="btn btn-primary">비밀번호변경</button>
+                    <button type="button" id="updateProfileForm" class="btn btn-success">회원정보변경</button>
+                    <button type="button" id="deleteUser1" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete">회원 탈퇴</button>
+				  </div>
+				  
+                  </div>  
+                  <!-- 패스워드 변경 end -->
                      <!-- Vertically centered Modal -->
                      <div class="modal fade" id="delete" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
@@ -802,33 +920,320 @@ function exchangeList(){
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            정말 탈퇴하시겠습니까?
+                            ${user.userId }님, 정말 탈퇴하시겠습니까?
                           </div>
                           <div class="modal-footer">
-                            <button type="button" id="check" class="btn btn-primary">예</button>
+                            <button type="button" id="deleteUser" class="btn btn-primary">예</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- End Vertically centered Modal-->
-                    
-                  </div>
-                </form>
+                  <!-- End Vertically centered Modal-->
 
               </div>
+              </div>
               <!-- End profile-change Form -->
-
+              
+              
+              
             </div><!-- End Bordered Tabs -->
-
           </div>
         </div>
-
       </div>
-    </div>
   </section>
 
 </main><!-- End #main -->
 <!-- End #main -->
+   <!-- 주소 API 스크립트 -->
+<!-- jQuery와 Postcodify를 로딩한다 -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+<script>
+/* 개인정보변경 */
+$(function() {
+	$("#searchAddr").postcodifyPopUp();
+	$("#searchAddr").click(function(){
+		$('#Address2').val('');
+	});
+	$("#changeImg").click(function(){
+	   submitImg();
+   })
+   $("#checkBeforUpdate").click(function(){
+	   profileUpdateCheck();
+   })
+   $("#updateProfile").click(function(){
+	   passwordCheck($('#updatePasswordCheck').val(),'profile');
+   })
+   $("#updatePasswordForm").click(function(){
+	   document.querySelector('#passwordWrap').style.display = 'block';
+	   document.querySelector('#profileWrap').style.display = 'none';
+   })
+   $("#updateProfileForm").click(function(){
+	   document.querySelector('#profileWrap').style.display = 'block';
+	   document.querySelector('#passwordWrap').style.display = 'none';
+   })
+    $("#updatePassword").click(function(){
+    	passwordCheck($('#currentPassword').val(),'password');
+   })
+   $('#deleteUser').click(function(){
+	 	deleteUser();  
+   })
+   
+});
+
+function deleteUser(){
+	$.ajax({
+		type:'post',
+		url:'users-profile/deleteUser',
+		data:{"userNum":${user.userNum}},
+		dataType:'json',
+		success:function(res){
+			alert('회원탈퇴가 성공적으로 완료되었습니다\n 지금까지 이용해 주셔서 감사합니다');
+			history.back(0);
+		},
+		error:function(err){
+			alert('실패');
+		}
+	})
+}
+
+function updatePassword(){
+	var newPassword=$('#newPassword').val();
+	var renewPassword=$('#renewPassword').val();
+	if(renewPassword==''){
+		alert("비밀번호 확인을 입력해주세요");
+		$('#renewPassword').focus();
+		return false;
+	}
+	if(newPassword.length < 8 || newPassword.length > 15){
+		alert("비밀번호는 8자 이상, 15자 미만으로 작성해주세요");
+		$('#newPassword').focus();
+		return false;
+	}
+	//비밀번호에 한글 사용 방지
+	 const regKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	if(regKorean.test(newPassword)){
+		alert("비밀번호에 한글을 사용할 수 없습니다.");
+		$('#newPassword').focus();
+		return false;
+	}
+	if(newPassword != renewPassword){
+		alert("비밀번호가 일치하지 않습니다");
+		$('#renewPassword').focus();
+		return false;
+	}
+	// A-Z, a-z, 0-9, 특수문자가 포함되어 있는지, 8자 이상
+	const reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-]).{8,15}$/;
+    if(!reg.test(newPassword)){
+	    alert("비밀번호는 8자리 이상 15자리 미만, 대문자/소문자/숫자/특수문자 모두 포함해야 합니다.");
+	    $('#newPassword').focus();
+	    return false;
+	}
+		//비밀번호 안에 아이디가 있을 때
+	if(newPassword.search('${user.userId}') > -1){
+		alert("비밀번호에 아이디를 포함할 수 없습니다.");
+		$('#newPassword').focus();
+		return false;
+	}
+	//비밀번호 같은 문자 연속 4번
+	const reg2 = /(\w)\1\1\1/;
+	if(reg2.test(newPassword)){
+		alert("같은 문자를 4번 이상 연속해서 사용할 수 없습니다.");
+		$('#newPassword').focus();
+		return false;
+	}
+	if(newPassword.search('') != -1){
+		alert("비밀번호는 공백을 포함할 수 없습니다.");
+		$('#newPassword').focus();
+		return false;
+	}
+	
+	$.ajax({
+	 type:'post',
+	 url:'users-profile/updatePassword',
+	 data:{"newPassword":newPassword},
+	 dataType:'json',
+	 success:function(res){
+		 alert('비밀번호 변경이 완료되었습니다');
+		 history(0);
+	 },
+	 error:function(err){
+		 alert('비밀번호 변경이 실패하였습니다')
+	 }
+	})
+}
+
+function isEmail(input){
+	let val=input;
+	let pattern=/^[\w-_]+(\.[\w]+)*@([a-zA-Z]+\.)+[a-z]{2,3}$/;
+	let b=pattern.test(val);
+	return b;
+};
+function profileUpdateCheck(){
+	document.querySelector('#checkBeforUpdate').removeAttribute("data-bs-toggle");
+	document.querySelector('#checkBeforUpdate').removeAttribute("data-bs-target");
+	var userInfo=$('#userInfo').val();
+	var userNick=$('#userNick').val();
+	var userAddr1=$('#userAddr1').val();
+	var userAddr2=$('#userAddr2').val();
+	var userAddr3=$('#userAddr3').val();
+	var userTel=$('#userTel').val();
+	var userEmail=$('#userEmail').val();
+	
+	if(userInfo == null || userInfo == ''){
+		alert('자기소개를 입력하세요');
+		return;
+	}else if(userNick == null || userNick == ''){
+		alert('닉네임을 입력하세요');
+		return;
+	}else if(userAddr1 == null || userAddr1 == '' || userAddr2 == null || userAddr2 == '' || userAddr3 == null || userAddr3 == ''){
+		alert('주소를 입력하세요');
+		return;
+	}else if(userNick == null || userNick == '' || userNick.length < 10 && userNick.length >11){
+		alert('연락처를 정확히 10~11자리의 숫자만 입력하세요');
+		return;
+	}else if(!isEmail(userEmail)){
+		alert('이메일을 제대로 입력하세요');
+		return;
+	}else{
+		document.querySelector('#checkBeforUpdate').setAttribute("data-bs-toggle","modal");
+		document.querySelector('#checkBeforUpdate').setAttribute("data-bs-target","#checkPassword");
+		buttonClick();
+	}
+	
+}//-----------------------------
+
+function buttonClick(){
+	document.getElementById("checkBeforUpdate").click();
+}
+function passwordCheck(input,type){
+	var password=input;
+	var userNum=${user.userNum};
+	if(password == null || password == ''){
+		alert('비밀번호를 입력하세요');
+		$('#updatePasswordCheck').focus();
+		return;
+	}
+	
+	$.ajax({
+		type:'post',
+		url:'users-profile/updateProfile/loginCheck',
+		data:{
+			"userNum":userNum,
+			"password":password
+		},
+		dataType:"text",
+		success: function(res){
+			//alert(res);
+			if(res=='fail'){
+				alert('비밀번호가 틀립니다');
+				$('#updatePasswordCheck').val('');
+				return;
+			}else{
+				if(type=='profile'){
+					updateProfile();
+				}else if(type=='password'){
+					updatePassword()
+				}
+					
+			}
+			
+		},
+		error: function(err){
+			alert('err'+err.status);
+		}
+	})
+}
+
+function updateProfile(){
+	var userNum=${user.userNum}
+	var userInfo=$('#userInfo').val();
+	var userNick=$('#userNick').val();
+	var userAddr1=$('#userAddr1').val();
+	var userAddr2=$('#userAddr2').val();
+	var userAddr3=$('#userAddr3').val();
+	var userTel=$('#userTel').val();
+	var userEmail=$('#userEmail').val();
+	
+	dataObj={
+			"userNum":userNum,
+			"userInfo":userInfo,
+			"userNick":userNick,
+			"userAddr1":userAddr1,
+			"userAddr2":userAddr2,
+			"userAddr3":userAddr3,
+			"userTel":userTel,
+			"userEmail":userEmail
+	}
+	$.ajax({
+		type:'post',
+		url:'users-profile/updateProfile',
+		data:JSON.stringify(dataObj),
+		dataType:'json',
+		contentType:'application/json',
+		success:function(res){
+			alert('회원정보 수정이 완료되었습니다.')
+		},
+		error:function(err){
+			alert('회원정보 수정이 실패하였습니다.');
+			alert('err'+err.status)
+		}
+	})
+}
+
+//이미지 미리보기
+function setThumbnail(event) {
+   
+	var file = event.target.files[0];
+	var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+	
+    if (!file.type.match(reg)) {
+        alert("확장자는 이미지 확장자만 가능합니다.");
+        return;
+    }
+	
+	document.querySelector('#image_container').innerHTML="";
+	var reader = new FileReader();
+	reader.onload = function(event) {
+		var img = document.createElement("img");
+		img.setAttribute("src", event.target.result);
+		img.setAttribute("style", "width:20%;height:auto;");
+		img.setAttribute("class","rounded-circle");
+		document.querySelector('#image_container').appendChild(img);
+		document.querySelector('#profileImg').style.display = 'none';
+	};
+	reader.readAsDataURL(event.target.files[0]);
+}//-------
+
+//프로필 이미지 수정
+function submitImg(){
+	var image=$('#userImage').val();
+    if(image == null || image == ''){
+   	 alert('이미지가 선택되어있지않습니다');
+   	 return;
+    }
+    var form = new FormData();
+    form.append( "userImage", $("#userImage")[0].files[0] );
+    form.append("userNum",${user.userNum});
+    $.ajax({
+		url : "users-profile/updateImg", 
+		type : "POST",
+		processData : false,
+		contentType : false,
+		data : form,
+		success:function(response) {
+		    alert("프로필 이미지를 수정 하였습니다.");
+		},
+		error: function (err) 
+		{ 
+			alert("프로필 이미지 수정을 실패하였습니다")
+			alert(err.status()); 
+		}
+   });
+}//-----------------------
+
+
+</script>
 
 <c:import url="/foot" />

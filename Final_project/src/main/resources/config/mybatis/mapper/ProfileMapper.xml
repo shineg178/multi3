@@ -23,10 +23,9 @@
 		insert into exchange values(#{exchangeNum},#{bankName},#{bankAccountNum},#{userName},#{userEmail},#{userId},#{exchangePoint},sysdate)
 	</insert>
 	
-	<update id="minusPoint" parameterType="Exchange">
+	<update id="minusPointByExchange" parameterType="Exchange">
 		update project_user set userPoint = userPoint - #{exchangePoint}
 		<where>
-			<!-- userEmail = #{userEmail} -->
 			userId=#{userId}
 		</where>
 	</update>
@@ -38,6 +37,49 @@
 	<select id="findExchangeByUserId" resultType="Exchange" parameterType="string">
 		select * from exchange where userId = #{value}
 	</select>
-
-
+	
+	<select id="findDonationByUserId" resultType="three.donation.model.DonateVO" parameterType="string">
+		select * from donation where userId_fk = #{value}
+	</select>
+	
+	<select id="getDonOrgNum" resultType="int">
+		select donOrgNum from donationOrg where status = 1
+	</select>
+	
+	<select id="getDonOrgName" resultType="string" parameterType="int">
+		select donName from donationOrg where donOrgNum = #{value}
+	</select>
+	
+	<insert id="addDonation" parameterType="three.donation.model.DonateVO">
+		insert into donation values(donation_seq.nextval,#{userId_fk},#{donOrgNum_fk},#{donOrgName},#{donAmount},#{donationType},sysdate)
+	</insert>
+	
+	<update id="minusPointByDonation" parameterType="three.donation.model.DonateVO">
+		update project_user set userPoint = userPoint - #{donAmount}
+		<where>
+			userId=#{userId_fk}
+		</where>
+	</update>
+	
+	<update id="updateUserImage" parameterType="User">
+		update project_user set userImage = #{userImage} where userNum=#{userNum}	
+	</update>
+	
+	<select id="getPassword" parameterType="int" resultType="string">
+		select userPassword from project_user where userNum=#{value}
+	</select>
+	
+	<update id="updateProfile" parameterType="User">
+		update project_user set userNick=#{userNick}, userInfo=#{userInfo}, userAddr1=#{userAddr1}, userAddr2=#{userAddr2},
+		userAddr3=#{userAddr3:VARCHAR}, userTel=#{userTel}, userEmail=#{userEmail} where userNum=#{userNum}
+	</update>
+	
+	<update id="updatePassword" parameterType="User">
+		update project_user set userPassword = #{userPassword} where userNum=#{userNum}
+	</update>
+	
+	<update id="deleteUser" parameterType="User">
+		update project_user set userStatus = 9 where userNum=#{userNum}
+	</update>
+	
 </mapper>

@@ -6,6 +6,7 @@
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="resources/assets/css/notice.css" rel="stylesheet">
 <c:import url="/top" />
 <style>
 h2 {
@@ -67,8 +68,30 @@ h2 {
 	}
 </script>
 <main id="main" class="main">
-	<div id="wrap1">
-		<h2>공지사항</h2>
+<section class="notice-main-section-top">
+		<div class="notice-main-top">
+			<div class="notice-main-desc">
+				<h1 class="notice-main-title">
+					공지사항
+				</h1>
+
+				<p class="text-m">
+					기부앤테이크의 
+					업데이트 정보, 
+					<br>기부금 전달 등 다양한 소식을 알려드립니다.
+				</p>
+			</div>
+			<div class="notice-main-image-top">
+				<span> <img class="notice-main-image-top"
+					src="resources/assets/img/notice.png">
+			</div>
+		</div>
+	</section>
+	
+	<br>
+	<br>
+	<div id="wrap1" class="wrap1">
+		
 		<table id="nList" class="table">
 			<thead>
 				<tr>

@@ -14,15 +14,13 @@
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
 
-
 <main id="main" class="main">
-	<section class="home-main-section-top">
+<section class="home-main-section-top">
 		<div class="home-main-top">
 			<div class="home-main-desc">
 				<h1 class="home-main-title">
 					기부앤테이크 <br> 위치기반 중고거래
 				</h1>
-
 				<p class="text-m">
 					중고거래로 경매에서 기부까지, <br> 기부앤테이크에서 지금 당장 시작해보세요!
 				</p>
@@ -33,7 +31,6 @@
 			</div>
 		</div>
 	</section>
-
 
 	<br>
 
@@ -109,6 +106,7 @@
 		</div>
 		<a class="product-more" href="${path}/project/aution">더보기 > </a>
 	</div>
+
 	<div>
 		<hr>
 	</div>
@@ -129,5 +127,6 @@
 
 	var map = new kakao.maps.Map(container, options);
 </script>
+
 
 <c:import url="/foot" />

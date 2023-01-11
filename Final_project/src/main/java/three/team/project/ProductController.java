@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
+import three.auction.model.AuctionVO;
+import three.auction.service.AuctionService;
 import three.product.model.ProductVO;
 import three.product.service.ProductService;
 import three.user.model.UserVO;
@@ -28,6 +30,9 @@ public class ProductController {
 	
 	@Inject
 	private ProductService productServiceImpl;
+	
+	@Inject
+	private AuctionService auctionServiceImpl;
 	
 	//물품 목록 페이지 이동 
 	@GetMapping("/productList")
@@ -121,6 +126,10 @@ public class ProductController {
 		
 		//DB에 물품 정보 저장
 		productServiceImpl.addProduct(vo);
+		
+		//DB에 옥션 정보 저장
+		AuctionVO avo=new AuctionVO(0,vo.getProdNum(),vo.getUserNum_fk(),vo.getAucStartPrice(),null);
+		this.auctionServiceImpl.insertAuction(avo);
 		
 		return "redirect:productList";
 	}

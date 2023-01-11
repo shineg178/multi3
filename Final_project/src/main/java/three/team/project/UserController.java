@@ -71,7 +71,7 @@ public class UserController {
 		String Name = userInfo.get("name").asText();
 
 		UserVO vo = new UserVO();
-		vo.setUserId("(google)"+email);
+		vo.setUserId("google_"+email);
 		vo.setUserEmail(email);
 		vo.setUserName(Name);
 		UUID uid = UUID.randomUUID();
@@ -130,7 +130,7 @@ public class UserController {
 		 
 		UserVO vo=new UserVO();
 		vo.setUserName(Name);
-		vo.setUserId("(naver)"+email);
+		vo.setUserId("naver_"+email);
 		vo.setUserEmail(email);
 		UUID uid = UUID.randomUUID();
 		String password = uid.toString();
@@ -184,7 +184,7 @@ public class UserController {
 		
 		UserVO vo=new UserVO();
 		vo.setUserName(Name);
-		vo.setUserId("(kakao)"+email);
+		vo.setUserId("kakao_"+email);
 		vo.setUserEmail(email);
 		UUID uid = UUID.randomUUID();
 		String password = uid.toString();
@@ -240,6 +240,7 @@ public class UserController {
 		}
 
 		session.setAttribute("user", lvo); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+		session.setAttribute("id", lvo.getUserId()); //채팅웹소켓위한 session넘기기
 
 		return "redirect:/";
 	}

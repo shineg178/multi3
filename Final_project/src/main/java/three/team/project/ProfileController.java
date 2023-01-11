@@ -40,9 +40,10 @@ public class ProfileController {
 		if (user == null) {
 			return "redirect:/";
 		}
-		//UserVO user=this.profileServiceImpl.findUserByuserNum(userNum);
-		
-		m.addAttribute("user",user);
+		int userNum=user.getUserNum();
+		UserVO vo=this.profileServiceImpl.findUserByuserNum(userNum);
+		ses.setAttribute("user", vo);
+		m.addAttribute("user",vo);
 		return "users-profile";
 	}
 	
@@ -90,24 +91,27 @@ public class ProfileController {
 		return map;
 	}
 	//기부내역 저장
-	@PostMapping("/users-profile/donate")
-	@ResponseBody
-	public Map<String, Object> donate(@RequestBody Map<String, Object> map,
-			Model m) {
-		String userId=map.get("userId").toString();
-		int donAmount=Integer.parseInt(map.get("donAmount").toString());
-		int donOrgNum=this.profileServiceImpl.getDonOrgNum();
-		String donOrgName=this.profileServiceImpl.getDonOrgName(donOrgNum);
-		
-		if(userId==null || donAmount <100 || donOrgNum < 2000) {
-			return null;
+		@PostMapping("/users-profile/donate")
+		@ResponseBody
+		public Map<String, Object> donate(@RequestBody Map<String, Object> map,
+				Model m) {
+			String userId=map.get("userId").toString();
+			int donAmount=Integer.parseInt(map.get("donAmount").toString());
+			int donOrgNum=this.profileServiceImpl.getDonOrgNum();
+			String donOrgName=this.profileServiceImpl.getDonOrgName(donOrgNum);
+			log.info(userId);
+			log.info(donAmount);
+			log.info(donOrgNum);
+			if(userId==null || donAmount <100 || donOrgNum < 2000) {
+				return null;
+			}
+			
+			DonateVO dvo=new DonateVO(0,userId,donOrgNum,donOrgName,donAmount,2,null);
+			int insertDonate=this.profileServiceImpl.addDonation(dvo);
+			int minusPoint=this.profileServiceImpl.minusPointByDonation(dvo);
+			return map;
 		}
-		
-		DonateVO dvo=new DonateVO(0,userId,donOrgNum,donOrgName,donAmount,2,null);
-		int insertDonate=this.profileServiceImpl.addDonation(dvo);
-		int minusPoint=this.profileServiceImpl.minusPointByDonation(dvo);
-		return map;
-	}
+
 	//포인트충전리스트
 	@GetMapping(value="/users-profile/rechargeList", produces = "application/json")
 	@ResponseBody
@@ -181,6 +185,8 @@ public class ProfileController {
 			int n=profileServiceImpl.updateUserImage(vo);
 			log.info(n);
 			
+			ses.setAttribute("user", vo);
+			m.addAttribute("user",vo);
 		}
 		return "redirect:/users-profile";
 	}
@@ -191,8 +197,6 @@ public class ProfileController {
 			@RequestParam("password") String password, Model m) {
 		String realPassword=this.profileServiceImpl.getPassword(userNum);
 		String code;
-		//log.info(realPassword);
-		//log.info(password);
 		if(realPassword.equals(password) ) {
 			code="success";
 		}else {
@@ -204,7 +208,7 @@ public class ProfileController {
 	@PostMapping("/users-profile/updateProfile")
 	@ResponseBody
 	public Map<String, Object> updateProfile(@RequestBody Map<String, Object> map,
-	Model m) {
+	Model m, HttpSession ses) {
 		int userNum=Integer.parseInt(map.get("userNum").toString());
 		String userInfo=map.get("userInfo").toString();
 		String userNick=map.get("userNick").toString();
@@ -214,9 +218,18 @@ public class ProfileController {
 		String userTel=map.get("userTel").toString();
 		String userEmail=map.get("userEmail").toString();
 		
-		UserVO vo=new UserVO(userNum,null,null,null,userNick,userTel,userEmail,userAddr1,userAddr2,userAddr3,0,null,userInfo,0,0,0,0);
+		UserVO vo=(UserVO)ses.getAttribute("user");
+		vo.setUserAddr1(userAddr1);
+		vo.setUserAddr2(userAddr2);
+		vo.setUserAddr3(userAddr3);
+		vo.setUserEmail(userEmail);
+		vo.setUserInfo(userInfo);
+		vo.setUserNick(userNick);
+		
 		int updateProfile=this.profileServiceImpl.updateProfile(vo);
 		
+		ses.setAttribute("user", vo);
+		m.addAttribute("user",vo);
 		return map;
 	}
 	//비밀번호 수정

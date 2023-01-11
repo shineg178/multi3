@@ -50,7 +50,7 @@
 	rel="stylesheet">
 <link href="${path}/resources/assets/vendor/simple-datatables/style.css"
 	rel="stylesheet">
-
+<style> @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap'); </style>
 <!-- Template Main CSS File -->
 <link href="${path}/resources/assets/css/style.css" rel="stylesheet">
 <!-- =======================================================
@@ -78,7 +78,7 @@
 </style>
 
 <script>
-	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
@@ -86,6 +86,8 @@
 		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
+	
+
 	//내 채팅 목록 가져오기
 	function myChatList(){
 		$.ajax({
@@ -99,10 +101,10 @@
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userId1==${id}){
+						if(data.userId1=='${user.userId}'){
 							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
-						if(data.userId2==${id}){
+						if(data.userId2=='${user.userId}'){
 							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
@@ -116,9 +118,10 @@
 			}
 		})
 	}
-	myChatList();
+	if(${user ne null}){
+		myChatList();
+	}
 
-	
 	
 
 	
@@ -182,7 +185,7 @@ $(function(){
       <a href="${path}" class="logo d-flex align-items-center">
         <img src="${path}/resources/assets/img//logo.png" alt="">
 
-        <span class="d-none d-lg-block" id="title">기부앤테이크</span>
+        <span class="d-none d-lg-block" style="font-size:50px;font-family:'Dongle', sans-serif;">기부앤테이크</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -230,7 +233,7 @@ $(function(){
         <li class="nav-item dropdown pe-3">                    
                 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="${path}\resources\User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
+            <img src="${path}/resources/User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">${user.userName}</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -246,7 +249,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${paths}users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-person"></i>
                 <span>마이페이지</span>
               </a>
@@ -256,7 +259,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${paths}users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-gear"></i>
                 <span>개인정보 변경</span>
               </a>

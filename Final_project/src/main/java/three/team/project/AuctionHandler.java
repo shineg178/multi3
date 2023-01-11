@@ -2,6 +2,7 @@ package three.team.project;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +16,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class AuctionHandler extends TextWebSocketHandler{
+	private Map<String,ArrayList<WebSocketSession>> productList=new HashMap<String,ArrayList<WebSocketSession>>();
 	private List<WebSocketSession> sessions = new ArrayList<WebSocketSession>();
 	
 	private Map<String, WebSocketSession> users = new ConcurrentHashMap<String, WebSocketSession>();
@@ -70,7 +72,7 @@ public class AuctionHandler extends TextWebSocketHandler{
 	    // 접속한 유저의 http세션을 조회하여 id를 얻는 함수
 		private String getUserId(WebSocketSession session) {
 			Map<String, Object> httpSession = session.getAttributes();
-			String userId = (String) httpSession.get("userId"); // 세션에 저장된 m_id 기준 조회
+			String userId = (String) httpSession.get("userId"); // 세션에 저장된 id 기준 조회
 			return userId==null? null: userId;
 		}
 }

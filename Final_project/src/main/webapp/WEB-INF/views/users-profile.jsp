@@ -627,9 +627,9 @@ function donatePoint(){
        		$('#donate-point').attr("value",0);
     		$('#donate-point').focus();
     		$('#pointAmount').val('${user.userPoint}원');
-       		
        	},
        	error:function(err){
+       		alert(err.status)
        		alert('포인트로 기부하기가 실패하였습니다')
        		$('#donate-point').attr("value",0);
     		$('#donate-point').focus();

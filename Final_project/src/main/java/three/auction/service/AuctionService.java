@@ -21,8 +21,14 @@ public interface AuctionService {
 	
 	UserVO findUserByUserId(String userId);
 	
-	List<ProductVO> findAllProductList();
+	List<ProductVO> findProductbiding();
 	
 	ProductVO findProductByProdNum(int prodNum);
+	
+	int findAuctionEnd(AuctionEndVO endVO);
+	
+	int chageProductStatus(int prodNum);
+	
+	int minusPointByAuction(AuctionEndVO vo);
 	
 }

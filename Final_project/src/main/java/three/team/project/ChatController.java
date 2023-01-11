@@ -54,15 +54,14 @@ public class ChatController {
 	
 	//채팅방 만들기
 	@GetMapping("/addChatRoom")
-	public String addChatRoom(@RequestParam int sellerNum,@RequestParam int prodNum,HttpSession ses) {
+	public String addChatRoom(@RequestParam String sellerId,@RequestParam int prodNum,HttpSession ses) {
 		//내 아이디 정보 가져오기
 		UserVO vo=(UserVO)ses.getAttribute("user");
 		String myid=vo.getUserId();
 		
 		//상대방 아이디 정보 가져오기
-		String sellerid=chatServiceImpl.findUserIdByNum(sellerNum);
 		
-		ChatRoomVO roomvo=new ChatRoomVO(0,myid,sellerid);
+		ChatRoomVO roomvo=new ChatRoomVO(0,myid,sellerId);
 		//방생성
 		chatServiceImpl.createRoom(roomvo);
 		

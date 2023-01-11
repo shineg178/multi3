@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
+import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProductVO;
 import three.profile.service.ProfileService;
 import three.user.model.UserVO;
 
@@ -40,11 +42,37 @@ public class ProfileController {
 		if (user == null) {
 			return "redirect:/";
 		}
-		int userNum=user.getUserNum();
-		UserVO vo=this.profileServiceImpl.findUserByuserNum(userNum);
-		ses.setAttribute("user", vo);
-		m.addAttribute("user",vo);
+		String userid=user.getUserId();
+		List<AuctionEndVO> aucvo=profileServiceImpl.myAuction(userid);
+		log.info(aucvo);
+		
+		m.addAttribute("myList",aucvo);
+		
 		return "users-profile";
+	}
+	
+	//거래 완료
+	@GetMapping("/tradeOK")
+	public String tradeOK(@RequestParam int aucEndNum,HttpSession ses) {
+		
+		//경매 확정 정보 가져오기
+		AuctionEndVO aucvo=profileServiceImpl.findAuctionEnd(aucEndNum);
+		
+		//물품 번호로 물품 정보 가져오기 
+		int prodNum=aucvo.getProdNum_fk();
+		
+		UserVO uvo=(UserVO)ses.getAttribute("user");
+		String myId=uvo.getUserId();
+		String buyId=aucvo.getBuyId();
+		
+		if(myId.equals(buyId)) {
+			
+			//거래완료로 상태 변경
+			profileServiceImpl.aucEndupdateStatus(aucEndNum);
+		}
+		
+		
+		return "redirect:/users-profile";
 	}
 	
 	//결제요청 & 결제정보저장

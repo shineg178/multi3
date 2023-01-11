@@ -689,7 +689,7 @@ function donateList(){
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">
-                      사진
+                      물품명
                     </th>
                     <th scope="col">
                       판매자
@@ -709,34 +709,22 @@ function donateList(){
                   </tr>
                 </thead>
                 <tbody>
+                <c:forEach items="${myList}" var="data" varStatus="i">
                   <tr>
-                    <th scope="row">1</th>
-                    <td><img src="${path}/resources/assets/img//${user.userImage}" alt="ProductImg" class="bx-square-rounded"></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td><a class="" data-bs-toggle="modal" data-bs-target="#verticalycentered">진행</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td><img src="assets/img/profile-img.jpg" alt="ProductImg" class="bx-square-rounded"></td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td><a class="" data-bs-toggle="modal" data-bs-target="#verticalycentered">진행</a></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td><img src="assets/img/profile-img.jpg" alt="ProductImg" class="bx-square-rounded"></td>
-                    <td>Larry the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td><a class="" data-bs-toggle="modal" data-bs-target="#verticalycentered">진행</a></td> 
-                    
-                    <!-- Vertically centered Modal -->
+                    <th scope="row">${i.count}</th>
+                    <td>${data.prodName}</td>
+                    <td>${data.sellId}</td>
+                    <td>${data.buyId}</td>
+                    <td>${data.endPrice}</td>
+                    <td><fmt:formatDate value="${data.endDate}" pattern="YYYY-MM-DD HH:mm:ss"/> </td>
+                    <c:if test="${data.aucStatus eq 0}">
+                    	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered">거래중</a></td>
+                 	</c:if>
+                 	<c:if test="${data.aucStatus eq 1}">
+                    	<td><a class="badge bg-success" style="width:100%">거래완료</a></td>
+                 	</c:if>
+                  </tr>    
+                  <!-- Vertically centered Modal -->
                     <div class="modal fade" id="verticalycentered" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -745,17 +733,25 @@ function donateList(){
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                           거래가 완료 되었습니까?
+                           거래가 완료 되었습니까?<br>
+                           물품을 전달 받은 뒤 거래완료 버튼을 눌러주세요
                           </div>
                           <div class="modal-footer">
-                            <button type="button" id="trade check" class="btn btn-primary">예</button>
-                            <button type="button" id="chatting" class="btn btn-info">채팅</button>
+                          	<c:if test="${data.buyId eq user.userId}">
+                            	<a type="button" id="trade check" class="btn btn-primary" href="tradeOK?aucEndNum=${data.auctionEndNum}">거래완료</a>
+                           		<a type="button" id="chatting" class="btn btn-info" href="createChatRoom?toId=${data.sellId}">채팅</a>
+                            </c:if>
+                            <c:if test="${data.buyId ne user.userId}">
+                            	<a type="button" id="chatting" class="btn btn-info" href="createChatRoom?toId=${data.buyId}">채팅</a>
+                            </c:if>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
                           </div>
                         </div>
                       </div>
                     </div><!-- End Vertically centered Modal-->
-                    </tr>
+                 </c:forEach>
+                    
+   
                 </tbody>
               </table>
               </div>

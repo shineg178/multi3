@@ -74,6 +74,12 @@
 			<mapping path="/admin/**"/>
 			<beans:bean class="three.common.interceptor.AdminInterCeptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/users-profile"/>
+			<mapping path="/addProductForm"/>
+			<mapping path="/auctionDetail"/>
+			<beans:bean class="three.common.interceptor.LoginInterCeptor"/>
+		</interceptor>
 	</interceptors>
 	
 	<!-- 경매 웹소켓 핸들러 등록 -->

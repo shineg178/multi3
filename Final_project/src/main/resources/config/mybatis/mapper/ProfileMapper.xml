@@ -82,4 +82,18 @@
 		update project_user set userStatus = 9 where userNum=#{userNum}
 	</update>
 	
+	<select id="myAuction" resultType="AuctionEnd" parameterType="String">
+		select * from auction_End where buyid=#{value} or sellid=#{value} order by endDate desc
+	</select>
+	
+	<select id="findAuctionEnd" parameterType="int" resultType="AuctionEnd">
+		select * from auction_end where auctionEndNum=#{value}
+	</select>
+	
+	<update id="aucEndupdateStatus" parameterType="int" >
+		update auction_end set aucstatus=1 where auctionEndNum=#{value}
+	</update>
+	
+
+	
 </mapper>

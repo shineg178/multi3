@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ProductVO {
 	private int prodNum;
 	
-	private int userNum_fk;
+	private String userId;
 	
 	private String prodCategoryNum_fk;
 	

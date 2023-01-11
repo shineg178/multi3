@@ -4,38 +4,43 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <c:import url="/top" />
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <SCRIPT type="text/javascript">
-var now=new Date();
-var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
-var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
+//var now=new Date();
 //var closeTime = new Date(2023,00,07,17,27,30);
-alert(nowTime);
-function remaindTime() {
-  
-   if(nowTime<closeTime){ //현재시간이 종료시간보다 이르면 종료시간까지의 남은 시간을 구한다.   
-     sec = parseInt(closeTime - nowTime) / 1000;
-     hour = parseInt(sec/60/60);
-     sec = (sec - (hour*60*60));
-     min = parseInt(sec/60);
-     sec = parseInt(sec-(min*60));
-  
-     if(hour<10){hour="0"+hour;}
-     if(min<10){min="0"+min;}
-     if(sec<10){sec="0"+sec;}
-      $("#d-day-hour").html(hour);
-      $("#d-day-min").html(min);
-      $("#d-day-sec").html(sec);
-   } else{ //현재시간이 종료시간보다 크면
-    $("#d-day-hour").html('00');
-    $("#d-day-min").html('00');
-    $("#d-day-sec").html('00');
-   }
-  }
-setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
-  function checkTime(){
+//alert(nowTime);
+
+	var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
+	var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
+	function remaindTime() {
+	   nowTime=nowTime+1000;
+	   if(nowTime<closeTime){ //현재시간이 종료시간보다 이르면 종료시간까지의 남은 시간을 구한다.   
+	     var sec = parseInt(closeTime - nowTime) / 1000;
+	   
+	     var hour = parseInt(sec/60/60);
+	     
+	     sec = (sec - (hour*60*60));
+	     
+	     var min = parseInt(sec/60);
+	     
+	     sec = parseInt(sec-(min*60));
+	  
+	     if(hour<10){hour="0"+hour;}
+	     if(min<10){min="0"+min;}
+	     if(sec<10){sec="0"+sec;}
+	      $("#d-day-hour").html(hour);
+	      $("#d-day-min").html(min);
+	      $("#d-day-sec").html(sec);
+	   } else{ //현재시간이 종료시간보다 크면
+			$("#d-day-hour").html('00');
+			$("#d-day-min").html('00');
+			$("#d-day-sec").html('00');
+	   }
+	  }
+	setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
+	
+	
+/*   function checkTime(){
 	  if(nowTime>=closeTime){
 		  closeBid();
 	  };
@@ -48,7 +53,7 @@ setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 
 	  $('#1kBtn').prop('disabled',"false");
 	  $('#01kBtn').prop('disabled',"false");
 	  $('#resetBtn').prop('disabled',"false");
-  }
+  } */
   
   
 let number=$('#inputPrice').val();
@@ -73,17 +78,17 @@ function plus(amount){
 <script>
 //전역변수 설정
 var socket  = null;
-	var url = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/auction";
-	sock = new SockJS(url);
-	socket = sock;
+var url = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/auction";
+sock = new SockJS(url);
+socket = sock;
+
 $(document).ready(function(){
 	// 웹소켓 연결
-    connect();
- 	$('#btnBid').click(function(){
-    	bid();
-    	sock.onmessage();
-    })
-   	checkTime();
+	connect();
+	$('#btnBid').click(function(){
+		bid();
+		sock.onmessage();
+	});
 });
 
 function connect(){
@@ -100,8 +105,8 @@ function connect(){
 }//connect---
 
 function bid(){
-	let prodNum=${prod.prodNum}
-	let userNum=${userNum}
+	let prodNum=${prod.prodNum};
+	let userNum=${user.userNum};
 	let aucPrice=$('#inputPrice').val();
 	//전송정보 db에 저장
 	var dataObj={
@@ -168,24 +173,26 @@ sock.onmessage=function(evt){
 								aria-label="Slide 1"></button>
 							<button type="button" data-bs-target="#carouselExampleIndicators"
 								data-bs-slide-to="1" aria-label="Slide 2"></button>
-							<!-- <button type="button" data-bs-target="#carouselExampleIndicators"
-								data-bs-slide-to="2" aria-label="Slide 3"></button> -->
 						</div>
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-								<img class="card-img-top mb-5 mb-md-0"
-									src="${path}/resources/assets/img//${prod.prodImage1}"
-									alt="..." />
-								<!-- 다른 이미지 "https://dummyimage.com/600x700/dee2e6/6c757d.jpg" -->
+								<c:if test="${prod.prodImage1 ne null}">
+									<img class="card-img-top mb-5 mb-md-0" src="${path}\resources\Product_Image/${prod.prodImage1}">
+								</c:if>
+								<c:if test="${prod.prodImage1 eq null}">
+									<img src="resources/assets/img/noImage.jpg">
+								</c:if>
 							</div>
-							<div class="carousel-item ">
-								<img src="${path}/resources/assets/img//${prod.prodImage2}"
-									class="card-img-top mb-5 mb-md-0" alt="...">
-							</div>
-							<%-- <div class="carousel-item">
-								<img src="${path}/resources/assets/img//slides-3.jpg"
-									class="card-img-top mb-5 mb-md-0" alt="...">
-							</div> --%>
+							<c:if test="${prod.prodImage2 ne null }">							
+								<div class="carousel-item ">
+									<c:if test="${prod.prodImage2 ne null}">
+										<img src="${path}\resources\Product_Image/${prod.prodImage2}" class="card-img-top mb-5 mb-md-0">
+									</c:if>
+									<c:if test="${prod.prodImage2 eq null}">
+										<img src="resources/assets/img/noImage.jpg">
+									</c:if>
+								</div>
+							</c:if>
 						</div>
 
 						<button class="carousel-control-prev" type="button"
@@ -270,34 +277,6 @@ sock.onmessage=function(evt){
 						<span class="text-end col-3">
 							<button class="btn btn-info btn-lg" id="btnChat" type="button">판매자와 채팅</button>
 						</span>
-					<!-- Vertically centered Modal -->
-		            <!-- <div class="modal fade" id="bid" tabindex="-1">
-		                <div class="modal-dialog modal-dialog-centered">
-		                  <div class="modal-content">
-		                    <div class="modal-header text-center">
-		                      <h5 class="modal-title">입찰하기</h5>
-		                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		                    </div>
-		                    <div class="modal-body">
-		                    	<input class="form-control text-end" 
-										id="inputPrice" type="number" 
-										placeholder="입찰포인트를 정해주세요" style="width:95%; letter-spacing: 3px"
-									>
-		                    </div>
-		                     <div class="modal-body text-center">
-	                              <button type="button" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
-	                              <button type="button" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
-	                              <button type="button" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
-	                              <button type="button" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
-	                               <button type="button" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
-                              </div>  
-		                    <div class="modal-footer">
-		                      <button type="button" id="bidBtn" class="btn btn-primary">입찰하기</button>
-		                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		                    </div>
-		                  </div>
-		                </div>
-		              </div> --><!-- End Vertically centered Modal-->
 					</div>
 				</div>
 			</div>
@@ -307,14 +286,11 @@ sock.onmessage=function(evt){
 		<div class="text-center lead">
 			<h2>물품 설명</h2>
 		</div>
+		<div class="">
 		<p class="lead" style="margin-left: 20%; margin-right: 20%;">${prod.prodSpec}</p>
+		</div>
 	</section>
-	<!-- Bootstrap core JS-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Core theme JS-->
-    <!-- <script src="js/scripts.js"></script> -->
-
+	<!-- <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 </main>
 <!-- End #main -->
 <c:import url="/foot" />

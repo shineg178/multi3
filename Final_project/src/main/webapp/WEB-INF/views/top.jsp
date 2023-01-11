@@ -78,7 +78,7 @@
 </style>
 
 <script>
-	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
@@ -99,10 +99,10 @@
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userId1==${id}){
+						if(data.userId1=='${id}'){
 							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
-						if(data.userId2==${id}){
+						if(data.userId2=='${id}'){
 							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
@@ -230,7 +230,7 @@ $(function(){
         <li class="nav-item dropdown pe-3">                    
                 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="${path}\resources\User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
+            <img src="${path}/resources/User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">${user.userName}</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -246,7 +246,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${paths}users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-person"></i>
                 <span>마이페이지</span>
               </a>
@@ -256,7 +256,7 @@ $(function(){
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="${paths}users-profile">
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-gear"></i>
                 <span>개인정보 변경</span>
               </a>
@@ -317,7 +317,7 @@ $(function(){
         </a>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="${paths}users-profile">
+        <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
           <span>마이페이지</span>
         </a>

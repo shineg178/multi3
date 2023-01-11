@@ -1,10 +1,8 @@
 package three.team.project;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.TimerTask;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -20,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.log4j.Log4j;
 import three.auction.model.AuctionVO;
 import three.auction.service.AuctionService;
+import three.chat.model.ChatRoomVO;
+import three.chat.service.ChatService;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
@@ -29,24 +29,34 @@ public class AuctionController {
 
 	@Inject
 	private AuctionService auctionServiceImpl;
+	
+	
+	@Inject 
+	private ChatService chatServiceImpl;
+	 
 
 	//경매 상세페이지의 물건정보 가져오기
 	@GetMapping("/auction/auctionDetail")
 	public String auctionDetail(Model m, @RequestParam("prodNum") int prodNum, 
 			HttpSession ses) {
 		if (prodNum == 0) {
-			return "redirect:index";
+			return "redirect:/";
 		}
 		if(ses.getAttribute("user")==null) {
-			return "redirect:index";
+			return "redirect:/";
 		}
 		ses.setAttribute("prodNum", prodNum);
 		log.info("prodNum: "+prodNum);
 		UserVO loginUser=(UserVO)ses.getAttribute("user");
-		m.addAttribute("loginUser",loginUser);
+		m.addAttribute("user",loginUser);
 		ses.setAttribute("user", loginUser);
-		ses.setAttribute("userId", loginUser.getUserId());
 		
+		//경매 웹소켓 userid
+		ses.setAttribute("userId", loginUser.getUserId());
+		m.addAttribute("userId",loginUser.getUserId());
+		//채팅 웹소켓 id
+		ses.setAttribute("id", loginUser.getUserId());
+		m.addAttribute("id",loginUser.getUserId());
 		
 		//물품 정보 가져오기
 		ProductVO prod = this.auctionServiceImpl.selectProductByProdNum(prodNum);
@@ -55,6 +65,7 @@ public class AuctionController {
 		//판매자 정보 가져오기
 		int sellerNum=prod.getUserNum_fk();
 		UserVO user=this.auctionServiceImpl.findUserByuserNum(sellerNum);
+		ses.setAttribute("seller", user);
 		m.addAttribute("seller",user);
 		
 		//물품현재가 정보 가져오기
@@ -93,7 +104,7 @@ public class AuctionController {
 		m.addAttribute("auction",vo);
 		return map;
 	}
-	
+		
 	/*
 	 * @PostMapping("/auction/auctionDetail/bidClose")
 	 * @ResponseBody 
@@ -109,7 +120,4 @@ public class AuctionController {
 	 * return map; }
 	 */
 	
-	public void auctionEnd(TimerTask task, Date time) {
-		
-	}
 }

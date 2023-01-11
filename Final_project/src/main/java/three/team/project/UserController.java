@@ -240,6 +240,7 @@ public class UserController {
 		}
 
 		session.setAttribute("user", lvo); // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
+		session.setAttribute("id", lvo.getUserId()); //채팅웹소켓위한 session넘기기
 
 		return "redirect:/";
 	}

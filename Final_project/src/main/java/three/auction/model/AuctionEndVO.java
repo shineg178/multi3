@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuctionEndVO {
+	
 	private int auctionEndNum;
 	
 	private int prodNum_fk;

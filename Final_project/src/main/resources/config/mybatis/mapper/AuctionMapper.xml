@@ -5,7 +5,7 @@
 	
 	<select id="selectMaxAuctionByProdNum" resultType="Auction" parameterType="_int">
 		select * from auction 
-		where prodNum_fk=#{value} and aucPrice=(select MAX(aucPrice) from auction)
+		where prodNum_fk=#{value} and aucPrice=(select MAX(aucPrice) from auction where prodNum_fk=#{value})
 	</select>
 	
 	<insert id="insertAuction" parameterType="Auction">

@@ -1,4 +1,7 @@
 package three.auction.service;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import three.auction.mapper.AuctionMapper;
@@ -47,7 +50,18 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 	
 	@Override
-	public UserVO findUserByuserNum(int userNum) {
-		return this.userMapper.findUserByuserNum(userNum);
+	public UserVO findUserByUserId(String userId) {
+		return this.userMapper.findUserByUserId(userId);
 	}
+	
+	@Override
+	public List<ProductVO> findAllProductList() {
+		return this.auctionMapper.findAllProductList();
+	}
+	
+	@Override
+	public ProductVO findProductByProdNum(int prodNum) {
+		return this.auctionMapper.findProductByProdNum(prodNum);
+	}
+	
 }

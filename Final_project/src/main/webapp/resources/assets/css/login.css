@@ -113,7 +113,12 @@ span.or-txt:after {
 	width: 44%;
 	height: 1px;
 }
-
-.naver, .kakao, .google {
+.kakao {
+	width:190px;
+}
+.naver {
+	width:190px;
+}
+.google {
 	width:190px;
 }

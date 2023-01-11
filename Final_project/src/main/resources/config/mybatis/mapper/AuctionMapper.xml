@@ -13,6 +13,15 @@
 	</insert>
 	
 	<insert id="insertAuctionEnd" parameterType="AuctionEnd">
-		insert into Auction_end values(auc_end_seq.nextval,#{prodNum_fk},#{buyUser_fk},#{sellUser_fk},sysdate,#{endPrice},0)		
+		insert into Auction_end values(auc_end_seq.nextval,#{prodNum_fk},#{buyId},#{sellId},sysdate,#{endPrice},0)		
 	</insert>
+	<select id="findAllProductList" resultType="Product">
+		select * from product
+	</select>
+	
+	<select id="findProductByProdNum" parameterType="int" resultType="Product">
+		select * from product where prodNum=#{value}
+	</select>
+	
+
 </mapper>

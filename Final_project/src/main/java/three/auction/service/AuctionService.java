@@ -1,5 +1,8 @@
 package three.auction.service;
 
+import java.util.Date;
+import java.util.List;
+
 import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
 import three.product.model.ProductVO;
@@ -16,6 +19,10 @@ public interface AuctionService {
 	
 	AuctionVO selectMaxAuctionByProdNum(int prodNum);
 	
-	UserVO findUserByuserNum(int userNum);
+	UserVO findUserByUserId(String userId);
+	
+	List<ProductVO> findAllProductList();
+	
+	ProductVO findProductByProdNum(int prodNum);
 	
 }

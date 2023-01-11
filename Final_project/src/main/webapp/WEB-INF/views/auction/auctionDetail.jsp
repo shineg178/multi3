@@ -106,12 +106,17 @@ function connect(){
 
 function bid(){
 	let prodNum=${prod.prodNum};
-	let userNum=${user.userNum};
+	let userId='${user.userId}';
 	let aucPrice=$('#inputPrice').val();
+	
+	if(aucPrice > ${user.userPoint}){
+		alert('보유하신 포인트가 부족합니다');
+		return;
+	}
 	//전송정보 db에 저장
 	var dataObj={
 			"prodNum":prodNum,
-	        "userNum":userNum,
+	        "userId":userId,
 	        "aucPrice":aucPrice
 	}
 	if(aucPrice==0){
@@ -273,12 +278,13 @@ sock.onmessage=function(evt){
 						</table>
 						<br> 
 						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
-						<c:if test="${user.userNum ne prod.userNum_fk}"> 
+
+						<c:if test="${user.userNum ne prod.userId}"> 
 							<span class="text-start">
 								<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
 							</span> 
 							<span class="text-end col-3">
-								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerNum=${prod.userNum_fk}&prodNum=${prod.prodNum}">판매자와 채팅</a>
+								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerNum=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
 							</span>
 						</c:if>
 					</div>

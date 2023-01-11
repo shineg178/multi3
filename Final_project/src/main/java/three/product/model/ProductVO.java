@@ -1,12 +1,8 @@
 package three.product.model;
 
-import java.util.Date;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,16 +42,5 @@ public class ProductVO {
 	private String sellerAddr3;
 	
 	private int status;
-	
-	private Date getCloseTime(Date pIndate, int auctionTime) {
-		SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date closeTime;
-		Calendar cal=Calendar.getInstance();
-		cal.setTime(pIndate);
-		cal.add(Calendar.DATE, auctionTime);
-		closeTime=cal.getTime();
-		return closeTime;
-		
-	}
 	
 }

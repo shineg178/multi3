@@ -78,7 +78,7 @@
 </style>
 
 <script>
-	//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
+//채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
 		var target = document.getElementById("chatList");
 		var targetTop = window.screenTop+target.getBoundingClientRect().top+50;
@@ -233,7 +233,7 @@ $(function(){
         <li class="nav-item dropdown pe-3">                    
                 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="${path}\resources\User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
+            <img src="${path}/resources/User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">${user.userName}</span>
           </a><!-- End Profile Iamge Icon -->
 

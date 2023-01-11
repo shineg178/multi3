@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProductVO;
 import three.profile.mapper.ProfileMapper;
 import three.user.mapper.UserMapper;
 import three.user.model.UserVO;
@@ -107,4 +109,18 @@ public class ProfileServiceImpl implements ProfileService {
 	public int deleteUser(UserVO vo) {
 		return this.profileMapper.deleteUser(vo);
 	}
+	//경매 참여 내역
+	@Override
+	public List<AuctionEndVO> myAuction(String userid) {
+		return profileMapper.myAuction(userid);
+	}
+	@Override
+	public AuctionEndVO findAuctionEnd(int aucEndNum) {
+		return profileMapper.findAuctionEnd(aucEndNum);
+	}
+	@Override
+	public int aucEndupdateStatus(int aucEndNum) {
+		return profileMapper.aucEndupdateStatus(aucEndNum);
+	}
+
 }

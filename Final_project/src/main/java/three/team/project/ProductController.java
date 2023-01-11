@@ -77,9 +77,9 @@ public class ProductController {
 			@RequestParam(value="image2",required=false) MultipartFile image2) {
 		
 		UserVO uvo=(UserVO) ses.getAttribute("user");
-		int userNum=uvo.getUserNum();
+		String userId=uvo.getUserId();
 		
-		vo.setUserNum_fk(userNum);
+		vo.setUserId(userId);
 		//이미지 파일 저장 경로 설정
 		ServletContext app=ses.getServletContext();
 		String upDir=app.getRealPath("/resources/Product_Image");
@@ -128,7 +128,7 @@ public class ProductController {
 		productServiceImpl.addProduct(vo);
 		
 		//DB에 옥션 정보 저장
-		AuctionVO avo=new AuctionVO(0,vo.getProdNum(),vo.getUserNum_fk(),vo.getAucStartPrice(),null);
+		AuctionVO avo=new AuctionVO(0,vo.getProdNum(),vo.getUserId(),vo.getAucStartPrice(),null);
 		this.auctionServiceImpl.insertAuction(avo);
 		
 		return "redirect:productList";

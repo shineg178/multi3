@@ -11,7 +11,7 @@
 		<selectKey keyProperty="prodNum" resultType="int" order="BEFORE">
 			select prod_seq.nextval from dual
 		</selectKey>
-		insert into product values(#{prodNum},#{userNum_fk},#{prodCategoryNum_fk},#{prodName},
+		insert into product values(#{prodNum},#{userId},#{prodCategoryNum_fk},#{prodName},
 		#{prodSpec},sysdate,#{prodImage1:VARCHAR},#{prodImage2:VARCHAR},#{aucStartPrice},#{donatePercent},#{auctionTime},
 		#{sellerAddr1},#{sellerAddr2},#{sellerAddr3},1)
 	</insert>

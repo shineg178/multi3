@@ -54,7 +54,7 @@ public class ChatController {
 	
 	//채팅방 만들기
 	@GetMapping("/addChatRoom")
-	public String addChatRoom(@RequestParam int sellerNum,HttpSession ses) {
+	public String addChatRoom(@RequestParam int sellerNum,@RequestParam int prodNum,HttpSession ses) {
 		//내 아이디 정보 가져오기
 		UserVO vo=(UserVO)ses.getAttribute("user");
 		String myid=vo.getUserId();
@@ -66,7 +66,18 @@ public class ChatController {
 		//방생성
 		chatServiceImpl.createRoom(roomvo);
 		
-		return "javascript:history.back();";
+		return "redirect:auction/auctionDetail?prodNum="+prodNum;
+	}
+	
+	@GetMapping("/createChatRoom")
+	public String createChatRoom(@RequestParam String toId,HttpSession ses) {
+		UserVO vo=(UserVO)ses.getAttribute("user");
+		String myId=vo.getUserId();
+		ChatRoomVO roomvo=new ChatRoomVO(0,myId,toId);
+		
+		chatServiceImpl.createRoom(roomvo);
+		
+		return "redirect:/users-profile";
 	}
 	
 	//내 채팅방 목록 가져오기

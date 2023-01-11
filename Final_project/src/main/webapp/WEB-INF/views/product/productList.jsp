@@ -64,7 +64,7 @@
 				<p class="text-m">
 					내 주변의 상품을 찾을 수 있습니다. <br> 지도를 움직이며 관심있는 상품을 둘러보세요!
 				</p>
-			</div>
+			</div> 
 			<div class="home-main-image-top">
 				<span> <img class="home-main-image-top"
 					src="resources/assets/img/products.png">

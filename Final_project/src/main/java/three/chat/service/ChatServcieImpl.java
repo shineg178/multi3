@@ -82,6 +82,11 @@ public class ChatServcieImpl implements ChatService{
 	public List<String> exitRoomImg(int roomid) {
 		return chatMapper.exitRoomImg(roomid);
 	}
+
+	@Override
+	public String findUserIdByNum(int sellerNum) {
+		return chatMapper.findUserIdByNum(sellerNum);
+	}
 	
 	
 	

@@ -5,11 +5,11 @@ import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import three.user.model.UserVO;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuctionEndVO {
+	
 	private int auctionEndNum;
 	
 	private int prodNum_fk;
@@ -19,6 +19,8 @@ public class AuctionEndVO {
 	private int sellUser_fk;
 	
 	private Date endDate;
+	
+	private int endPrice;
 	
 	private int aucStatus;
 	

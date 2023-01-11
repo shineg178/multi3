@@ -16,9 +16,6 @@
 		#{userNick:VARCHAR}, 0, #{userImage:VARCHAR}, #{userInfo:VARCHAR},
 		#{userBronzeBadge:NUMERIC}, #{userSilverBadge:NUMERIC},
 		#{userGoldBadge:NUMERIC},
-		#{userTwitter:VARCHAR},
-		#{userFacebook:VARCHAR}, #{userInstagram:VARCHAR},
-		#{userLinkedin:VARCHAR},
 		#{userStatus}
 		)
 	</insert>

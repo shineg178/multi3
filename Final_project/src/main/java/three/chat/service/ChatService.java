@@ -45,4 +45,7 @@ public interface ChatService {
 	
 	//나가는 채팅방 이미지 이름 가져오기
 	List<String> exitRoomImg(int roomid);
+	
+	//유저 번호로 아이디 가져오기
+	String findUserIdByNum(int sellerNum);
 }

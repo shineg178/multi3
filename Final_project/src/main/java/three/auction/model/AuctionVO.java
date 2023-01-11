@@ -14,7 +14,7 @@ public class AuctionVO {
 	
 	private int aucNum;
 	private int prodNum_fk;
-	private int userNum_fk;
+	private String userId;
 	private int	aucPrice;
 	private Date aucDate;
 }

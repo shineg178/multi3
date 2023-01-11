@@ -14,9 +14,11 @@ public class AuctionEndVO {
 	
 	private int prodNum_fk;
 	
-	private int buyUser_fk;
+	private String prodName;
 	
-	private int sellUser_fk;
+	private String buyId;
+	
+	private String sellId;
 	
 	private Date endDate;
 	

@@ -3,6 +3,8 @@ package three.team.project;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -16,16 +18,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
+import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
 import three.auction.service.AuctionService;
-import three.chat.model.ChatRoomVO;
 import three.chat.service.ChatService;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
 @Controller
 @Log4j
-public class AuctionController {
+public class AuctionController extends Thread{
 
 	@Inject
 	private AuctionService auctionServiceImpl;
@@ -34,7 +36,7 @@ public class AuctionController {
 	@Inject 
 	private ChatService chatServiceImpl;
 	 
-
+	
 
 	//경매 상세페이지의 물건정보 가져오기
 
@@ -70,8 +72,8 @@ public class AuctionController {
 		m.addAttribute("prod", prod);
 		
 		//판매자 정보 가져오기
-		int sellerNum=prod.getUserNum_fk();
-		UserVO user=this.auctionServiceImpl.findUserByuserNum(sellerNum);
+		String sellerId=prod.getUserId();
+		UserVO user=this.auctionServiceImpl.findUserByUserId(sellerId);
 		ses.setAttribute("seller", user);
 		m.addAttribute("seller",user);
 		
@@ -88,7 +90,6 @@ public class AuctionController {
 		m.addAttribute("closeTime",closeTime);
 		m.addAttribute("nowTime",nowTime);
 		
-
 		return "auction/auctionDetail";
 	}
 
@@ -98,7 +99,7 @@ public class AuctionController {
 	public Map<String, Object> auctionBid(@RequestBody Map<String, Object> map,
 			Model m){
 		int prodNum=Integer.parseInt(map.get("prodNum").toString());
-		int userNum=Integer.parseInt(map.get("userNum").toString());
+		String userId=map.get("userId").toString();
 		int aucPrice=Integer.parseInt(map.get("aucPrice").toString());
 		
 		AuctionVO maxvo=this.auctionServiceImpl.selectMaxAuctionByProdNum(prodNum);
@@ -108,23 +109,25 @@ public class AuctionController {
 			return null;
 		}
 		
-		AuctionVO vo=new AuctionVO(0,prodNum,userNum,aucPrice,null);
+		AuctionVO vo=new AuctionVO(0,prodNum,userId,aucPrice,null);
 		int n=this.auctionServiceImpl.insertAuction(vo);
 		m.addAttribute("auction",vo);
 		return map;
 	}
 		
+	
 	/*
 	 * @PostMapping("/auction/auctionDetail/bidClose")
-	 * @ResponseBody 
-	 * public Map<String, Object> auctionEnd(@RequestBody Map<String,
-	 * Object> map, Model m){ 
-	 * int prodNum=Integer.parseInt(map.get("prodNum").toString()); 
-	 * int buyUser=Integer.parseInt(map.get("buyUser").toString()); 
-	 * int sellUser=Integer.parseInt(map.get("sellUser").toString()); 
-	 * int endPrice=Integer.parseInt(map.get("endPrice").toString())
-	 * AuctionEndVO endVo=new AuctionEndVO(0,prodNum,buyUser,sellUser,null,endPrice,0);
-	 * int n=this.auctionServiceImpl.insertAuctionEnd(endVo);
+	 * 
+	 * @ResponseBody public Map<String, Object> auctionEnd(@RequestBody Map<String,
+	 * Object> map, Model m){ int
+	 * prodNum=Integer.parseInt(map.get("prodNum").toString()); int
+	 * buyUser=Integer.parseInt(map.get("buyUser").toString()); int
+	 * sellUser=Integer.parseInt(map.get("sellUser").toString()); int
+	 * endPrice=Integer.parseInt(map.get("endPrice").toString()) AuctionEndVO
+	 * endVo=new AuctionEndVO(0,prodNum,buyUser,sellUser,null,endPrice,0); int
+	 * n=this.auctionServiceImpl.insertAuctionEnd(endVo);
+	 * 
 	 * 
 	 * return map; }
 	 */

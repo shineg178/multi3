@@ -23,7 +23,10 @@ public interface UserMapper {
 	int joinSocial(UserVO vo);
 
 	/* 유저찾기 */
-	UserVO findUserByuserNum(int userNum);;
+	UserVO findUserByUserId(String userId);
+	
+	/* 유저찾기 */
+	UserVO findUserByuserNum(int userNum);
 
 	//아이디 중복체크
 	int checkId(String userId);

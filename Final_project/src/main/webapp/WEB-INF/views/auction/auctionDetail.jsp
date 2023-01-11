@@ -254,7 +254,7 @@ sock.onmessage=function(evt){
 									</div>
 								</td>
 							</tr>
-							<c:if test="${user.userNum ne prod.userNum_fk}">
+							<c:if test="${user.userId ne prod.userId}">
 								<tr>
 									<td colspan="2" class="text-center">
 										<input class="form-control text-end" 
@@ -279,7 +279,7 @@ sock.onmessage=function(evt){
 						<br> 
 						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
 
-						<c:if test="${user.userNum ne prod.userId}"> 
+						<c:if test="${user.userId ne prod.userId}"> 
 							<span class="text-start">
 								<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
 							</span> 

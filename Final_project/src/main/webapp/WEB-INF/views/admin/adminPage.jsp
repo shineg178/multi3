@@ -63,6 +63,32 @@
 		width:15%;
 	}
 	
+	#productTable tr th{
+		text-align:center;
+	}
+	#productTable tr td:nth-child(6n+1){
+		width:10%;
+	}
+	#productTable tr td:nth-child(6n+2){
+		width:10%;
+		over-flow:hidden;
+		
+	}
+	#productTable tr td:nth-child(6n+3){
+		width:30%;
+		over-flow:hidden;
+	}
+	#productTable tr td:nth-child(6n+4){
+		width:20%;
+		over-flow:hidden;
+	}
+	#productTable tr td:nth-child(6n+5){
+		width:20%;
+	}
+	#productTable tr td:nth-child(6n+6){
+		width:10%;
+	}
+	
 	
 	
 	
@@ -199,8 +225,81 @@
 		})
 	}
 	
+	function prodList(){
+		$.ajax({
+			url:'adminProdList',
+			type:'get',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				str="<table class='table' id='productTable'>";
+				str+="<tr>";
+				str+="<th>번호</th>";
+				str+="<th>물품 이름</th>";
+				str+="<th>물품 설명</th>";
+				str+="<th>판매자 아이디</th>";
+				str+="<th>경매기간</th>";
+				str+="<th></th>";
+				str+="</tr>";
+				$.each(res,function(i,data){
+					str+="<tr>";
+					str+="<td>"+data.prodNum+"</td>";
+					str+="<td>"+data.prodName+"</td>";
+					str+="<td>"+data.prodSpec+"</td>";
+					str+="<td>"+data.userId+"</td>";
+					str+="<td>"+data.auctionTime+"일</td>";
+					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum=?"+data.prodNum+"'>삭제</></td>";
+					str+="</tr>";
+				})
+				str+="</table>";
+				$('#prodList').html(str);
+			},
+			error:function(err){
+				alert("error : "+err.status);
+			}
+		})
+	}
+	
+	function findProd(){
+		let prodName=$('#findProd').val();
+		$.ajax({
+			url:"adminfindProd",
+			type:'post',
+			data:"prodName="+prodName,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				str="<table class='table' id='productTable'>";
+				str+="<tr>";
+				str+="<th>번호</th>";
+				str+="<th>물품 이름</th>";
+				str+="<th>물품 정보</th>";
+				str+="<th>판매자 아이디</th>";
+				str+="<th>경매기간</th>";
+				str+="<th></th>";
+				str+="</tr>";
+				$.each(res,function(i,data){
+					str+="<tr>";
+					str+="<td>"+data.prodNum+"</td>";
+					str+="<td>"+data.prodName+"</td>";
+					str+="<td>"+data.prodSpec+"</td>";
+					str+="<td>"+data.userId+"</td>";
+					str+="<td>"+data.auctionTime+"일</td>";
+					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum=?"+data.prodNum+"'>삭제</></td>";
+					str+="</tr>";
+				})
+				str+="</table>";
+				$('#prodList').html(str);
+			},
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
+	
 	$(function(){
 		userList();
+		prodList();
 	})
 </script>
 <c:import url="/top" />
@@ -272,7 +371,8 @@
                 
                 <!-- 경매 관리 -->
                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="auction-tab">
-                	<input class="form-control" type="text" placeholder="검색할 물품 이름을 입력하세요">
+                	<input id="findProd" class="form-control" type="text" placeholder="검색할 물품 이름을 입력하세요" onkeyup="findProd()">
+                	<div id="prodList"><!-- 경매 물품 들어갈곳 --></div>
                 
                 </div>
                 

@@ -79,5 +79,13 @@
 		update project_user set userPoint=userPoint+#{exchangePoint} where userid=#{userid}
 	</update>
 	
+	<delete id="prodDelete" parameterType="int">
+		delete from product where prodNum=#{value}
+	</delete>
+	
+	<select id="adminFindProd" parameterType="String" resultType="Product">
+		select * from product where prodName like '%'||#{value}||'%' and status=1
+	</select>
+	
 	
 </mapper>

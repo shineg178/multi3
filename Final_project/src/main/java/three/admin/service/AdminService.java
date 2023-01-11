@@ -63,4 +63,10 @@ public interface AdminService {
 	
 	//환불 취소로 다시 포인트 충전
 	int rechargePoint(ExchangeVO vo);
+	
+	//물품 삭제
+	int prodDelete(int prodNum);
+	
+	//관리자 물품 검색
+	List<ProductVO> adminFindProd(String prodName);
 }

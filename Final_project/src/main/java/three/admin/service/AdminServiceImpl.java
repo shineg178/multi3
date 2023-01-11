@@ -113,4 +113,14 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.rechargePoint(vo);
 	}
 
+	@Override
+	public int prodDelete(int prodNum) {
+		return adminMapper.prodDelete(prodNum);
+	}
+
+	@Override
+	public List<ProductVO> adminFindProd(String prodName) {
+		return adminMapper.adminFindProd(prodName);
+	}
+
 }

@@ -20,6 +20,8 @@ import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.mail.service.MailService;
 import three.payment.model.PaymentVO;
+import three.product.model.ProductVO;
+import three.product.service.ProductService;
 import three.user.model.UserVO;
 
 //관리자 페이지 컨트롤러
@@ -30,6 +32,9 @@ public class AdminController {
 	
 	@Inject
 	private AdminService adminServiceImpl;
+	
+	@Inject
+	private ProductService productServiceImpl;
 	
 	@Autowired
 	private MailService mailService;
@@ -187,6 +192,28 @@ public class AdminController {
 		List<UserVO> userList=adminServiceImpl.findUser(userId);
 		
 		return userList;
+	}
+	
+	//물품 목록 가져오기
+	@GetMapping("/adminProdList")
+	@ResponseBody
+	public List<ProductVO> adminProdList(){
+		return productServiceImpl.allProduct();
+	}
+	
+	@PostMapping("/adminfindProd")
+	@ResponseBody
+	public List<ProductVO> adminFindProd(@RequestParam String prodName){
+		
+		return adminServiceImpl.adminFindProd(prodName);
+	}
+	
+	//물품 삭제
+	@GetMapping("/prodDelete")
+	public String prodDelete(@RequestParam int prodNum) {
+		adminServiceImpl.prodDelete(prodNum);
+		
+		return "redirect:adminPage";
 	}
 	
 }

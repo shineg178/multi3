@@ -698,7 +698,7 @@ function donateList(){
                       구매자
                     </th>
                     <th scope="col">
-                      입찰 가격
+                      낙찰 가격
                     </th>
                     <th scope="col">
                       입찰 날짜
@@ -718,14 +718,14 @@ function donateList(){
                     <td>${data.endPrice}</td>
                     <td><fmt:formatDate value="${data.endDate}" pattern="YYYY-MM-DD HH:mm:ss"/> </td>
                     <c:if test="${data.aucStatus eq 0}">
-                    	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered">거래중</a></td>
+                    	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered${i.count}">거래중</a></td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 1}">
                     	<td><a class="badge bg-success" style="width:100%">거래완료</a></td>
                  	</c:if>
                   </tr>    
                   <!-- Vertically centered Modal -->
-                    <div class="modal fade" id="verticalycentered" tabindex="-1">
+                    <div class="modal fade" id="verticalycentered${i.count}" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                           <div class="text-center modal-header">

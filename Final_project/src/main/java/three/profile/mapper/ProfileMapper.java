@@ -4,6 +4,7 @@ import java.util.List;
 
 import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
+import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
@@ -44,6 +45,9 @@ public interface ProfileMapper {
 	//기부정보저장
 	int addDonation(DonateVO dvo);
 	
+	//물품 번호로 정보 가져오기
+	ProductVO findProductByNum(int prodNum);
+	
 	//경매 참여 내역
 	List<AuctionEndVO> myAuction(String userid);
 	
@@ -70,5 +74,11 @@ public interface ProfileMapper {
 	
 	//거래완료 상태 변경
 	int aucEndupdateStatus(int aucEndNum);
+	
+	//현재 메인 기부단체 정보 가져오기
+	DonationOrgVO findOrgInfo();
+	
+	//기부하고 남은 포인트 판매자 계정에 추가
+	int addPoint(UserVO vo);
 
 }

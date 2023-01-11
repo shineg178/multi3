@@ -94,6 +94,17 @@
 		update auction_end set aucstatus=1 where auctionEndNum=#{value}
 	</update>
 	
+	<select id="findProductByNum" resultType="Product" parameterType="int">
+		select * from product where prodNum=#{value}
+	</select>
+	
+	<select id="findOrgInfo" resultType="DonationOrg">
+		select * from donationOrg where status=1
+	</select>
+	
+	<update id="addPoint" parameterType="User">
+		update project_user set userpoint=userpoint+#{userPoint} where userid=#{userId} 
+	</update>
 
 	
 </mapper>

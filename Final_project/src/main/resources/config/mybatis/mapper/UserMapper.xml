@@ -51,8 +51,9 @@
 		<selectKey keyProperty="userNum" resultType="int" order="BEFORE">
 			select user_seq.nextval from dual		
 		</selectKey>
-		insert into project_user(usernum,userid,userpassword,username,useremail,userstatus)
-		values(#{userNum},#{userId},#{userPassword},#{userName},#{userEmail},4)
+		insert into project_user(usernum,userid,userpassword,username,useremail,userstatus,userpoint,
+		userbronzebadge,usersilverbadge,usergoldbadge)
+		values(#{userNum},#{userId},#{userPassword},#{userName},#{userEmail},4,0,0,0,0)
 	</insert>
 
 	<!-- 아이디 중복 체크 -->

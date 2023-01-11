@@ -2,12 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
+
 
 <!-- 카카오맵 api -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd88de1b8477ef4c5df424305ccb757f"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd88de1b8477ef4c5df424305ccb757f&libraries=services"></script>
+
 <c:import url="/top" />
 <link href="resources/assets/css/index.css" rel="stylesheet">
+
 
 <main id="main" class="main">
 <section class="home-main-section-top">
@@ -101,17 +106,27 @@
 		</div>
 		<a class="product-more" href="${path}/project/aution">더보기 > </a>
 	</div>
-<hr>
-<!-- 카카오맵 지도 위치 -->
+
+	<div>
+		<hr>
+	</div>
+	<!-- 카카오맵 지도 위치 -->
+
+
+
 	<div id="map"></div>
 </main>
-<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
 
-		var map = new kakao.maps.Map(container, options);
+
+<script>
+	var container = document.getElementById('map');
+	var options = {
+		center : new kakao.maps.LatLng(33.450701, 126.570667),
+		level : 3
+	};
+
+	var map = new kakao.maps.Map(container, options);
 </script>
+
+
 <c:import url="/foot" />

@@ -35,18 +35,24 @@ public class AuctionController {
 	private ChatService chatServiceImpl;
 	 
 
+
 	//경매 상세페이지의 물건정보 가져오기
 
 	@GetMapping("/auction/auctionDetail")
 	public String auctionDetail(Model m, @RequestParam("prodNum") int prodNum, 
 			HttpSession ses) {
+
 		if (prodNum == 0) {
 			return "redirect:/";
 		}
 		if(ses.getAttribute("user")==null) {
 			return "redirect:/";
 		}
+		if (ses.getAttribute("user") == null) {
+			return "redirect:index";
+		}
 		ses.setAttribute("prodNum", prodNum);
+
 		log.info("prodNum: "+prodNum);
 		UserVO loginUser=(UserVO)ses.getAttribute("user");
 		m.addAttribute("user",loginUser);
@@ -82,11 +88,13 @@ public class AuctionController {
 		m.addAttribute("closeTime",closeTime);
 		m.addAttribute("nowTime",nowTime);
 		
+
 		return "auction/auctionDetail";
 	}
-	
+
 	@PostMapping("/auction/auctionDetail/bid")
 	@ResponseBody
+
 	public Map<String, Object> auctionBid(@RequestBody Map<String, Object> map,
 			Model m){
 		int prodNum=Integer.parseInt(map.get("prodNum").toString());

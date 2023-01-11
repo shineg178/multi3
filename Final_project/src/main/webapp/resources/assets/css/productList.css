@@ -1,0 +1,69 @@
+@charset "UTF-8";
+.main{
+	min-width: 600px;	
+}
+
+.prod-main-section-top {
+	background: #fff;
+	border-radius: 8px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.prod-main-top {
+	padding-top: 24px;
+	position: relative;
+	width: 100%;
+	height: 21rem;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 8px;
+
+}
+
+.prod-main-title {
+	padding-top: 5rem;
+	line-height: 1.3; /*줄높이*/
+	font-size: 2.5rem;
+	margin-bottom: 3.2rem;
+}
+.text-m {
+	font-size: 1rem !important;
+}
+
+@media (min-width: 550px) {
+  .home-main-image-top {
+    position: absolute;
+	margin-bottom: 1rem;
+	right: 30px;
+	bottom: 0;
+	width: 15rem;
+	height: 15rem;
+	background-repeat: no-repeat;
+  }
+ }
+
+ @media (max-width: 770px){
+ 	.home-main-image-top{
+ 		display: none;
+ 	}
+ }
+.map-box{
+	width: 100%;
+	height: 450px;
+	background: #fff;
+	text-align:center;
+}
+.mapIcon{
+	width: 70%;
+	height:30px;
+	font-size: 15px;
+}
+.myLocImg{
+	width: 30px;
+	padding-bottom: 4px;
+	filter: drop-shadow(0px 1px 1px #808080);
+}
+.card{
+	margin-top: 10px;
+}

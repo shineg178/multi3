@@ -3,7 +3,7 @@
 
 body {
 	font-family: 'nanumgothic';
-	font-size: 13px;
+	font-size: 15px;
 	color: #222;
 	margin: 0;
 	padding: 0;
@@ -11,21 +11,15 @@ body {
 
 /* 로그인 실패시 경고글 */
 .login_warn{
-    margin-top: 30px;
+    margin-top: 20px;
     text-align: center;
+    color:#ff0000;
 }
 
-input.signIn {
-	width:100%;
-	padding :10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border : none;
-	margin-bottom:10px;
-}
-
+input.signIn, 
 input#btn {
-	width:100%;
+	width:80%;
+	height:50px;
 	padding :10px;
 	box-sizing: border-box;
 	border-radius: 5px;
@@ -58,13 +52,7 @@ input#btn {
 }
 a.btn {
 	display: block;
-	text-decoration: none;
-	color: #fff;
-	border: 1px solid lightgray;
 	text-align: center;
-	border-radius: 2px;
-	font-size: 16px;
-	padding: 15px;
 	opacity: 0.8;
 	margin-bottom: 10px;
 }
@@ -75,40 +63,22 @@ a.btn1 {
 	background-color: #fff;
 	color: #222;
 }
-a.btn2{
-	background-color: #11ce00;
-}
-a.btn3{
-	background-color: #ffff00;
-	color: black;
-}
-a.btn4{
-	background-color: #898c9b;
-
-}
-
 .footer{
 	padding: 5px;
 	margin-top: 10px;
 }
 
-.footer p:nth-child(1) a {
+.footer p:nth-child(1) a, .footer p:nth-child(2) a{
 	text-align: left;
 	color: #222;
 	text-decoration: none;
 }
-.footer p:nth-child(1) a:hover {
+.footer p:nth-child(1) a:hover, .footer p:nth-child(2) a:hover
+,.footer p:nth-child(3) a:hover {
 	text-decoration: underline;
 }
 
-.footer p:nth-child(2) a {
-	text-align: left;
-	color: #222;
-	text-decoration: none;
-}
-.footer p:nth-child(2) a:hover {
-	text-decoration: underline;
-}
+
 .footer p:nth-child(3) {
 	text-align: center;
 }
@@ -118,9 +88,6 @@ a.btn4{
 	text-decoration: none;
 }
 
-.footer p:nth-child(3) a:hover{
-	text-decoration: underline;
-}
 
 span.or-txt {
 	display: block;
@@ -147,40 +114,6 @@ span.or-txt:after {
 	height: 1px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.naver, .kakao, .google {
+	width:190px;
+}

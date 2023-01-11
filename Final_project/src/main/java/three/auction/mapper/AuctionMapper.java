@@ -10,8 +10,7 @@ public interface AuctionMapper {
 	int insertAuction(AuctionVO avo);
 	
 	int insertAuctionEnd(AuctionEndVO endVo);
-	
+
 	AuctionVO selectMaxAuctionByProdNum(int prodNum);
-	
 	
 }

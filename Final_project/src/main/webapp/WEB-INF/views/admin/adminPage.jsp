@@ -291,7 +291,7 @@
 							<tr>
 								<td><c:out value="${data.exchangeNum}"/></td>
 								<td><c:out value="${data.userName}"/></td>
-								<td><c:out value="${data.userid}"/></td>
+								<td><c:out value="${data.userId}"/></td>
 								<td>
 									요청 포인트 : <c:out value="${data.exchangePoint}"/><br>
 									<div class="badge bg-warning text-dark">

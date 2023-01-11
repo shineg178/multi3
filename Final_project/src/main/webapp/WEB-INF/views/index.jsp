@@ -9,20 +9,6 @@
 <c:import url="/top" />
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
-
-<!-- 카카오맵 지도 위치 -->
-<div id="map" ></div>
-
-
-<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
-
-		var map = new kakao.maps.Map(container, options);
-</script>
 <main id="main" class="main">
 	<section class="home-main-section-top">
 		<div class="home-main-top">
@@ -117,188 +103,17 @@
 		</div>
 		<a class="product-more" href="${path}/project/aution">더보기 > </a>
 	</div>
-<div><hr></div>
-	<section class="cards-wrap">
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품"
-						src="resources/assets/img/donation.png?s=300x300&t=crop">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품"
-						src="resources/assets/img/donation.png?s=300x300&t=crop">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png?s=300x300&t=crop">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<br>
-	<div class="product">
-		<div class="product-2">
-			<p class="product-main">기부앤테이크</p>
-			<p class="product-sub">인기 경매</p>
-		</div>
-		<a class="product-more" href="${path}/project/aution">더보기 > </a>
-	</div>
-<div><hr></div>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/donation.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/tv2.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/trome1.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-		<article class="card-top">
-			<a class="card-link" data-event-label="" href="">
-				<div class="card-photo">
-					<img alt="1번 상품" src="resources/assets/img/notice.png">
-				</div>
-				<div class="card-desc">
-					<h2 class="card-title">캠핑용품 판매</h2>
-					<div class="card-price">100,000원</div>
-					<div class="card-region-name">서울 서초구 잠원동</div>
-				</div>
-			</a>
-		</article>
-	</section>
+<hr>
+<!-- 카카오맵 지도 위치 -->
+	<div id="map"></div>
 </main>
+<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+</script>
 <c:import url="/foot" />

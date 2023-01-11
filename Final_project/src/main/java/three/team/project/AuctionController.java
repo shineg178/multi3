@@ -29,44 +29,47 @@ public class AuctionController {
 	private AuctionService auctionServiceImpl;
 
 	//경매 상세페이지의 물건정보 가져오기
-	@GetMapping("/auction/auctionDetail")
-	public String auctionDetail(Model m, @RequestParam("prodNum") int prodNum, 
-			@RequestParam("userNum") int userNum
-			,HttpSession ses) {
-		if (prodNum == 0) {
-			return "redirect:index";
+		@GetMapping("/auction/auctionDetail")
+		public String auctionDetail(Model m, @RequestParam("prodNum") int prodNum,
+				HttpSession ses) {
+			if (prodNum == 0) {
+				return "redirect:index";
+			}
+			if(ses.getAttribute("user")==null) {
+				return "redirect:index";
+			}
+			ses.setAttribute("prodNum", prodNum);
+			log.info("prodNum: "+prodNum);
+			UserVO loginUser=(UserVO)ses.getAttribute("user");
+			m.addAttribute("loginUser",loginUser);
+			ses.setAttribute("user", loginUser);
+			ses.setAttribute("userId", loginUser.getUserId());
+			
+			
+			//물품 정보 가져오기
+			ProductVO prod = this.auctionServiceImpl.selectProductByProdNum(prodNum);
+			m.addAttribute("prod", prod);
+			
+			//판매자 정보 가져오기
+			int sellerNum=prod.getUserNum_fk();
+			UserVO user=this.auctionServiceImpl.findUserByuserNum(sellerNum);
+			m.addAttribute("seller",user);
+			
+			//물품현재가 정보 가져오기
+			AuctionVO avo=this.auctionServiceImpl.selectMaxAuctionByProdNum(prodNum);
+			m.addAttribute("auction",avo);
+			
+			//종료시간 구하기
+			Calendar cal=Calendar.getInstance();
+			cal.setTime(prod.getPIndate());
+			cal.add(Calendar.DATE, prod.getAuctionTime());
+			Date closeTime=cal.getTime();
+			Date nowTime=new Date();
+			m.addAttribute("closeTime",closeTime);
+			m.addAttribute("nowTime",nowTime);
+			
+			return "auction/auctionDetail";
 		}
-		ses.setAttribute("prodNum", prodNum);
-		log.info("prodNum: "+prodNum);
-		UserVO loginUser=this.auctionServiceImpl.findUserByuserNum(userNum);
-		m.addAttribute("loginUser",loginUser);
-		ses.setAttribute("userId", loginUser.getUserId());
-		
-		ses.setAttribute("userNum", userNum);
-		
-		
-		//물품 정보 가져오기
-		ProductVO prod = this.auctionServiceImpl.selectProductByProdNum(prodNum);
-		m.addAttribute("prod", prod);
-		
-		//판매자 정보 가져오기
-		int sellerNum=prod.getUserNum_fk();
-		UserVO user=this.auctionServiceImpl.findUserByuserNum(sellerNum);
-		m.addAttribute("seller",user);
-		
-		//물품현재가 정보 가져오기
-		AuctionVO avo=this.auctionServiceImpl.selectAuctionByProdNum(prodNum);
-		m.addAttribute("auction",avo);
-		
-		//종료시간 구하기
-		Calendar cal=Calendar.getInstance();
-		cal.setTime(prod.getPIndate());
-		cal.add(Calendar.DATE, prod.getAuctionTime());
-		Date closeTime=cal.getTime();
-		m.addAttribute("closeTime",closeTime);
-		
-		return "auction/auctionDetail";
-	}
 	
 	@PostMapping("/auction/auctionDetail/bid")
 	@ResponseBody
@@ -76,7 +79,7 @@ public class AuctionController {
 		int userNum=Integer.parseInt(map.get("userNum").toString());
 		int aucPrice=Integer.parseInt(map.get("aucPrice").toString());
 		
-		AuctionVO maxvo=this.auctionServiceImpl.selectAuctionByProdNum(prodNum);
+		AuctionVO maxvo=this.auctionServiceImpl.selectMaxAuctionByProdNum(prodNum);
 		
 		if(aucPrice <= maxvo.getAucPrice()) {
 			m.addAttribute("newBid", maxvo);

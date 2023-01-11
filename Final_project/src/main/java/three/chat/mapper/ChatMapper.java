@@ -45,4 +45,7 @@ public interface ChatMapper {
 	
 	//채팅방 별 안읽은 방 가져오기
 	List<ChatAlertVO> myNoread(String userId);
+	
+	//유저 번호로 아이디 가져오기
+	String findUserIdByNum(int sellerNum);
 }

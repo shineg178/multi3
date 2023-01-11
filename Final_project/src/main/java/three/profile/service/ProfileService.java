@@ -2,9 +2,11 @@ package three.profile.service;
 
 import java.util.List;
 
+import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
 public interface ProfileService {
@@ -42,5 +44,11 @@ public interface ProfileService {
 	int updatePassword(UserVO vo);
 	//탈퇴회원전환
 	int deleteUser(UserVO vo);
+	//경매 참여 내역
+	List<AuctionEndVO> myAuction(String userid);
+	//번호로 경매 종료 정보 가져오기
+	AuctionEndVO findAuctionEnd(int aucEndNum);
+	//거래완료 상태 변경
+	int aucEndupdateStatus(int aucEndNum);
 	
 }

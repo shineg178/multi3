@@ -2,9 +2,11 @@ package three.profile.mapper;
 
 import java.util.List;
 
+import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
 public interface ProfileMapper {
@@ -42,6 +44,9 @@ public interface ProfileMapper {
 	//기부정보저장
 	int addDonation(DonateVO dvo);
 	
+	//경매 참여 내역
+	List<AuctionEndVO> myAuction(String userid);
+	
 	//포인트차감-기부
 	int minusPointByDonation(DonateVO dvo);
 	
@@ -59,5 +64,11 @@ public interface ProfileMapper {
 	
 	//탈퇴회원전환
 	int deleteUser(UserVO vo);
+	
+	//번호로 경매 종료 정보 가져오기
+	AuctionEndVO findAuctionEnd(int aucEndNum);
+	
+	//거래완료 상태 변경
+	int aucEndupdateStatus(int aucEndNum);
 
 }

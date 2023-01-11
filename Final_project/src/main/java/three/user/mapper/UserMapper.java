@@ -30,4 +30,5 @@ public interface UserMapper {
 
 	//아이디 중복체크
 	int checkId(String userId);
+
 }

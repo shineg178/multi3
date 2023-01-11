@@ -86,6 +86,8 @@
 		window.open('${path}/chat?roomid='+roomid,'roomid','top='+targetTop+', left='+targetLeft+', width=400, height=710, menubar=0 ,resizable=0')
 	}
 	
+	
+
 	//내 채팅 목록 가져오기
 	function myChatList(){
 		$.ajax({
@@ -99,10 +101,10 @@
 					$.each(res,function(i,data){
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
-						if(data.userId1=='${id}'){
+						if(data.userId1=='${user.userId}'){
 							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
 						}
-						if(data.userId2=='${id}'){
+						if(data.userId2=='${user.userId}'){
 							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
@@ -116,9 +118,10 @@
 			}
 		})
 	}
-	myChatList();
+	if(${user ne null}){
+		myChatList();
+	}
 
-	
 	
 
 	

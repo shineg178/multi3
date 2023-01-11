@@ -90,7 +90,14 @@ function sendMsg(e){
 	}
 }
 
-	$(function(){	
+	$(function(){
+		
+		// 웹소켓 연결
+		var url = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}/${pageContext.request.contextPath}/chat";
+		let sock = new SockJS(url);
+		sock.onmessage = onMessage;
+		sock.onopen = onOpen;
+		
 		//스크롤바 아래고정 메서드
 		function scrollBottom(){
 			$('#chatLog').scrollTop($('#chatLog')[0].scrollHeight);	
@@ -101,11 +108,11 @@ function sendMsg(e){
 		
 		//받는이 지정 
 		var toUser;
-		if(${Room.userId1}==${id}){
-			toUser=${Room.userId2};
+		if('${Room.userId1}'=='${user.userId}'){
+			toUser='${Room.userId2}';
 			$('#rUser').val(toUser);
-		}else if(${Room.userId2}==${id}){
-			toUser=${Room.userId1};
+		}else if('${Room.userId2}'=='${user.userId}'){
+			toUser='${Room.userId1}';
 			$('#rUser').val(toUser);
 		}
 		
@@ -138,7 +145,7 @@ function sendMsg(e){
 					data:formData,
 					cache:false,
 					success:function(res){
-						sendMessage(${Room.roomid}+":"+${id}+":"+toUser+":"+fileName+":img");	
+						sendMessage(${Room.roomid}+":${user.userId}:"+toUser+":"+fileName+":img");	
 					},
 					error:function(err){
 						alert('error : '+err.status);
@@ -151,23 +158,18 @@ function sendMsg(e){
 			if(!imgCheck){
 				if($('#msg').val()!=""){
 					//"방번호:로그인유저:메시지:타입" 형태
-					sendMessage(${Room.roomid}+":"+${id}+":"+toUser+":"+$("#msg").val()+":msg");
+					sendMessage(${Room.roomid}+":${user.userId}:"+toUser+":"+$("#msg").val()+":msg");
 				}
 			}
 			$('#msg').val('');
 			
 		});
-		
-		// 웹소켓 연결
-		var url = "http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/chat";
-		let sock = new SockJS(url);
-		sock.onmessage = onMessage;
-		sock.onopen = onOpen;
+	
 		
 		//방에 입장 했을때 
 		function onOpen(){
 			//"방번호:로그인유저:방입장" 형태
-			sock.send(${Room.roomid}+":"+${id}+"::"+":Enter");
+			sock.send(${Room.roomid}+":${user.userId}::"+":Enter");
 		}
 		
 		//메시지를 전송 했을때
@@ -185,7 +187,7 @@ function sendMsg(e){
 			var date = new Date();
 			var time=date.getHours()+":"+date.getMinutes();
 			
-			if(userid == ${id} ){
+			if(userid == '${user.userId}' ){
 				position="right";
 			}else{
 				position="left";
@@ -213,7 +215,7 @@ function sendMsg(e){
 			<c:set var="now" value="<%=new java.util.Date() %>"/>
 			<fmt:formatDate var="today" value="${now}" pattern="dd"/>
 			<fmt:formatDate var="dbtoday" value="${data.getChatTime()}" pattern="dd"/>
-				<c:if test="${data.getSUser() eq id}">
+				<c:if test="${data.getSUser() eq user.userId}">
 					<div id="right">
 						<span id="right">${data.getSendMsg()}</span>
 						<br>
@@ -229,7 +231,7 @@ function sendMsg(e){
 						</c:if>
 					</div>
 				</c:if>
-				<c:if test="${data.getSUser() ne id}">
+				<c:if test="${data.getSUser() ne user.userId}">
 					<div id="left">
 						<span id="left">${data.getSendMsg()}</span>
 						<br>
@@ -249,7 +251,7 @@ function sendMsg(e){
 			
 			<!-- 이미지가 첨부 되었을때 -->
 			<c:if test="${data.getCImg() ne null}">
-				<c:if test="${data.getSUser() eq id}">
+				<c:if test="${data.getSUser() eq user.userId}">
 					<div id="right">
 						<img id="right" src="${pageContext.request.contextPath}/resources/Chat_Image/${data.getCImg()}"/>
 						<br>
@@ -265,7 +267,7 @@ function sendMsg(e){
 						</c:if>
 					</div>
 				</c:if>
-				<c:if test="${data.getSUser() ne id}">
+				<c:if test="${data.getSUser() ne user.userId}">
 					<div id="left">
 						<img id="left" src="${pageContext.request.contextPath}/resources/Chat_Image/${data.getCImg()}"/>
 						<br>

@@ -1,8 +1,6 @@
 package three.auction.service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import three.auction.mapper.AuctionMapper;
 import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
@@ -10,7 +8,6 @@ import three.product.mapper.ProductMapper;
 import three.product.model.ProductVO;
 import three.user.mapper.UserMapper;
 import three.user.model.UserVO;
-
 @Service("auctionServiceImpl")
 public class AuctionServiceImpl implements AuctionService {
 	
@@ -28,7 +25,6 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 	@Override
 	public int insertAuction(AuctionVO avo) {
 		return this.auctionMapper.insertAuction(avo);
@@ -44,7 +40,6 @@ public class AuctionServiceImpl implements AuctionService {
 		
 		return this.productMapper.selectProductByProdNum(prodNum);
 	}
-
 	@Override
 	public AuctionVO selectMaxAuctionByProdNum(int prodNum) {
 		
@@ -55,5 +50,4 @@ public class AuctionServiceImpl implements AuctionService {
 	public UserVO findUserByuserNum(int userNum) {
 		return this.userMapper.findUserByuserNum(userNum);
 	}
-
 }

@@ -36,6 +36,7 @@ public class AuctionController {
 	 
 
 	//경매 상세페이지의 물건정보 가져오기
+
 	@GetMapping("/auction/auctionDetail")
 	public String auctionDetail(Model m, @RequestParam("prodNum") int prodNum, 
 			HttpSession ses) {

@@ -4,7 +4,6 @@ import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
-
 public interface AuctionService {
 	
 	int insertProduct(ProductVO pvo);

@@ -54,10 +54,10 @@ function onSignIn(){
 
 				<div class="social">
                   
-                  <a class="btn btn-naver"><img class="naver"
+                  <a class="btn btn-naver" id="naverBtn"><img class="naver"
                      src="resources/assets/img/naverLogin.png"></a> 
                   
-                  <a class="btn btn-kakao"><img class="kakao"
+                  <a class="btn btn-kakao" id="kakaoBtn"><img class="kakao"
                      src="resources/assets/img/kakaoLogin.png"></a> 
                   
                   <a class="btn btn-google" id="googleBtn"><img class="google"

@@ -24,7 +24,7 @@
 	display: table;
 	border: 1px solid #fff;
 	width: 280px;
-	height: 250px;
+	height: 350px;
 	margin: 10px;
 	background: #fff;
 	border-radius: 8px;
@@ -64,7 +64,7 @@
 				<p class="text-m">
 					내 주변의 상품을 찾을 수 있습니다. <br> 지도를 움직이며 관심있는 상품을 둘러보세요!
 				</p>
-			</div> 
+			</div>
 			<div class="home-main-image-top">
 				<span> <img class="home-main-image-top"
 					src="resources/assets/img/products.png">
@@ -75,11 +75,14 @@
 	<!-- 카카오맵 지도 위치 -->
 	<div class="map-box">
 		<div id="map"></div>
-		<a class="mapIcon">
-		<img class="myLocImg" src="resources/assets/img/myLoc.png"> 내 위치 &nbsp;&nbsp;
-		<img class="LocImg" src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"> 상품 위치</a>
+		<a class="mapIcon"> <img class="myLocImg"
+			src="resources/assets/img/myLoc.png"> 내 위치 &nbsp;&nbsp; <img
+			class="LocImg"
+			src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png">
+			상품 위치
+		</a>
 	</div>
-	
+
 	<div class="card">
 		<div class="card-body">
 			<!-- Default Tabs -->

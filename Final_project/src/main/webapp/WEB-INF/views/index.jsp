@@ -56,27 +56,25 @@
 			<!-- 배너 1번 내용 -->
 			<div class="carousel-item active"
 				onclick="location.href='${path}/project/donation';">
-				<h1 class="banner1-title">2023 기부앤테이크 Ranking Start!!</h1>
-				<p class="banner1-subtitle">현재 나의 순위는?</p>
+				<a class="banner1-title">
+					<img class="banner1-img" src="resources/assets/img/banner01.png">
+				</a>
 			</div>
 
 			<!-- 배너 2번 내용 -->
 			<div class="carousel-item"
-				onclick="location.href='${path}/project/aution';">
-				<h1 class="banner2-title">
-					새로 올라온 중고 물품 <br> <br>바로 확인하러 가기!
-				</h1>
-				<p class="banner2-subtitle"></p>
+				onclick="location.href='${path}/project/productList';">
+				<a class="banner2-title">
+					<img class="banner2-img" src="resources/assets/img/banner02.png">
+				</a>
 			</div>
 
 			<!-- 배너 3번 내용 -->
-			<div class="carousel-item">
-				<h1 class="banner2-title"
-					onclick="location.href='${path}/project/noticeList';">기부앤테이크
-					기부 인증</h1>
-				<p class="banner2-subtitle">
-					여러분의 중고거래가 모여 이룬 기적, <br> 지금 확인해보세요!
-				</p>
+			<div class="carousel-item"
+				onclick="location.href='${path}/project/noticeList';">
+				<a class="banner3-title">
+					<img class="banner3-img" src="resources/assets/img/banner03.png">
+				</a>
 			</div>
 
 		</div>
@@ -104,7 +102,7 @@
 			<p class="product-main">기부앤테이크 경매</p>
 			<p class="product-sub">지도에서 위치를 지정해보세요!</p>
 		</div>
-		<a class="product-more" href="${path}/project/aution">더보기 > </a>
+		<a class="product-more" href="${path}/project/productList">더보기 > </a>
 	</div>
 
 	<div>

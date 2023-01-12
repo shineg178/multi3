@@ -55,13 +55,32 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 	
 	@Override
-	public List<ProductVO> findAllProductList() {
-		return this.auctionMapper.findAllProductList();
+	public List<ProductVO> findProductbiding() {
+		return this.auctionMapper.findProductbiding();
 	}
 	
 	@Override
 	public ProductVO findProductByProdNum(int prodNum) {
 		return this.auctionMapper.findProductByProdNum(prodNum);
+	}
+	
+	@Override
+	public int findAuctionEnd(AuctionEndVO endVO) {
+		int n=0;
+		if(this.auctionMapper.findAuctionEnd(endVO)==null) {
+			n=1;
+		}
+		return n; 
+	}
+	
+	@Override
+	public int chageProductStatus(int prodNum) {
+		return this.auctionMapper.chageProductStatus(prodNum);
+	}
+	
+	@Override
+	public int minusPointByAuction(AuctionEndVO vo) {
+		return this.auctionMapper.minusPointByAuction(vo);
 	}
 	
 }

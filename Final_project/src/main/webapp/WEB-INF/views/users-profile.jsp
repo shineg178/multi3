@@ -46,23 +46,23 @@
             <ul class="nav nav-tabs nav-tabs-bordered">
 
               <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile">프로필</button>
+                <button id="pofileTab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile">프로필</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#badge">뱃지 현황</button>
+                <button id="badgeTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#badge">뱃지 현황</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#point">포인트</button>
+                <button id="pointTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#point">포인트</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#trade-status">거래내역</button>
+                <button id="trade-statusTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#trade-status">거래내역</button>
               </li>
 
               <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change">개인정보변경</button>
+                <button id="profile-changeTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change">개인정보변경</button>
               </li>
 
             </ul>
@@ -71,8 +71,9 @@
             <div class="tab-content pt-2">
               <!-- profile start -->
               <div class="tab-pane fade show active profile" id="profile">
-                <h5 class="card-title">Introduction</h5>
-                <div class="row text-center">
+                <p class="card-title" style="margin-left:100px;">Introduction</p>
+                
+                <div class="row">
                   <div class="col-lg-3 col-md-4 label "></div>
                   <div class="col-lg-9 col-md-8">
                   <p class="middle fst-italic">
@@ -82,40 +83,40 @@
                 </div>
                 
 
-                <h5 class="card-title">Profile Details</h5>
+                <p class="card-title" style="margin-left:100px;">Profile Details</p>
 
-                <div class="row text-center">
-                  <div class="col-lg-3 col-md-4 label ">Name</div>
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label "><h4>Name</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userName }</div>
                 </div>
 
-                <div class="row text-center">
-                  <div class="col-lg-3 col-md-4 label">닉네임</div>
-                  <div class="col-lg-9 col-md-8 text-center">${user.userNick }</div>
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>닉네임</h4></div>
+                  <div class="col-lg-9 col-md-8">${user.userNick }</div>
                 </div>
 
-                <div class="row text-center" >
-                  <div class="col-lg-3 col-md-4 label">E-Mail</div>
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>E-Mail</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userEmail }</div>
                 </div>
 
-                <div class="row text-center">
-                  <div class="col-lg-3 col-md-4 label">Phone</div>
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>Phone</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</div>
                 </div>
 				
-				<div class="row text-center">
-                  <div class="col-lg-3 col-md-4 label">Postcode</div>
+				<div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>Postcode</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userAddr1}</div>
                 </div>
 				
-                <div class="row text-center">
-                  <div class="col-lg-3 col-md-4 label">Address</div>
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>Address</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userAddr2 } / ${user.userAddr3 }</div>
                 </div>
 
-                <div class="row text-center">
-                  <div class="col-lg-3 col-md-4 label">Point</div>
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>Point</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userPoint } 포인트</div>
                 </div>
               </div>
@@ -479,7 +480,7 @@ function exchangePoint(){
  				msg += "은행명"+res["bankName"]+"\n";
  				msg += "계좌번호"+res["bankAccountNum"];
  				alert(msg);
- 				//history.go(0);
+ 				history.go(0);
  				
  			},
  			error:function(err){
@@ -627,6 +628,7 @@ function donatePoint(){
        		$('#donate-point').attr("value",0);
     		$('#donate-point').focus();
     		$('#pointAmount').val('${user.userPoint}원');
+    		history.go(0);
        	},
        	error:function(err){
        		alert(err.status)
@@ -865,16 +867,15 @@ function donateList(){
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                           <div class="text-center modal-header">
-                            <h5 class="modal-title">회원정보수정-비밀번호 확인</h5>
+                            <h5 class="modal-title">회원정보수정</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body text-center" style="width:70%;margin:auto"> 
-                            	<h5>비밀번호를 입력하세요</h5>
-                              	<input type="password" class="form-control" id="updatePasswordCheck" >
-                              </div>
+                            	<h5>회원정보를 수정하시겠습니까?</h5>
+                          </div>
                           <div class="modal-footer">
-                            <button type="button" id="updateProfile" class="btn btn-primary">회원정보변경</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                            <button type="button" id="updateProfile" class="btn btn-primary">예</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
                           </div>
                         </div>
                       </div>
@@ -966,7 +967,7 @@ $(function() {
 	   profileUpdateCheck();
    })
    $("#updateProfile").click(function(){
-	   passwordCheck($('#updatePasswordCheck').val(),'profile');
+	   updateProfile();
    })
    $("#updatePasswordForm").click(function(){
 	   document.querySelector('#passwordWrap').style.display = 'block';
@@ -1059,7 +1060,7 @@ function updatePassword(){
 	 dataType:'json',
 	 success:function(res){
 		 alert('비밀번호 변경이 완료되었습니다');
-		 history(0);
+		 history.go(0);
 	 },
 	 error:function(err){
 		 alert('비밀번호 변경이 실패하였습니다')
@@ -1113,12 +1114,6 @@ function buttonClick(){
 function passwordCheck(input,type){
 	var password=input;
 	var userNum=${user.userNum};
-	if(password == null || password == ''){
-		alert('비밀번호를 입력하세요');
-		$('#updatePasswordCheck').focus();
-		return;
-	}
-	
 	$.ajax({
 		type:'post',
 		url:'users-profile/updateProfile/loginCheck',
@@ -1128,22 +1123,20 @@ function passwordCheck(input,type){
 		},
 		dataType:"text",
 		success: function(res){
-			//alert(res);
 			if(res=='fail'){
 				alert('비밀번호가 틀립니다');
 				$('#updatePasswordCheck').val('');
+				$('#currentPassword').val('');
+				$('#currentPassword').focus();
 				return;
 			}else{
-				if(type=='profile'){
-					updateProfile();
-				}else if(type=='password'){
+				if(type=='password'){
 					updatePassword()
 				}
-					
 			}
-			
 		},
 		error: function(err){
+			alert('비밀번호 확인에 실패하였습니다');
 			alert('err'+err.status);
 		}
 	})
@@ -1177,6 +1170,7 @@ function updateProfile(){
 		contentType:'application/json',
 		success:function(res){
 			alert('회원정보 수정이 완료되었습니다.')
+			history.go(0);
 		},
 		error:function(err){
 			alert('회원정보 수정이 실패하였습니다.');
@@ -1227,6 +1221,7 @@ function submitImg(){
 		data : form,
 		success:function(response) {
 		    alert("프로필 이미지를 수정 하였습니다.");
+		    history.go(0);
 		},
 		error: function (err) 
 		{ 

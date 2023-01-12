@@ -87,4 +87,7 @@ public interface ProfileMapper {
 	//뱃지 현황 업데이트
 	int updateBadge(UserVO vo);
 
+	//유저찾기-유저아이디
+	UserVO findUserByUserId(String userId);
+
 }

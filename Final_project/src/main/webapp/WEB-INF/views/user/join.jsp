@@ -13,12 +13,7 @@
 	
 </script>
 <style>
-	.id_ok{
-		display: none;
-	}
-	.id_already{
-		display: none;
-	}
+	
 </style>
 </head>
 <body>
@@ -27,47 +22,63 @@
 			<form id="joinForm" name="joinForm" method="post" action="joinUser"
 				onsubmit="return join();">
 				<h1>회원 가입</h1>
-
+				
+				<!-- 아이디 -->
+				<div class="item">
+				
 				<h4>* 아이디</h4>
 				<span class="input_area">
 				<input type="text" maxlength="13"
-					name="userId" class="userId" onchange="checkId()" required></span>
-				<!-- oninput="checkId()"  -->
+					name="userId" class="userId" onchange="checkId()" 
+					placeholder="2~13자리 / 영문, 숫자 사용가능" required>
+				</span>
+				<p class="alert_column focus_text" id="idCheckMsg1" style="display: none;">
+				2~13자리 / 영문, 숫자만 사용해주세요.</p>
+				<!-- 오류 시 텍스트 -->
+				<em class="msgInalid" id="idCheckMsg1" style="display: none">2~13자리 / 영문, 숫자 사용해주세요.</em>
 				
-				<br>
+				
 				<span class="id_ok" style="padding:10px 0px 0px 0px;">사용 가능한 아이디입니다.</span>
-				<span class="id_already"  style="padding:10px 0px 0px 0px;">이미 사용중인 아이디입니다.</span>
+				<span class="id_already" style="padding:10px 0px 0px 0px;">이미 사용중인 아이디입니다.</span>
+				</div>
 				
+				<!--비밀번호 -->
 				<h4>* 비밀번호</h4>
 				<span class="input_area"><input type="password"
-					maxlength="15" name="userPassword" required></span>
-
+					maxlength="15" name="userPassword" placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" 
+					required></span>
+				
 				<h4>* 비밀번호 확인</h4>
 				<span class="input_area"><input type="password"
 					maxlength="15" name="userPassword2" required></span> <label
 					id="pwdResult"></label>
-
+				
 				<h4>* 이름</h4>
 				<span class="input_area"><input type="text" maxlength="5"
-					name="userName" required></span>
-
+					name="userName" placeholder="한글만 입력 가능" required></span>
+				
 				<h4>연락처</h4>
 				<span class="input_area"><input type="tel" maxlength="11"
 					name="userTel" placeholder="(-없이)01012345678" required></span>
 
 				<h4>이메일</h4>
-				<span class="input_area"><input type="email" name="userEmail" required></span>
-
+				<span class="input_area"><input type="email" name="userEmail"
+				placeholder="email@giventake.co.kr"
+				 required></span>
+				<h5 style="color: gray; font-weight:500;">아이디·비밀번호 찾기 등 기부앤테이크를 이용할 때 필요해요</h5>
+				
+				<br>
 				<h4>우편번호</h4>
 				<span class="input_area"><input type="text" name="userAddr1"
-					class="postcodify_postcode5" required></span>
+					class="postcodify_postcode5" placeholder="검색 버튼을 클릭해보세요" 
+					required></span>
 				<button type="button" id="postcodify_search_button">검색</button>
 				<h4>도로명주소</h4>
 				<span class="input_area"><input type="text" name="userAddr2"
 					class="postcodify_address" required></span>
 				<h4>상세주소</h4>
 				<span class="input_area"><input type="text" name="userAddr3"
-					class="postcodify_details" required></span>
+					class="postcodify_details" placeholder="상세주소 입력" required></span>
 				<div class="btnArea">
 					<button id="joinBtn">가입하기</button>
 					<button type="button" onClick="location.href='/project'">돌아가기</button>

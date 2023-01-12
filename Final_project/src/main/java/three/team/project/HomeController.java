@@ -31,13 +31,11 @@ import three.product.model.ProductVO;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	@Inject
-	private AuctionService auctionServiceImpl;
-	
+		
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
@@ -46,40 +44,7 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
-		
-//		List<ProductVO> pList=auctionServiceImpl.findAllProductList();
-//		Date nowTime=new Date();
-//		int n = 0;
-//		for(ProductVO pvo : pList) {
-//			//종료시간 구하기
-//			Calendar closeCal=Calendar.getInstance();
-//			closeCal.setTime(pvo.getPIndate());
-//			closeCal.add(Calendar.DATE, pvo.getAuctionTime());
-//			Date closeTime=closeCal.getTime();
-//			if(closeTime==nowTime) {
-//				n=pvo.getProdNum();
-//			}
-//		}
-//		if(n != 0) {
-//			ProductVO vo=auctionServiceImpl.findProductByProdNum(n);
-//			AuctionVO avo=auctionServiceImpl.selectMaxAuctionByProdNum(n);
-//			Timer scheduler = new Timer();
-//			TimerTask task = new TimerTask() {
-//				@Override
-//				public void run() {
-//					int prodNum=vo.getProdNum();
-//					String prodName=vo.getProdName();
-//					String sellId=vo.getUserId();
-//					String buyId=avo.getUserId();
-//					int endPrice=avo.getAucPrice();
-//					
-//					AuctionEndVO endVO=new AuctionEndVO(0,prodNum,prodName,buyId,sellId,null,endPrice,0);
-//					int a=auctionServiceImpl.insertAuctionEnd(endVO);
-//				}
-//			};
-//			scheduler.schedule(task, 100000);
-//		}
+		model.addAttribute("serverTime", formattedDate );		
 		
 		return "index";
 	}

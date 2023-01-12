@@ -26,6 +26,8 @@ public interface DonationMapper {
 
 	//기부단체설명
 	List<DonationOrgVO> donationOrgInfo();
+	//기부순위에서 기부자수만큼 반복돌리려는 목적
+	int donationUserCount();
 
 	
 }

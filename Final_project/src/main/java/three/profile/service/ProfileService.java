@@ -51,6 +51,7 @@ public interface ProfileService {
 	AuctionEndVO findAuctionEnd(int aucEndNum);
 	//거래완료 상태 변경
 	int aucEndupdateStatus(int aucEndNum);
+
 	//물품 번호로 정보 가져오기
 	ProductVO findProductByNum(int prodNum);
 	//현재 메인 기부단체 정보 가져오기
@@ -61,4 +62,8 @@ public interface ProfileService {
 	int myTotalDonation(String userid);
 	//뱃지 현황 업데이트
 	int updateBadge(UserVO vo);
+
+	//유저찾기-유저아이디
+	UserVO findUserByUserId(String userId);
+	
 }

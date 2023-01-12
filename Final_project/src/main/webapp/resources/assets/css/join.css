@@ -1,5 +1,11 @@
 @charset "UTF-8";
-
+.id_ok{
+		display: none;
+	}
+	.id_already{
+		display: none;
+		color: #ff0000;
+	}
 .outer {
 	width: 60%;
 	min-width: 650px;
@@ -27,7 +33,7 @@
 }
 
 .input_area input:not([type=checkbox]) {
-	width: 250px;
+	width: 261px;
 	height: 30px;
 	border: 0px;
 }

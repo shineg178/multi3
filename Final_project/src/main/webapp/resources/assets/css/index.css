@@ -56,52 +56,25 @@
 .carousel {
 	border-radius: 8px;
 	height: 250px;
-	width: 100%;
+	/* width: 100%; */
 	background: #c0c0c0;
 	
 }
 
-.banner1-title {
+.banner1-title, .banner2-title, .banner3-title
+{
 	margin-top: 5rem;
 	font-size: 1.5rem;
 	color: #000000;
 	text-align: center;
 }
-
-.banner1-subtitle {
-	margin-top: 1rem;
-	font-size: 1rem;
-	color: #000000;
-	text-align: center;
+.banner1-img, .banner2-img, .banner3-img
+{
+	height: 250px;
+	width: 100%;
+	border-radius: 8px;
 }
 
-.banner2-title {
-	margin-top: 5rem;
-	font-size: 1.5rem;
-	color: #000000;
-	text-align: center;
-}
-
-.banner2-subtitle {
-	margin-top: 1rem;
-	font-size: 1rem;
-	color: #000000;
-	text-align: center;
-}
-
-.banner3-title {
-	margin-top: 5rem;
-	font-size: 1.5rem;
-	color: #000000;
-	text-align: center;
-}
-
-.banner3-subtitle {
-	margin-top: 1rem;
-	font-size: 1rem;
-	color: #000000;
-	text-align: center;
-}
 
 .product {
 	font-size: 15px;
@@ -155,7 +128,7 @@
     display:table;
     border:1px solid #fff;
     width:280px;
-    height:300px;
+    height:350px;
 	margin:10px;
 	background: #fff;
     border-radius: 8px;

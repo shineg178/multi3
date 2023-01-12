@@ -88,7 +88,10 @@ public class ChatServcieImpl implements ChatService{
 		return chatMapper.findUserIdByNum(sellerNum);
 	}
 	
-	
+	@Override
+	public int findChatRoomIdById(ChatRoomVO crvo) {
+		return chatMapper.findChatRoomIdById(crvo);
+	}
 	
 	
 	

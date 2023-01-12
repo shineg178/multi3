@@ -94,6 +94,7 @@
 		update auction_end set aucstatus=1 where auctionEndNum=#{value}
 	</update>
 	
+
 	<select id="findProductByNum" resultType="Product" parameterType="int">
 		select * from product where prodNum=#{value}
 	</select>
@@ -116,5 +117,10 @@
 		update project_user set userGoldBadge=#{userGoldBadge},userSilverBadge=#{userSilverBadge},
 		userBronzeBadge=#{userBronzeBadge} where userid=#{userId}
 	</update>
+
+	<select id="findUserByUserId" parameterType="string" resultType="User">
+		select * from project_user where userId=#{userId}
+	</select>
+
 	
 </mapper>

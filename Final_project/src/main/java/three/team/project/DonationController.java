@@ -27,7 +27,7 @@ public class DonationController {
 		log.info("==========donationForm==========");
 		m.addAttribute("totalDonation", donationService.totalDonation());
 		m.addAttribute("totalDonateCount", donationService.totalDonateCount());
-
+		m.addAttribute("donationUserCount", donationService.donationUserCount());
 		//기부 순위, 기부단체설명
 		m.addAttribute("userListDonate", donationService.userListDonate());
 		m.addAttribute("donationOrgInfo", donationService.donationOrgInfo());

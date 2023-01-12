@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String findPwd(UserVO vo) {
+	public UserVO findPwd(UserVO vo) {
 		return usermapper.findPwd(vo);
 	}
 
@@ -63,6 +63,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int joinSocial(UserVO vo) {
 		return usermapper.joinSocial(vo);
+	}
+
+	@Override
+	public int updatePwd(UserVO vo) {
+		return usermapper.updatePwd(vo);
 	}
 
 

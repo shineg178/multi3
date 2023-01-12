@@ -59,7 +59,9 @@ public class ChatController {
 		UserVO vo=(UserVO)ses.getAttribute("user");
 		String myid=vo.getUserId();
 		
+
 		//상대방 아이디 정보 가져오기
+
 		
 		ChatRoomVO roomvo=new ChatRoomVO(0,myid,sellerId);
 		//방생성

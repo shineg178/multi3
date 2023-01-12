@@ -39,8 +39,8 @@
 		select userid from project_user where userName=#{userName} and userEmail=#{userEmail}
 	</select>
 	
-	<select id="findPwd" parameterType="User" resultType="String">
-		select userPassword from project_user where userId=#{userId} and userEmail=#{userEmail}
+	<select id="findPwd" parameterType="User" resultType="User">
+		select * from project_user where userId=#{userId} and userEmail=#{userEmail}
 	</select>
 	
 	<select id="findSocialUser" parameterType="User" resultType="User">
@@ -51,8 +51,9 @@
 		<selectKey keyProperty="userNum" resultType="int" order="BEFORE">
 			select user_seq.nextval from dual		
 		</selectKey>
-		insert into project_user(usernum,userid,userpassword,username,useremail,userstatus)
-		values(#{userNum},#{userId},#{userPassword},#{userName},#{userEmail},4)
+		insert into project_user(usernum,userid,userpassword,username,useremail,userstatus,userpoint,
+		userbronzebadge,usersilverbadge,usergoldbadge)
+		values(#{userNum},#{userId},#{userPassword},#{userName},#{userEmail},4,0,0,0,0)
 	</insert>
 
 	<!-- 아이디 중복 체크 -->
@@ -77,5 +78,9 @@
 		userAddr3, userNick, userPoint, userImage, userInfo,
 		userBronzeBadge, userSilverBadge, userGoldBadge, userStatus from project_user where userNum=#{value}	
 	</select>
+	
+	<update id="updatePwd" parameterType="User">
+		update project_user set userPassword=#{userPassword} where userid=#{userId} and userEmail=#{userEmail}
+	</update>
 
 </mapper>

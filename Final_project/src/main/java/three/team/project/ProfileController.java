@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import lombok.extern.log4j.Log4j;
 import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
+import three.donation.model.DonationOrgVO;
+import three.donation.model.DonationVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
@@ -43,8 +45,26 @@ public class ProfileController {
 			return "redirect:/";
 		}
 		String userid=user.getUserId();
+		
+		int totalDonate =profileServiceImpl.myTotalDonation(userid);
+		
+		if(totalDonate != 0) {
+			int mygoldBg=totalDonate/100000;
+			int mysilverBg=totalDonate%100000/50000;
+			int mybronzeBg=totalDonate%100000%50000/10000;
+			
+			UserVO vo=new UserVO();
+			vo.setUserId(userid);
+			vo.setUserGoldBadge(mygoldBg);
+			vo.setUserSilverBadge(mysilverBg);
+			vo.setUserBronzeBadge(mybronzeBg);
+			
+			profileServiceImpl.updateBadge(vo);
+			
+			log.info("금"+mygoldBg+"은"+mysilverBg+"동"+mybronzeBg);
+		}
+		
 		List<AuctionEndVO> aucvo=profileServiceImpl.myAuction(userid);
-		log.info(aucvo);
 		
 		m.addAttribute("myList",aucvo);
 		
@@ -60,6 +80,35 @@ public class ProfileController {
 		
 		//물품 번호로 물품 정보 가져오기 
 		int prodNum=aucvo.getProdNum_fk();
+		ProductVO pvo=profileServiceImpl.findProductByNum(prodNum);
+		
+		int donatePer=pvo.getDonatePercent();//기부 비율		
+		int totalPrice=aucvo.getEndPrice();	//최종 낙찰 가격
+		int donateAmount=totalPrice*donatePer/100;//기부금	
+		int restPoint=totalPrice-donateAmount;//기부금 제외한 나머지 
+		
+		//현재 기부 단체 정보 가져오기
+		DonationOrgVO orgvo=profileServiceImpl.findOrgInfo();
+		
+		//판매자 아이디, 기부금액, 기부단체 ... 객체에 담기
+		DonateVO dvo=new DonateVO();
+		
+		dvo.setDonOrgNum_fk(orgvo.getDonOrgNum());//기부단체 번호
+		dvo.setDonOrgName(orgvo.getDonName());//기부단체 이름
+		dvo.setUserId_fk(aucvo.getSellId());//판매자 아이디 
+		dvo.setDonationType(1);//1: 경매를 통한 기부 , 2: 포인트를 통한 기부
+		dvo.setDonAmount(donateAmount);//기부 금액
+		
+		//기부 DB에 저장
+		int a=profileServiceImpl.addDonation(dvo);
+		log.info("기부완료 : "+a);
+		
+		UserVO sellvo=new UserVO();
+		sellvo.setUserId(aucvo.getSellId());
+		sellvo.setUserPoint(restPoint);
+		//나머지 금액 판매자 계정 포인트에 추가
+		int r=profileServiceImpl.addPoint(sellvo);
+		log.info("포인트 추가 : "+r);
 		
 		UserVO uvo=(UserVO)ses.getAttribute("user");
 		String myId=uvo.getUserId();
@@ -68,7 +117,8 @@ public class ProfileController {
 		if(myId.equals(buyId)) {
 			
 			//거래완료로 상태 변경
-			profileServiceImpl.aucEndupdateStatus(aucEndNum);
+			int n=profileServiceImpl.aucEndupdateStatus(aucEndNum);
+			log.info("상태변경 :"+n);
 		}
 		
 		

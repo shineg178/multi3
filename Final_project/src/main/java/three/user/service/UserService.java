@@ -21,7 +21,7 @@ public interface UserService {
 	String findId(UserVO vo);
 	
 	//비밀번호 찾기
-	String findPwd(UserVO vo);
+	UserVO findPwd(UserVO vo);
 	
 	//구글로그인 유저 찾기
 	UserVO findSocialUser(UserVO vo);
@@ -30,6 +30,8 @@ public interface UserService {
 	int joinSocial(UserVO vo);
 
 	int checkId(String userId);
+	
+	int updatePwd(UserVO vo);
 
 	
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
+import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
@@ -124,10 +125,32 @@ public class ProfileServiceImpl implements ProfileService {
 	public int aucEndupdateStatus(int aucEndNum) {
 		return profileMapper.aucEndupdateStatus(aucEndNum);
 	}
+
+	@Override
+	public ProductVO findProductByNum(int prodNum) {
+		return profileMapper.findProductByNum(prodNum);
+	}
+	@Override
+	public DonationOrgVO findOrgInfo() {
+		return profileMapper.findOrgInfo();
+	}
+	@Override
+	public int addPoint(UserVO vo) {
+		return profileMapper.addPoint(vo);
+	}
+	@Override
+	public int myTotalDonation(String userid) {
+		return profileMapper.myTotalDonation(userid);
+	}
+	@Override
+	public int updateBadge(UserVO vo) {
+		return profileMapper.updateBadge(vo);
+
 	//유저찾기-유저아이디
 	@Override
 	public UserVO findUserByUserId(String userId) {
 		return this.userMapper.findUserByUserId(userId);
+
 	}
 
 }

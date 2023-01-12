@@ -63,6 +63,32 @@
 		width:15%;
 	}
 	
+	#productTable tr th{
+		text-align:center;
+	}
+	#productTable tr td:nth-child(6n+1){
+		width:10%;
+	}
+	#productTable tr td:nth-child(6n+2){
+		width:10%;
+		over-flow:hidden;
+		
+	}
+	#productTable tr td:nth-child(6n+3){
+		width:30%;
+		over-flow:hidden;
+	}
+	#productTable tr td:nth-child(6n+4){
+		width:20%;
+		over-flow:hidden;
+	}
+	#productTable tr td:nth-child(6n+5){
+		width:20%;
+	}
+	#productTable tr td:nth-child(6n+6){
+		width:10%;
+	}
+	
 	
 	
 	
@@ -186,7 +212,12 @@
 					}
 					str+="</td>";
 					str+="<td>";
-					str+="<a class='btn btn-primary' href='normalUser?userNum="+data.userNum+"'>일반</a> <a class='btn btn-warning' href='stopUser?userNum="+data.userNum+"'>정지</a>"
+					if(data.userId.indexOf("@")== -1){
+						str+="<a class='btn btn-primary' href='normalUser?userNum="+data.userNum+"'>일반</a>";
+					}else if(data.userId.indexOf("@")){
+						str+="<a class='btn btn-success' href='socialUser?userNum="+data.userNum+"'>소셜</a>";
+					}
+					str+="<a class='btn btn-warning' href='stopUser?userNum="+data.userNum+"'>정지</a>";
 					str+="</td>";
 					str+="</tr>";				
 				})
@@ -199,8 +230,97 @@
 		})
 	}
 	
+	function prodList(){
+		$.ajax({
+			url:'adminProdList',
+			type:'get',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				str="<table class='table' id='productTable'>";
+				str+="<tr>";
+				str+="<th>번호</th>";
+				str+="<th>물품 이름</th>";
+				str+="<th>물품 설명</th>";
+				str+="<th>판매자 아이디</th>";
+				str+="<th>경매기간</th>";
+				str+="<th></th>";
+				str+="</tr>";
+				$.each(res,function(i,data){
+					str+="<tr>";
+					str+="<td>"+data.prodNum+"</td>";
+					str+="<td>"+data.prodName+"</td>";
+					str+="<td style='overflow:hidden;'>";
+					if(data.prodImage1 !=null){
+						str+="<img src='${pageContext.request.contextPath}/resources/Product_Image/"+data.prodImage1+"' style='width:100px; height:100px;'><br>";
+					}else if(data.prodImage1==null && data.prodImage2 !=null){
+						str+="<img src='${pageContext.request.contextPath}/resources/Product_Image/"+data.prodImage1+"' style='width:100px; height:100px;'><br>";
+					}else{
+						str+="<img src='../resources/assets/img/noImage.jpg' style='width:100px; height:100px;'><br>";
+					}
+					str+=data.prodSpec+"</td>";
+					str+="<td>"+data.userId+"</td>";
+					str+="<td>"+data.auctionTime+"일</td>";
+					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum=?"+data.prodNum+"'>삭제</></td>";
+					str+="</tr>";
+				})
+				str+="</table>";
+				$('#prodList').html(str);
+			},
+			error:function(err){
+				alert("error : "+err.status);
+			}
+		})
+	}
+	
+	function findProd(){
+		let prodName=$('#findProd').val();
+		$.ajax({
+			url:"adminfindProd",
+			type:'post',
+			data:"prodName="+prodName,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				str="<table class='table' id='productTable'>";
+				str+="<tr>";
+				str+="<th>번호</th>";
+				str+="<th>물품 이름</th>";
+				str+="<th>물품 정보</th>";
+				str+="<th>판매자 아이디</th>";
+				str+="<th>경매기간</th>";
+				str+="<th></th>";
+				str+="</tr>";
+				$.each(res,function(i,data){
+					str+="<tr>";
+					str+="<td>"+data.prodNum+"</td>";
+					str+="<td>"+data.prodName+"</td>";
+					str+="<td style='overflow:hidden;'>";
+					if(data.prodImage1 !=null){
+						str+="<img src='${pageContext.request.contextPath}/resources/Product_Image/"+data.prodImage1+"' style='width:100px; height:100px;'><br>";
+					}else if(data.prodImage1==null && data.prodImage2 !=null){
+						str+="<img src='${pageContext.request.contextPath}/resources/Product_Image/"+data.prodImage1+"' style='width:100px; height:100px;'><br>";
+					}else{
+						str+="<img src='../resources/assets/img/noImage.jpg' style='width:100px; height:100px;'><br>";
+					}
+					str+=data.prodSpec+"</td>";
+					str+="<td>"+data.userId+"</td>";
+					str+="<td>"+data.auctionTime+"일</td>";
+					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum=?"+data.prodNum+"'>삭제</></td>";
+					str+="</tr>";
+				})
+				str+="</table>";
+				$('#prodList').html(str);
+			},
+			error:function(err){
+				alert('error : '+err.status);
+			}
+		})
+	}
+	
 	$(function(){
 		userList();
+		prodList();
 	})
 </script>
 <c:import url="/top" />
@@ -215,7 +335,10 @@
                   <button class="nav-link active" id="user home-tab" data-bs-toggle="tab" data-bs-target="#user" type="button" role="tab" aria-controls="user" aria-selected="true">회원관리</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="donation profile-tab" data-bs-toggle="tab" data-bs-target="#donation" type="button" role="tab" aria-controls="donation" aria-selected="false">기부단체관리</button>
+                  <button class="nav-link" id="donationOrg profile-tab" data-bs-toggle="tab" data-bs-target="#donationOrg" type="button" role="tab" aria-controls="donationOrg" aria-selected="false">기부단체관리</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="donation profile-tab" data-bs-toggle="tab" data-bs-target="#donation" type="button" role="tab" aria-controls="donation" aria-selected="false">기부내역</button>
                 </li>
                 <li class="nav-item" role="presentation">
                   <button class="nav-link" id="auction contact-tab" data-bs-toggle="tab" data-bs-target="#auction" type="button" role="tab" aria-controls="auction" aria-selected="false">경매관리</button>
@@ -237,8 +360,8 @@
                		<div id="userTable"></div>
                 </div>
                 
-                <!-- 기부관리 -->
-                <div class="tab-pane fade" id="donation" role="tabpanel" aria-labelledby="donation-tab">
+                <!-- 기부단체관리 -->
+                <div class="tab-pane fade" id="donationOrg" role="tabpanel" aria-labelledby="donationOrg-tab">
 					<table id="mainOrg" class="table table-bordered">
 						<tr>
 							<th style="background-color:#FFC107">현재 기부단체</th>
@@ -270,9 +393,30 @@
 					</table>
                 </div>
                 
+                <!-- 기부 현황 -->
+                <div class="tab-pane fade show fade" id="donation" role="tabpanel" aria-labelledby="donation-tab">
+               		<table class="table" id="donTable">
+               			<tr>
+               				<th>번호</th>
+               				<th>기부단체명</th>
+               				<th>기부 금액</th>
+               				<th></th>     				
+               			</tr>
+               			<c:forEach items="${donate}" var="data" varStatus="i">
+	               			<tr>
+	               				<td>${i.count}</td>
+	               				<td>${data.donOrgName}</td>
+	               				<td>${data.donAmount} 원</td>
+	               				<td><a class="btn btn-success" href="">처리완료</a></td>
+	               			</tr>
+               			</c:forEach>
+               		</table>
+               	
+                </div>
                 <!-- 경매 관리 -->
                 <div class="tab-pane fade" id="auction" role="tabpanel" aria-labelledby="auction-tab">
-                	<input class="form-control" type="text" placeholder="검색할 물품 이름을 입력하세요">
+                	<input id="findProd" class="form-control" type="text" placeholder="검색할 물품 이름을 입력하세요" onkeyup="findProd()">
+                	<div id="prodList"><!-- 경매 물품 들어갈곳 --></div>
                 
                 </div>
                 

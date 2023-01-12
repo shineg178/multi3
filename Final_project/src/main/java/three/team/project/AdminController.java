@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
 import three.admin.service.AdminService;
+import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.mail.service.MailService;
 import three.payment.model.PaymentVO;
+import three.product.model.ProductVO;
+import three.product.service.ProductService;
 import three.user.model.UserVO;
 
 //관리자 페이지 컨트롤러
@@ -30,6 +33,9 @@ public class AdminController {
 	
 	@Inject
 	private AdminService adminServiceImpl;
+	
+	@Inject
+	private ProductService productServiceImpl;
 	
 	@Autowired
 	private MailService mailService;
@@ -51,7 +57,10 @@ public class AdminController {
 		//결재 내역 가져오기
 		List<PaymentVO> payList=adminServiceImpl.payList();
 		
-
+		//기부 내역 단체 별로 가져오기
+		List<DonateVO> donList=adminServiceImpl.donList();
+		
+		m.addAttribute("donate",donList);
 		m.addAttribute("pay",payList);
 		m.addAttribute("exchange",exList);
 		m.addAttribute("main",donVO);
@@ -187,6 +196,38 @@ public class AdminController {
 		List<UserVO> userList=adminServiceImpl.findUser(userId);
 		
 		return userList;
+	}
+	
+	//물품 목록 가져오기
+	@GetMapping("/adminProdList")
+	@ResponseBody
+	public List<ProductVO> adminProdList(){
+		List<ProductVO> list = productServiceImpl.allProduct();
+		log.info(list);
+		return list;
+	}
+	
+	@PostMapping("/adminfindProd")
+	@ResponseBody
+	public List<ProductVO> adminFindProd(@RequestParam String prodName){
+		List<ProductVO> list=adminServiceImpl.adminFindProd(prodName);
+		log.info(list);
+		return list;
+	}
+	
+	//물품 삭제
+	@GetMapping("/prodDelete")
+	public String prodDelete(@RequestParam int prodNum) {
+		adminServiceImpl.prodDelete(prodNum);
+		
+		return "redirect:adminPage";
+	}
+	
+	@GetMapping("/socialUser")
+	public String socialUser(@RequestParam int userNum) {
+		adminServiceImpl.socialUser(userNum);
+		
+		return "redirect:adminPage";
 	}
 	
 }

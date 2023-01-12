@@ -2,6 +2,7 @@ package three.admin.mapper;
 
 import java.util.List;
 
+import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
@@ -63,4 +64,16 @@ public interface AdminMapper {
 	
 	//환불 취소로 다시 포인트 충전
 	int rechargePoint(ExchangeVO vo);
+	
+	//물품 삭제
+	int prodDelete(int prodNum);
+	
+	//관리자 물품 검색
+	List<ProductVO> adminFindProd(String prodName);
+	
+	//소셜 회원으로 전환
+	int socialUser(int userNum);
+	
+	//기부단체로 기부 내역 가져오기
+	List<DonateVO> donList();
 }

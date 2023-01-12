@@ -1,8 +1,6 @@
 package three.product.model;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

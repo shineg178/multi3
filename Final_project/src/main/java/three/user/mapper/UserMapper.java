@@ -14,7 +14,7 @@ public interface UserMapper {
 	String findId(UserVO vo);
 	
 	//비밀번호 찾기
-	String findPwd(UserVO vo);
+	UserVO findPwd(UserVO vo);
 	
 	//구글로그인 유저 찾기
 	UserVO findSocialUser(UserVO vo);
@@ -30,5 +30,6 @@ public interface UserMapper {
 
 	//아이디 중복체크
 	int checkId(String userId);
-
+	
+	int updatePwd(UserVO vo);
 }

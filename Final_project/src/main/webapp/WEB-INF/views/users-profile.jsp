@@ -700,7 +700,7 @@ function donateList(){
                       구매자
                     </th>
                     <th scope="col">
-                      입찰 가격
+                      낙찰 가격
                     </th>
                     <th scope="col">
                       입찰 날짜
@@ -720,24 +720,31 @@ function donateList(){
                     <td>${data.endPrice}</td>
                     <td><fmt:formatDate value="${data.endDate}" pattern="YYYY-MM-DD HH:mm:ss"/> </td>
                     <c:if test="${data.aucStatus eq 0}">
-                    	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered">거래중</a></td>
+                    	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered${i.count}">거래중</a></td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 1}">
                     	<td><a class="badge bg-success" style="width:100%">거래완료</a></td>
                  	</c:if>
                   </tr>    
                   <!-- Vertically centered Modal -->
-                    <div class="modal fade" id="verticalycentered" tabindex="-1">
+                    <div class="modal fade" id="verticalycentered${i.count}" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                           <div class="text-center modal-header">
                             <h5 class="modal-title">거래 세부 내역</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          <div class="modal-body">
-                           거래가 완료 되었습니까?<br>
-                           물품을 전달 받은 뒤 거래완료 버튼을 눌러주세요
-                          </div>
+                          <c:if test="${data.buyId eq user.userId}">
+	                          <div class="modal-body">
+	                           거래가 완료 되었습니까?<br>
+	                           물품을 전달 받은 뒤 거래완료 버튼을 눌러주세요
+	                          </div>
+                          </c:if>
+                           <c:if test="${data.buyId ne user.userId}">
+	                          <div class="modal-body">
+	                           구매자와 채팅을 통해 거래방식, 거래확인 해주세요
+	                          </div>
+                          </c:if>
                           <div class="modal-footer">
                           	<c:if test="${data.buyId eq user.userId}">
                             	<a type="button" id="trade check" class="btn btn-primary" href="tradeOK?aucEndNum=${data.auctionEndNum}">거래완료</a>

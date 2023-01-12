@@ -135,5 +135,13 @@ public class ProfileServiceImpl implements ProfileService {
 	public int addPoint(UserVO vo) {
 		return profileMapper.addPoint(vo);
 	}
+	@Override
+	public int myTotalDonation(String userid) {
+		return profileMapper.myTotalDonation(userid);
+	}
+	@Override
+	public int updateBadge(UserVO vo) {
+		return profileMapper.updateBadge(vo);
+	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j;
 import three.admin.mapper.AdminMapper;
+import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
@@ -121,6 +122,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<ProductVO> adminFindProd(String prodName) {
 		return adminMapper.adminFindProd(prodName);
+	}
+
+	@Override
+	public int socialUser(int userNum) {
+		return adminMapper.socialUser(userNum);
+	}
+
+	@Override
+	public List<DonateVO> donList() {
+		return adminMapper.donList();
 	}
 
 }

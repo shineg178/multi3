@@ -76,7 +76,7 @@
 	</select>
 	
 	<update id="rechargePoint" parameterType="Exchange" >
-		update project_user set userPoint=userPoint+#{exchangePoint} where userid=#{userid}
+		update project_user set userPoint=userPoint+#{exchangePoint} where userid=#{userId}
 	</update>
 	
 	<delete id="prodDelete" parameterType="int">
@@ -87,5 +87,12 @@
 		select * from product where prodName like '%'||#{value}||'%' and status=1
 	</select>
 	
+	<update id="socialUser" parameterType="int">
+		update project_user set userStatus=4 where usernum=#{value}
+	</update>
+	
+	<select id="donList" resultType="Donate">
+		select sum(donamount) donAmount,donOrgName from donation group by donOrgName
+	</select>
 	
 </mapper>

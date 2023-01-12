@@ -45,8 +45,26 @@ public class ProfileController {
 			return "redirect:/";
 		}
 		String userid=user.getUserId();
+		
+		int totalDonate =profileServiceImpl.myTotalDonation(userid);
+		
+		if(totalDonate != 0) {
+			int mygoldBg=totalDonate/100000;
+			int mysilverBg=totalDonate%100000/50000;
+			int mybronzeBg=totalDonate%100000%50000/10000;
+			
+			UserVO vo=new UserVO();
+			vo.setUserId(userid);
+			vo.setUserGoldBadge(mygoldBg);
+			vo.setUserSilverBadge(mysilverBg);
+			vo.setUserBronzeBadge(mybronzeBg);
+			
+			profileServiceImpl.updateBadge(vo);
+			
+			log.info("금"+mygoldBg+"은"+mysilverBg+"동"+mybronzeBg);
+		}
+		
 		List<AuctionEndVO> aucvo=profileServiceImpl.myAuction(userid);
-		log.info(aucvo);
 		
 		m.addAttribute("myList",aucvo);
 		

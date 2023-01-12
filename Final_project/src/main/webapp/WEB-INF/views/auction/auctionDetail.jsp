@@ -284,7 +284,7 @@ sock.onmessage=function(evt){
 								<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
 							</span> 
 							<span class="text-end col-3">
-								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerNum=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
+								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerId=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
 							</span>
 						</c:if>
 					</div>

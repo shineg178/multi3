@@ -1,16 +1,11 @@
 package three.team.project;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +22,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.extern.log4j.Log4j;
 import three.mail.service.MailService;
+import three.security.SHA256.UserSHA256;
 import three.social.login.GoogleLogin;
 import three.social.login.KakaoLogin;
 import three.social.login.NaverLogin;
@@ -214,6 +210,8 @@ public class UserController {
 	@PostMapping("/joinUser")
 	public String joinUser(@ModelAttribute UserVO vo) {
 		log.info(vo);
+		String encryPwd=UserSHA256.encrypt(vo.getUserPassword());
+		vo.setUserPassword(encryPwd);
 		int n = userservice.joinUser(vo);
 		return "index";
 	}
@@ -230,6 +228,8 @@ public class UserController {
 	public String loginPOST(HttpServletRequest request, UserVO user, RedirectAttributes rttr) throws Exception {
 
 		HttpSession session = request.getSession();
+		String encryPwd=UserSHA256.encrypt(user.getUserPassword());
+		user.setUserPassword(encryPwd);
 		UserVO lvo = userservice.loginUser(user);
 		if (lvo == null) { // 일치하지 않는 아이디, 비밀번호 입력 경우
 
@@ -279,20 +279,29 @@ public class UserController {
 	@PostMapping(value = "/findPwdAction", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String findPwdAction(@ModelAttribute UserVO vo) {
-		String userPwd = userservice.findPwd(vo);
-		if (userPwd == null) {
+		
+		String newPwd=RandomStringUtils.randomAlphanumeric(8);
+		String encnewPwd=UserSHA256.encrypt(newPwd);
+		
+		vo.setUserPassword(encnewPwd);
+		
+		UserVO rvo = userservice.findPwd(vo);
+		if (rvo == null) {
 			return "아이디, 이메일을 다시 한번 확인해주세요.";
 		}
+		userservice.updatePwd(vo);
 		// 메일 전송 내용
 		String addr = "dmsrb9810@gmail.com";
 		String subject = "비밀번호 찾기 결과";
-		String body = vo.getUserId() + " 회원님의 비밀번호는 " + userPwd + " 입니다. 로그인하여 비밀번호를 변경해주세요";
+		String body = vo.getUserId() + " 회원님의 임시 비밀번호는 " + newPwd + " 입니다. 로그인하여 비밀번호를 변경해주세요";
 
 		// 메일 전송
 		mailService.sendEmail(vo.getUserEmail(), addr, subject, body);
 
 		return "이메일을 확인해 주세요";
 	}
+	
+
 
 	// 아이디 중복 검사
 	@PostMapping(value = "/IdCheckService", produces = "application/json")

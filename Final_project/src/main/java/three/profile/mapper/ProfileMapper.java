@@ -80,5 +80,11 @@ public interface ProfileMapper {
 	
 	//기부하고 남은 포인트 판매자 계정에 추가
 	int addPoint(UserVO vo);
+	
+	//내 총 기부 금액 가져오기
+	int myTotalDonation(String userid);
+	
+	//뱃지 현황 업데이트
+	int updateBadge(UserVO vo);
 
 }

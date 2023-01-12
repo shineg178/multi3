@@ -105,6 +105,16 @@
 	<update id="addPoint" parameterType="User">
 		update project_user set userpoint=userpoint+#{userPoint} where userid=#{userId} 
 	</update>
+	
+	<select id="myTotalDonation" parameterType="String" resultType="int">
+		select NVL(rs,0) from(
+			select sum(donamount) rs from donation where userid_fk=#{value}
+		)
+	</select>
 
+	<update id="updateBadge" parameterType="User">
+		update project_user set userGoldBadge=#{userGoldBadge},userSilverBadge=#{userSilverBadge},
+		userBronzeBadge=#{userBronzeBadge} where userid=#{userId}
+	</update>
 	
 </mapper>

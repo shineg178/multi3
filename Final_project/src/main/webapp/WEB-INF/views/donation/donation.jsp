@@ -74,15 +74,15 @@
 	<br>
 	<section class="donation-ranking-section">
 		<div class="row">
-			<div class="card col-lg-6">
+			<div class="card col-lg-6" style="overflow:scroll;">
 				<div>
 					<br>
 					<h1 class="donation-ranking-title">실시간 기부 순위</h1>
 
 				</div>
-				<table class="donation-ranking-table" height="400">
+				<table class="donation-ranking-table">
 	<tr>
-						<td class="donation-ranking-number">
+						<td class="donation-ranking-number">순위
 						</td>
 						<td class="donation-ranking-totalamount">기부금
 						</td>
@@ -91,8 +91,8 @@
 						</tr>
 						
 					<c:forEach items="${userListDonate}" var="userListDonate" begin="0"
-						end="4">
-					<tr>
+						end="${donationUserCount}">
+					<tr class="donation-ranking-list">
 							<td class="donation-ranking-number"><c:out
 									value="${userListDonate.RANKINGNUMBER}" />등</td>
 							<!-- 기부금 높은 순으로 1~5등의 기부액과 아이디 불러오기 (아이디 참조를 안해서 우선 회원번호로 받음)-->
@@ -104,24 +104,7 @@
 					</c:forEach> 
 				</table>
 
-				<br>
-				<h3 class="donation-ranking-title">나의 순위는?</h3>
-				<p class="donation-ranking-subtitle">현재 나의 기부 순위를 검색해보세요!</p>
-				<table class="donation-ranking-table" height="200">
-					<tr>
-						<td class="donation-ranking-searchline"><input type="text" id="userId" name="userId"
-							placeholder="ID를 입력해주세요">
-							<button id="btn" class="btn btn-outline-primary mr-2">검색</button>
-							<br><br>
-							<div id="searchText">
-								당신의 순위는 <span id="searchMyDonRanking"></span>등 입니다!
-							</div>
-							<div id="nothingId">해당 Id는 존재하지 않습니다.</div></td>
-					</tr>
-				</table>
 			</div>
-
-
 
 			<div class="card col-lg-5 offset-lg-1">
 				<br>

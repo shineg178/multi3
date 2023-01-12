@@ -40,6 +40,10 @@ public class DonationServiceImpl implements DonationService {
 	public List<DonationOrgVO> donationOrgInfo() {
 		return donationMapper.donationOrgInfo();
 	}
+	@Override
+	public int donationUserCount() {
+		return donationMapper.donationUserCount();
+	}
 
 
 }

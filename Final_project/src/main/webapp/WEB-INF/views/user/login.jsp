@@ -52,7 +52,9 @@ function onSignIn(){
 				<div class="social">
                   <a class="btn btn-naver" id="naverBtn"><img style="width:190px" class="naver" src="resources/assets/img/naverLogin.png"></a> 
                   
+
                   <a class="btn btn-kakao" id="kakaoBtn"><img style="width:190px" class="kakao" src="resources/assets/img/kakaoLogin.png"></a> 
+
                   
                   <a class="btn btn-google" id="googleBtn"><img style="width:190px" class="google" src="resources/assets/img/googleLogin.png"></a>
                </div> 

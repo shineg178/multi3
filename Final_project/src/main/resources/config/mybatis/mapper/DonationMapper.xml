@@ -35,5 +35,9 @@
 		select donOrgInfo from
 		donationOrg where donOrgNum=2002
 	</select> 
-
+	
+	<!-- 기부자 수 (중복제거함) -->
+	<select id="donationUserCount" resultType="Integer">
+		select count(DISTINCT userId_fk) from donation
+	</select>
 </mapper>

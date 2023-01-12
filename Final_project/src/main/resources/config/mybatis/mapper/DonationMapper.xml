@@ -33,8 +33,9 @@
 	<!-- 기부 단체 설명 -->
 	<select id="donationOrgInfo" resultType="String">
 		select donOrgInfo from
-		donationOrg where donOrgNum=2002
-	</select> 
+		donationOrg where status=1
+	</select>
+
 	
 	<!-- 기부자 수 (중복제거함) -->
 	<select id="donationUserCount" resultType="Integer">

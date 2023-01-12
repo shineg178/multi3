@@ -60,6 +60,10 @@ public class AdminController {
 		//기부 내역 단체 별로 가져오기
 		List<DonateVO> donList=adminServiceImpl.donList();
 		
+		//기부 완료 내역 가져오기
+		List<DonateVO> donEndList=adminServiceImpl.endDonateList();
+		
+		m.addAttribute("donEnd",donEndList);
 		m.addAttribute("donate",donList);
 		m.addAttribute("pay",payList);
 		m.addAttribute("exchange",exList);
@@ -226,6 +230,24 @@ public class AdminController {
 	@GetMapping("/socialUser")
 	public String socialUser(@RequestParam int userNum) {
 		adminServiceImpl.socialUser(userNum);
+		
+		return "redirect:adminPage";
+	}
+	
+	@GetMapping("/donateEnd")
+	public String donateEnd(@RequestParam String orgName,@RequestParam int amount) {
+		DonateVO vo=new DonateVO();
+		vo.setDonOrgName(orgName);
+		vo.setDonAmount(amount);
+		
+		DonateVO dvo=adminServiceImpl.findOrg(vo);
+		
+		if(dvo == null) {
+			adminServiceImpl.donateEnd(vo);
+		}else if(dvo != null) {
+			adminServiceImpl.donateUpdate(vo);
+		}
+		
 		
 		return "redirect:adminPage";
 	}

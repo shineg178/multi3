@@ -95,4 +95,21 @@
 		select sum(donamount) donAmount,donOrgName from donation group by donOrgName
 	</select>
 	
+	<select id="findOrg" parameterType="Donate" resultType="Donate">
+		select * from EndDonation where donName=#{donOrgName}
+	</select>
+	
+	<insert id="donateEnd" parameterType="Donate" >
+		insert into EndDonation values(#{donOrgName},#{donAmount})
+	</insert>
+	
+	<update id="donateUpdate" parameterType="Donate" >
+		update EndDonation set totalAmount=#{donAmount}
+	</update>
+	
+	<select id="endDonateList" resultType="Donate">
+		select donName donOrgName,totalAmount donAmount from EndDonation 
+	</select>
+	
+	
 </mapper>

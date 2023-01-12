@@ -46,7 +46,7 @@ function remaindTime() {
 }
 	
   function closeBid(){
-	  alert('끝');
+	  alert('경매가 마감되었습니다');
 	  $('#btnBid').prop('disabled',"false");
 	  $('#10kBtn').prop('disabled',"false");
 	  $('#5kBtn').prop('disabled',"false");

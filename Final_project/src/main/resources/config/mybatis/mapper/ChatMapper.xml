@@ -71,4 +71,8 @@
 	<select id="findUserIdByNum" parameterType="int" resultType="String">
 		select userId from project_user where usernum=#{value}
 	</select>
+	
+	<select id="findChatRoomIdById" parameterType="ChatRoom" resultType="int">
+		select roomid from CROOMLIST where userId1=#{userId1} and userId2=#{userId2}
+	</select>
 </mapper>

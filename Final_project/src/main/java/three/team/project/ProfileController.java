@@ -78,8 +78,7 @@ public class ProfileController {
 	//결제요청 & 결제정보저장
 	@PostMapping(value="/users-profile/payment")
 	@ResponseBody
-	public Map<String, Object> requestPayment (
-			@RequestBody Map<String, Object> map,
+	public Map<String, Object> requestPayment (@RequestBody Map<String, Object> map, HttpSession ses,
 			Model m) {
 		String imp_uid=map.get("imp_uid").toString();
 		String merchant_uid=map.get("merchant_uid").toString();
@@ -91,6 +90,10 @@ public class ProfileController {
 		
 		int addPayment=this.profileServiceImpl.insertPayment(vo);
 		int plusPoint=this.profileServiceImpl.plusPoint(vo);
+		
+		UserVO user=this.profileServiceImpl.findUserByUserId(buyer_id);
+		ses.setAttribute("user", user);
+		m.addAttribute("user",user);
 		m.addAttribute("payment",vo);
 		
 		return map;
@@ -99,7 +102,7 @@ public class ProfileController {
 	//환전요청 & 환전정보 저장
 	@PostMapping("/users-profile/exchange")
 	@ResponseBody
-	public Map<String, Object> exchange(@RequestBody Map<String, Object> map,
+	public Map<String, Object> exchange(@RequestBody Map<String, Object> map, HttpSession ses,
 			Model m) {
 		String bankName=map.get("bankName").toString();
 		String bankAccountNum=map.get("bankAccountNum").toString();
@@ -115,13 +118,17 @@ public class ProfileController {
 		ExchangeVO vo=new ExchangeVO(0,bankName,bankAccountNum,userName,userEmail,userid,exchangePoint,null);
 		int insertExchange=this.profileServiceImpl.addExchange(vo);
 		int minusPoint=this.profileServiceImpl.minusPointByExchange(vo);
+		
+		UserVO user=this.profileServiceImpl.findUserByUserId(userid);
+		ses.setAttribute("user", user);
+		m.addAttribute("user",user);
 		m.addAttribute("exchange",vo);
 		return map;
 	}
 	//기부내역 저장
 		@PostMapping("/users-profile/donate")
 		@ResponseBody
-		public Map<String, Object> donate(@RequestBody Map<String, Object> map,
+		public Map<String, Object> donate(@RequestBody Map<String, Object> map, HttpSession ses,
 				Model m) {
 			String userId=map.get("userId").toString();
 			int donAmount=Integer.parseInt(map.get("donAmount").toString());
@@ -137,6 +144,11 @@ public class ProfileController {
 			DonateVO dvo=new DonateVO(0,userId,donOrgNum,donOrgName,donAmount,2,null);
 			int insertDonate=this.profileServiceImpl.addDonation(dvo);
 			int minusPoint=this.profileServiceImpl.minusPointByDonation(dvo);
+			
+			UserVO user=this.profileServiceImpl.findUserByUserId(userId);
+			ses.setAttribute("user", user);
+			m.addAttribute("user",user);
+			
 			return map;
 		}
 

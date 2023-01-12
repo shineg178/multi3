@@ -24,7 +24,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Autowired
 	private ProfileMapper profileMapper;
 	
-	//유저찾기
+	//유저찾기-회원번호
 	@Override
 	public UserVO findUserByuserNum(int userNum) {
 		return this.userMapper.findUserByuserNum(userNum);
@@ -114,13 +114,20 @@ public class ProfileServiceImpl implements ProfileService {
 	public List<AuctionEndVO> myAuction(String userid) {
 		return profileMapper.myAuction(userid);
 	}
+	//마감된 경매 찾기
 	@Override
 	public AuctionEndVO findAuctionEnd(int aucEndNum) {
 		return profileMapper.findAuctionEnd(aucEndNum);
 	}
+	//물품배송완료 상태바꾸기
 	@Override
 	public int aucEndupdateStatus(int aucEndNum) {
 		return profileMapper.aucEndupdateStatus(aucEndNum);
+	}
+	//유저찾기-유저아이디
+	@Override
+	public UserVO findUserByUserId(String userId) {
+		return this.userMapper.findUserByUserId(userId);
 	}
 
 }

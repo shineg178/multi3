@@ -7,12 +7,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <SCRIPT type="text/javascript">
 //var now=new Date();
-//var closeTime = new Date(2023,00,07,17,27,30);
+var isStop=false
+var interval=setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
+var closeTime = new Date(2023,00,11,19,40,30);
 //alert(nowTime);
-
-	var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
-	var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
-	function remaindTime() {
+var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
+//var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다
+function remaindTime() {
+	if(!isStop){
 	   nowTime=nowTime+1000;
 	   if(nowTime<closeTime){ //현재시간이 종료시간보다 이르면 종료시간까지의 남은 시간을 구한다.   
 	     var sec = parseInt(closeTime - nowTime) / 1000;
@@ -31,29 +33,27 @@
 	      $("#d-day-hour").html(hour);
 	      $("#d-day-min").html(min);
 	      $("#d-day-sec").html(sec);
-	   } else{ //현재시간이 종료시간보다 크면
+	   } else if(nowTime>=closeTime){ //현재시간이 종료시간보다 크면
 			$("#d-day-hour").html('00');
 			$("#d-day-min").html('00');
 			$("#d-day-sec").html('00');
+			closeBid();
+			isStop=true;
 	   }
-	  }
-	setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
+	}else{
+		clearInterval(interval);
+	}
+}
 	
-	
-/*   function checkTime(){
-	  if(nowTime>=closeTime){
-		  closeBid();
-	  };
-  }
   function closeBid(){
-	  alert('끝1');
+	  alert('경매가 마감되었습니다');
 	  $('#btnBid').prop('disabled',"false");
 	  $('#10kBtn').prop('disabled',"false");
 	  $('#5kBtn').prop('disabled',"false");
 	  $('#1kBtn').prop('disabled',"false");
 	  $('#01kBtn').prop('disabled',"false");
 	  $('#resetBtn').prop('disabled',"false");
-  } */
+  }
   
   
 let number=$('#inputPrice').val();
@@ -254,7 +254,7 @@ sock.onmessage=function(evt){
 									</div>
 								</td>
 							</tr>
-							<c:if test="${user.userNum ne prod.userNum_fk}">
+							<c:if test="${user.userId ne prod.userId}">
 								<tr>
 									<td colspan="2" class="text-center">
 										<input class="form-control text-end" 
@@ -279,12 +279,12 @@ sock.onmessage=function(evt){
 						<br> 
 						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
 
-						<c:if test="${user.userNum ne prod.userId}"> 
+						<c:if test="${user.userId ne prod.userId}"> 
 							<span class="text-start">
 								<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
 							</span> 
 							<span class="text-end col-3">
-								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerNum=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
+								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerId=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
 							</span>
 						</c:if>
 					</div>

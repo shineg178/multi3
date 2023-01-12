@@ -70,5 +70,7 @@ public interface ProfileMapper {
 	
 	//거래완료 상태 변경
 	int aucEndupdateStatus(int aucEndNum);
-
+	
+	//유저찾기-유저아이디
+	UserVO findUserByUserId(String userId);
 }

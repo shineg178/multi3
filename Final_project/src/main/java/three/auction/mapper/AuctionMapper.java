@@ -1,6 +1,5 @@
 package three.auction.mapper;
 
-import java.util.Date;
 import java.util.List;
 
 import three.auction.model.AuctionEndVO;
@@ -16,8 +15,14 @@ public interface AuctionMapper {
 
 	AuctionVO selectMaxAuctionByProdNum(int prodNum);
 	
-	List<ProductVO> findAllProductList();
+	List<ProductVO> findProductbiding();
 	
 	ProductVO findProductByProdNum(int prodNum);
+	
+	AuctionEndVO findAuctionEnd(AuctionEndVO endVO);
+	
+	int chageProductStatus(int prodNum);
+	
+	int minusPointByAuction(AuctionEndVO vo);
 	
 }

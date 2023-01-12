@@ -48,4 +48,8 @@ public interface ChatMapper {
 	
 	//유저 번호로 아이디 가져오기
 	String findUserIdByNum(int sellerNum);
+	
+	//판매자, 구매자 아이디로 채팅방 아이디 가져오기
+	int findChatRoomIdById(ChatRoomVO crvo);
+	
 }

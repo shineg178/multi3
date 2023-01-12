@@ -94,6 +94,8 @@
 		update auction_end set aucstatus=1 where auctionEndNum=#{value}
 	</update>
 	
-
+	<select id="findUserByUserId" parameterType="string" resultType="User">
+		select * from project_user where userId=#{userId}
+	</select>
 	
 </mapper>

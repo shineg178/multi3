@@ -13,15 +13,26 @@
 	</insert>
 	
 	<insert id="insertAuctionEnd" parameterType="AuctionEnd">
-		insert into Auction_end values(auc_end_seq.nextval,#{prodNum_fk},#{buyId},#{sellId},sysdate,#{endPrice},0)		
+		insert into Auction_end values(auc_end_seq.nextval,#{prodNum_fk},#{prodName},#{buyId},#{sellId},sysdate,#{endPrice},#{aucStatus})		
 	</insert>
-	<select id="findAllProductList" resultType="Product">
-		select * from product
+	<select id="findProductbiding" resultType="Product">
+		select * from product where status=1
 	</select>
 	
 	<select id="findProductByProdNum" parameterType="int" resultType="Product">
 		select * from product where prodNum=#{value}
 	</select>
 	
-
+	<select id="findAuctionEnd" parameterType="AuctionEnd" resultType="AuctionEnd">
+		select * from Auction_end where prodNum_fk = #{prodNum_fk}
+	</select>
+	
+	<update id="chageProductStatus" parameterType="int">
+		update product set status = 0 where prodNum=#{value}
+	</update>
+	
+	<update id="minusPointByAuction" parameterType="AuctionEnd">
+		update project_user set userPoint = userPoint-#{endPrice} where userId=#{buyId}
+	</update>
+	
 </mapper>

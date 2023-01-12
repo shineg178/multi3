@@ -95,4 +95,8 @@
 	    <websocket:sockjs />
 	</websocket:handlers>
 	
+	<!-- 스케줄러 -->
+	<task:scheduler id="AuctionScheduler" pool-size="10" />
+	<task:annotation-driven scheduler="AuctionScheduler" />
+	
 </beans:beans>

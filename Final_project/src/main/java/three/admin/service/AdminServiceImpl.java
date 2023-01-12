@@ -1,11 +1,14 @@
 package three.admin.service;
 
+
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.log4j.Log4j;
 import three.admin.mapper.AdminMapper;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
@@ -13,6 +16,7 @@ import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
+@Log4j
 @Service
 public class AdminServiceImpl implements AdminService {
 	

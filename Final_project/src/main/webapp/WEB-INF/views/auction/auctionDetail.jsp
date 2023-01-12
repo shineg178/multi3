@@ -106,12 +106,17 @@ function connect(){
 
 function bid(){
 	let prodNum=${prod.prodNum};
-	let userNum=${user.userNum};
+	let userId='${user.userId}';
 	let aucPrice=$('#inputPrice').val();
+	
+	if(aucPrice > ${user.userPoint}){
+		alert('보유하신 포인트가 부족합니다');
+		return;
+	}
 	//전송정보 db에 저장
 	var dataObj={
 			"prodNum":prodNum,
-	        "userNum":userNum,
+	        "userId":userId,
 	        "aucPrice":aucPrice
 	}
 	if(aucPrice==0){
@@ -249,34 +254,37 @@ sock.onmessage=function(evt){
 									</div>
 								</td>
 							</tr>
-							<tr>
-								<td colspan="2" class="text-center">
-									<input class="form-control text-end" 
-										id="inputPrice" type="number" 
-										placeholder="입찰포인트를 정해주세요" style="width:95%; letter-spacing: 3px"
-									>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<div class="text-center">
-		                              <button type="button" id="10kBtn" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
-		                              <button type="button" id="5kBtn" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
-		                              <button type="button" id="1kBtn" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
-		                              <button type="button" id="01kBtn" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
-		                              <button type="button" id="resetBtn" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
-	                             	</div>
-								</td>
-							</tr>
+							<c:if test="${user.userNum ne prod.userNum_fk}">
+								<tr>
+									<td colspan="2" class="text-center">
+										<input class="form-control text-end" 
+											id="inputPrice" type="number" 
+											placeholder="입찰포인트를 정해주세요" style="width:95%; letter-spacing: 3px"
+										>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="text-center">
+			                              <button type="button" id="10kBtn" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
+			                              <button type="button" id="5kBtn" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
+			                              <button type="button" id="1kBtn" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
+			                              <button type="button" id="01kBtn" onclick=plus("0.1k") class="btn btn-outline-primary btn-sm">+100</button>
+			                              <button type="button" id="resetBtn" onclick=plus("reset") class="btn btn-outline-primary btn-sm">Reset</button>
+		                             	</div>
+									</td>
+								</tr>
+							</c:if>
 						</table>
 						<br> 
 						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
-						<span class="text-start">
-							<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
-						</span> 
-						<c:if test="${user.userNum ne prod.userNum_fk}"> 
+
+						<c:if test="${user.userNum ne prod.userId}"> 
+							<span class="text-start">
+								<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
+							</span> 
 							<span class="text-end col-3">
-								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerNum=${prod.userNum_fk}">판매자와 채팅</a>
+								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerNum=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
 							</span>
 						</c:if>
 					</div>

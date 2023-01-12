@@ -102,10 +102,10 @@
 						str+="<li class='message-item'>";
 						str+="<img src='' alt='' class='rounded-circle'>";
 						if(data.userId1=='${user.userId}'){
-							str+="<a id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId2+"</a>";
+							str+="<a id='chatLink' onclick='openChat("+data.roomid+")' style='overflow:hidden;text-overflow: ellipsis;white-space: nowrap;'>"+data.userId2+"</a>";
 						}
 						if(data.userId2=='${user.userId}'){
-							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")'>"+data.userId1+"</a>";
+							str+="<a class='"+data.roomid+"' id='chatLink' onclick='openChat("+data.roomid+")' style='overflow:hidden;text-overflow: ellipsis;white-space: nowrap;'>"+data.userId1+"</a>";
 						}		
 						str+="<button id='chatExit' onclick='deleteChat("+data.roomid+")' class='btn btn-outline-warning'>나가기</button>";
 						str+="</li>";
@@ -233,7 +233,12 @@ $(function(){
         <li class="nav-item dropdown pe-3">                    
                 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="${path}/resources/User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
+          	<c:if test="${user.userImage eq null}">
+          		<img src="${path}/resources/assets/img/noProfileImage.jpg" class="rounded-circle">
+          	</c:if>
+          	<c:if test="${user.userImage ne null}">
+            	<img src="${path}/resources/User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
+            </c:if>
             <span class="d-none d-md-block dropdown-toggle ps-2">${user.userName}</span>
           </a><!-- End Profile Iamge Icon -->
 

@@ -76,4 +76,16 @@ public interface AdminMapper {
 	
 	//기부단체로 기부 내역 가져오기
 	List<DonateVO> donList();
+	
+	//기부내역 처리
+	int donateEnd(DonateVO vo);
+	
+	//단체 이름으로 단체 정보 가져오기
+	DonateVO findOrg(DonateVO vo);
+	
+	//기부 현황 업데이트
+	int donateUpdate(DonateVO vo);
+	
+	//기부 완료된 내역 가져오기
+	List<DonateVO> endDonateList();
 }

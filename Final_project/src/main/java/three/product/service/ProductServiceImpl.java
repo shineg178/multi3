@@ -30,4 +30,9 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.cateProduct(cno);
 	}
 
+	@Override
+	public List<ProductVO> prodSearch(String searchName) {
+		return productMapper.prodSearch(searchName);
+	}
+
 }

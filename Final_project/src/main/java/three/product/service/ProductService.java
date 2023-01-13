@@ -14,4 +14,7 @@ public interface ProductService {
 	
 	//카테고리 번호로 물품 가져오기
 	List<ProductVO> cateProduct(int cno);
+	
+	//검색어로 물품 찾기
+	List<ProductVO> prodSearch(String searchName);
 }

@@ -23,4 +23,8 @@
 	<select id="cateProduct" parameterType="int" resultType="Product">
 		select * from product where prodCategoryNum_fk=#{value} and status=1 order by pIndate desc
 	</select>
+	
+	<select id="prodSearch" parameterType="String" resultType="Product">
+		select * from product where prodName like '%'||#{value}||'%' and status=1
+	</select>
 </mapper>

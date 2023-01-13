@@ -29,6 +29,8 @@ public interface AuctionService {
 	
 	int chageProductStatus(int prodNum);
 	
-	int minusPointByAuction(AuctionEndVO vo);
+	int minusPointByAuction(AuctionVO vo);
+	
+	int plusPointByAuction(AuctionVO vo);
 	
 }

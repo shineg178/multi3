@@ -145,6 +145,7 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	public int updateBadge(UserVO vo) {
 		return profileMapper.updateBadge(vo);
+	}
 
 	//유저찾기-유저아이디
 	@Override

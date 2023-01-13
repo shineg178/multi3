@@ -23,6 +23,8 @@ public interface AuctionMapper {
 	
 	int chageProductStatus(int prodNum);
 	
-	int minusPointByAuction(AuctionEndVO vo);
+	int minusPointByAuction(AuctionVO vo);
+	
+	int plusPointByAcution(AuctionVO vo);
 	
 }

@@ -45,42 +45,49 @@
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="user home-tab"
 						data-bs-toggle="tab" data-bs-target="#all" type="button"
-						role="tab" aria-controls="all" aria-selected="true">전체</button>
+						role="tab" aria-controls="all" aria-selected="true">
+						<img style="height:49px;" src="resources/assets/img/logo.png"><br>전체</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="donation profile-tab"
 						data-bs-toggle="tab" data-bs-target="#digital" type="button"
-						role="tab" aria-controls="digital" aria-selected="false">디지털/가전</button>
+						role="tab" aria-controls="digital" aria-selected="false">
+						<img style="height:49px;" src="resources/assets/img/com.JPG"><br>디지털/가전</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="auction contact-tab"
 						data-bs-toggle="tab" data-bs-target="#furniture" type="button"
-						role="tab" aria-controls="furniture" aria-selected="false">가구/인테리어</button>
+						role="tab" aria-controls="furniture" aria-selected="false">
+						<img style="height:49px;" src="resources/assets/img/funi.JPG"><br>가구/인테리어</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="exchange contact-tab"
 						data-bs-toggle="tab" data-bs-target="#food" type="button"
-						role="tab" aria-controls="food" aria-selected="false">생활/가공식품</button>
+						role="tab" aria-controls="food" aria-selected="false">
+						<img style="height:49px;" src="resources/assets/img/life.JPG"><br>생활/가공식품</button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<div id="paybtn">
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#cloth" type="button"
-							role="tab" aria-controls="cloth" aria-selected="false">의류</button>
+							role="tab" aria-controls="cloth" aria-selected="false">
+							<img style="height:49px;" src="resources/assets/img/cloth.JPG"><br>의류</button>
 					</div>
 				</li>
 				<li class="nav-item" role="presentation">
 					<div id="paybtn">
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#game" type="button"
-							role="tab" aria-controls="game" aria-selected="false">게임/취미</button>
+							role="tab" aria-controls="game" aria-selected="false">
+							<img style="height:49px;" src="resources/assets/img/hobby.JPG"><br>게임/취미</button>
 					</div>
 				</li>
 				<li class="nav-item" role="presentation">
 					<div id="paybtn">
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#book" type="button"
-							role="tab" aria-controls="book" aria-selected="false">도서</button>
+							role="tab" aria-controls="book" aria-selected="false">
+							<img style="height:49px;" src="resources/assets/img/book.JPG"><br>도서</button>
 					</div>
 				</li>
 			</ul>
@@ -111,9 +118,9 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
-											<c:out value="${list.aucStartPrice}" />
+											<c:out value="${list.aucStartPrice}"/>
 											원
 										</div>
 										<div class="card-region-name">
@@ -148,7 +155,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -191,7 +198,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -233,7 +240,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -275,7 +282,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -317,7 +324,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -359,7 +366,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -401,7 +408,7 @@
 										<h2 class="card-title">
 											<c:out value="${list.prodName}" />
 										</h2>
-										<div class="card-price">
+										<div class="card-price" style="font-weight:bold">
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
@@ -430,6 +437,32 @@
 		};
 
 		var map = new kakao.maps.Map(container, options);
+		
+		if(${user eq null} && ${user.userAddr2 eq null}){
+			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+			if (navigator.geolocation) {
+			    
+			    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			        
+			        var lat = position.coords.latitude, // 위도
+			            lon = position.coords.longitude; // 경도
+			        
+			        var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+			        
+			     // 지도 중심좌표를 접속위치로 변경합니다
+				    map.setCenter(locPosition);
+			            
+			      });
+			    
+			} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+			    
+			    var locPosition = new kakao.maps.LatLng(37.5666805, 126.9784147);   
+			        
+			       // 지도 중심좌표를 접속위치로 변경합니다
+					map.setCenter(locPosition);
+			}
+		}
 
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();

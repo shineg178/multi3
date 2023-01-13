@@ -13,7 +13,7 @@
 <main id="main" class="main">
 	<div class="outer">
 		<div id="joinInfoArea">
-			<form id="joinForm" name="joinForm" method="post" action="joinUser"
+			<form id="joinForm" name="joinForm" method="post" action="${path}/project/login"
 				onsubmit="return join();"> 
 				<br>
 				<h1>회원 가입</h1>
@@ -35,8 +35,7 @@
 							사용해주세요.</span>
 						<!-- 오류 시 텍스트 -->
 						<span class="idKorCheck" >한글은
-							사용할 수 없습니다.</span> <span class="idValueCheck"
-							 >2자 이상 13자 이하로 입력해주세요.</span> <span
+							사용할 수 없습니다.</span> <span class="idValueCheck">2자 이상 13자 이하로 입력해주세요.</span> <span
 							class="idReg2Check" >같은
 							문자를 4번 이상 연속해서 사용할 수 없습니다.</span> <span class="idReg3Check"
 							style="padding: 10px 0px 0px 0px;">특수문자를 사용할 수 없습니다.</span> <span
@@ -52,19 +51,17 @@
 					<!--비밀번호 -->
 					<h6>* 비밀번호</h6>
 					
-					<span class="input_area"><input type="password"
-						maxlength="15" name="userPassword" onchange="checkPassword()"
+					<span class="input_area"><input type="password" class="userPassword"
+						maxlength="16" name="userPassword" onchange="checkPassword()"
 						placeholder="8~16자리/영문 대소문자,숫자,특수문자 조합" required></span>
 					<div class="errorCheck">
-							<span class="pwdValueCheck"
-							style="padding: 10px 0px 0px 0px;">8자 이상 16자 이하로 입력해주세요.</span> <span
-							class="pwdIdCheck" >비밀번호에
-							아이디를 포함할 수 없습니다.</span> <span class="pwdReg2Check"
-							style="padding: 10px 0px 0px 0px;">같은 문자를 4번 이상 연속해서 사용할 수
-							없습니다.</span> <span class="pwdReg4Check"
-							style="padding: 10px 0px 0px 0px;">공백을 사용할 수 없습니다.</span> <span
-							class="pwdRegCheck" >영문
-							대소문자, 특수문자를 모두 포함하여야 합니다.</span>
+							<span class="pwdValueCheck" style="padding: 10px 0px 0px 0px;">8자 이상 16자 이하로 입력해주세요.</span> 
+							<span class="pwdIdCheck" >비밀번호에 아이디를 포함할 수 없습니다.</span> 
+							<span class="pwdReg2Check" style="padding: 10px 0px 0px 0px;">같은 문자를 4번 이상 연속해서 사용할 수
+							없습니다.</span> 
+							
+							<span class="pwdReg4Check" style="padding: 10px 0px 0px 0px;">공백을 사용할 수 없습니다.</span> 
+							<span class="pwdRegCheck" >영문 대소문자, 특수문자를 모두 포함하여야 합니다.</span>
 					</div>
 				</div>
 				<div class="item">
@@ -81,8 +78,7 @@
 				<h6>* 이름</h6>
 				
 				<span class="input_area"><input type="text" maxlength="5"
-					onchange="checkName()" name="userName" placeholder="한글만 입력 가능"
-					required></span>
+					onchange="checkName()" name="userName" placeholder="한글만 입력 가능" required></span>
 				<div class="errorCheck">
 				<span class="nameCheck" >한글만 입력해주세요.</span>
 				</div>
@@ -93,7 +89,7 @@
 				<span class="input_area"><input type="tel" maxlength="11"
 					onchange="checkNumber()" name="userTel"
 					placeholder="(-없이)01012345678" required></span>
-	    	   <div class="errorCheck">
+	    	   	<div class="errorCheck">
 				<span class="regNumCheck" >연락처에는 숫자만 입력 가능합니다.</span>
 				<span class="regPhoneCheck" >연락처 형식에 맞게 입력해주세요.</span>
 				</div>
@@ -123,7 +119,7 @@
 					</div>
 					<hr>
 				<div class="btnArea">
-					<button id="joinBtn" class="btn btn-success">가입하기</button>
+					<button id="joinBtn" class="btn btn-success" >가입하기</button>
 					<button type="button" class="btn btn-secondary"
 					 onClick="location.href='/project'">돌아가기</button>
 				</div>
@@ -144,9 +140,10 @@
 	
 	
 <script>
-    const userPassword=joinForm.userPassword;
-    const userPassword2=joinForm.userPassword2;
-    const userId=joinForm.userId;
+
+const userPassword=joinForm.userPassword;
+const userPassword2=joinForm.userPassword2;
+const userId=joinForm.userId;
 
 function returnPwd(){
 	userPassword.focus();
@@ -158,8 +155,11 @@ function returnId(){
 }
 
 
+
+
 	//아이디 유효성 검사
 	function checkId(){
+		
 		$('.errorCheck span').css("display", "none");
 		const regKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		const reg2 = /(\w)\1\1\1/;
@@ -183,6 +183,7 @@ function returnId(){
         	returnId();
         }else{
         	IdCheck();
+        	
         }
 	}
 	
@@ -196,7 +197,8 @@ function returnId(){
 				dataType : 'json',
 				success : function(cnt){
 					if(cnt == 0){//0일 경우 사용 가능한 아이디
-						$('.id_ok').css("display","inline-block"); 
+						/* status.ID = true; */
+						$('.id_ok').css("display","inline-block");
 					} else{//cnt 1일 경우 이미 존재하는 아이디
 						$('.id_already').css("display","inline-block");
 	                    returnId();
@@ -212,7 +214,7 @@ function returnId(){
 			
 	}
 	
-	
+
 	
 	 function checkPassword(){
 		  $('.errorCheck span').css("display", "none");
@@ -223,9 +225,6 @@ function returnId(){
 	      if(userPassword.value.length < 8 || userPassword.value.length > 16){
 	    	  $(".pwdValueCheck").css("display","block");
 	    	  returnPwd();
-	      }else if(userPassword.value.search(userId.value) > -1){
-	    	  $(".pwdIdCheck").css("display","block");
-	    	  returnPwd();
 	      }else if(reg2.test(userPassword.value)){
 	    	  $(".pwdReg2Check").css("display","block");
 	    	  returnPwd();
@@ -234,6 +233,9 @@ function returnId(){
 	    	  returnPwd();
 	      }else if(!reg.test(userPassword.value)){
 	    	  $(".pwdRegCheck").css("display","block");
+	    	  returnPwd();
+	      }else if(userPassword.value.search(userId.value) > -1){
+	    	  $(".pwdIdCheck").css("display","block");
 	    	  returnPwd();
 	      }else{
 	    	  userPassword2.focus();
@@ -264,8 +266,6 @@ function returnId(){
 	    	   $(".regPhoneCheck").css("display","block");
 	    	   userTel.focus();
 	    	   userTel.value="";
-	       }else{
-	    	   userPassword2.focus();
 	       }
 		   
 	   }
@@ -339,12 +339,7 @@ function returnId(){
 	    	userId.focus();
 	    	return false;
 	    }
-	    //비밀번호에 한글 사용 방지
-	    if(regKorean.test(userPassword.value)){
-	    	alert("비밀번호에 한글을 사용할 수 없습니다.");
-	    	userPassword.focus();
-	    	return false;
-	    }
+
 	  	//비밀번호 안에 아이디가 있을 때
 		if(userPassword.value.search(userId.value) > -1){
 			alert("비밀번호에 아이디를 포함할 수 없습니다.");
@@ -358,6 +353,9 @@ function returnId(){
 	    	userName.focus();
 	    	return false;
 	    }
+	    
+	    alert(userId.value+"님 회원가입을 환영합니다!");
+	    
 	}
 </script>
 </main>

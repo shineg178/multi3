@@ -1,13 +1,7 @@
 @charset "UTF-8";
-.id_ok{
-		display: none;
-	}
-	.id_already{
-		display: none;
-		color: #ff0000;
-	}
+
 .outer {
-	width: 60%;
+	width: 70%;
 	min-width: 650px;
 	background: rgb(248, 249, 250);
 	box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
@@ -17,37 +11,61 @@
 }
 
 #joinForm {
-	width: 400px;
-	margin: auto;
-	padding: 10px;
+	width:500px;
+	margin:auto;
+	padding-top: 10px;
+	 
+	text-align: right;
+	
 }
-
-#joinForm h1 {
+.errorCheck span{
+	text-align: right;
+	color:#ff0000;
+}
+#joinForm h1{
 	text-align: center;
 }
+.input_area input:not([type=checkbox]){
+	height: 3rem;
+	width:70%;
+	overflow:hidden;
+	border: solid 1px #808080;
+	border-radius: 7px;
 
-.input_area {
-	border: solid 1px #dadada;
-	padding: 10px 10px 14px 10px;
-	background: white;
+}
+.addDiv1 input:not([type=checkbox]){
+	height: 3rem;
+	width:56%;
+	overflow:hidden;
+	border: solid 1px #808080;
+	border-radius: 7px;
+	margin-right: 10px;
+	
 }
 
-.input_area input:not([type=checkbox]) {
-	width: 261px;
-	height: 30px;
-	border: 0px;
+.errorCheck span {
+	display: none;
 }
+#joinInfoArea{
 
+	height: 950px;
+}   
+.item{
+ 	align-items: center;
+	height: 90px;
+	text-align: right;
+}
+.item h6, .addDiv1 h6, .addDiv2 h6{
+	text-align: right;
+	width:25%;
+	float:left;
+	margin-top: 15px;
+}
+.addDiv1, .addDiv2{
+	height: 60px;
+	text-align: right;
+}
 .btnArea {
 	text-align: center;
-	padding: 50px;
-}
-
-button {
-	width: 100px;
-	height: 35px;
-	border: 0px;
-	color: white;
-	background: #282A35;
-	margin: 5px;
+	margin-top: 30px;
 }

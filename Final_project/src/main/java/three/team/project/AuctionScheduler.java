@@ -48,6 +48,7 @@ public class AuctionScheduler {
 					log.info("마감처리중");
 					ProductVO vo=auctionServiceImpl.findProductByProdNum(endProdNum);
 					AuctionVO avo=auctionServiceImpl.selectMaxAuctionByProdNum(endProdNum);
+					log.info(avo);
 					int prodNum=vo.getProdNum();
 					String prodName=vo.getProdName();
 					String sellId=vo.getUserId();

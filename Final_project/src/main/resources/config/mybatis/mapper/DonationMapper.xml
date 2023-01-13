@@ -3,17 +3,23 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="three.donation.mapper.DonationMapper">
 	
-	<!-- 전체 기부 금액 -->
+	<!-- 거래 완료된 경매의 기부 금액 -->
 	<select id="totalDonation" resultType="Integer">
-		select sum(DONAMOUNT) totalDonate from donation
+		select sum(endPrice) totalDonate from auction_end
 	</select>
 	
-	<!-- 전체 기부 건수 -->
+	<!-- 거래 완료된 경매의 건수 -->
 	<select id="totalDonateCount" resultType="Integer">
-		select count(donNum)
-		from donation
+		select count(auctionEndNum) from auction_end
 	</select>
-	
+	<!-- 포인트로 기부한 전체 금액 -->
+	<select id="pointDonation" resultType="Integer">
+		select sum(donAmount) from donation where donationType=2
+	</select>
+	<!-- 포인트 기부 건수 -->
+	<select id="pointDonateCount" resultType="Integer">
+		select count(donNum) from donation where donationType=2
+	</select>
 	<!-- 기부자 목록(기부금액 높은 순으로 금액, 아이디 출력) -->
 	<select id="userListDonate" resultType="java.util.LinkedHashMap">
 		select row_number()
@@ -33,7 +39,7 @@
 	<!-- 기부 단체 설명 -->
 	<select id="donationOrgInfo" resultType="String">
 		select donOrgInfo from
-		donationOrg where donOrgNum=2002
+		donationOrg where status=1
 	</select> 
 	
 	<!-- 기부자 수 (중복제거함) -->

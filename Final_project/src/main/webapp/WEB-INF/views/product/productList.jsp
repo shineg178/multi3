@@ -8,51 +8,6 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd88de1b8477ef4c5df424305ccb757f&libraries=services"></script>
 <link href="resources/assets/css/productList.css" rel="stylesheet">
-<style>
-.card-wrap {
-	overflow: hidden;
-	width: 100%;
-	background: #fff;
-	border: 1px solid black;
-	border-radius: 8px;
-}
-
-.card-top {
-	float: left;
-	overflow: hidden;
-	text-align: center;
-	display: table;
-	border: 1px solid #fff;
-	width: 280px;
-	height: 350px;
-	margin: 10px;
-	background: #fff;
-	border-radius: 8px;
-}
-
-.card-photo {
-	display: table-cell;
-	vertical-align: middle;
-	margin-bottom: 1rem;
-}
-
-.card-photo img {
-	width: 180px;
-	height: 180px;
-	margin-top: 1rem;
-}
-
-.footer {
-	clear: both;
-}
-
-#map {
-	width: 70%;
-	height: 400px;
-	margin: 15px auto;
-	border-radius: 10px;
-}
-</style>
 
 <c:import url="/top" />
 <main id="main" class="main">
@@ -502,7 +457,7 @@
 								});
 								
 								// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-								var iwContent = '<div style="width:150px;padding:5px; height:170px; text-align:center; font-size:0.5em; overflow: hidden;">';
+								var iwContent = '<div style="width:150px;padding:5px; height:170px; text-align:center; font-size:0.5em; overflow: scroll;">';
 									if(data.prodImage1==null && data.prodImage2==null){
 										iwContent += '<img width="80" height="80" src="resources/assets/img/noImage.jpg">';
 									}else if(data.prodImage1 != null){

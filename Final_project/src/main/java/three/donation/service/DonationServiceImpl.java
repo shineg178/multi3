@@ -15,12 +15,12 @@ public class DonationServiceImpl implements DonationService {
 	@Autowired
 	private DonationMapper donationMapper;
 	
-	// 전체 기부 금액
+	// 경매거래 완료인 기부 금액
 	@Override 
 	public int totalDonation() { 
 		return this.donationMapper.totalDonation(); 
 	}
-	// 전체 기부 건수
+	// 경매거래 완료인 기부 건수
 	@Override
 	public int totalDonateCount() {
 		return this.donationMapper.totalDonateCount();
@@ -40,9 +40,20 @@ public class DonationServiceImpl implements DonationService {
 	public List<DonationOrgVO> donationOrgInfo() {
 		return donationMapper.donationOrgInfo();
 	}
+	
 	@Override
 	public int donationUserCount() {
 		return donationMapper.donationUserCount();
+	}
+	// 포인트로 기부한 금액
+	@Override
+	public int pointDonation() {
+		return donationMapper.pointDonation();
+	}
+	// 포인트로 기부한 건수
+	@Override
+	public int pointDonateCount() {
+		return donationMapper.pointDonateCount();
 	}
 
 

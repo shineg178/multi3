@@ -78,6 +78,7 @@
 </style>
 
 <script>
+
 //채팅창 띄우기 화면 브라우저 위치에 따른 위치 조정
 	function openChat(roomid){
 		var target = document.getElementById("chatList");
@@ -261,13 +262,6 @@ $(function(){
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
-                <i class="bi bi-gear"></i>
-                <span>개인정보 변경</span>
-              </a>
             </li>
             <li>
               <hr class="dropdown-divider">

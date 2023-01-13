@@ -47,7 +47,7 @@ public class UserController {
 
 	// 구글 로그인
 	@GetMapping("/login/google/auth")
-	public String googleLogin(Model m, @RequestParam String code, HttpSession ses) {
+	public String googleLogin(Model m, @RequestParam String code, HttpSession ses,RedirectAttributes attr) {
 		log.info(code);
 
 		JsonNode jsonToken = GoogleLogin.getAccessToken(code);
@@ -81,7 +81,7 @@ public class UserController {
 		UserVO findUser = userservice.findSocialUser(vo);
 
 		// 이미 가입된 아이디라면 세션에 추가
-		if (findUser != null) {
+		if (findUser != null&&findUser.getUserStatus()!=3) {
 			ses.setAttribute("user", findUser);
 		}
 
@@ -90,6 +90,11 @@ public class UserController {
 
 			userservice.joinSocial(vo);
 			ses.setAttribute("user", vo);
+		}
+		
+		if(findUser.getUserStatus() ==3) {
+			
+			return "redirect:/login";
 		}
 
 		// 받아온 사용자 정보를 view에 전달
@@ -137,18 +142,25 @@ public class UserController {
 
 		// 가입된 아이디인지 검색
 		UserVO findUser = userservice.findSocialUser(vo);
-
-		// 이미 가입된 아이디라면 세션에 추가
-		if (findUser != null) {
-			ses.setAttribute("user", findUser);
-		}
-
-		// 가입 되지 않은 아이디라면 DB에 추가하고 세션에 추가
+		
 		if (findUser == null) {
-
 			userservice.joinSocial(vo);
 			ses.setAttribute("user", vo);
 		}
+		
+		if(findUser.getUserStatus() ==3) {
+			
+			return "redirect:/login";
+		}
+			
+		// 이미 가입된 아이디이고 정지 회원이 아니라면
+		if (findUser != null&& findUser.getUserStatus() !=3) {
+			ses.setAttribute("user", findUser);
+		}
+		
+		
+		// 가입 되지 않은 아이디라면 DB에 추가하고 세션에 추가
+
 		
 		 
 		return "redirect:/";
@@ -193,7 +205,7 @@ public class UserController {
 		UserVO findUser = userservice.findSocialUser(vo);
 
 		// 이미 가입된 아이디라면 세션에 추가
-		if (findUser != null) {
+		if (findUser != null&&findUser.getUserStatus()!=3) {
 			ses.setAttribute("user", findUser);
 		}
 
@@ -201,6 +213,11 @@ public class UserController {
 		if (findUser == null) {
 			userservice.joinSocial(vo);
 			ses.setAttribute("user", vo);
+		}
+		
+		if(findUser.getUserStatus() ==3) {
+			
+			return "redirect:/login";
 		}
 		
 		return "redirect:/";

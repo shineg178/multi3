@@ -134,4 +134,24 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.donList();
 	}
 
+	@Override
+	public int donateEnd(DonateVO vo) {
+		return adminMapper.donateEnd(vo);
+	}
+
+	@Override
+	public DonateVO findOrg(DonateVO vo) {
+		return adminMapper.findOrg(vo);
+	}
+
+	@Override
+	public int donateUpdate(DonateVO vo) {
+		return adminMapper.donateUpdate(vo);
+	}
+
+	@Override
+	public List<DonateVO> endDonateList() {
+		return adminMapper.endDonateList();
+	}
+
 }

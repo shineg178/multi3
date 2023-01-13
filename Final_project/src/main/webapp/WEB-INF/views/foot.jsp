@@ -12,7 +12,7 @@
     <div class="credits">
       
       <strong>전화</strong> 070-1234-5678 | <strong>고객문의</strong> dt@dtservice.com <br><br>
-      <a href="rules">이용약관</a> | <a href="rules2">위치기반서비스 이용약관</a> | <strong><a href="privacy">개인정보처리방침</a></strong> 
+      <a href="${path}/rules">이용약관</a> | <a href="${path}/rules2">위치기반서비스 이용약관</a> | <strong><a href="${path}/privacy">개인정보처리방침</a></strong> 
     </div>
 
   </footer><!-- End Footer -->

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -36,9 +37,14 @@ public class ProductController {
 	
 	//물품 목록 페이지 이동 
 	@GetMapping("/productList")
-	public String prodList(Model m) {
-
-		//모든 제품 목록 리스트
+	public String prodList(Model m,@RequestParam(required=false) String searchName) {
+		
+		//검색어가 있을경우 검색 물품 리스트
+		if(searchName !=null) {
+			List<ProductVO> pList=productServiceImpl.prodSearch(searchName);
+			m.addAttribute("pList",pList);
+		}
+		//전체 목록 리스트
 		List<ProductVO> allList=productServiceImpl.allProduct();
 		//디지털/가전 제품 목록 리스트
 		List<ProductVO> digiList=productServiceImpl.cateProduct(10);
@@ -52,7 +58,7 @@ public class ProductController {
 		List<ProductVO> gameList=productServiceImpl.cateProduct(50);
 		//도서 제품 목록 리스트
 		List<ProductVO> bookList=productServiceImpl.cateProduct(60);
-		
+			
 		m.addAttribute("allList",allList);
 		m.addAttribute("digiList",digiList);
 		m.addAttribute("funiList",funiList);
@@ -141,4 +147,9 @@ public class ProductController {
 		
 		return productServiceImpl.allProduct();
 	}
+	
+
+	
+	
+
 }

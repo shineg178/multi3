@@ -8,6 +8,7 @@
 	select NVL(totalDonate,0) from(
 		select sum(endPrice) totalDonate from auction_end)
 	</select>
+
 	
 	<!-- 거래 완료된 경매의 건수 -->
 	<select id="totalDonateCount" resultType="Integer">
@@ -18,6 +19,7 @@
 	select NVL(rs,0) from(
 		select sum(donAmount) rs from donation where donationType=2)
 	</select>
+
 	<!-- 포인트 기부 건수 -->
 	<select id="pointDonateCount" resultType="Integer">
 		select count(donNum) from donation where donationType=2

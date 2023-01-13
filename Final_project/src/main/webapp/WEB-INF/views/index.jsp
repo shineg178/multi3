@@ -13,52 +13,7 @@
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
 <main id="main" class="main">
-	<!-- 카카오맵 지도 위치 -->
-	<div class="map-box">
-	<div id="map2" ></div>
-		<a class="mapIcon"> <img class="myLocImg"
-			src="resources/assets/img/myLoc.png"> 내 위치 &nbsp;&nbsp; <img
-			class="LocImg"
-			src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png">
-			상품 위치
-		</a>
-	</div>
-	<br>
-	<div class="product">
-		<div class="product-1">
-			<p class="product-main">기부앤테이크 경매</p>
-			<p class="product-sub">지도에서 위치를 지정해보세요!</p>
-		</div>
-		<a class="product-more" href="${path}/project/productList">더보기 > </a>
-	</div>
-
-	<div>
-		<hr>
-	</div>
-
-<section class="home-main-section-top">
-		<div class="home-main-top">
-			<div class="home-main-desc">
-				<h1 class="home-main-title">
-					기부앤테이크 <br> 위치기반 중고거래
-				</h1>
-				<p class="text-m">
-					중고거래로 경매에서 기부까지, <br> 기부앤테이크에서 지금 당장 시작해보세요!
-				</p>
-			</div>
-			<div class="home-main-image-top">
-				<span> <img class="home-main-image-top"
-					src="resources/assets/img/donation.png">
-				</span>
-			</div>
-		</div>
-	</section>
-
-	
-	
-	<br>
-
-	<!-- 배너 전체 div 시작----------------->
+		<!-- 배너 전체 div 시작----------------->
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-bs-ride="carousel">
 
@@ -119,6 +74,26 @@
 		<!-- 배너 좌우 이동 버튼 끝 -->
 	</div>
 	<!-- 배너 전체 div 끝----------------->
+	<br>
+
+<section class="home-main-section-top">
+		<div class="home-main-top">
+			<div class="home-main-desc">
+				<h1 class="home-main-title">
+					기부앤테이크 <br> 위치기반 중고거래
+				</h1>
+				<p class="text-m">
+					중고거래로 경매에서 기부까지, <br> 기부앤테이크에서 지금 당장 시작해보세요!
+				</p>
+			</div>
+			<div class="home-main-image-top">
+				<span> <img class="home-main-image-top"
+					src="resources/assets/img/donation.png">
+				</span>
+			</div>
+		</div>
+	</section>
+<br>
 	
 	<script>
 		var container = document.getElementById('map2');

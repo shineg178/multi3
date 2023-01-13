@@ -253,7 +253,9 @@ $(function(){
             <li>
               <hr class="dropdown-divider">
             </li>
-
+			
+			
+			<c:if test="${user.userStatus ne 1}">
             <li>
               <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
                 <i class="bi bi-person"></i>
@@ -263,10 +265,31 @@ $(function(){
             <li>
               <hr class="dropdown-divider">
             </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="${path}/users-profile">
+                <i class="bi bi-gear"></i>
+                <span>개인정보 변경</span>
+              </a>
+            </li>
+
             <li>
               <hr class="dropdown-divider">
             </li>
-
+			</c:if>
+			
+			<c:if test="${user.userStatus eq 1}">
+				<li>
+	              <a class="dropdown-item d-flex align-items-center" href="${path}/admin/adminPage">
+	                <i class="bi bi-gear"></i>
+	                <span>관리자페이지</span>
+	              </a>
+	            </li>
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+			</c:if>
+			
             <li>
               <a class="dropdown-item d-flex align-items-center" href="${path}/logout.do">
                 <i class="bi bi-box-arrow-right"></i>
@@ -307,7 +330,6 @@ $(function(){
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-
         <a class="nav-link collapsed"  href="${path}/addProductForm">
           <i class="bi bi-layout-text-window-reverse"></i><span>상품 등록</span>
         </a>
@@ -317,20 +339,23 @@ $(function(){
         <a class="nav-link collapsed" href="${path}/donation">
           <i class="bi bi-gem"></i><span>기부 현황</span>
         </a>
-
+      </li><!-- End 기부현황 Nav -->
+      
+	<c:if test="${user.userStatus ne 1}">
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
           <span>마이페이지</span>
         </a>
-        
+      </li><!-- End 마이페이지 Nav -->
+    </c:if>
       <!-- 관리자 전용 페이지 -->
-			<c:if test="${user.userStatus eq 1}">
-				<li class="nav-item"><a class="nav-link collapsed"
-					href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>관리자전용</span>
-				</a></li>
-			</c:if>
-      </li><!-- End Profile Page Nav -->
+	<c:if test="${user.userStatus eq 1}">
+		<li class="nav-item"><a class="nav-link collapsed"
+			href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>관리자전용</span>
+		</a>
+   		</li><!-- End 관리자 Page Nav -->
+	</c:if>
     </ul>
   </aside><!-- End Sidebar-->
 

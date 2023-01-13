@@ -6,14 +6,15 @@
 	<!-- 거래 완료된 경매의 기부 금액 -->
 	<select id="totalDonation" resultType="Integer">
 	select NVL(totalDonate,0) from(
-		select sum(endPrice) totalDonate from auction_end)
+		select sum(donAmount) totalDonate from donation where donationType=1)
 	</select>
 
 	
 	<!-- 거래 완료된 경매의 건수 -->
 	<select id="totalDonateCount" resultType="Integer">
-		select count(auctionEndNum) from auction_end
+		select count(auctionEndNum) from auction_end where AucStatus = 1
 	</select>
+	
 	<!-- 포인트로 기부한 전체 금액 -->
 	<select id="pointDonation" resultType="Integer">
 	select NVL(rs,0) from(
@@ -24,6 +25,7 @@
 	<select id="pointDonateCount" resultType="Integer">
 		select count(donNum) from donation where donationType=2
 	</select>
+	
 	<!-- 기부자 목록(기부금액 높은 순으로 금액, 아이디 출력) -->
 	<select id="userListDonate" resultType="java.util.LinkedHashMap">
 		select row_number()

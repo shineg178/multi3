@@ -12,7 +12,7 @@
 var isStop=false
 var interval=setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
 
-//var closeTime = new Date(2023,00,11,19,40,30);
+//var closeTime = new Date(2023,00,13,11,09,30);
 
 //alert(nowTime);
 var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
@@ -57,6 +57,7 @@ function remaindTime() {
 	  $('#1kBtn').prop('disabled',"false");
 	  $('#01kBtn').prop('disabled',"false");
 	  $('#resetBtn').prop('disabled',"false");
+	  location.href="${path}/productList"
   }
   
   
@@ -91,6 +92,7 @@ $(document).ready(function(){
 	connect();
 	$('#btnBid').click(function(){
 		bid();
+		$('#warning').modal('hide');
 		sock.onmessage();
 	});
 });
@@ -309,7 +311,7 @@ sock.onmessage=function(evt){
 
 						<c:if test="${user.userId ne prod.userId}"> 
 							<span class="text-start">
-								<button class="btn btn-success btn-lg" type="button" id="btnBid">입찰하기</button>
+								<button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#warning" type="button" >입찰하기</button>
 							</span> 
 							<span class="text-end col-3">
 								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerId=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
@@ -318,7 +320,28 @@ sock.onmessage=function(evt){
 					</div>
 				</div>
 			</div>
-
+			
+				 <!-- 비밀번호 확인 Modal -->
+                     <div class="modal fade" id="warning" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="text-center modal-header">
+                            <h5 class="modal-title">주의 사항</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body text-center" style="width:70%;margin:auto"> 
+                            	<h6>* 입찰가의 취소나 변경, 교환이 불가능하니 최대한 신중히 입찰해 주세요</h6>
+                            	<h5>입찰 하시겠습니까?</h5>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" id="btnBid" class="btn btn-primary">예</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- 비밀번호확인 Modal 끝-->
+			
 	</section>
 	<div style="clear:both"></div>
 	<br>
@@ -330,7 +353,6 @@ sock.onmessage=function(evt){
 		<p class="lead" style="margin-left: 20%; margin-right: 20%;">${prod.prodSpec}</p>
 		</div>
 	</section>
-	<!-- <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 </main>
 <!-- End #main -->
 <c:import url="/foot" />

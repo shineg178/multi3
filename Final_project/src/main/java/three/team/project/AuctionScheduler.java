@@ -30,7 +30,7 @@ public class AuctionScheduler {
 	@Inject
 	private ChatService chatServiceImpl;	
 	
-	@Scheduled(cron = "0 0/1 * * * *")
+	@Scheduled(cron = "0/1 * * * * *")
 	public void auctionEnd() {
 		log.info("마감한 경매 검사 중");
 		List<ProductVO> pList=auctionServiceImpl.findProductbiding();
@@ -79,7 +79,7 @@ public class AuctionScheduler {
 							int a=auctionServiceImpl.insertAuctionEnd(endVO);
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
 							String time=formatter.format(new Date());
-							log.info("마감 완료"+time);
+							log.info("마감 완료 : "+time);
 							
 							//구매자한테 채팅으로 알림
 							ChatRoomVO buyChatRoom=new ChatRoomVO(0,"경매관리자",buyId);
@@ -94,10 +94,10 @@ public class AuctionScheduler {
 							log.info(buyId+"에게 알림");
 							
 							//판매자한테 채팅으로 알림
-							ChatRoomVO sellChatRoom=new ChatRoomVO(0,"admin",sellId);
+							ChatRoomVO sellChatRoom=new ChatRoomVO(0,"경매관리자",sellId);
 							int sellRoom=chatServiceImpl.createRoom(sellChatRoom);
 							int sellRoomId=chatServiceImpl.findChatRoomIdById(sellChatRoom);
-							ChatVO sellChat=new ChatVO(sellRoomId,"admin",sellId,prodName+" 물품의 경매가 마감되었습니다.",null,null);
+							ChatVO sellChat=new ChatVO(sellRoomId,"경매관리자",sellId,prodName+" 물품의 경매가 마감되었습니다.",null,null);
 							chatServiceImpl.insertMessage(sellChat);
 							sellChat.setSendMsg("마이페이지에서 확인해주세요");
 							chatServiceImpl.insertMessage(sellChat);

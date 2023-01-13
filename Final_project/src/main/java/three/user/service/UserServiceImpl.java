@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
 		return usermapper.loginUser(user);
 	}
 
-
 	@Override
 	public int checkId(String userId) {
 		int cnt = usermapper.checkId(userId);
@@ -69,7 +68,11 @@ public class UserServiceImpl implements UserService {
 	public int updatePwd(UserVO vo) {
 		return usermapper.updatePwd(vo);
 	}
-
+	
+	@Override
+	public UserVO findUserByUserId(String userId) {
+		return usermapper.findUserByUserId(userId);
+	}
 
 
 }

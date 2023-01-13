@@ -88,6 +88,44 @@
 				<!-- 전체 목록 -->
 				<div class="tab-pane fade show active" id="all" role="tabpanel"
 					aria-labelledby="all-tab">
+					<c:if test="${pList ne null}">
+						<c:forEach items="${pList}" var="list">
+						<section class="cards-wrap">
+							<article class="card-top">
+								<a class="card-link" data-event-label=""
+									href="auction/auctionDetail?prodNum=${list.prodNum}">
+									<div class="card-photo">
+										<c:if test="${list.prodImage1 ne null}">
+											<img src="resources/Product_Image/${list.prodImage1}">
+										</c:if>
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+											<img src="resources/Product_Image/${list.prodImage2}">
+										</c:if>
+										<c:if
+											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+											<img src="resources/assets/img/noImage.jpg">
+										</c:if>
+									</div>
+									<div class="card-desc">
+										<h2 class="card-title">
+											<c:out value="${list.prodName}" />
+										</h2>
+										<div class="card-price">
+											경매 시작가 :
+											<c:out value="${list.aucStartPrice}" />
+											원
+										</div>
+										<div class="card-region-name">
+											<c:out value="${list.sellerAddr2}" />
+										</div>
+									</div>
+								</a>
+							</article>
+						</section>
+					</c:forEach>
+					</c:if>
+					<c:if test="${pList eq null}">
 					<c:forEach items="${allList}" var="list">
 						<section class="cards-wrap">
 							<article class="card-top">
@@ -123,6 +161,7 @@
 							</article>
 						</section>
 					</c:forEach>
+					</c:if>
 				</div>
 
 				<!-- 디지털/가전 목록 -->

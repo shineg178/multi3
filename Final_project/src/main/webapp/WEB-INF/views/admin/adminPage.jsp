@@ -261,7 +261,7 @@
 					str+=data.prodSpec+"</td>";
 					str+="<td>"+data.userId+"</td>";
 					str+="<td>"+data.auctionTime+"일</td>";
-					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum=?"+data.prodNum+"'>삭제</></td>";
+					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum="+data.prodNum+"'>삭제</></td>";
 					str+="</tr>";
 				})
 				str+="</table>";
@@ -306,7 +306,7 @@
 					str+=data.prodSpec+"</td>";
 					str+="<td>"+data.userId+"</td>";
 					str+="<td>"+data.auctionTime+"일</td>";
-					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum=?"+data.prodNum+"'>삭제</></td>";
+					str+="<td><a class='btn btn-danger' href='prodDelete?prodNum="+data.prodNum+"'>삭제</></td>";
 					str+="</tr>";
 				})
 				str+="</table>";
@@ -395,7 +395,8 @@
                 
                 <!-- 기부 현황 -->
                 <div class="tab-pane fade show fade" id="donation" role="tabpanel" aria-labelledby="donation-tab">
-               		<table class="table" id="donTable">
+               		<h3>기부 미완료</h3>
+               		<table class="table" id="donTable" style="width:60%; margin:10px">
                			<tr>
                				<th>번호</th>
                				<th>기부단체명</th>
@@ -407,7 +408,22 @@
 	               				<td>${i.count}</td>
 	               				<td>${data.donOrgName}</td>
 	               				<td>${data.donAmount} 원</td>
-	               				<td><a class="btn btn-success" href="">처리완료</a></td>
+	               				<td><a class="btn btn-success" href="donateEnd?orgName=${data.donOrgName}&amount=${data.donAmount}">처리완료</a></td>
+	               			</tr>
+               			</c:forEach>
+               		</table>
+               		<h3 >기부 완료</h3>
+               		<table class="table" id="donTable" style="width:50%; margin:10px">
+               			<tr>
+               				<th>번호</th>
+               				<th>기부단체명</th>
+               				<th>누적 기부 금액</th>
+               			</tr>
+               			<c:forEach items="${donEnd}" var="data" varStatus="i">
+	               			<tr>
+	               				<td>${i.count}</td>
+	               				<td>${data.donOrgName}</td>
+	               				<td>${data.donAmount} 원</td>
 	               			</tr>
                			</c:forEach>
                		</table>

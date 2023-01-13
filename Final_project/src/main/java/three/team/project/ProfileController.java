@@ -29,6 +29,7 @@ import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
 import three.profile.service.ProfileService;
+import three.security.SHA256.UserSHA256;
 import three.user.model.UserVO;
 
 @Controller
@@ -66,6 +67,9 @@ public class ProfileController {
 		
 		List<AuctionEndVO> aucvo=profileServiceImpl.myAuction(userid);
 		
+		UserVO vo=profileServiceImpl.findUserByUserId(userid);
+		ses.setAttribute("user", vo);
+		m.addAttribute("user",vo);
 		m.addAttribute("myList",aucvo);
 		
 		return "users-profile";
@@ -281,13 +285,17 @@ public class ProfileController {
 		return "redirect:/users-profile";
 	}
 	//비밀번호체크 
+//	String encryPwd=UserSHA256.encrypt(user.getUserPassword());
+//	user.setUserPassword(encryPwd);
 	@PostMapping("/users-profile/updateProfile/loginCheck")
 	@ResponseBody
 	public String passwordCheck(@RequestParam("userNum") int userNum,
 			@RequestParam("password") String password, Model m) {
+		String encryPwd=UserSHA256.encrypt(password);
+		
 		String realPassword=this.profileServiceImpl.getPassword(userNum);
 		String code;
-		if(realPassword.equals(password) ) {
+		if(realPassword.equals(encryPwd) ) {
 			code="success";
 		}else {
 			code="fail";
@@ -328,9 +336,11 @@ public class ProfileController {
 	public Map<String, String> updatePassword(@RequestParam("newPassword") String newPassword, HttpSession ses) {
 		//log.info(newPassword);
 		UserVO vo=(UserVO)ses.getAttribute("user");
-		vo.setUserPassword(newPassword);
+		String encryPwd=UserSHA256.encrypt(newPassword);
+		vo.setUserPassword(encryPwd);
 		int updatePassword=this.profileServiceImpl.updatePassword(vo);
 		Map<String, String> map=new HashMap<>();
+		ses.setAttribute("user", vo);
 		map.put("password",newPassword);
 		return map;
 	}

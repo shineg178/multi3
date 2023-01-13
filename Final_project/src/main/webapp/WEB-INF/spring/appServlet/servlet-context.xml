@@ -80,7 +80,7 @@
 		<interceptor>
 			<mapping path="/users-profile"/>
 			<mapping path="/addProductForm"/>
-			<mapping path="/auctionDetail"/>
+			<mapping path="/auction/auctionDetail"/>
 			<beans:bean class="three.common.interceptor.LoginInterCeptor"/>
 		</interceptor>
 	</interceptors>

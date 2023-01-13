@@ -30,9 +30,9 @@ public class AuctionScheduler {
 	@Inject
 	private ChatService chatServiceImpl;	
 	
-	@Scheduled(cron = "0 * * * * *")
+	@Scheduled(cron = "0 0/1 * * * *")
 	public void auctionEnd() {
-		//log.info("마감한 경매 검사 중");
+		log.info("마감한 경매 검사 중");
 		List<ProductVO> pList=auctionServiceImpl.findProductbiding();
 		Date nowTime=new Date();
 		int endProdNum=0;
@@ -63,10 +63,10 @@ public class AuctionScheduler {
 							endVO.setAucStatus(1);
 							int a=auctionServiceImpl.insertAuctionEnd(endVO);
 							int u=auctionServiceImpl.chageProductStatus(prodNum);
-							ChatRoomVO sellChatRoom=new ChatRoomVO(0,"admin",sellId);
+							ChatRoomVO sellChatRoom=new ChatRoomVO(0,"경매관리자",sellId);
 							int sellRoom=chatServiceImpl.createRoom(sellChatRoom);
 							int sellRoomId=chatServiceImpl.findChatRoomIdById(sellChatRoom);
-							ChatVO sellChat=new ChatVO(sellRoomId,"admin",sellId,prodName+" 물품의 경매가 마감되었습니다.",null,null);
+							ChatVO sellChat=new ChatVO(sellRoomId,"경매관리자",sellId,prodName+" 물품의 경매가 마감되었습니다.",null,null);
 							chatServiceImpl.insertMessage(sellChat);
 							sellChat.setSendMsg("입찰자가 아무도 없습니다.");
 							chatServiceImpl.insertMessage(sellChat);
@@ -76,16 +76,15 @@ public class AuctionScheduler {
 						}else {
 							int u=auctionServiceImpl.chageProductStatus(prodNum);
 							int a=auctionServiceImpl.insertAuctionEnd(endVO);
-							int minusPoint=auctionServiceImpl.minusPointByAuction(endVO	);
 							SimpleDateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초");
 							String time=formatter.format(new Date());
 							log.info("마감 완료"+time);
 							
 							//구매자한테 채팅으로 알림
-							ChatRoomVO buyChatRoom=new ChatRoomVO(0,"admin",buyId);
+							ChatRoomVO buyChatRoom=new ChatRoomVO(0,"경매관리자",buyId);
 							int buyRoom=chatServiceImpl.createRoom(buyChatRoom);
 							int buyRoomId=chatServiceImpl.findChatRoomIdById(buyChatRoom);
-							ChatVO buyChat=new ChatVO(buyRoomId,"admin",buyId,prodName+" 물품에 낙찰되었습니다.",null,null);
+							ChatVO buyChat=new ChatVO(buyRoomId,"경매관리자",buyId,prodName+" 물품에 낙찰되었습니다.",null,null);
 							chatServiceImpl.insertMessage(buyChat);
 							buyChat.setSendMsg("마이페이지에서 확인해주세요");
 							chatServiceImpl.insertMessage(buyChat);

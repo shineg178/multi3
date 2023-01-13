@@ -79,8 +79,13 @@ public class AuctionServiceImpl implements AuctionService {
 	}
 	
 	@Override
-	public int minusPointByAuction(AuctionEndVO vo) {
+	public int minusPointByAuction(AuctionVO vo) {
 		return this.auctionMapper.minusPointByAuction(vo);
+	}
+	
+	@Override
+	public int plusPointByAuction(AuctionVO vo) {
+		return this.auctionMapper.plusPointByAcution(vo);
 	}
 	
 }

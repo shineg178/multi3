@@ -31,8 +31,12 @@
 		update product set status = 0 where prodNum=#{value}
 	</update>
 	
-	<update id="minusPointByAuction" parameterType="AuctionEnd">
-		update project_user set userPoint = userPoint-#{endPrice} where userId=#{buyId}
+	<update id="minusPointByAuction" parameterType="Auction">
+		update project_user set userPoint = userPoint - #{aucPrice} where userId=#{userId}
+	</update>
+	
+	<update id="plusPointByAcution" parameterType="Auction">
+		update project_user set userPoint = userPoint + #{aucPrice} where userId=#{userId}
 	</update>
 	
 </mapper>

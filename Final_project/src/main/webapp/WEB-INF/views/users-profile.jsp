@@ -34,7 +34,7 @@
             alt="Profile" class="rounded-circle">
             <h2>${user.userName }</h2>
             <h3>${user.userNick }</h3>
-            <h3>${user.userEmail }</h3>
+            <h4>${user.userEmail }</h4>
           </div>
         </div>
       </div>
@@ -778,8 +778,14 @@ function donateList(){
                       <div id=image_container class="pt-2 text-center">
                       </div> 
                       <div id=image class="pt-2 text-center">
+                     <c:if test="${user.userImage ne null}">
                       	<img id=profileImg class="rounded-circle" src="${path}\resources\User_Image/${user.userImage}" 
                       	alt="Profile" style="width:20%;height:auto;">
+                     </c:if>
+                     <c:if test="${user.userImage eq null}">
+                     	<img id=profileImg class="rounded-circle" src="${path}/resources/assets/img/noProfileImage.jpg" 
+                      	alt="Profile" style="width:20%;height:auto;">
+                     </c:if>
                       </div>
                       <br>
                       <div class="input-group">
@@ -1015,13 +1021,6 @@ function updatePassword(){
 		$('#newPassword').focus();
 		return false;
 	}
-	//비밀번호에 한글 사용 방지
-	 const regKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-	if(regKorean.test(newPassword)){
-		alert("비밀번호에 한글을 사용할 수 없습니다.");
-		$('#newPassword').focus();
-		return false;
-	}
 	if(newPassword != renewPassword){
 		alert("비밀번호가 일치하지 않습니다");
 		$('#renewPassword').focus();
@@ -1047,7 +1046,7 @@ function updatePassword(){
 		$('#newPassword').focus();
 		return false;
 	}
-	if(newPassword.search('') != -1){
+	if(newPassword.search(' ') != -1){
 		alert("비밀번호는 공백을 포함할 수 없습니다.");
 		$('#newPassword').focus();
 		return false;

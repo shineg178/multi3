@@ -9,7 +9,9 @@
 //var now=new Date();
 var isStop=false
 var interval=setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
-/* var closeTime = new Date(2023,00,11,19,40,30); */
+
+//var closeTime = new Date(2023,00,11,19,40,30);
+
 //alert(nowTime);
 var nowTime = ${nowTime.getTime()}; // 현재의 시간만 가져온다
 var closeTime = ${closeTime.getTime() }; // 종료시간만 가져온다

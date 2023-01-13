@@ -32,6 +32,9 @@ public interface UserService {
 	int checkId(String userId);
 	
 	int updatePwd(UserVO vo);
+	
+	//유저VO 찾기
+	UserVO findUserByUserId(String userId);
 
 	
 }

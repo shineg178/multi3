@@ -21,6 +21,9 @@ import lombok.extern.log4j.Log4j;
 import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
 import three.auction.service.AuctionService;
+import three.chat.model.ChatAlertVO;
+import three.chat.model.ChatRoomVO;
+import three.chat.model.ChatVO;
 import three.chat.service.ChatService;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
@@ -31,7 +34,6 @@ public class AuctionController extends Thread{
 
 	@Inject
 	private AuctionService auctionServiceImpl;
-	
 	
 	@Inject 
 	private ChatService chatServiceImpl;
@@ -53,10 +55,9 @@ public class AuctionController extends Thread{
 		}
 		ses.setAttribute("prodNum", prodNum);
 
-		log.info("prodNum: "+prodNum);
 		UserVO loginUser=(UserVO)ses.getAttribute("user");
-		m.addAttribute("user",loginUser);
-		ses.setAttribute("user", loginUser);
+		log.info("prodNum: "+prodNum);
+	
 		
 		//경매 웹소켓 userid
 		ses.setAttribute("userId", loginUser.getUserId());
@@ -89,46 +90,51 @@ public class AuctionController extends Thread{
 		m.addAttribute("closeTime",closeTime);
 		m.addAttribute("nowTime",nowTime);
 		
+		UserVO uvo=this.auctionServiceImpl.findUserByUserId(loginUser.getUserId());
+		m.addAttribute("user",uvo);
+		ses.setAttribute("user", uvo);
+		
 		return "auction/auctionDetail";
 	}
 
 	@PostMapping("/auction/auctionDetail/bid")
 	@ResponseBody
 
-	public Map<String, Object> auctionBid(@RequestBody Map<String, Object> map,
+	public Map<String, Object> auctionBid(@RequestBody Map<String, Object> map, HttpSession ses,
 			Model m){
 		int prodNum=Integer.parseInt(map.get("prodNum").toString());
 		String userId=map.get("userId").toString();
 		int aucPrice=Integer.parseInt(map.get("aucPrice").toString());
 		
+		ProductVO pvo=this.auctionServiceImpl.findProductByProdNum(prodNum);
 		AuctionVO maxvo=this.auctionServiceImpl.selectMaxAuctionByProdNum(prodNum);
 		
 		if(aucPrice <= maxvo.getAucPrice()) {
 			m.addAttribute("auction", maxvo);
 			return null;
+		}else if(aucPrice > maxvo.getAucPrice()){
+			if(maxvo.getAucPrice() != pvo.getAucStartPrice()) {
+				this.auctionServiceImpl.plusPointByAuction(maxvo);
+				
+				ChatRoomVO bidChatRoom=new ChatRoomVO(0,"경매관리자",maxvo.getUserId());
+				this.chatServiceImpl.createRoom(bidChatRoom);
+				int bidRoomId=chatServiceImpl.findChatRoomIdById(bidChatRoom);
+				ChatVO sellChat=new ChatVO(bidRoomId,"경매관리자",maxvo.getUserId(),pvo.getProdName()+" 물품경매에 더 높은 입찰이 들어왔습니다.",null,null);
+				chatServiceImpl.insertMessage(sellChat);
+				sellChat.setSendMsg("이전 입찰금액 : "+maxvo.getAucPrice()+"포인트가 반환되었습니다");
+				chatServiceImpl.insertMessage(sellChat);
+				ChatAlertVO bidAlert=new ChatAlertVO(bidRoomId,maxvo.getUserId(),1);
+				chatServiceImpl.addNoReadCount(bidAlert);
+			}
+			AuctionVO vo=new AuctionVO(0,prodNum,userId,aucPrice,null);
+			this.auctionServiceImpl.minusPointByAuction(vo);
+			int n=this.auctionServiceImpl.insertAuction(vo);
+			UserVO user=this.auctionServiceImpl.findUserByUserId(userId);
+			ses.setAttribute("user", user);
+			m.addAttribute("user",user);
+			m.addAttribute("auction",vo);
 		}
 		
-		AuctionVO vo=new AuctionVO(0,prodNum,userId,aucPrice,null);
-		int n=this.auctionServiceImpl.insertAuction(vo);
-		m.addAttribute("auction",vo);
 		return map;
 	}
-		
-	
-	/*
-	 * @PostMapping("/auction/auctionDetail/bidClose")
-	 * 
-	 * @ResponseBody public Map<String, Object> auctionEnd(@RequestBody Map<String,
-	 * Object> map, Model m){ int
-	 * prodNum=Integer.parseInt(map.get("prodNum").toString()); int
-	 * buyUser=Integer.parseInt(map.get("buyUser").toString()); int
-	 * sellUser=Integer.parseInt(map.get("sellUser").toString()); int
-	 * endPrice=Integer.parseInt(map.get("endPrice").toString()) AuctionEndVO
-	 * endVo=new AuctionEndVO(0,prodNum,buyUser,sellUser,null,endPrice,0); int
-	 * n=this.auctionServiceImpl.insertAuctionEnd(endVo);
-	 * 
-	 * 
-	 * return map; }
-	 */
-	
 }

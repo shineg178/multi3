@@ -13,6 +13,29 @@
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
 <main id="main" class="main">
+	<!-- 카카오맵 지도 위치 -->
+	<div class="map-box">
+	<div id="map2" ></div>
+		<a class="mapIcon"> <img class="myLocImg"
+			src="resources/assets/img/myLoc.png"> 내 위치 &nbsp;&nbsp; <img
+			class="LocImg"
+			src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png">
+			상품 위치
+		</a>
+	</div>
+	<br>
+	<div class="product">
+		<div class="product-1">
+			<p class="product-main">기부앤테이크 경매</p>
+			<p class="product-sub">지도에서 위치를 지정해보세요!</p>
+		</div>
+		<a class="product-more" href="${path}/project/productList">더보기 > </a>
+	</div>
+
+	<div>
+		<hr>
+	</div>
+
 <section class="home-main-section-top">
 		<div class="home-main-top">
 			<div class="home-main-desc">
@@ -31,6 +54,8 @@
 		</div>
 	</section>
 
+	
+	
 	<br>
 
 	<!-- 배너 전체 div 시작----------------->
@@ -94,21 +119,6 @@
 		<!-- 배너 좌우 이동 버튼 끝 -->
 	</div>
 	<!-- 배너 전체 div 끝----------------->
-
-	<br>
-	<div class="product">
-		<div class="product-1">
-			<p class="product-main">기부앤테이크 경매</p>
-			<p class="product-sub">지도에서 위치를 지정해보세요!</p>
-		</div>
-		<a class="product-more" href="${path}/project/productList">더보기 > </a>
-	</div>
-
-	<div>
-		<hr>
-	</div>
-	<!-- 카카오맵 지도 위치 -->
-	<div id="map2" ></div>
 	
 	<script>
 		var container = document.getElementById('map2');
@@ -184,7 +194,7 @@
 								});
 								
 								// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-								var iwContent = '<div style="width:150px;padding:5px; height:170px; text-align:center; font-size:0.5em; overflow: hidden;">';
+								var iwContent = '<div style="width:150px;padding:5px; height:170px; text-align:center; font-size:0.5em; overflow: scroll;">';
 									if(data.prodImage1==null && data.prodImage2==null){
 										iwContent += '<img width="80" height="80" src="resources/assets/img/noImage.jpg">';
 									}else if(data.prodImage1 != null){

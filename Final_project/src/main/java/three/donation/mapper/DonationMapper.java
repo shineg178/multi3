@@ -12,12 +12,16 @@ import three.donation.model.DonationVO;
 @Mapper
 @Repository
 public interface DonationMapper {
-	// 전체 기부 금액
+	// 경매거래 완료인 기부 금액
 	int totalDonation();
 
-	// 전체 기부 건수
+	// 경매거래 완료인 기부 건수
 	int totalDonateCount();
 
+	// 포인트로 기부한 금액 
+	int pointDonation();
+	//포인트로 기부한 건수
+	int pointDonateCount();
 	// 기부자 목록(기부금액 높은 순으로 금액, 아이디 출력)
 	List<DonationVO> userListDonate();
 

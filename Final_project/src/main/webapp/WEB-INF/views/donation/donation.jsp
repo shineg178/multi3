@@ -13,52 +13,28 @@
 
 <script>
 	$(function() {
+		const totalDonation=${totalDonation};
+		const pointDonation=${pointDonation};
 
-		$('#btn').on('click', function() {
-			searchId();
+		const result=totalDonation+pointDonation;
+		$('#result').html(result);
 		})
-		function searchId() {
-			var userId = $("#userId").val();
-			$.ajax({
-				type : 'get',
-				url : 'donationRankingSearch?userId=' + userId,
-				dataType : 'json',
-				cache : false,
-				success : function(res) {
-					if (res == 0) {
-						$("#searchText").hide();
-						$("#nothingId").show();
-					} else if (res > 0) {
-						$("#nothingId").hide();
-						$("#searchText").show();
-						$('#searchMyDonRanking').html(res);
-					}
-				},
-				error : function(err) {
-					alert('error ' + err.status);
-				}
-
-			});
-		}
-
-	})
 </script>
-
 
 <!-- http://localhost:9090/project/donation -->
 
 <body>
-
 </body>
+
 <main id="main" class="main">
 	<section class="donation-main-section">
 		<div class="donation-main-div">
 			<div>
 				<h1 class="donation-main-title">${totalDonateCount}건의
-					경매로
-					<!--  -->
-					<br> ${totalDonation}원 기부금 달성
-					<!--  -->
+					경매와 ${pointDonateCount}건의 포인트 기부로
+					<br>
+					<span id="result"></span>원 기부금 달성
+				
 				</h1>
 				<br>
 				<div class="donation-main-image">
@@ -78,8 +54,8 @@
 				<div>
 					<br>
 					<h1 class="donation-ranking-title">실시간 기부 순위</h1>
-
 				</div>
+				
 				<table class="donation-ranking-table">
 	<tr>
 						<td class="donation-ranking-number">순위

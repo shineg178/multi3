@@ -5,7 +5,9 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <c:import url="/top" />s
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<link href="${path}/resources/assets/css/auctionDetail.css" rel="stylesheet">
 <SCRIPT type="text/javascript">
+
 //var now=new Date();
 var isStop=false
 var interval=setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다.
@@ -166,14 +168,17 @@ sock.onmessage=function(evt){
 	
 }//------
 </script>
+
 <main id="main" class="main">
 	<!-- Product section-->
 	<section class="py-5">
-		<div class="container px-4 px-lg-5 my-5">
-			<div class="row gx-4 gx-lg-5 align-items-center">
-				<div class="col-md-6">
-					<div id="carouselExampleIndicators" class="carousel slide"
-						data-bs-ride="carousel">
+
+ 		<div class="mainSection">		
+				<!-- 상품 상단 좌측 전체 div 시작 -->
+				<div class="leftDiv">
+					<!-- 이미지 slide배너 전체 div 시작 -->
+					<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+						<!-- 배너 중앙하단 1, 2 배너이동버튼 시작 -->
 						<div class="carousel-indicators">
 							<button type="button" data-bs-target="#carouselExampleIndicators"
 								data-bs-slide-to="0" class="active" aria-current="true"
@@ -181,19 +186,31 @@ sock.onmessage=function(evt){
 							<button type="button" data-bs-target="#carouselExampleIndicators"
 								data-bs-slide-to="1" aria-label="Slide 2"></button>
 						</div>
-						<div class="carousel-inner">
+						<!-- 배너 중앙하단 1,2 배너 이동버튼 끝 -->
+						
+						
+						<!-- 이미지 내용 시작 -->
+						<div class="carousel-inner" id="imageInner">
+							
+							<!-- 이미지 1번 내용 -->
 							<div class="carousel-item active">
 								<c:if test="${prod.prodImage1 ne null}">
-									<img class="card-img-top mb-5 mb-md-0" src="${path}\resources\Product_Image/${prod.prodImage1}">
+									<a href="${path}\resources\Product_Image/${prod.prodImage1}" style="width:100%; display:inline-block;" tabindex="-1" target='_blank'>
+                           <img class="card-img-top" src="${path}\resources\Product_Image/${prod.prodImage1}">
+                           </a>
 								</c:if>
 								<c:if test="${prod.prodImage1 eq null}">
 									<img src="resources/assets/img/noImage.jpg">
 								</c:if>
 							</div>
+							<!-- 이미지 2번 내용 -->
 							<c:if test="${prod.prodImage2 ne null }">							
 								<div class="carousel-item ">
 									<c:if test="${prod.prodImage2 ne null}">
-										<img src="${path}\resources\Product_Image/${prod.prodImage2}" class="card-img-top mb-5 mb-md-0">
+										<a href="${path}\resources\Product_Image/${prod.prodImage2}" style="width:100%; display:inline-block;" tabindex="0" target='_blank'>
+                              <img src="${path}\resources\Product_Image/${prod.prodImage2}" class="card-img-top">
+                              </a>
+
 									</c:if>
 									<c:if test="${prod.prodImage2 eq null}">
 										<img src="resources/assets/img/noImage.jpg">
@@ -201,7 +218,9 @@ sock.onmessage=function(evt){
 								</div>
 							</c:if>
 						</div>
+						<!-- 배너 이미지 내용 끝 -->
 
+						<!-- 배너 좌우 이동 버튼 시작 -->
 						<button class="carousel-control-prev" type="button"
 							data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -212,17 +231,23 @@ sock.onmessage=function(evt){
 							<span class="carousel-control-next-icon" aria-hidden="true"></span>
 							<span class="visually-hidden">Next</span>
 						</button>
+						<!-- 배너 좌우 이동 버튼 끝 -->
 					</div>
+					<!-- 이미지 slide배너 전체 div 끝-->
 
 				</div>
-				<div class="col-md-6">
-					<br> <br>
+				<!-- 상품 상단 좌측 전체 div 끝 -->
+				
+				
+				<!-- 상품 상단 우측 전체 div 시작 -->
+				<div class="rightDiv">
+
 					<h3 class="fw-bolder">${prod.prodName }</h3>
 					<br>
-					<div class="large mb-3">${seller.userNick}  |  ( ${seller.userId} )</div>
+					<div class="large">${seller.userNick}  |  ( ${seller.userId} )</div>
 					<br>
-					<div class="fs-5 mb-5">
-						<table>
+					<div class="fs-5">
+						<table class="rightTable">
 							<tr>
 								<td>시작가</td>
 								<td class="d-flex justify-content-end">${prod.aucStartPrice }원</td>
@@ -278,6 +303,7 @@ sock.onmessage=function(evt){
 								</tr>
 							</c:if>
 						</table>
+						<div style="clear:both"></div>
 						<br> 
 						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
 
@@ -292,13 +318,15 @@ sock.onmessage=function(evt){
 					</div>
 				</div>
 			</div>
-		</div>
+
 	</section>
-	<section>
-		<div class="text-center lead">
-			<h2>물품 설명</h2>
-		</div>
-		<div class="">
+	<div style="clear:both"></div>
+	<br>
+	<section class="section2">
+		<div class="text-center lead" id="contents">
+			<br><h2>물품 설명</h2>
+			<hr>
+		
 		<p class="lead" style="margin-left: 20%; margin-right: 20%;">${prod.prodSpec}</p>
 		</div>
 	</section>

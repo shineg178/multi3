@@ -721,11 +721,14 @@ function donateList(){
                     <td>${data.buyId}</td>
                     <td>${data.endPrice}</td>
                     <td><fmt:formatDate value="${data.endDate}" pattern="YYYY-MM-DD HH:mm:ss"/> </td>
-                    <c:if test="${data.aucStatus eq 0}">
+                    <c:if test="${data.aucStatus eq 0 and data.sellId ne data.buyId}">
                     	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered${i.count}">거래중</a></td>
                  	</c:if>
-                 	<c:if test="${data.aucStatus eq 1}">
+                 	<c:if test="${data.aucStatus eq 1 and data.sellId ne data.buyId}">
                     	<td><a class="badge bg-success" style="width:100%">거래완료</a></td>
+                 	</c:if>
+                 	<c:if test="${data.sellId eq data.buyId}">
+                 		<td><a class="badge bg-danger" style="width:100%">경매실패</a></td>
                  	</c:if>
                   </tr>    
                   <!-- Vertically centered Modal -->

@@ -210,7 +210,7 @@ $(function(){
 		<!-- 로그인 하지 않은 상태 -->
                 <c:if test = "${user eq null }">
                     <div class="login_button"><a class="login_button_login" href="${path}/login">로그인</a> | 
-                    <a class="login_button_join" href="${path}/join">회원가입</a></div>               
+                    <a class="login_button_join" href="${path}/joinrules">회원가입</a></div>               
                 </c:if>
         <!-- 로그인한 상태 -->
                 <c:if test="${ user ne null }">

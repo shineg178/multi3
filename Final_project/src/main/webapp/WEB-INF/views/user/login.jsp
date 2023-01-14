@@ -70,7 +70,7 @@ function onSignIn(){
 						<a href="find-id">아이디 찾기</a> / <a href="find-password">비밀번호 찾기</a> / <a href="/project">돌아가기</a>
 					</p>
 					<p>
-						기부앤테이크가 처음이신가요? <a href="join">회원가입</a>
+						기부앤테이크가 처음이신가요? <a href="joinrules">회원가입</a>
 					</p>
 				</div>
 			</div>

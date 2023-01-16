@@ -92,6 +92,7 @@
 				</li>
 			</ul>
 			<div class="tab-content pt-2" id="myTabContent">
+			<jsp:useBean id="now" class="java.util.Date" scope="page"/>
 				<!-- 전체 목록 -->
 				<div class="tab-pane fade show active" id="all" role="tabpanel"
 					aria-labelledby="all-tab">
@@ -102,11 +103,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-										<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img src="resources/Product_Image/${list.prodImage1}">
 										</c:if>
@@ -124,9 +123,10 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
+											
 											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}"/>
@@ -163,11 +163,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-										<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img src="resources/Product_Image/${list.prodImage1}">
 										</c:if>
@@ -183,7 +181,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>
@@ -226,11 +224,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -250,7 +246,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>
@@ -292,11 +288,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -316,7 +310,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>
@@ -358,11 +352,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -382,7 +374,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>
@@ -424,11 +416,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -448,7 +438,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>
@@ -490,11 +480,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -514,7 +502,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>
@@ -556,11 +544,9 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
-									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
 										<c:set var="aucTime" value="${list.auctionTime}"/>
-										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
-										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
-										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
+ 										<fmt:parseNumber value="${list.getPIndate().time + (1000*60*60*24*aucTime) - (1000*60*60*2)}" integerOnly="true" var="dbDate" scope="request"/>
+										<fmt:parseNumber value="${now.time}" integerOnly="true" var="today" scope="request"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -580,7 +566,7 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
-											<c:if test="${dbDate eq today}">
+											<c:if test="${today ge dbDate}">
 												<div class="badge bg-danger">마감임박</div>
 											</c:if>
 											<br>

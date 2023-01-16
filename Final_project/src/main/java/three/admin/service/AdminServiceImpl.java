@@ -196,5 +196,4 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.auctionStatusUpdate(aucNum);
 	}
 
-
 }

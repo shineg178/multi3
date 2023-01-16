@@ -20,7 +20,7 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff; margin-left:30px}
 .checkBox textarea{width: 94%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none;}
 .footBtwrap{margin-top: 15px;}
 .footBtwrap>li{float: left;width: 50%;height: 60px;}
-.footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 30px;}
+.footBtwrap>li>button,a{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 30px;}
 .fpmgBt1{background-color: #fff;color:#888;border: 1px solid #ddd}
 .fpmgBt2{background-color: gray;color: #fff;border: 1px solid #ddd}
 </style>
@@ -141,7 +141,7 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff; margin-left:30px}
             	<li class="admin">위 내용을 동의하여 회원가입을 진행합니다</li>
             </ul>
             <ul class="footBtwrap clearfix">
-            	<li><button type="button" class="fpmgBt1" onClick="location.href='/project/join'">동의</button></li>
+            	<li><a type="button" class="fpmgBt1" href="join?id=f234rewq23sd514dsf" style="line-height:60px;">동의</a></li>
                 <li><button type="button" class="fpmgBt2" onClick="location.href='/project'">돌아가기</button></li>
             </ul>
         </form>

@@ -344,5 +344,11 @@ public class UserController {
 		public String privacyGET() throws Exception{
 			return "user/privacy";
 	}
+		
+	// 회원가입 이용약관 페이지 이동
+		@GetMapping("joinrules")
+		public String joinrulesGET() throws Exception{
+			return "user/joinrules";
+	}
 	
 }

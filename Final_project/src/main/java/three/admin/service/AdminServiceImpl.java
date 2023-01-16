@@ -84,7 +84,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int cancelPay(int merchant_uid) {
+	public int cancelPay(String merchant_uid) {
 		return adminMapper.cancelPay(merchant_uid);
 	}
 
@@ -109,7 +109,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public PaymentVO findPayment(int num) {
+	public PaymentVO findPayment(String num) {
 		return adminMapper.findPayment(num);
 	}
 

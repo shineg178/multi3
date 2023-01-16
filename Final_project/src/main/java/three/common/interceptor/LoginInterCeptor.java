@@ -20,7 +20,7 @@ import three.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
-//관리자 필터
+//로그인 필터
 @Log4j
 public class LoginInterCeptor extends HandlerInterceptorAdapter{
 
@@ -31,7 +31,9 @@ public class LoginInterCeptor extends HandlerInterceptorAdapter{
 		HttpSession ses=req.getSession();
 		UserVO user=(UserVO)ses.getAttribute("user");
 		if(user==null) {
-			String view="/WEB-INF/views/index.jsp";	
+			String view="/WEB-INF/views/user/login.jsp";
+			
+			req.setAttribute("Msg", "로그인 후 이용 가능합니다");
 			
 			RequestDispatcher disp=req.getRequestDispatcher(view);
 			disp.forward(req, res);

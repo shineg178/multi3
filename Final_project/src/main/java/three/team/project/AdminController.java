@@ -1,4 +1,4 @@
-package three.team.project;
+ package three.team.project;
 
 import java.util.List;
 
@@ -160,7 +160,7 @@ public class AdminController {
 	
 	//결제 내역 취소
 	@GetMapping("/cancelPay")
-	public String cancelPay(@RequestParam int num) {
+	public String cancelPay(@RequestParam String num) {
 		
 		//결제 내역 가져오기
 		PaymentVO vo=adminServiceImpl.findPayment(num);

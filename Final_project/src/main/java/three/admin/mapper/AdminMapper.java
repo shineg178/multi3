@@ -49,7 +49,7 @@ public interface AdminMapper {
 	List<PaymentVO> payList();
 	
 	//결제 내역 취소하기
-	int cancelPay(int merchant_uid);
+	int cancelPay(String merchant_uid);
 	
 	//회원상태 일반 변경
 	int normalUser(int userNum);
@@ -64,7 +64,7 @@ public interface AdminMapper {
 	int resetPoint(PaymentVO vo);
 	
 	//결제 번호로 결제 정보 가져오기
-	PaymentVO findPayment(int num);
+	PaymentVO findPayment(String num);
 	
 	//환불 번호로 환불 정보 가져오기
 	ExchangeVO findExchange(int num);

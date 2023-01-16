@@ -51,7 +51,7 @@
 		select * from payment order by payTime
 	</select>
 	
-	<delete id="cancelPay" parameterType="int">
+	<delete id="cancelPay" parameterType="String">
 		delete from payment where merchant_uid=#{merchant_uid}
 	</delete>
 	
@@ -71,7 +71,7 @@
 		select * from project_user where userId like '%'||#{value}||'%' and userstatus != 1 
 	</select>
 	
-	<select id="findPayment" parameterType="int" resultType="Payment">
+	<select id="findPayment" parameterType="String" resultType="Payment">
 			select * from payment where merchant_uid=#{value}
 	</select>
 	
@@ -104,7 +104,7 @@
 	</select>
 	
 	<select id="findOrg" parameterType="Donate" resultType="Donate">
-		select * from EndDonation where donName=#{donOrgName}
+		select donName donOrgName,totalAmount donAmount from EndDonation where donName=#{donOrgName}
 	</select>
 	
 	<insert id="donateEnd" parameterType="Donate" >
@@ -112,7 +112,7 @@
 	</insert>
 	
 	<update id="donateUpdate" parameterType="Donate" >
-		update EndDonation set totalAmount=#{donAmount}
+		update EndDonation set totalAmount=#{donAmount} where donName=#{donOrgName}
 	</update>
 	
 	<select id="endDonateList" resultType="Donate">

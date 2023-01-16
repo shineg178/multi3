@@ -131,5 +131,25 @@
 	full outer join prodCategory p on t.prodCateGoryNum_fk= p.categorynum)
 	</select>
 	
+	<select id="repoList" resultType="Report">
+		select * from report where reportStatus=0
+	</select>
+	
+	<update id="reportComplete" parameterType="int">
+		update report set reportStatus=1 where reportNum=#{value}
+	</update>
+	
+	<select id="findAuctionEnd" parameterType="int" resultType="AuctionEnd">
+		select * from auction_end where auctionendNum=#{value}
+	</select>
+	
+	<update id="addPointBuyer" parameterType="AuctionEnd">
+		update project_user set userPoint=userPoint+#{endPrice} where userid=#{buyId}
+	</update>
+	
+	<update id="auctionStatusUpdate" parameterType="int">
+		update auction_end set aucstatus=5 where auctionEndNum=#{value}
+	</update>
+	
 	
 </mapper>

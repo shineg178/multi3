@@ -17,11 +17,19 @@
 	</insert>
 	
 	<select id="allProduct" resultType="Product">
-		select * from product where status=1 order by pindate desc	
+		select * from (select*from product where status=1) p 
+		left outer join 
+		(select NVL(average,0) avgPoint,takeUserId from 
+		(select Round(avg(score),2) average,takeUserId from Auction_survey 
+		group by takeUserId)) a on p.userId=a.takeUserId
 	</select>
 	
 	<select id="cateProduct" parameterType="int" resultType="Product">
-		select * from product where prodCategoryNum_fk=#{value} and status=1 order by pIndate desc
+		select * from (select * from product where prodCategoryNum_fk=#{value} and status=1) p 
+		left outer join 
+		(select NVL(average,0) avgPoint,takeUserId from 
+		(select Round(avg(score),2) average,takeUserId from Auction_survey 
+		group by takeUserId)) a on p.userId=a.takeUserId
 	</select>
 	
 	<select id="prodSearch" parameterType="String" resultType="Product">

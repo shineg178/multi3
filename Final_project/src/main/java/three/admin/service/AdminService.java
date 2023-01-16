@@ -2,12 +2,14 @@ package three.admin.service;
 
 import java.util.List;
 
+import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
+import three.report.model.ReportVO;
 import three.user.model.UserVO;
 
 public interface AdminService {
@@ -99,4 +101,20 @@ public interface AdminService {
 	
 	//물품 카테고리별 경매 수 가져오기
 	List<ProdCategoryVO> categoryList();
+	
+	//신고 내역 가져오기
+	List<ReportVO> repoList();
+	
+	//신고 처리 
+	int reportComplete(int num);
+	
+	//신고 경매 내역 가져오기
+	AuctionEndVO findAuctionEnd(int aucNum);
+	
+	//구매자에게 포인트 돌려주기
+	int addPointBuyer(AuctionEndVO vo);
+	
+	//경매종료 상태정보 업데이트
+	int auctionStatusUpdate(int aucNum);
+	
 }

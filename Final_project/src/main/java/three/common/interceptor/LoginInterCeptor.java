@@ -31,9 +31,10 @@ public class LoginInterCeptor extends HandlerInterceptorAdapter{
 		HttpSession ses=req.getSession();
 		UserVO user=(UserVO)ses.getAttribute("user");
 		if(user==null) {
-			String view="/WEB-INF/views/user/login.jsp";
+			String view="/WEB-INF/views/msg.jsp";
 			
 			req.setAttribute("Msg", "로그인 후 이용 가능합니다");
+			req.setAttribute("loc", "login");
 			
 			RequestDispatcher disp=req.getRequestDispatcher(view);
 			disp.forward(req, res);

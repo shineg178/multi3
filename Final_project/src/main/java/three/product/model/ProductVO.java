@@ -41,4 +41,6 @@ public class ProductVO {
 	
 	private int status;
 	
+	private double avgPoint;
+	
 }

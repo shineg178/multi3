@@ -41,7 +41,11 @@ public class UserController {
 
 	// 회원가입 페이지 이동
 	@GetMapping("join")
-	public String joinGET() {
+	public String joinGET(@RequestParam(required=false,defaultValue = "0") String id) {
+		
+		if(id=="0") {
+			return "user/joinrules";
+		}
 		return "user/join";
 	}
 
@@ -236,7 +240,7 @@ public class UserController {
 	// 로그인 페이지 이동
 	@GetMapping("login")
 	public String loginGET() throws Exception {
-
+		
 		return "user/login";
 	}
 

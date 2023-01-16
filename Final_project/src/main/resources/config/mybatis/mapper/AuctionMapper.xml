@@ -15,6 +15,7 @@
 	<insert id="insertAuctionEnd" parameterType="AuctionEnd">
 		insert into Auction_end values(auc_end_seq.nextval,#{prodNum_fk},#{prodName},#{buyId},#{sellId},sysdate,#{endPrice},#{aucStatus})		
 	</insert>
+	
 	<select id="findProductbiding" resultType="Product">
 		select * from product where status=1
 	</select>

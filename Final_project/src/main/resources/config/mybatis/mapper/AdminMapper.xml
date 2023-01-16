@@ -32,8 +32,16 @@
 	</update>
 	
 	<select id="exchangeList" resultType="Exchange">
-		select * from exchange order by exchangeTime asc
+		select * from exchange where exchangeStatus=0 order by exchangeTime asc
 	</select>
+	
+	<update id="changeStatus" parameterType="int">
+		update exchange set exchangeStatus=1 where exchangeNum=#{value}
+	</update>
+	
+	<update id="cancelchangeStatus" parameterType="int">
+		update exchange set exchangeStatus=2 where exchangeNum=#{value}
+	</update>
 	
 	<delete id="exchangeDelete" parameterType="int">
 		delete from exchange where exchangenum=#{value}	

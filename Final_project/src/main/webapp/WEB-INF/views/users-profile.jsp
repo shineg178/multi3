@@ -96,7 +96,17 @@
                   <div class="col-lg-3 col-md-4 label"><h4>닉네임</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userNick }</div>
                 </div>
-
+				
+				<div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>Point</h4></div>
+                  <div class="col-lg-9 col-md-8">${user.userPoint } 포인트</div>
+                </div>
+                
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h4>평점</h4></div>
+                  <div class="col-lg-9 col-md-8">${average}/5점</div>
+                </div>
+				
                 <div class="row" style="margin-left:100px;">
                   <div class="col-lg-3 col-md-4 label"><h4>E-Mail</h4></div>
                   <div class="col-lg-9 col-md-8">${user.userEmail }</div>
@@ -107,20 +117,11 @@
                   <div class="col-lg-9 col-md-8">${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</div>
                 </div>
 				
-				<div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>Postcode</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userAddr1}</div>
-                </div>
-				
                 <div class="row" style="margin-left:100px;">
                   <div class="col-lg-3 col-md-4 label"><h4>Address</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userAddr2 } / ${user.userAddr3 }</div>
+                  <div class="col-lg-9 col-md-8">[${user.userAddr1}] ${user.userAddr2 } / ${user.userAddr3 }</div>
                 </div>
-
-                <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>Point</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userPoint } 포인트</div>
-                </div>
+                
               </div>
               <!-- End profile start -->
               
@@ -202,7 +203,7 @@
                         
                         <!-- 포인트 충전 List Modal -->
                         <div class="modal fade" id="rechargeList" tabindex="-1">
-                          <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                               <div class="text-center modal-header">
                                 <h5 class="modal-title">포인트 충전내역</h5>
@@ -391,7 +392,7 @@ $(document).ready(function(){
                         
                         <!-- 포인트 환전 List Modal -->
                          <div class="modal fade" id="exchangeList" tabindex="-1">
-                          <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                               <div class="text-center modal-header">
                                 <h5 class="modal-title">포인트 환전내역</h5>
@@ -514,6 +515,7 @@ function exchangeList(){
 			str += '<th>ID</th>';
 			str += '<th>환전 포인트</th>';
 			str += '<th>날짜</th>';
+			str += '<th>진행상황</th>';
 			str += '</tr>';
 			str += '</thead>';
 			str += '<tbody>';
@@ -525,8 +527,17 @@ function exchangeList(){
 				str += '<td>'+rvo.bankAccountNum+'</td>'; 
 				str += '<td>'+rvo.userId+'</td>'; 
 				str += '<td>'+rvo.exchangePoint+'포인트</td>'; 
-				str += '<td>'+date+'</td>'; 
-				str += '</tr>'; 
+				str += '<td>'+date+'</td>';
+				if(rvo.exchangeStatus==0){
+					str += '<td>요청 중</td>'; 
+					str += '</tr>'; 
+				}else if(rvo.exchangeStatus==1){
+					str += '<td>환전완료</td>';
+					str += '</tr>'; 
+				}else if(rvo.exchangeStatus==2){
+					str += '<td>요청취소</td>';
+					str += '</tr>';
+				}
 			})
 				str += '</tbody>';
 				$('#ex-list').html(str);
@@ -573,7 +584,7 @@ function exchangeList(){
                         
                         <!-- 포인트 기부 List Modal -->
                          <div class="modal fade" id="donateList" tabindex="-1">
-                          <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                               <div class="text-center modal-header">
                                 <h5 class="modal-title">포인트 기부내역</h5>
@@ -721,17 +732,48 @@ function donateList(){
                     <td>${data.buyId}</td>
                     <td>${data.endPrice}</td>
                     <td><fmt:formatDate value="${data.endDate}" pattern="YYYY-MM-DD HH:mm:ss"/> </td>
-                    <c:if test="${data.aucStatus eq 0 and data.sellId ne data.buyId}">
+                    <c:if test="${data.aucStatus eq 0}">
                     	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered${i.count}">거래중</a></td>
                  	</c:if>
-                 	<c:if test="${data.aucStatus eq 1 and data.sellId ne data.buyId}">
-                    	<td><a class="badge bg-success" style="width:100%">거래완료</a></td>
+                 	<c:if test="${data.aucStatus eq 1}">
+                    	<td>
+                    		<a class="badge bg-success" style="width:100%">거래완료</a>
+                    		<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
+                    	</td>
                  	</c:if>
-                 	<c:if test="${data.sellId eq data.buyId}">
+                 	<c:if test="${data.aucStatus eq 2}">
+                    	<td>
+                    		<a class="badge bg-success" style="width:100%">거래완료</a>
+                    		<c:if test="${data.sellId eq user.userId}">
+                    			<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
+                    		</c:if>
+                    		<c:if test="${data.buyId eq user.userId}">
+                    			<a class="badge bg-success" style="width:100%">평가완료</a>
+                    		</c:if>
+                    	</td>
+                 	</c:if>
+                 	<c:if test="${data.aucStatus eq 3}">
+                    	<td>
+                    		<a class="badge bg-success" style="width:100%">거래완료</a>
+                    		<c:if test="${data.buyId eq user.userId}">
+                    			<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
+                    		</c:if>
+                    		<c:if test="${data.sellId eq user.userId}">
+                    			<a class="badge bg-success" style="width:100%">평가완료</a>
+                    		</c:if>
+                    	</td>
+                 	</c:if>
+                 	<c:if test="${data.aucStatus eq 4}">
+                 		<td>
+                    		<a class="badge bg-success" style="width:100%">거래완료</a>
+                    		<a class="badge bg-success" style="width:100%">평가완료</a>
+                 		</td>
+                 	</c:if>
+                 	<c:if test="${data.aucStatus eq 5}">
                  		<td><a class="badge bg-danger" style="width:100%">경매실패</a></td>
                  	</c:if>
                   </tr>    
-                  <!-- Vertically centered Modal -->
+                  <!--tradeCheck Vertically centered Modal -->
                     <div class="modal fade" id="verticalycentered${i.count}" tabindex="-1">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -758,11 +800,102 @@ function donateList(){
                             <c:if test="${data.buyId ne user.userId}">
                             	<a type="button" id="chatting" class="btn btn-info" href="createChatRoom?toId=${data.buyId}">채팅</a>
                             </c:if>
+                           		<a type="button" id="report" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reportUser${data.auctionEndNum}">신고하기</a>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
                           </div>
                         </div>
                       </div>
                     </div><!-- End Vertically centered Modal-->
+                    
+                    <!--Survey Vertically centered Modal -->
+                    <div class="modal fade" id="survey${data.auctionEndNum}" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="text-center modal-header">
+                            <h5 class="modal-title">거래 평가</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+	                          <div id="heartRating${data.auctionEndNum}" class="modal-body text-center">
+                          	  	<h4>거래가 어떠셨습니까?</h4>
+                          	  	<h6>아래 점수와 간단한 평가를 남겨주세요~</h6>    
+                          	  	<form class="mb-3" action="${path }/users-profile/insertReview" name="myform${data.auctionEndNum}" id="myform${data.auctionEndNum}" method="post">
+									<fieldset>
+										<input type="radio" name="score" value="5" id="rate5${data.auctionEndNum}"><label
+											for="rate5${data.auctionEndNum}">5</label>
+										<input type="radio" name="score" value="4" id="rate4${data.auctionEndNum}"><label
+											for="rate4${data.auctionEndNum}">4</label>
+										<input type="radio" name="score" value="3" id="rate3${data.auctionEndNum}"><label
+											for="rate3${data.auctionEndNum}">3</label>
+										<input type="radio" name="score" value="2" id="rate2${data.auctionEndNum}"><label
+											for="rate2${data.auctionEndNum}">2</label>
+										<input type="radio" name="score" value="1" id="rate1${data.auctionEndNum}"><label
+											for="rate1${data.auctionEndNum}">1</label>
+									</fieldset>
+									<div>
+										<textarea class="reviewContents col-auto form-control" name="review" id="reviewContents${data.auctionEndNum}"
+												  placeholder="거래한 상대방에 대한 평가를 남겨주세요"
+												  style="width: 100%;height: 150px;padding: 10px;box-sizing: border-box;
+												  border: solid 1.5px #D3D3D3;border-radius: 5px;font-size: 16px;resize: none;"></textarea>
+									</div>
+									<input type="hidden" name="doUserId" value="${user.userId }">
+									<input type="hidden" name="aucEndNum" value="${data.auctionEndNum }">
+									<c:if test="${data.sellId eq user.userId }">
+										<input type="hidden" name="takeUserId" value="${data.buyId }">
+									</c:if>
+									<c:if test="${data.buyId eq user.userId }">
+										<input type="hidden" name="takeUserId" value="${data.sellId }">
+									</c:if>
+                            	</form>
+	                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" id="surveySubmit${data.auctionEndNum }" class="btn btn-primary" form="myform${data.auctionEndNum}">평가하기</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- End Vertically centered Modal-->
+                    
+                    <!--Report Vertically centered Modal -->
+                    <div class="modal fade" id="reportUser${data.auctionEndNum}" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="text-center modal-header">
+                            <h3 class="modal-title" style="color:red;">신고</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+	                          <div id="reportForm${data.auctionEndNum}" class="modal-body text-center">
+                          	  	<h4>어떤 점 때문에 신고하려고 하시나요?</h4>    
+                          	  	<form class="mb-3" action="${path }/users-profile/reportUser" name="reportUserForm${data.auctionEndNum}" id="reportUserForm${data.auctionEndNum}" method="post">
+									<div>
+										<textarea class="reviewContents col-auto form-control" name="reportContent" id="reportArea${data.auctionEndNum}"
+												  placeholder="신고사유를 남겨주세요"
+												  style="width: 100%;height: 150px;padding: 10px;box-sizing: border-box;
+												  border: solid 1.5px #D3D3D3;border-radius: 5px;font-size: 16px;resize: none;"></textarea>
+										<c:if test="${data.sellId eq user.userId }">
+											<h6 style="text-align:right">신고대상 : ${data.buyId }</h6>
+										</c:if>
+										<c:if test="${data.buyId eq user.userId }">
+											<h6 style="text-align:right">신고대상 : ${data.sellId }</h6>
+										</c:if>
+									</div>
+									<input type="hidden" name="aucEndNum" value="${data.auctionEndNum }">
+									<input type="hidden" name="userId" value="${user.userId }">
+									<c:if test="${data.sellId eq user.userId }">
+										<input type="hidden" name="reportedUserId" value="${data.buyId }">
+									</c:if>
+									<c:if test="${data.buyId eq user.userId }">
+										<input type="hidden" name="reportedUserId" value="${data.sellId }">
+									</c:if>
+                            	</form>
+	                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" id="reportSubmit${data.auctionEndNum }" class="btn btn-primary" form="reportUserForm${data.auctionEndNum}">신고하기</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- End Vertically centered Modal-->
+                    
                  </c:forEach>
                     
    
@@ -771,9 +904,7 @@ function donateList(){
               </div>
               <!-- End trade-status Form -->
               
-              
-              
-              <!-- profile-change Form -->
+             <!-- profile-change Form -->
               <div class="tab-pane profile-change fade pt-3" id="profile-change">
               <!-- 프로필 변경 -->
               <div id="profileWrap">
@@ -965,6 +1096,11 @@ function donateList(){
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script>
+//JQUERY CODE
+const drawStar = (target) => {
+  $('.star span').css({ width: '${target.value * 10}%' });
+}
+
 /* 개인정보변경 */
 $(function() {
 	$("#searchAddr").postcodifyPopUp();

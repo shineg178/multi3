@@ -32,7 +32,7 @@ public class AuctionScheduler {
 	
 	@Scheduled(cron = "0/1 * * * * *")
 	public void auctionEnd() {
-		log.info("마감한 경매 검사 중");
+		//log.info("마감한 경매 검사 중");
 		List<ProductVO> pList=auctionServiceImpl.findProductbiding();
 		Date nowTime=new Date();
 		int endProdNum=0;
@@ -61,7 +61,7 @@ public class AuctionScheduler {
 					if(v==1) {
 						
 						if(sellId.equals(buyId)) {
-							endVO.setAucStatus(1);
+							endVO.setAucStatus(5);
 							int a=auctionServiceImpl.insertAuctionEnd(endVO);
 							int u=auctionServiceImpl.chageProductStatus(prodNum);
 							ChatRoomVO sellChatRoom=new ChatRoomVO(0,"경매관리자",sellId);
@@ -71,7 +71,7 @@ public class AuctionScheduler {
 							chatServiceImpl.insertMessage(sellChat);
 							sellChat.setSendMsg("입찰자가 아무도 없습니다.");
 							chatServiceImpl.insertMessage(sellChat);
-							ChatAlertVO sellAlert=new ChatAlertVO(sellRoomId,sellId,2);
+							ChatAlertVO sellAlert=new ChatAlertVO(sellRoomId,sellId,1);
 							chatServiceImpl.addNoReadCount(sellAlert);
 							log.info(sellId+"에게 알림");
 						}else {
@@ -87,10 +87,12 @@ public class AuctionScheduler {
 							int buyRoomId=chatServiceImpl.findChatRoomIdById(buyChatRoom);
 							ChatVO buyChat=new ChatVO(buyRoomId,"경매관리자",buyId,prodName+" 물품에 낙찰되었습니다.",null,null);
 							chatServiceImpl.insertMessage(buyChat);
+							ChatAlertVO buyAlert1=new ChatAlertVO(buyRoomId,buyId,1);
+							chatServiceImpl.addNoReadCount(buyAlert1);
 							buyChat.setSendMsg("마이페이지에서 확인해주세요");
 							chatServiceImpl.insertMessage(buyChat);
-							ChatAlertVO buyAlert=new ChatAlertVO(buyRoomId,buyId,2);
-							chatServiceImpl.addNoReadCount(buyAlert);
+							ChatAlertVO buyAlert2=new ChatAlertVO(buyRoomId,buyId,1);
+							chatServiceImpl.addNoReadCount(buyAlert2);
 							log.info(buyId+"에게 알림");
 							
 							//판매자한테 채팅으로 알림
@@ -99,10 +101,12 @@ public class AuctionScheduler {
 							int sellRoomId=chatServiceImpl.findChatRoomIdById(sellChatRoom);
 							ChatVO sellChat=new ChatVO(sellRoomId,"경매관리자",sellId,prodName+" 물품의 경매가 마감되었습니다.",null,null);
 							chatServiceImpl.insertMessage(sellChat);
+							ChatAlertVO sellAlert1=new ChatAlertVO(sellRoomId,sellId,1);
+							chatServiceImpl.addNoReadCount(sellAlert1);
 							sellChat.setSendMsg("마이페이지에서 확인해주세요");
 							chatServiceImpl.insertMessage(sellChat);
-							ChatAlertVO sellAlert=new ChatAlertVO(sellRoomId,sellId,2);
-							chatServiceImpl.addNoReadCount(sellAlert);
+							ChatAlertVO sellAlert2=new ChatAlertVO(sellRoomId,sellId,1);
+							chatServiceImpl.addNoReadCount(sellAlert2);
 							log.info(sellId+"에게 알림");
 						}
 						

@@ -137,12 +137,12 @@ public class AdminController {
 		//메일 전송
 		mailService.sendEmail(Email, addr, subject, body);
 		
-		adminServiceImpl.exchangeDelete(num);
+		adminServiceImpl.changeStatus(num);
 		
 		return "redirect:adminPage";
 	}
 	
-	//환불요청 삭제
+	//환불요청 취소
 	@GetMapping("/deleteExchange")
 	public String deleteExchange(@RequestParam int num) {
 		
@@ -152,9 +152,8 @@ public class AdminController {
 		//포인트 다시 되돌리기
 		adminServiceImpl.rechargePoint(vo);
 		
-		
-		//DB에서 환불요청 삭제
-		adminServiceImpl.exchangeDelete(num);
+		//DB에서 환불요청 취소
+		adminServiceImpl.cancelchangeStatus(num);
 				
 		return "redirect:adminPage";
 	}

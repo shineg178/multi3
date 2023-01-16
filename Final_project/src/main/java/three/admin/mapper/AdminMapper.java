@@ -38,6 +38,13 @@ public interface AdminMapper {
 	//환불요청 삭제하기
 	int exchangeDelete(int exchangeNum);
 	
+	//환불요청 취소하기
+	int cancelchangeStatus(int exchangeNum);
+		
+	
+	//환불요청 상태 처리
+	int changeStatus(int num);
+	
 	//결제 내역 가져오기
 	List<PaymentVO> payList();
 	

@@ -24,6 +24,6 @@ public class AuctionEndVO {
 	
 	private int endPrice;
 	
-	private int aucStatus;
+	private int aucStatus; //물품배송전(0) 거래완료&평가전(1) 물품배송완료&구매자만평가완료(2) 물품배송완료&판매자만평가완료(3) 둘다 완료(4) 입찰자가없을때(5)
 	
 }

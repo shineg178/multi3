@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.log4j.Log4j;
 import three.auction.model.AuctionEndVO;
+import three.auction.model.AuctionSurveyVO;
+import three.chat.model.ChatAlertVO;
+import three.chat.model.ChatRoomVO;
+import three.chat.model.ChatVO;
+import three.chat.service.ChatService;
 import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
-import three.donation.model.DonationVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
 import three.profile.service.ProfileService;
+import three.report.model.ReportVO;
 import three.security.SHA256.UserSHA256;
 import three.user.model.UserVO;
 
@@ -38,6 +44,9 @@ public class ProfileController {
 	
 	@Inject
 	private ProfileService profileServiceImpl;
+	
+	@Inject
+	private ChatService chatServiceImpl;
 	
 	@GetMapping("/users-profile")
 	public String userProfile(Model m, HttpSession ses) { 
@@ -66,6 +75,11 @@ public class ProfileController {
 		}
 		
 		List<AuctionEndVO> aucvo=profileServiceImpl.myAuction(userid);
+		
+		//평점 평균
+		double avrScore=this.profileServiceImpl.getAverage(userid);
+		m.addAttribute("average",avrScore);
+		log.info(avrScore);
 		
 		UserVO vo=profileServiceImpl.findUserByUserId(userid);
 		ses.setAttribute("user", vo);
@@ -117,11 +131,45 @@ public class ProfileController {
 		UserVO uvo=(UserVO)ses.getAttribute("user");
 		String myId=uvo.getUserId();
 		String buyId=aucvo.getBuyId();
-		
+		String sellId=aucvo.getSellId();
 		if(myId.equals(buyId)) {
 			
 			//거래완료로 상태 변경
 			int n=profileServiceImpl.aucEndupdateStatus(aucEndNum);
+			
+			//구매자 알림
+			ChatRoomVO buyChatRoom=new ChatRoomVO(0,"관리자",buyId);
+			int buyRoom=chatServiceImpl.createRoom(buyChatRoom);
+			int buyRoomId=chatServiceImpl.findChatRoomIdById(buyChatRoom);
+			ChatVO buyChat=new ChatVO(buyRoomId,"관리자",buyId," 물품 거래가 완료되었습니다",null,null);
+			chatServiceImpl.insertMessage(buyChat);
+			ChatAlertVO buyAlert=new ChatAlertVO(buyRoomId,buyId,1);
+			chatServiceImpl.addNoReadCount(buyAlert);
+			buyChat.setSendMsg("마이페이지에서 "+sellId+"님과의 거래에 대한 평가를 해주세요~");
+			chatServiceImpl.insertMessage(buyChat);
+			ChatAlertVO buyAlert2=new ChatAlertVO(buyRoomId,buyId,1);
+			chatServiceImpl.addNoReadCount(buyAlert2);
+			
+			//판매자 알림
+			ChatRoomVO sellChatRoom=new ChatRoomVO(0,"관리자",sellId);
+			int sellRoom=chatServiceImpl.createRoom(sellChatRoom);
+			int sellRoomId=chatServiceImpl.findChatRoomIdById(sellChatRoom);
+			ChatVO sellChat=new ChatVO(sellRoomId,"관리자",sellId,"물품 거래가 완료되었습니다",null,null);
+			chatServiceImpl.insertMessage(sellChat);
+			ChatAlertVO sellAlert=new ChatAlertVO(sellRoomId,sellId,1);
+			chatServiceImpl.addNoReadCount(sellAlert);
+			sellChat.setSendMsg(donateAmount+"포인트가 기부되었고,");
+			chatServiceImpl.insertMessage(sellChat);
+			ChatAlertVO sellAlert2=new ChatAlertVO(sellRoomId,sellId,1);
+			chatServiceImpl.addNoReadCount(sellAlert2);
+			sellChat.setSendMsg(restPoint+"포인트가 들어왔습니다.");
+			chatServiceImpl.insertMessage(sellChat);
+			ChatAlertVO sellAlert3=new ChatAlertVO(sellRoomId,sellId,1);
+			chatServiceImpl.addNoReadCount(sellAlert3);
+			sellChat.setSendMsg("마이페이지에서 "+buyId+"님과의 거래에 대한 평가를 해주세요~");
+			chatServiceImpl.insertMessage(sellChat);
+			ChatAlertVO sellAlert4=new ChatAlertVO(sellRoomId,sellId,1);
+			chatServiceImpl.addNoReadCount(sellAlert4);
 			log.info("상태변경 :"+n);
 		}
 		
@@ -169,7 +217,7 @@ public class ProfileController {
 			return null;
 		}
 		
-		ExchangeVO vo=new ExchangeVO(0,bankName,bankAccountNum,userName,userEmail,userid,exchangePoint,null);
+		ExchangeVO vo=new ExchangeVO(0,bankName,bankAccountNum,userName,userEmail,userid,exchangePoint,null,0);
 		int insertExchange=this.profileServiceImpl.addExchange(vo);
 		int minusPoint=this.profileServiceImpl.minusPointByExchange(vo);
 		
@@ -354,4 +402,60 @@ public class ProfileController {
 		ses.removeAttribute("user");
 		return map;
 	}
+	
+	//옥션 평가
+	@PostMapping("/users-profile/insertReview")
+	public String insertReview(HttpServletRequest request,Model m) {
+		String doUserId=request.getParameter("doUserId");
+		String takeUserId=request.getParameter("takeUserId");
+		String review=request.getParameter("review");
+		int aucEndNum=Integer.parseInt(request.getParameter("aucEndNum"));
+		int score=Integer.parseInt(request.getParameter("score"));
+		AuctionSurveyVO vo=new AuctionSurveyVO(aucEndNum,doUserId,takeUserId,score,review);
+		
+		AuctionEndVO endvo=this.profileServiceImpl.findAuctionEnd(aucEndNum);
+		
+		String buyId=endvo.getBuyId();
+		String sellId=endvo.getSellId();
+		
+		if(endvo.getAucStatus()==1) {
+			if(doUserId.equals(sellId)) {
+				int n=this.profileServiceImpl.insertSurvey(vo);
+				endvo.setAucStatus(3);
+				int a=this.profileServiceImpl.aucEndUpdate(endvo);
+			}else if(doUserId.equals(buyId)) {
+				int n=this.profileServiceImpl.insertSurvey(vo);
+				endvo.setAucStatus(2);
+				int a=this.profileServiceImpl.aucEndUpdate(endvo);
+			}
+		}else if(endvo.getAucStatus()==2) {
+			int n=this.profileServiceImpl.insertSurvey(vo);
+			endvo.setAucStatus(4);
+			int a=this.profileServiceImpl.aucEndUpdate(endvo);
+		}else if(endvo.getAucStatus()==3) {
+			int n=this.profileServiceImpl.insertSurvey(vo);
+			endvo.setAucStatus(4);
+			int a=this.profileServiceImpl.aucEndUpdate(endvo);
+		}
+		
+		m.addAttribute("survey",vo);
+		
+		return "redirect:/users-profile";
+	}
+	
+	//신고기능
+	@PostMapping("/users-profile/reportUser")
+	public String reportUser(HttpServletRequest request,Model m) {
+		int aucEndNum=Integer.parseInt(request.getParameter("aucEndNum"));
+		String userId=request.getParameter("userId"); //신고자
+		String reportedUserId=request.getParameter("reportedUserId"); //신고당하는사람
+		String reportContent=request.getParameter("reportedUserId");
+		
+		ReportVO rvo=new ReportVO(0,aucEndNum,userId,reportedUserId,reportContent,0);
+		
+		this.profileServiceImpl.insertReport(rvo);
+		
+		return "redirect:/users-profile";
+	}
+	
 }

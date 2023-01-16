@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j;
@@ -68,7 +67,17 @@ public class AdminServiceImpl implements AdminService {
 	public int exchangeDelete(int exchangeNum) {
 		return adminMapper.exchangeDelete(exchangeNum);
 	}
-
+	
+	@Override
+	public int changeStatus(int num) {
+		return adminMapper.changeStatus(num);
+	}
+	
+	@Override
+	public int cancelchangeStatus(int exchangeNum) {
+		return adminMapper.cancelchangeStatus(exchangeNum);
+	}
+	
 	@Override
 	public List<PaymentVO> payList() {
 		return adminMapper.payList();

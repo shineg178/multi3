@@ -21,8 +21,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff; margin-left:30px}
 .footBtwrap{margin-top: 15px;}
 .footBtwrap>li{float: left;width: 50%;height: 60px;}
 .footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 30px;}
-.fpmgBt1{background-color: #fff;color:#888}
-.fpmgBt2{background-color: gray;color: #fff}
+.fpmgBt1{background-color: #fff;color:#888;border: 1px solid #ddd}
+.fpmgBt2{background-color: gray;color: #fff;border: 1px solid #ddd}
 </style>
 <c:import url="/top" />
 </head>

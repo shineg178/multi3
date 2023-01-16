@@ -13,6 +13,9 @@
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
 <main id="main" class="main">
+
+		   
+		
 		<!-- 배너 전체 div 시작----------------->
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-bs-ride="carousel">
@@ -94,6 +97,9 @@
 		</div>
 	</section>
 <br>
+	
+	
+	
 	
 	<script>
 		var container = document.getElementById('map2');

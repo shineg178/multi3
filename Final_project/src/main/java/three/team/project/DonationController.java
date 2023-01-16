@@ -1,16 +1,26 @@
 package three.team.project;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
-import three.donation.model.DonationVO;
 import three.donation.service.DonationService;
 
 @Controller
@@ -37,19 +47,6 @@ public class DonationController {
 		return "donation/donation";
 	}
 
-	// 기부 페이지 내 기부자 순위 검색
-	@GetMapping(value = "/donationRankingSearch", produces = "application/json")
-	@ResponseBody
-	public int donationRankingId(@RequestParam String userId) {
-		log.info("userId: " + userId);
 
-		String user=donationService.donationRankingId(userId);
-		if(user==null) {
-			return 0;
-		}
-
-		return Integer.parseInt(user);
-
-	}
 
 }

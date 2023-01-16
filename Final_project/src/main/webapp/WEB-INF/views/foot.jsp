@@ -14,7 +14,21 @@
       <strong>전화</strong> 070-1234-5678 | <strong>고객문의</strong> dt@dtservice.com <br><br>
       <a href="${path}/rules">이용약관</a> | <a href="${path}/rules2">위치기반서비스 이용약관</a> | <strong><a href="${path}/privacy">개인정보처리방침</a></strong> 
     </div>
-
+ 
+ 	<div id="google_translate_element" class="hd_lang" style="float: right;position: relative;top: -4px;margin-left: 10px;">
+		<script>
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({
+					pageLanguage: 'ko',
+					includedLanguages: 'ko,zh-CN,zh-TW,ja,vi,th,tl,km,my,mn,ru,en,fr,ar',
+					//layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+					autoDisplay: false
+				}, 'google_translate_element');
+			}
+		</script>
+		<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	</div>
+ 
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -94,6 +94,7 @@
 	display: table-cell;
 	vertical-align: middle;
 	margin-bottom: 1rem;
+	position: relative;
 }
 
 .card-photo img {

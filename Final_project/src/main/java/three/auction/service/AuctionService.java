@@ -33,4 +33,6 @@ public interface AuctionService {
 	
 	int plusPointByAuction(AuctionVO vo);
 	
+	
+	
 }

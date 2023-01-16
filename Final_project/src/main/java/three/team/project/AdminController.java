@@ -3,6 +3,7 @@
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
 import three.admin.service.AdminService;
+import three.auction.model.AuctionEndVO;
+import three.chat.model.ChatRoomVO;
+import three.chat.service.ChatService;
 import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
@@ -24,6 +28,7 @@ import three.payment.model.PaymentVO;
 import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
 import three.product.service.ProductService;
+import three.report.model.ReportVO;
 import three.user.model.UserVO;
 
 //관리자 페이지 컨트롤러
@@ -38,8 +43,13 @@ public class AdminController {
 	@Inject
 	private ProductService productServiceImpl;
 	
+	@Inject
+	private ChatService chatServiceImpl;
+	
+	
 	@Autowired
 	private MailService mailService;
+	
 	
 	//관리자 페이지 이동
 	@GetMapping("/adminPage")
@@ -64,7 +74,10 @@ public class AdminController {
 		//기부 완료 내역 가져오기
 		List<DonateVO> donEndList=adminServiceImpl.endDonateList();
 		
+		//카테고리별 경매 수 가져오기
 		List<ProdCategoryVO> cateList=adminServiceImpl.categoryList();
+		
+		List<ReportVO> repoList=adminServiceImpl.repoList();
 		
 		m.addAttribute("donEnd",donEndList);
 		m.addAttribute("donate",donList);
@@ -73,6 +86,7 @@ public class AdminController {
 		m.addAttribute("main",donVO);
 		m.addAttribute("Org",orglist);
 		m.addAttribute("cateList",cateList);
+		m.addAttribute("repoList",repoList);
 
 		
 		return "admin/adminPage";
@@ -216,6 +230,7 @@ public class AdminController {
 		return list;
 	}
 	
+	//물품이름으로 물품 목록 가져오기
 	@PostMapping("/adminfindProd")
 	@ResponseBody
 	public List<ProductVO> adminFindProd(@RequestParam String prodName){
@@ -232,6 +247,7 @@ public class AdminController {
 		return "redirect:adminPage";
 	}
 	
+	//회원 변경
 	@GetMapping("/socialUser")
 	public String socialUser(@RequestParam int userNum) {
 		adminServiceImpl.socialUser(userNum);
@@ -239,6 +255,7 @@ public class AdminController {
 		return "redirect:adminPage";
 	}
 	
+	//관리자 기부완료 
 	@GetMapping("/donateEnd")
 	public String donateEnd(@RequestParam String orgName,@RequestParam int amount) {
 		DonateVO vo=new DonateVO();
@@ -253,6 +270,42 @@ public class AdminController {
 			adminServiceImpl.donateUpdate(vo);
 		}
 		
+		return "redirect:adminPage";
+	}
+	
+	//신고 완료 처리
+	@GetMapping("/reportComplete")
+	public String reportComplete(@RequestParam int num) {
+		adminServiceImpl.reportComplete(num);
+		
+		return "redirect:adminPage";
+	}
+	
+	//유저와 채팅
+	@GetMapping("/toUserChat")
+	public String toUserChat(@RequestParam String toId,HttpSession ses) {
+		
+		UserVO vo=(UserVO)ses.getAttribute("user");
+		String myId=vo.getUserId();
+		ChatRoomVO roomvo=new ChatRoomVO(0,myId,toId);
+		
+		chatServiceImpl.createRoom(roomvo);
+		
+		return "redirect:adminPage";
+	}
+	
+	//신고 경매 거래실패로 변경
+	@GetMapping("/cancelAuction")
+	public String cancelAuction(@RequestParam int aucNum) {
+		
+		//경매 종료 정보 가져오기
+		AuctionEndVO rvo=adminServiceImpl.findAuctionEnd(aucNum);
+		
+		//구매자에게 포인트 돌려주기
+		adminServiceImpl.addPointBuyer(rvo);
+		
+		adminServiceImpl.auctionStatusUpdate(aucNum);
+		log.info(rvo);
 		
 		return "redirect:adminPage";
 	}

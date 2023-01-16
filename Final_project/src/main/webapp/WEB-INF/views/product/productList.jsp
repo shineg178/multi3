@@ -102,6 +102,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+										<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img src="resources/Product_Image/${list.prodImage1}">
 										</c:if>
@@ -119,12 +124,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}"/>
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -139,15 +163,18 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+										<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img src="resources/Product_Image/${list.prodImage1}">
 										</c:if>
-										<c:if
-											test="${list.prodImage1 eq null and list.prodImage2 ne null}">
+										<c:if test="${list.prodImage1 eq null and list.prodImage2 ne null}">
 											<img src="resources/Product_Image/${list.prodImage2}">
 										</c:if>
-										<c:if
-											test="${list.prodImage1 eq null and list.prodImage2 eq null}">
+										<c:if test="${list.prodImage1 eq null and list.prodImage2 eq null}">
 											<img src="resources/assets/img/noImage.jpg">
 										</c:if>
 									</div>
@@ -156,12 +183,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -180,6 +226,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -199,12 +250,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -222,6 +292,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -241,12 +316,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -264,6 +358,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -283,12 +382,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -306,6 +424,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -325,12 +448,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -348,6 +490,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -367,12 +514,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -390,6 +556,11 @@
 								<a class="card-link" data-event-label=""
 									href="auction/auctionDetail?prodNum=${list.prodNum}">
 									<div class="card-photo">
+									<fmt:formatDate value="${list.getPIndate()}" pattern="MM-dd" var="dbDate"/>
+										<c:set var="aucTime" value="${list.auctionTime}"/>
+										<%int aucTime=(int)pageContext.getAttribute("aucTime"); %>
+										<c:set var="now" value="<%=new java.util.Date(new java.util.Date().getTime()-60*60*24*1000*aucTime)%>" />
+										<fmt:formatDate value="${now}" pattern="MM-dd" var="today"/>
 										<c:if test="${list.prodImage1 ne null}">
 											<img
 												src="${pageContext.request.contextPath}/resources/Product_Image/${list.prodImage1}">
@@ -409,12 +580,31 @@
 											<c:out value="${list.prodName}" />
 										</h2>
 										<div class="card-price" style="font-weight:bold">
+											<c:if test="${dbDate eq today}">
+												<div class="badge bg-danger">마감임박</div>
+											</c:if>
+											<br>
 											경매 시작가 :
 											<c:out value="${list.aucStartPrice}" />
 											원
 										</div>
 										<div class="card-region-name">
-											<c:out value="${list.sellerAddr2}" />
+											<c:out value="${list.sellerAddr2}" /><br>
+											<c:if test="${list.avgPoint ge 4.0}">
+												<div class="badge bg-success">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 4.0 and list.avgPoint ge 2.5}">
+												<div class="badge bg-warning text-dark">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
+											<c:if test="${list.avgPoint lt 2.5}">
+												<div class="badge bg-danger">
+													평점 : <c:out value="${list.avgPoint}"/>
+												</div>
+											</c:if>
 										</div>
 									</div>
 								</a>
@@ -529,7 +719,7 @@
 								});
 								
 								// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-								var iwContent = '<div style="width:150px;padding:5px; height:170px; text-align:center; font-size:0.5em; overflow: scroll;">';
+								var iwContent = '<div style="width:150px;padding:5px; height:200px; text-align:center; font-size:0.5em; overflow: scroll;">';
 									if(data.prodImage1==null && data.prodImage2==null){
 										iwContent += '<img width="80" height="80" src="resources/assets/img/noImage.jpg">';
 									}else if(data.prodImage1 != null){
@@ -538,6 +728,15 @@
 										iwContent += '<img width="80" height="80" src="${pageContext.request.contextPath}/resources/Product_Image/'+data.prodImage2+'">';
 									}
 									iwContent += '<br>'+data.prodName+'<br>';
+									iwContent += "<div class='";
+									if(data.avgPoint >=4.0){
+										iwContent+="badge bg-success";
+									}else if(data.avgPoint <4.0 && data.avgPoint >=2.5){
+										iwContent+="badge bg-warning text-black";
+									}else if(data.avgPoing<2.5){
+										iwContent+="badge bg-danger";
+									}
+									iwContent += "'>평점 : "+data.avgPoint+"</div><br>";
 									iwContent += "경매 시작가 : "+data.aucStartPrice+"<br> 상품 설명 : "+data.prodSpec+"<br>";
 									if(${user ne null}){
 										iwContent += "<a href='auction/auctionDetail?prodNum="+data.prodNum+"'>상세페이지</a>";

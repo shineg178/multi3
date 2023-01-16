@@ -21,6 +21,7 @@ import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.mail.service.MailService;
 import three.payment.model.PaymentVO;
+import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
 import three.product.service.ProductService;
 import three.user.model.UserVO;
@@ -63,12 +64,15 @@ public class AdminController {
 		//기부 완료 내역 가져오기
 		List<DonateVO> donEndList=adminServiceImpl.endDonateList();
 		
+		List<ProdCategoryVO> cateList=adminServiceImpl.categoryList();
+		
 		m.addAttribute("donEnd",donEndList);
 		m.addAttribute("donate",donList);
 		m.addAttribute("pay",payList);
 		m.addAttribute("exchange",exList);
 		m.addAttribute("main",donVO);
 		m.addAttribute("Org",orglist);
+		m.addAttribute("cateList",cateList);
 
 		
 		return "admin/adminPage";
@@ -137,7 +141,7 @@ public class AdminController {
 		//메일 전송
 		mailService.sendEmail(Email, addr, subject, body);
 		
-		adminServiceImpl.exchangeDelete(num);
+		adminServiceImpl.exchangeComplete(num);
 		
 		return "redirect:adminPage";
 	}

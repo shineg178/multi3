@@ -26,15 +26,9 @@
 	}
 </script>
 <style>
-/* 	table tr td:nth-child(3n+1){ */
-/* 		width:70%; */
-/* 	} */
-/* 	table tr td:nth-child(3n+2){ */
-/* 		width:10%; */
-/* 	} */
-/* 	table tr td:nth-child(3n+3){ */
-/* 		width:20%; */
-/* 	} */
+#nImg{
+	width:70%;
+}
 </style>
 <c:import url="/top"/>
 <main id="main" class="main">
@@ -70,7 +64,7 @@
 				<td colspan="3">
 				<!-- 업로드파일이 있을 경우 -->
 				<c:if test="${notice.getNImage() ne null}">
-					<img  class="table-tr2-img" alt="" src="${pageContext.request.contextPath}/resources/Notice_Image/${notice.getNImage()}">
+					<img id="nImg" alt="" src="${pageContext.request.contextPath}/resources/Notice_Image/${notice.getNImage()}">
 				</c:if>
 				
 					<br>

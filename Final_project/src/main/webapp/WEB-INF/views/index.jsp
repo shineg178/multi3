@@ -12,7 +12,94 @@
 <c:import url="/top" />
 <link href="resources/assets/css/index.css" rel="stylesheet">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<style>
+	#wrap{
+		width:27%;
+		height:350px;
+		margin:40px 25px;
+		border-radius: 15px;
+		background-color:white;
+		text-align:center;
+	}
+	#t1{
+		font-weight: bold;
+	}
+	
+	#t1,#t2{
+		margin:20px 25px;
+		text-align:left;
+	}
+	#wr{
+		display:flex;
+		margin:auto;
+		justify-content:center;
+	}
+	#title{
+		width:100%;
+		margin:45px 45px 0px 50px;
+		font-weight:bold;
+		font-size:2.0rem;
+	}
+	
+	#sec{
+		height:450px;
+		margin:15px;
+
+	}
+</style>
+
 <main id="main" class="main">
+
+
+	<section class="home-main-section-top">
+		<div class="home-main-top">
+			<div class="home-main-desc">
+				<h1 class="home-main-title" style="font-family: 'Jua', sans-serif;">
+					기부앤테이크 <br> 위치기반 중고거래
+				</h1>
+				<p class="text-m" >
+					중고거래로 경매에서 기부까지, <br> 기부앤테이크에서 지금 당장 시작해보세요!
+				</p>
+			</div>
+			<div class="home-main-image-top">
+				<span> <img class="home-main-image-top"
+					src="resources/assets/img/donation.png">
+				</span>
+			</div>
+		</div>
+	</section>
+	<section id="sec">
+		<h3 id="title">구매 or 판매에서 기부까지 되는 과정은?</h3>
+		
+		<div id="wr">
+			<div id="wrap">
+					<br><br>
+					<img  src="resources/assets/img/1.jpg" style="width:120px">
+					<br><br>
+					<h2 id="t1">위치</h2>
+					<div id="t2">위치기반 서비스로<br>구매하고 싶은 물건을 찾을 수 있습니다.</div>
+			</div>
+			<div id="wrap">
+					<br><br>
+					<img  src="resources/assets/img/3.jpg" style="width:120px">
+					<br><br>
+					<h2 id="t1">경매</h2>
+					<div id="t2">실시간 경매를 통해<br>원하는 가격에 구매할 수 있습니다.</div>
+			</div>
+			<div id="wrap">
+					<br><br>
+					<img  src="resources/assets/img/2.jpg" style="width:120px">
+					<br><br>
+					<h2 id="t1">기부</h2>
+					<div id="t2">안쓰는 물건을 팔아<br>일정 비율의 금액을 기부할 수 있습니다.</div>
+			</div>
+		</div>
+	</section>
+<br>
+
 		<!-- 배너 전체 div 시작----------------->
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-bs-ride="carousel">
@@ -75,171 +162,7 @@
 	</div>
 	<!-- 배너 전체 div 끝----------------->
 	<br>
-
-<section class="home-main-section-top">
-		<div class="home-main-top">
-			<div class="home-main-desc">
-				<h1 class="home-main-title">
-					기부앤테이크 <br> 위치기반 중고거래
-				</h1>
-				<p class="text-m">
-					중고거래로 경매에서 기부까지, <br> 기부앤테이크에서 지금 당장 시작해보세요!
-				</p>
-			</div>
-			<div class="home-main-image-top">
-				<span> <img class="home-main-image-top"
-					src="resources/assets/img/donation.png">
-				</span>
-			</div>
-		</div>
-	</section>
-<br>
 	
-	<script>
-		var container = document.getElementById('map2');
-		var options = {
-			center : new kakao.maps.LatLng(37.5666805, 126.9784147),
-			level : 8
-		};
-
-		var map = new kakao.maps.Map(container, options);
-		
-		
-		if(${user eq null} && ${user.userAddr2 eq null}){
-			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-			if (navigator.geolocation) {
-			    
-			    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-			    navigator.geolocation.getCurrentPosition(function(position) {
-			        
-			        var lat = position.coords.latitude, // 위도
-			            lon = position.coords.longitude; // 경도
-			        
-			        var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-			        
-			     // 지도 중심좌표를 접속위치로 변경합니다
-				    map.setCenter(locPosition);
-			            
-			      });
-			    
-			} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-			    
-			    var locPosition = new kakao.maps.LatLng(37.5666805, 126.9784147);   
-			        
-			       // 지도 중심좌표를 접속위치로 변경합니다
-					map.setCenter(locPosition);
-			}
-		}
-
-		  
-
-		// 주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		
-		//회원정보중 주소가 있다면
-		if(${user ne null} && ${user.userAddr2 ne null}){
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('${user.getUserAddr2()}', function(result, status) {
-				// 정상적으로 검색이 완료됐으면 
-				if (status === kakao.maps.services.Status.OK) {
-					
-					var imageSrc = 'resources/assets/img/myLoc.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(40, 40), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(20,40)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-				    
-				    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-				    
-					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-					
-					
-					
-					// 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords,
-			            image:markerImage
-			        });
-			        
-			        //지도 중심 이동
-					map.setCenter(coords);
-				}
-			});		
-		}
-		
-		$(function(){
-			$.ajax({
-				url:'allProduct',
-				type:'get',
-				dataType:'json',
-				async:false,
-				cache:false,
-				success:function(res){
-					$.each(res,function(i,data){
-						//주소 -> 좌표 변환
-						geocoder.addressSearch(data.sellerAddr2, function(result, status) {
-							// 정상적으로 검색이 완료됐으면 
-							if (status === kakao.maps.services.Status.OK) {
-
-								// 마커 이미지의 이미지 주소입니다
-								var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-									    
-								// 마커 이미지의 이미지 크기 입니다
-								var imageSize = new kakao.maps.Size(24, 35); 
-									    
-								// 마커 이미지를 생성합니다    
-								var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-									    
-								// 마커를 생성합니다
-								var marker = new kakao.maps.Marker({
-								        map: map, // 마커를 표시할 지도
-								        position:new kakao.maps.LatLng(result[0].y, result[0].x),// 마커를 표시할 위치
-								        title : data.prodName, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-								        image : markerImage // 마커 이미지 
-								});
-								
-								// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-								var iwContent = '<div style="width:150px;padding:5px; height:170px; text-align:center; font-size:0.5em; overflow: scroll;">';
-									if(data.prodImage1==null && data.prodImage2==null){
-										iwContent += '<img width="80" height="80" src="resources/assets/img/noImage.jpg">';
-									}else if(data.prodImage1 != null){
-										iwContent += '<img width="80" height="80" src="${pageContext.request.contextPath}/resources/Product_Image/'+data.prodImage1+'">';
-									}else if(data.prodImage1==null && data.prodImage2 !=null ){
-										iwContent += '<img width="80" height="80" src="${pageContext.request.contextPath}/resources/Product_Image/'+data.prodImage2+'">';
-									}
-									iwContent += '<br>'+data.prodName+'<br>';
-									iwContent += "경매 시작가 : "+data.aucStartPrice+"<br> 상품 설명 : "+data.prodSpec+"<br>";
-									if(${user ne null}){
-										iwContent += "<a href='auction/auctionDetail?prodNum="+data.prodNum+"'>상세페이지</a>";
-									}
-									iwContent += "</div>", // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-								    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-								// 인포윈도우를 생성합니다
-								var infowindow = new kakao.maps.InfoWindow({
-								    content : iwContent,
-								    removable : iwRemoveable
-								});
-
-								// 마커에 클릭이벤트를 등록합니다
-								kakao.maps.event.addListener(marker, 'click', function() {
-								      // 마커 위에 인포윈도우를 표시합니다
-								      infowindow.open(map, marker);  
-								});
-
-							}
-
-						});			
-					});
-					
-					
-				
-				},
-				error:function(err){
-					alert('error : '+err.status);
-				}
-			})
-		})
-	</script>
 </main>
 
 

@@ -6,6 +6,7 @@ import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
@@ -88,4 +89,10 @@ public interface AdminMapper {
 	
 	//기부 완료된 내역 가져오기
 	List<DonateVO> endDonateList();
+	
+	//물품 카테고리별 경매 수 가져오기
+	List<ProdCategoryVO> categoryList();
+	
+	//환불 완료 상태 변경
+	int exchangeComplete(int num);
 }

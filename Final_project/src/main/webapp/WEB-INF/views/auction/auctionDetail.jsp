@@ -101,7 +101,6 @@ function connect(){
 	// 데이터를 전달 받았을때 
 	//sock.onmessage = onMessage;
 	//sock.onclose = onClose;
-	sock.onopen = function() {
 		console.log('info: connection opened.');
 		let str = '<div id="aucPrice" style="text-decoration: underline solid skyblue">';
 		str += "<strong>";
@@ -109,7 +108,9 @@ function connect(){
 		str += "</strong>";
 		str += '</div>';
 		$('#tableAuc').html(str);
-	};
+	/* sock.onopen = function() {
+		alert('시작');
+	}; */
 }//connect---
 
 function bid(){

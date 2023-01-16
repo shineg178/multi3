@@ -52,8 +52,6 @@
 </style>
 
 <main id="main" class="main">
-
-
 	<section class="home-main-section-top">
 		<div class="home-main-top">
 			<div class="home-main-desc">
@@ -99,7 +97,6 @@
 		</div>
 	</section>
 <br>
-
 		<!-- 배너 전체 div 시작----------------->
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-bs-ride="carousel">
@@ -162,7 +159,6 @@
 	</div>
 	<!-- 배너 전체 div 끝----------------->
 	<br>
-	
 </main>
 
 

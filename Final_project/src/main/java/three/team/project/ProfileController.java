@@ -449,7 +449,7 @@ public class ProfileController {
 		int aucEndNum=Integer.parseInt(request.getParameter("aucEndNum"));
 		String userId=request.getParameter("userId"); //신고자
 		String reportedUserId=request.getParameter("reportedUserId"); //신고당하는사람
-		String reportContent=request.getParameter("reportedUserId");
+		String reportContent=request.getParameter("reportContent");
 		
 		ReportVO rvo=new ReportVO(0,aucEndNum,userId,reportedUserId,reportContent,0);
 		

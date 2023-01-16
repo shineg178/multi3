@@ -82,6 +82,7 @@ public class AuctionController extends Thread{
 		
 		//물품현재가 정보 가져오기
 		AuctionVO avo=this.auctionServiceImpl.selectMaxAuctionByProdNum(prodNum);
+		log.info(avo.getAucPrice());
 		m.addAttribute("auction",avo);
 		
 		//종료시간 구하기

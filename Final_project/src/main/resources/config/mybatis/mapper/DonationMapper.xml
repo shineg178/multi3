@@ -12,7 +12,7 @@
 	
 	<!-- 거래 완료된 경매의 건수 -->
 	<select id="totalDonateCount" resultType="Integer">
-		select count(auctionEndNum) from auction_end where AucStatus = 1
+		select count(auctionEndNum) from auction_end where AucStatus = 1 or AucStatus = 2 or AucStatus = 3 or AucStatus = 4
 	</select>
 	
 	<!-- 포인트로 기부한 전체 금액 -->

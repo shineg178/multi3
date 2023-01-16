@@ -169,9 +169,4 @@ public class AdminServiceImpl implements AdminService {
 		return adminMapper.categoryList();
 	}
 
-	@Override
-	public int exchangeComplete(int num) {
-		return adminMapper.exchangeComplete(num);
-	}
-
 }

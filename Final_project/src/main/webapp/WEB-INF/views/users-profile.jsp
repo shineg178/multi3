@@ -1,3 +1,4 @@
+<%@page import="three.profile.service.ProfileService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -88,38 +89,38 @@
                 <p class="card-title" style="margin-left:100px;">Profile Details</p>
 
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label "><h4>Name</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userName }</div>
+                  <div class="col-lg-3 col-md-4 label "><h5>Name</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>${user.userName }</strong></div>
                 </div>
 
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>닉네임</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userNick }</div>
+                  <div class="col-lg-3 col-md-4 label"><h5>닉네임</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>${user.userNick }</strong></div>
                 </div>
 				
 				<div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>Point</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userPoint } 포인트</div>
+                  <div class="col-lg-3 col-md-4 label"><h5>Point</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>${user.userPoint } 포인트</strong></div>
                 </div>
                 
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>평점</h4></div>
-                  <div class="col-lg-9 col-md-8">${average}/5점</div>
+                  <div class="col-lg-3 col-md-4 label"><h5>평점</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>${average}/5점</strong></div>
                 </div>
 				
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>E-Mail</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userEmail }</div>
+                  <div class="col-lg-3 col-md-4 label"><h5>E-Mail</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>${user.userEmail }</strong></div>
                 </div>
 
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>Phone</h4></div>
-                  <div class="col-lg-9 col-md-8">${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</div>
+                  <div class="col-lg-3 col-md-4 label"><h5>Phone</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</strong></div>
                 </div>
 				
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h4>Address</h4></div>
-                  <div class="col-lg-9 col-md-8">[${user.userAddr1}] ${user.userAddr2 } / ${user.userAddr3 }</div>
+                  <div class="col-lg-3 col-md-4 label"><h5>Address</h5></div>
+                  <div class="col-lg-9 col-md-8"><strong>[${user.userAddr1}] ${user.userAddr2 } / ${user.userAddr3 }</strong></div>
                 </div>
                 
               </div>
@@ -127,8 +128,6 @@
               
               <!-- badge  Form -->
               <div class="tab-pane fade badge" id="badge">
-
-                <form>
                   <div class="mx-auto">
                     <img src="${path}/resources/assets/img//gold.jpg" class="rounded" alt="Gold">
                      <input type="text" class="gold text-center" style="border:none;font-size:xx-large;max-width:5rem" 
@@ -144,8 +143,6 @@
                    	<input type="text" class="bronze text-center" style="border:none;font-size:xx-large;max-width:5rem" 
                    	value="${user.userBronzeBadge } 개" readonly>
                   </div>
-                </form>
-
               </div>
               <!-- end badge  Form  -->
 
@@ -668,6 +665,7 @@ function donateList(){
 			str += '<th>회원 ID</th>';
 			str += '<th>기부 단체</th>';
 			str += '<th>기부 금액</th>';
+			str += '<th>기부 형태</th>';
 			str += '<th>날짜</th>';
 			str += '</tr>';
 			str += '</thead>';
@@ -678,7 +676,12 @@ function donateList(){
 				str += '<tr>'; 
 				str += '<td>'+rvo.userId_fk+'</td>'; 
 				str += '<td>'+rvo.donOrgName+'</td>'; 
-				str += '<td>'+rvo.donAmount+'포인트</td>'; 
+				str += '<td>'+rvo.donAmount+'포인트</td>';
+				if(rvo.donationType == "1"){
+					str += '<td>경매</td>'; 
+				}else if(rvo.donationType == "2"){
+					str += '<td>포인트</td>'; 
+				}
 				str += '<td>'+date+'</td>'; 
 				str += '</tr>'; 
 			})
@@ -754,7 +757,7 @@ function donateList(){
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 3}">
                     	<td>
-                    		<a class="badge bg-success" style="width:100%">거래완료</a>
+                    		<a class="badge bg-success" style="width:100%" >거래완료</a>
                     		<c:if test="${data.buyId eq user.userId}">
                     			<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
                     		</c:if>
@@ -815,25 +818,25 @@ function donateList(){
                             <h5 class="modal-title">거래 평가</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-	                          <div id="heartRating${data.auctionEndNum}" class="modal-body text-center">
+	                          <div id="heartRating${data.auctionEndNum}" class="heartScore modal-body text-center">
                           	  	<h4>거래가 어떠셨습니까?</h4>
-                          	  	<h6>아래 점수와 간단한 평가를 남겨주세요~</h6>    
+                          	  	<h6>아래 하트와 간단한 평가를 남겨주세요~</h6>    
                           	  	<form class="mb-3" action="${path }/users-profile/insertReview" name="myform${data.auctionEndNum}" id="myform${data.auctionEndNum}" method="post">
 									<fieldset>
 										<input type="radio" name="score" value="5" id="rate5${data.auctionEndNum}"><label
-											for="rate5${data.auctionEndNum}">5</label>
+											for="rate5${data.auctionEndNum}">♥</label>
 										<input type="radio" name="score" value="4" id="rate4${data.auctionEndNum}"><label
-											for="rate4${data.auctionEndNum}">4</label>
+											for="rate4${data.auctionEndNum}">♥</label>
 										<input type="radio" name="score" value="3" id="rate3${data.auctionEndNum}"><label
-											for="rate3${data.auctionEndNum}">3</label>
+											for="rate3${data.auctionEndNum}">♥</label>
 										<input type="radio" name="score" value="2" id="rate2${data.auctionEndNum}"><label
-											for="rate2${data.auctionEndNum}">2</label>
+											for="rate2${data.auctionEndNum}">♥</label>
 										<input type="radio" name="score" value="1" id="rate1${data.auctionEndNum}"><label
-											for="rate1${data.auctionEndNum}">1</label>
+											for="rate1${data.auctionEndNum}">♥</label>
 									</fieldset>
 									<div>
 										<textarea class="reviewContents col-auto form-control" name="review" id="reviewContents${data.auctionEndNum}"
-												  placeholder="거래한 상대방에 대한 평가를 남겨주세요"
+												  placeholder="거래한 상대방에 대한 평가를 남겨주세요" required
 												  style="width: 100%;height: 150px;padding: 10px;box-sizing: border-box;
 												  border: solid 1.5px #D3D3D3;border-radius: 5px;font-size: 16px;resize: none;"></textarea>
 									</div>
@@ -896,8 +899,8 @@ function donateList(){
                       </div>
                     </div><!-- End Vertically centered Modal-->
                     
-                 </c:forEach>
                     
+                 </c:forEach>
    
                 </tbody>
               </table>

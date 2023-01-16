@@ -3,8 +3,6 @@ package three.team.project;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.log4j.Log4j;
-import three.auction.model.AuctionEndVO;
 import three.auction.model.AuctionVO;
 import three.auction.service.AuctionService;
 import three.chat.model.ChatAlertVO;
@@ -26,6 +23,7 @@ import three.chat.model.ChatRoomVO;
 import three.chat.model.ChatVO;
 import three.chat.service.ChatService;
 import three.product.model.ProductVO;
+import three.profile.service.ProfileService;
 import three.user.model.UserVO;
 
 @Controller
@@ -37,6 +35,9 @@ public class AuctionController extends Thread{
 	
 	@Inject 
 	private ChatService chatServiceImpl;
+	
+	@Inject
+	private ProfileService profileServiceImpl;
 
 	//경매 상세페이지의 물건정보 가져오기
 
@@ -74,7 +75,9 @@ public class AuctionController extends Thread{
 		//판매자 정보 가져오기
 		String sellerId=prod.getUserId();
 		UserVO user=this.auctionServiceImpl.findUserByUserId(sellerId);
+		double avrScore=this.profileServiceImpl.getAverage(sellerId);
 		ses.setAttribute("seller", user);
+		m.addAttribute("average",avrScore);
 		m.addAttribute("seller",user);
 		
 		//물품현재가 정보 가져오기

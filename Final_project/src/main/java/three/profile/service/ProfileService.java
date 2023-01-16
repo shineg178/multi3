@@ -3,11 +3,13 @@ package three.profile.service;
 import java.util.List;
 
 import three.auction.model.AuctionEndVO;
+import three.auction.model.AuctionSurveyVO;
 import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
+import three.report.model.ReportVO;
 import three.user.model.UserVO;
 
 public interface ProfileService {
@@ -66,4 +68,15 @@ public interface ProfileService {
 	//유저찾기-유저아이디
 	UserVO findUserByUserId(String userId);
 	
+	//경매 평가
+	int insertSurvey(AuctionSurveyVO vo);
+	
+	//경매마감상태변화
+	int aucEndUpdate(AuctionEndVO vo);
+	
+	//신고추가
+	int insertReport(ReportVO rvo);
+	
+	//경매평가점수평균
+	double getAverage(String userId);
 }

@@ -19,4 +19,5 @@ public class ExchangeVO {
 	private String userId;
 	private int exchangePoint;
 	private Date exchangeTime;
+	private int exchangeStatus;
 }

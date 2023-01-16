@@ -63,8 +63,12 @@ public interface AdminService {
 	//환불 번호로 환불 정보 가져오기
 	ExchangeVO findExchange(int num);
 	
-	//환불 완료 상태 변경
-	int exchangeComplete(int num);
+
+	//환불 요청 상태 처리
+	int changeStatus(int num);
+	
+	//환불요청 취소하기
+	int cancelchangeStatus(int exchangeNum);
 	
 	//환불 취소로 다시 포인트 충전
 	int rechargePoint(ExchangeVO vo);

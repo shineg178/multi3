@@ -103,8 +103,10 @@ function connect(){
 	//sock.onclose = onClose;
 	sock.onopen = function() {
 		console.log('info: connection opened.');
-		let str = '<div id="aucPrice">';
+		let str = '<div id="aucPrice" style="text-decoration: underline solid skyblue">';
+		str += "<strong>";
 		str += "${auction.aucPrice}원";
+		str += "</strong>";
 		str += '</div>';
 		$('#tableAuc').html(str);
 	};
@@ -163,8 +165,10 @@ sock.onmessage=function(evt){
 	if (evt==null) {
 		var aucPrice = "${auction.aucPrice}";
 	}
-	let str = '<div id="aucPrice">';
+	let str = '<div id="aucPrice" style="text-decoration: underline blue">';
+	str += "<strong>";
 	str += aucPrice+"원";
+	str += "</strong>";
 	str += '</div>';
 	$('#tableAuc').html(str);
 	
@@ -245,8 +249,7 @@ sock.onmessage=function(evt){
 				<div class="rightDiv">
 
 					<h3 class="fw-bolder">${prod.prodName }</h3>
-					<br>
-					<div class="large">${seller.userNick}  |  ( ${seller.userId} )</div>
+					<div class="large"><a class="badge border-primary border-2 text-secondary" style="width:50%">${seller.userNick} [ID : ${seller.userId}]  |   ${average} / 5 점</a></div>
 					<br>
 					<div class="fs-5">
 						<table class="rightTable">

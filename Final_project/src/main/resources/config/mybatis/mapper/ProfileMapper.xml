@@ -20,7 +20,7 @@
 		<selectKey keyProperty="exchangeNum" resultType="int" order="BEFORE">
 			select exchange_seq.nextval from dual
 		</selectKey>
-		insert into exchange values(#{exchangeNum},#{bankName},#{bankAccountNum},#{userName},#{userEmail},#{userId},#{exchangePoint},sysdate)
+		insert into exchange values(#{exchangeNum},#{bankName},#{bankAccountNum},#{userName},#{userEmail},#{userId},#{exchangePoint},sysdate,#{exchangeStatus})
 	</insert>
 	
 	<update id="minusPointByExchange" parameterType="Exchange">
@@ -121,6 +121,21 @@
 	<select id="findUserByUserId" parameterType="string" resultType="User">
 		select * from project_user where userId=#{userId}
 	</select>
-
+	
+	<insert id="insertSurvey" parameterType="AuctionSurvey">
+		insert into Auction_Survey values(#{aucEndNum},#{doUserId},#{takeUserId},#{score},#{review})
+	</insert>
+	
+	<update id="aucEndUpdate" parameterType="AuctionEnd">
+		update Auction_end set aucStatus=#{aucStatus} where auctionEndNum=#{auctionEndNum}
+	</update>
+	
+	<insert id="insertReport" parameterType="Report">
+		insert into report values(report_seq.nextval,#{aucEndNum},#{userId},#{reportedUserId},#{reportContent},#{reportStatus})
+	</insert>
+	
+	<select id="getAverage" parameterType="string" resultType="_double">
+	  	select NVL(average,0) from (select Round(avg(score),2) average from Auction_survey where takeUserId = #{value})
+	</select>
 	
 </mapper>

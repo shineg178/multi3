@@ -32,16 +32,22 @@
 	</update>
 	
 	<select id="exchangeList" resultType="Exchange">
-		select * from exchange where exchangeSatus=0 order by exchangeTime asc
+
+		select * from exchange where exchangeStatus=0 order by exchangeTime asc
 	</select>
 	
-	<update id="exchangeComplete" parameterType="int">
+	<update id="changeStatus" parameterType="int">
 		update exchange set exchangeStatus=1 where exchangeNum=#{value}
 	</update>
 	
-	<update id="exchangeDelete" parameterType="int">
+	<update id="cancelchangeStatus" parameterType="int">
 		update exchange set exchangeStatus=2 where exchangeNum=#{value}
 	</update>
+	
+	<delete id="exchangeDelete" parameterType="int">
+		delete from exchange where exchangenum=#{value}	
+	</delete>
+
 	
 	<select id="payList" resultType="Payment">
 		select * from payment order by payTime

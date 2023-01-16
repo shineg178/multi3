@@ -1,18 +1,19 @@
 package three.profile.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import three.auction.model.AuctionEndVO;
+import three.auction.model.AuctionSurveyVO;
 import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProductVO;
 import three.profile.mapper.ProfileMapper;
+import three.report.model.ReportVO;
 import three.user.mapper.UserMapper;
 import three.user.model.UserVO;
 
@@ -153,5 +154,27 @@ public class ProfileServiceImpl implements ProfileService {
 		return this.userMapper.findUserByUserId(userId);
 
 	}
-
+	
+	//경매 평가 등록
+	@Override
+	public int insertSurvey(AuctionSurveyVO vo) {
+		return this.profileMapper.insertSurvey(vo);
+	}
+	
+	//경매마감 상태변화
+	@Override
+	public int aucEndUpdate(AuctionEndVO vo) {
+		return this.profileMapper.aucEndUpdate(vo);
+	}
+	
+	//신고추가
+	public int insertReport(ReportVO rvo) {
+		return this.profileMapper.insertReport(rvo);
+	}
+	
+	//경매평가점수평균
+	public double getAverage(String userId) {
+		return this.profileMapper.getAverage(userId);
+	}
+	
 }

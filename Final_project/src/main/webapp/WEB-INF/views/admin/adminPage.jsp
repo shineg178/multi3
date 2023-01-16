@@ -107,6 +107,36 @@
 	width: 10%;
 }
 
+#reTable tr th {
+	text-align: center;
+}
+
+#reTable tr td:nth-child(5n+1) {
+	width: 10%;
+}
+
+#reTable tr td:nth-child(5n+2) {
+	width: 15%;
+	over-flow: hidden;
+}
+
+#reTable tr td:nth-child(5n+3) {
+	width: 15%;
+	over-flow: hidden;
+}
+
+#reTable tr td:nth-child(5n+4) {
+	width: 40%;
+	over-flow: hidden;
+}
+
+#reTable tr td:nth-child(5n+5) {
+	width: 20%;
+}
+
+
+
+
 </style>
 <script>
 	function dondelete(data){
@@ -579,7 +609,26 @@
 				<!-- 신고내역 -->
 				<div class="tab-pane fade" id="report" role="tabpanel"
 					aria-labelledby="report-tab">
-	
+					<table class="table" id="reTable">
+						<tr>
+							<th>번호</th>
+							<th>신고자</th>
+							<th>피신고자</th>
+							<th>신고 내용</th>
+							<th></th>
+						</tr>
+						<c:forEach items="${repoList}" var="data">
+							<tr>
+								<td><c:out value="${data.reportNum}" /></td>
+								<td><c:out value="${data.userId}" /> <a href="toUserChat?toId=${data.userId}" class="btn btn-primary">채팅</a></td>
+								<td><c:out value="${data.reportedUserId}" /> <a href="toUserChat?toId=${data.reportedUserId}" class="btn btn-primary">채팅</a></td>
+								<td><c:out value="${data.reportContent}"/></td>
+								<td><a class="btn btn-danger" href="cancelAuction?aucNum=${data.aucEndNum}">거래취소</a> <a class="btn btn-success"
+									href="reportComplete?num=${data.reportNum}">처리 완료</a> 
+									</td>
+							</tr>
+						</c:forEach>
+					</table>
 				</div>
 
 			</div>

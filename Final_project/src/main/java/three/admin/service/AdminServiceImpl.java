@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.log4j.Log4j;
 import three.admin.mapper.AdminMapper;
+import three.auction.model.AuctionEndVO;
 import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
 import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
+import three.report.model.ReportVO;
 import three.user.model.UserVO;
 
 @Log4j
@@ -170,8 +172,29 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int exchangeComplete(int num) {
-		return adminMapper.exchangeComplete(num);
+	public List<ReportVO> repoList() {
+		return adminMapper.repoList();
 	}
+
+	@Override
+	public int reportComplete(int num) {
+		return adminMapper.reportComplete(num);
+	}
+
+	@Override
+	public AuctionEndVO findAuctionEnd(int aucNum) {
+		return adminMapper.findAuctionEnd(aucNum);
+	}
+
+	@Override
+	public int addPointBuyer(AuctionEndVO vo) {
+		return adminMapper.addPointBuyer(vo);
+	}
+
+	@Override
+	public int auctionStatusUpdate(int aucNum) {
+		return adminMapper.auctionStatusUpdate(aucNum);
+	}
+
 
 }

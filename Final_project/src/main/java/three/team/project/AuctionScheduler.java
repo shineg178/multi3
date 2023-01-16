@@ -32,7 +32,9 @@ public class AuctionScheduler {
 	
 	@Scheduled(cron = "0/1 * * * * *")
 	public void auctionEnd() {
+
 		//log.info("마감한 경매 검사 중");
+
 		List<ProductVO> pList=auctionServiceImpl.findProductbiding();
 		Date nowTime=new Date();
 		int endProdNum=0;

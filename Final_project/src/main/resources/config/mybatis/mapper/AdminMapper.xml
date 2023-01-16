@@ -32,6 +32,7 @@
 	</update>
 	
 	<select id="exchangeList" resultType="Exchange">
+
 		select * from exchange where exchangeStatus=0 order by exchangeTime asc
 	</select>
 	
@@ -46,6 +47,7 @@
 	<delete id="exchangeDelete" parameterType="int">
 		delete from exchange where exchangenum=#{value}	
 	</delete>
+
 	
 	<select id="payList" resultType="Payment">
 		select * from payment order by payTime
@@ -117,6 +119,16 @@
 	
 	<select id="endDonateList" resultType="Donate">
 		select donName donOrgName,totalAmount donAmount from EndDonation 
+	</select>
+	
+	<select id="categoryList" resultType="ProdCategory">
+		select NVL(count,0) count,categorynum from
+	(select count,categorynum from
+	(select count(prodCategoryNum_fk) count,prodCategoryNum_fk from
+	(select a.*,d.* from auction_end a 
+	full outer join product d on a.prodNum_fk=d.prodNum 
+	where auctionEndNum is not null) group by prodCategoryNum_fk order by prodCategoryNum_fk) t
+	full outer join prodCategory p on t.prodCateGoryNum_fk= p.categorynum)
 	</select>
 	
 	

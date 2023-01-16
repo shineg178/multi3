@@ -6,6 +6,7 @@ import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
@@ -62,6 +63,7 @@ public interface AdminService {
 	//환불 번호로 환불 정보 가져오기
 	ExchangeVO findExchange(int num);
 	
+
 	//환불 요청 상태 처리
 	int changeStatus(int num);
 	
@@ -94,4 +96,7 @@ public interface AdminService {
 	
 	//기부 완료된 내역 가져오기
 	List<DonateVO> endDonateList();
+	
+	//물품 카테고리별 경매 수 가져오기
+	List<ProdCategoryVO> categoryList();
 }

@@ -180,20 +180,20 @@ $(function(){
   
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center" >
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="${path}" class="logo d-flex align-items-center">
-        <img src="${path}/resources/assets/img//logo.png" alt="">
+        <img src="${path}/resources/assets/img//logo.png" alt="" style="max-height:40px;border-radius:20px;">
 
-        <span class="d-none d-lg-block" style="font-size:50px;font-family:'Dongle', sans-serif;">기부앤테이크</span>
+        <span class="d-none d-lg-block" style="font-size:50px;font-family:'Dongle', sans-serif; color:black; margin-left:8px;">기부앤테이크</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn" style=" margin-left:20px"></i>
     </div><!-- End Logo -->
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="get" action="${path}/productList">
-        <input type="text" name="searchName" id="searchName" placeholder="Search" title="Enter search keyword">
+        <input type="text" name="searchName" style="border-radius:18px" id="searchName" placeholder="&nbsp;&nbsp;Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
@@ -203,14 +203,14 @@ $(function(){
 
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
+            <i class="bi bi-search" ></i>
           </a>
         </li><!-- End Search Icon-->
 
 		<!-- 로그인 하지 않은 상태 -->
                 <c:if test = "${user eq null }">
                     <div class="login_button"><a class="login_button_login" href="${path}/login">로그인</a> | 
-                    <a class="login_button_join" href="${path}/join">회원가입</a></div>               
+                    <a class="login_button_join" href="${path}/joinrules">회원가입</a></div>               
                 </c:if>
         <!-- 로그인한 상태 -->
                 <c:if test="${ user ne null }">
@@ -218,7 +218,7 @@ $(function(){
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()"></i>
+            <i class="bi bi-chat-left-text" id="openChat" onclick="myChatList()" ></i>
             <span id="noRead"class="badge bg-warning badge-number"><!-- 읽지않은 메시지 수 들어갈 곳 --></span>
             
           </a><!-- End Messages Icon -->
@@ -240,7 +240,7 @@ $(function(){
           	<c:if test="${user.userImage ne null}">
             	<img src="${path}/resources/User_Image/${user.userImage}" alt="Profile" class="rounded-circle">
             </c:if>
-            <span class="d-none d-md-block dropdown-toggle ps-2">${user.userName}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2" >${user.userName}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

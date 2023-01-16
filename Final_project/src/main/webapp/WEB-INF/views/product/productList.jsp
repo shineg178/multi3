@@ -438,7 +438,7 @@
 
 		var map = new kakao.maps.Map(container, options);
 		
-		if(${user eq null} && ${user.userAddr2 eq null}){
+		if(${user eq null} || ${user.userAddr2 eq null}){
 			// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 			if (navigator.geolocation) {
 			    

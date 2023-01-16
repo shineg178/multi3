@@ -21,10 +21,10 @@
 		})
 </script>
 
-<!-- http://localhost:9090/project/donation -->
 
 <body>
 </body>
+
 
 <main id="main" class="main">
 	<section class="donation-main-section">
@@ -57,21 +57,20 @@
 				</div>
 				
 				<table class="donation-ranking-table">
-	<tr>
+					<tr>
 						<td class="donation-ranking-number">순위
 						</td>
 						<td class="donation-ranking-totalamount">기부금
 						</td>
 						<td class="donation-ranking-user">ID
 						</td>
-						</tr>
+					</tr>
 						
 					<c:forEach items="${userListDonate}" var="userListDonate" begin="0"
 						end="${donationUserCount}">
 					<tr class="donation-ranking-list">
 							<td class="donation-ranking-number"><c:out
 									value="${userListDonate.RANKINGNUMBER}" />등</td>
-							<!-- 기부금 높은 순으로 1~5등의 기부액과 아이디 불러오기 (아이디 참조를 안해서 우선 회원번호로 받음)-->
 							<td class="donation-ranking-totalamount"><c:out
 									value="${userListDonate.TOTALAMOUNT}" />원</td>
 							<td class="donation-ranking-user"><c:out
@@ -93,7 +92,10 @@
 					</tr>
 				</table>
 			</div>
+			
 		</div>
 	</section>
+	
+
 </main>
 <c:import url="/foot" />

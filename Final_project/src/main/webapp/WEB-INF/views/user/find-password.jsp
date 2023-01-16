@@ -46,7 +46,7 @@
 				</div>
 				<div class="footer">
 					<p>
-						<a href="find-id">아이디 찾기</a> / <a href="login">로그인</a> / <a href="join">회원가입</a> / <a href="/project">돌아가기</a>
+						<a href="find-id">아이디 찾기</a> / <a href="login">로그인</a> / <a href="joinrules">회원가입</a> / <a href="/project">돌아가기</a>
 					</p>
 				</div>
 			</div>

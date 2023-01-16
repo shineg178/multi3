@@ -13,6 +13,7 @@ import three.donation.model.DonateVO;
 import three.donation.model.DonationOrgVO;
 import three.exchange.model.ExchangeVO;
 import three.payment.model.PaymentVO;
+import three.product.model.ProdCategoryVO;
 import three.product.model.ProductVO;
 import three.user.model.UserVO;
 
@@ -161,6 +162,16 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<DonateVO> endDonateList() {
 		return adminMapper.endDonateList();
+	}
+
+	@Override
+	public List<ProdCategoryVO> categoryList() {
+		return adminMapper.categoryList();
+	}
+
+	@Override
+	public int exchangeComplete(int num) {
+		return adminMapper.exchangeComplete(num);
 	}
 
 }

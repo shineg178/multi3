@@ -50,7 +50,7 @@
 	<br>
 	<section class="donation-ranking-section">
 		<div class="row">
-			<div class="card col-lg-6" style="overflow:scroll;">
+			<div class="card col-lg-6" style="overflow-x:hidden; overflow-y:auto;">
 				<div>
 					<br>
 					<h1 class="donation-ranking-title">실시간 기부 순위</h1>

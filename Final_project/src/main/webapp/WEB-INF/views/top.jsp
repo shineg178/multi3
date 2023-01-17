@@ -8,6 +8,11 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
+<script>
+document.cookie="safeCookie1=foo;SameSite=Lax";
+document.cookie="safeCookie2=foo";
+document.cookie="crossCookie=bar;SameSite=None;Secure";
+</script>
 
 <head>
 <meta charset="utf-8">
@@ -310,7 +315,7 @@ $(function(){
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="${path}">
+        <a class="nav-link collapsed " href="${path}">
           <i class="bi bi-grid"></i>
           <span>홈</span>
         </a>

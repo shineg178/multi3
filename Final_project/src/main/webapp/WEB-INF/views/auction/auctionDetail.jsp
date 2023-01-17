@@ -207,7 +207,7 @@ sock.onmessage=function(evt){
                            </a>
 								</c:if>
 								<c:if test="${prod.prodImage1 eq null}">
-									<img src="resources/assets/img/noImage.jpg">
+									<img src="${path}/resources/assets/img/noImage.jpg">
 								</c:if>
 							</div>
 							<!-- 이미지 2번 내용 -->
@@ -220,7 +220,7 @@ sock.onmessage=function(evt){
 
 									</c:if>
 									<c:if test="${prod.prodImage2 eq null}">
-										<img src="resources/assets/img/noImage.jpg">
+										<img src="${path}/resources/assets/img/noImage.jpg">
 									</c:if>
 								</div>
 							</c:if>

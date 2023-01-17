@@ -234,6 +234,7 @@ public class UserController {
 		String encryPwd=UserSHA256.encrypt(vo.getUserPassword());
 		vo.setUserPassword(encryPwd);
 		int n = userservice.joinUser(vo);
+		
 		return "index";
 	}
 

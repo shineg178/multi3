@@ -32,7 +32,7 @@ input#btn {
 }
 
 .container {
-	background-color: #f5f5f5;
+	background: rgb(246,249,255);
 	height: 100vh;
 }
 .login {
@@ -60,14 +60,13 @@ a.btn:hover {
 	opacity: 1;
 }
 a.btn1 {
-	background-color: #fff;
+	background-color: rgba(30,144,255,1);
 	color: #222;
 }
 .footer{
 	padding: 5px;
 	margin-top: 10px;
 }
-
 .footer p:nth-child(1) a, .footer p:nth-child(2) a{
 	text-align: left;
 	color: #222;
@@ -77,8 +76,6 @@ a.btn1 {
 ,.footer p:nth-child(3) a:hover {
 	text-decoration: underline;
 }
-
-
 .footer p:nth-child(3) {
 	text-align: center;
 }

@@ -70,12 +70,12 @@ h2 {
 <main id="main" class="main">
 <section class="notice-main-section-top">
 		<div class="notice-main-top">
-			<div class="notice-main-desc">
-				<h1 class="notice-main-title">
+			<div class="notice-main-desc" style="margin-left:5%">
+				<h1 class="notice-main-title"> 
 					공지사항
 				</h1>
 
-				<p class="text-m">
+				<p class="text-m" >
 					기부앤테이크의 
 					업데이트 정보, 
 					<br>기부금 전달 등 다양한 소식을 알려드립니다.

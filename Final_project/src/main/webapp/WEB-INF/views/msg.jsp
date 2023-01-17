@@ -7,6 +7,7 @@
 	<script>
 		alert('${Msg}');
 		location.href="${path}/${loc}";
+
 	</script>
 </c:if>
 <c:if test="${Msg eq null}">

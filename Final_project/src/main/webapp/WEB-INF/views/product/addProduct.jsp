@@ -18,7 +18,7 @@
 <main id="main" class="main">
 	<section class="prod-main-section-top">
 		<div class="prod-main-top">
-			<div class="prod-main-desc">
+			<div class="prod-main-desc" style="margin-left:5%">
 				<h1 class="prod-main-title">상품 등록</h1>
 
 				<p class="text-m">상품을 등록하여 필요없는 물건을 중고거래 해보세요.</p>
@@ -33,7 +33,7 @@
 
 	<br>
 
-	<div class="total-div"></div>
+	<div class="total-div" ></div>
 	<form id="prodfrm" class="form-control" enctype="multipart/form-data"
 		method="post" action="addProd">
 		<div class="prod-img-span">

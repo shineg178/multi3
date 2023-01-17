@@ -102,7 +102,7 @@ function connect(){
 	//sock.onmessage = onMessage;
 	//sock.onclose = onClose;
 		console.log('info: connection opened.');
-		let str = '<div id="aucPrice" style="text-decoration: underline solid skyblue">';
+		let str = '<div id="aucPrice" style="font-weight:bold;color:rgb(232,92,0);">';
 		str += "<strong>";
 		str += "${auction.aucPrice}원";
 		str += "</strong>";
@@ -166,7 +166,7 @@ sock.onmessage=function(evt){
 	if (evt==null) {
 		var aucPrice = "${auction.aucPrice}";
 	}
-	let str = '<div id="aucPrice" style="text-decoration: underline blue">';
+	let str = '<div id="aucPrice" style="font-weight:bold;color:rgb(232,92,0);text-decoration: underline blue">';
 	str += "<strong>";
 	str += aucPrice+"원";
 	str += "</strong>";
@@ -176,7 +176,7 @@ sock.onmessage=function(evt){
 }//------
 </script>
 
-<main id="main" class="main">
+<main id="main" class="main" style="font-family:KoPubWorldDotum;">
 	<!-- Product section-->
 	<section class="py-5">
 
@@ -250,55 +250,55 @@ sock.onmessage=function(evt){
 				<div class="rightDiv">
 
 					<h3 class="fw-bolder">${prod.prodName }</h3>
-					<div class="large"><a class="badge border-primary border-2 text-secondary" style="width:50%">${seller.userNick} [ID : ${seller.userId}]  |   ${average} / 5 점</a></div>
+					<div class="large"><a class="badge border-primary border-2 text-secondary" style="margin-left:10%;text-align:right;font-size:0.9rem;
+					background-color:rgb(248,249,255);width:60%">${seller.userNick} [ID : ${seller.userId}]  |   ${average} / 5 점</a></div>
 					<br>
 					<div class="fs-5">
-						<table class="rightTable">
+						<table class="rightTable" style="margin-bottom:7px;">
 							<tr>
-								<td>시작가</td>
+								<td style="padding-right:3%;width:10rem">시작가</td>
 								<td class="d-flex justify-content-end">${prod.aucStartPrice }원</td>
 							</tr>
 							<tr>
-								<td>현재 입찰가</td>
+								<td style="padding-right:3%;"><strong>현재입찰가</strong></td>
 								<td id="tableAuc" class="d-flex justify-content-end"></td>
 							</tr>
 							<tr>
-								<td>시작 시간</td>
-								<td class="text-decoration-underline d-flex justify-content-end">
-									<fmt:formatDate value="${prod.getPIndate() }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<td style="padding-right:3%;">시작시간</td>
+								<td class="d-flex justify-content-end" style="color:grey;font-size:18px;vertical-align:middle;">
+									<fmt:formatDate value="${prod.getPIndate() }" pattern="yy.MM.dd HH:mm:ss"/>
 								</td>
 							</tr>
 							<tr>
-								<td>종료 시간</td>
-								<td class="text-decoration-underline d-flex justify-content-end">
-									<fmt:formatDate value="${closeTime }" pattern="yyyy-MM-dd HH:mm:ss"/>
+								<td style="padding-right:3%;">종료시간</td>
+								<td class="d-flex justify-content-end" style="font-size:18px;vertical-align:middle;">
+									<fmt:formatDate value="${closeTime }" pattern="yy.MM.dd HH:mm:ss"/>
 								</td>
 							</tr>
 							<tr>
-								<td>남은 시간</td>
-								<td class="text-decoration-underline d-flex justify-content-end">
-									<div class="time">
+								<td style="padding-right:3%;"><strong>남은시간</strong></td>
+								<td class="d-flex justify-content-end">
+									<div class="time" style="color:rgb(232,92,0);font-weight:bold">
 										<span id="d-day-hour"></span> 
-										<span class="col">시간</span> 
+										<span class="col">h</span> 
 										<span id="d-day-min"></span> 
-										<span class="col">분</span> 
+										<span class="col">m</span> 
 										<span id="d-day-sec"></span>
-										<span class="col">초</span>
+										<span class="col"></span>
 									</div>
 								</td>
 							</tr>
 							<c:if test="${user.userId ne prod.userId}">
 								<tr>
-									<td colspan="2" class="text-center">
-										<input class="form-control text-end" 
+									<td colspan="2" class="text-center" >
+										<input style="margin-top:15px;" class="form-control text-end" 
 											id="inputPrice" type="number" 
-											placeholder="입찰포인트를 정해주세요" style="width:95%; letter-spacing: 3px"
-										>
+											placeholder="입찰포인트를 정해주세요" style="width:100%; letter-spacing: 3px"	>
 									</td>
 								</tr>
 								<tr>
 									<td colspan="2">
-										<div class="text-center">
+										<div class="text-center" style="margin-top:5px;">
 			                              <button type="button" id="10kBtn" onclick=plus("10k") class="btn btn-outline-primary btn-sm">+10000</button>
 			                              <button type="button" id="5kBtn" onclick=plus("5k") class="btn btn-outline-primary btn-sm">+5000</button>
 			                              <button type="button" id="1kBtn" onclick=plus("1k") class="btn btn-outline-primary btn-sm">+1000</button>
@@ -309,17 +309,14 @@ sock.onmessage=function(evt){
 								</tr>
 							</c:if>
 						</table>
-						<div style="clear:both"></div>
-						<br> 
-						<!-- data-bs-toggle="modal" data-bs-target="#bid" -->
-
+						<div style="clear:both"></div> 
 						<c:if test="${user.userId ne prod.userId}"> 
-							<span class="text-start">
-								<button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#warning" type="button" >입찰하기</button>
-							</span> 
 							<span class="text-end col-3">
-								<a class="btn btn-info btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerId=${prod.userId}&prodNum=${prod.prodNum}">판매자와 채팅</a>
+								<a class="btn btn-secondary btn-lg" id="btnChat" type="button" href="${path}/addChatRoom?sellerId=${prod.userId}&prodNum=${prod.prodNum}"><strong>판매자와 채팅</strong></a>
 							</span>
+							<span class="text-start" >
+								<button class="btn btn-lg" style="color:white;background-color:rgb(232,92,0);" data-bs-toggle="modal" data-bs-target="#warning" type="button" ><strong>입찰하기</strong></button>
+							</span> 
 						</c:if>
 					</div>
 				</div>
@@ -337,7 +334,7 @@ sock.onmessage=function(evt){
                             	<h6>* 입찰가의 취소나 변경, 교환이 불가능하니 최대한 신중히 입찰해 주세요</h6>
                             	<h5>입찰 하시겠습니까?</h5>
                           </div>
-                          <div class="modal-footer">
+                          <div class="modal-footer" >
                             <button type="button" id="btnBid" class="btn btn-primary">예</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
                           </div>
@@ -350,11 +347,11 @@ sock.onmessage=function(evt){
 	<div style="clear:both"></div>
 	<br>
 	<section class="section2">
-		<div class="text-center lead" id="contents">
-			<br><h2>물품 설명</h2>
+		<div class="text-left lead" style="padding-left:10%;padding-right:10%" id="contents">
+			<br><h5 style="margin-left:3%;"><strong>물품소개</strong></h5>
 			<hr>
 		
-		<p class="lead" style="margin-left: 20%; margin-right: 20%;">${prod.prodSpec}</p>
+		<p style="margin-left: 4%; margin-right: 4%;font-size:17px;">${prod.prodSpec}</p>
 		</div>
 	</section>
 </main>

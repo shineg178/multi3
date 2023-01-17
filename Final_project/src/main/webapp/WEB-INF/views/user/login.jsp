@@ -39,17 +39,17 @@ function onSignIn(){
 		alert('${Msg}');
 	</script>
 </c:if>
-	<div class="container">
+	<div class="container" >
 		<div class="inner">
 			<div class="login">
 				<div class="login-type">
-					<h1>로그인</h1>
+					<h1><strong>로그인</strong></strong></h1>
 					<form id="login_form" method="post">
 
 						<input type="text" id="userId" name="userId" placeholder="아이디"
 							class="signIn"> <input type="password" id="userPassword"
-							name="userPassword" placeholder="비밀번호" class="signIn"> <input
-							type="submit" id="btn" class="btn1" value="로그인"><br>
+							name="userPassword" placeholder="비밀번호" class="signIn"> 
+              <input type="submit" id="btn" class="btn1" value="로그인"><br>
 						<c:if test="${result == 0 }">
 							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나<br>정지된 계정입니다.</div>
 						</c:if>

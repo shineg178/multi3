@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 - 기부앤테이크</title>
-
+<style>
+.btn1 {background-color:#91bce6;color:#f5f5f5;font-weight:bold;}
+</style>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <!-- 구글 라이브러리 -->
 
@@ -46,8 +48,8 @@ function onSignIn(){
 
 						<input type="text" id="userId" name="userId" placeholder="아이디"
 							class="signIn"> <input type="password" id="userPassword"
-							name="userPassword" placeholder="비밀번호" class="signIn"> <input
-							type="submit" id="btn" class="btn" value="로그인" style="font-weight:bold;font-size:18px;"><br>
+							name="userPassword" placeholder="비밀번호" class="signIn"> 
+              <input type="submit" id="btn" class="btn1" value="로그인"><br>
 						<c:if test="${result == 0 }">
 							<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨거나<br>정지된 계정입니다.</div>
 						</c:if>

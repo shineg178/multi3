@@ -33,6 +33,11 @@
 	</select>
 	
 	<select id="prodSearch" parameterType="String" resultType="Product">
-		select * from product where prodName like '%'||#{value}||'%' and status=1
+		
+		select * from (select * from product where prodName like '%'||#{value}||'%' and status=1) p 
+		left outer join 
+		(select NVL(average,0) avgPoint,takeUserId from 
+		(select Round(avg(score),2) average,takeUserId from Auction_survey 
+		group by takeUserId)) a on p.userId=a.takeUserId
 	</select>
 </mapper>

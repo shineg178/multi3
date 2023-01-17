@@ -40,8 +40,8 @@
 			<span id="lb">상품이미지</span>
 		</div>
 		<div class="prod-img-input">
-			<input type="file" name="image1" accept=".jpg, .png"> <br>
-			<input type="file" name="image2" accept=".jpg, .png">
+			<input type="file" name="image1" accept=".jpg, .png" class="form-control"> <br>
+			<input type="file" name="image2" accept=".jpg, .png" class="form-control">
 		</div>
 		<hr style="color: gray;">
 		<div class="prod-name-span">
@@ -55,7 +55,7 @@
 			<span id="lb">카테고리</span>
 		</div>
 		<div class="prod-category-select">
-			<select name="prodCategoryNum_fk">
+			<select name="prodCategoryNum_fk" class="form-select">
 				<option value=10>디지털/가전</option>
 				<option value=20>가구/인테리어</option>
 				<option value=30>생활/가공식품</option>

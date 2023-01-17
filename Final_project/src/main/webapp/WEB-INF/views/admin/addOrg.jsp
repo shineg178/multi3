@@ -38,7 +38,7 @@
 		</select>
 		<input class="form-control" type="number" name="donBankAccount" placeholder="(-)를 제외하고 계좌번호를 입력하세요" required>
 		<div id="btnWrap">
-			<button class="btn btn-primary">추가</button><a class="btn btn-warning">취소</a>
+			<button class="btn btn-primary">추가</button><a class="btn btn-warning" href="javascript:window.history.back();">취소</a>
 		</div>
 	</form>
 </main>

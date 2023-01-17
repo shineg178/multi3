@@ -6,10 +6,9 @@
 
 <title>회원가입 이용약관 - 기부앤테이크</title>
 <style>
-*{margin: 0;padding: 0;box-sizing: border-box;}
-body{background-color: #f7f7f7;}
+form *{margin: 0;padding: 0;box-sizing: border-box;}
+body{background: rgb(246,259,255);}
 ul>li{list-style: none}
-a{text-decoration: none;}
 .clearfix::after{content: "";display: block;clear: both;}
 #joinForm{width: 500px;margin: 0 auto; margin-top: 100px;}
 ul.join_box{border: 1px solid #ddd;background-color: #fff; margin-left:30px}
@@ -17,10 +16,10 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff; margin-left:30px}
 .checkBox>ul>li{float: left;}
 .checkBox>ul>li:first-child{width: 85%;padding: 15px;font-weight: 600;color: #888;}
 .checkBox>ul>li:nth-child(2){position: absolute;top: 50%;right: 30px;margin-top: -12px;}
-.checkBox textarea{width: 94%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none;}
+.checkBox textarea{width: 94%;height: 90px; margin: 0 2%;background: rgb(246,259,255);color: #888; border: none;}
 .footBtwrap{margin-top: 15px;}
 .footBtwrap>li{float: left;width: 50%;height: 60px;}
-.footBtwrap>li>button,a{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 30px;}
+.footBtwrap>li>button,a{width: 100%;height: 100%; text-align: center;line-height: 30px;}
 .fpmgBt1{background-color: #fff;color:#888;border: 1px solid #ddd}
 .fpmgBt2{background-color: gray;color: #fff;border: 1px solid #ddd}
 </style>
@@ -141,8 +140,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff; margin-left:30px}
             	<li class="admin">위 내용을 동의하여 회원가입을 진행합니다</li>
             </ul>
             <ul class="footBtwrap clearfix">
-            	<li><a type="button" class="fpmgBt1" href="join?id=f234rewq23sd514dsf" style="line-height:60px;">동의</a></li>
-                <li><button type="button" class="fpmgBt2" onClick="location.href='/project'">돌아가기</button></li>
+            	<li><a type="button" class="fpmgBt1" href="join?id=f234rewq23sd514dsf" style="font-size:20px;text-decoration: none;line-height:60px;">동의</a></li>
+                <li><button type="button" class="fpmgBt2" style="font-size:20px;" onClick="location.href='/project'">돌아가기</button></li>
             </ul>
         </form>
 </main>

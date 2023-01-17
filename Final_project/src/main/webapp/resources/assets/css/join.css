@@ -3,7 +3,7 @@
 .outer {
 	width: 70%;
 	min-width: 650px;
-	background: rgb(248, 249, 250);
+	background: rgb(248, 249, 255);
 	box-shadow: rgba(0, 0, 0, 0.06) 0px 0px 4px 0px;
 	margin: auto;
 	margin-top: 70px;
@@ -14,7 +14,7 @@
 	width:500px;
 	margin:auto;
 	padding-top: 10px;
-	 
+	background: rgb(246,249,255);
 	text-align: right;
 	
 }

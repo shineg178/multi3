@@ -53,6 +53,7 @@
 <style> @import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap'); </style>
 <!-- Template Main CSS File -->
 <link href="${path}/resources/assets/css/style.css" rel="stylesheet">
+<link href="https://webfontworld.github.io/kopus/KoPubWorldDotum.css" rel="stylesheet">
 <!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -312,32 +313,32 @@ $(function(){
       <li class="nav-item">
         <a class="nav-link " href="${path}">
           <i class="bi bi-grid"></i>
-          <span>홈</span>
+          <span><strong>홈</strong></span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed"  href="${path}/noticeList">
-          <i class="bi bi-journal-text"></i><span>공지사항</span>
+          <i class="bi bi-journal-text"></i><span><strong>공지사항</strong></span>
         </a>
       </li><!-- End Forms Nav --> 
 
       <li class="nav-item">
 
         <a class="nav-link collapsed" href="${path}/productList">
-          <i class="bi bi-layout-text-window-reverse"></i><span>상품 조회</span>
+          <i class="bi bi-layout-text-window-reverse"></i><span><strong>상품조회</strong></span>
         </a>
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed"  href="${path}/addProductForm">
-          <i class="bi bi-layout-text-window-reverse"></i><span>상품 등록</span>
+          <i class="bi bi-layout-text-window-reverse"></i><span><strong>상품등록</strong></span>
         </a>
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/donation">
-          <i class="bi bi-gem"></i><span>기부 현황</span>
+          <i class="bi bi-gem"></i><span><strong>기부현황</strong></span>
         </a>
       </li><!-- End 기부현황 Nav -->
       
@@ -345,14 +346,14 @@ $(function(){
       <li class="nav-item">
         <a class="nav-link collapsed" href="${path}/users-profile">
           <i class="bi bi-person"></i>
-          <span>마이페이지</span>
+          <span><strong>마이페이지</strong></span>
         </a>
       </li><!-- End 마이페이지 Nav -->
     </c:if>
       <!-- 관리자 전용 페이지 -->
 	<c:if test="${user.userStatus eq 1}">
 		<li class="nav-item"><a class="nav-link collapsed"
-			href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span>관리자전용</span>
+			href="${path}/admin/adminPage"> <i class="bi bi-person"></i> <span><strong>관리자전용</strong></span>
 		</a>
    		</li><!-- End 관리자 Page Nav -->
 	</c:if>

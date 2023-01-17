@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link href="https://webfontworld.github.io/kopus/KoPubWorldDotum.css" rel="stylesheet">
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <c:import url="/top" />
 
@@ -17,7 +18,7 @@
  <div class="pagetitle">
     <h1>Profile</h1>
     <nav>
-      <ol class="breadcrumb">
+      <ol class="breadcrumb" >
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item">Users</li>
         <li class="breadcrumb-item active">Profile</li>
@@ -30,14 +31,34 @@
     
       <div class="col-xl-3">
         <div class="card">
-          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center" style="font-family:KoPubWorldDotum;">
 
             <img 
             src="${path}\resources\User_Image/${user.userImage}" 
-            alt="Profile" class="rounded-circle">
+            alt="Profile" class="rounded-circle" >
             <h2>${user.userName }</h2>
             <h3>${user.userNick }</h3>
             <h4>${user.userEmail }</h4>
+            
+            <div class="mx-auto text-center">
+              <img src="${path}/resources/assets/img//gold.jpg" class="rounded" alt="Gold" style="width:15%;">
+            <input type="text" class="gold text-center" 
+            style="border:none;font-size:large;max-width:5rem" value="${user.userGoldBadge } 개" readonly>
+             </div>
+             <div class="mx-auto text-center">
+               <img src="${path}/resources/assets/img//silver.jpg" class="rounded" alt="Silver" style="width:15%;">
+               	<input type="text" class="silver text-center" 
+               	style="border:none;font-size:large;max-width:5rem" value="${user.userSilverBadge } 개" readonly>
+             </div>
+             <div class="mx-auto text-center">
+               <img src="${path}/resources/assets/img//bronze.jpg" class="rounded" alt="Bronze" style="width:15%;">
+                 	<input type="text" class="bronze text-center" 
+                 	style="border:none;font-size:large;max-width:5rem" value="${user.userBronzeBadge } 개" readonly>
+             </div>
+            
+            <div class="mx-auto text-center">
+                  
+            </div>
           </div>
         </div>
       </div>
@@ -49,23 +70,19 @@
             <ul class="nav nav-tabs nav-tabs-bordered">
 
               <li class="nav-item">
-                <button id="pofileTab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile">프로필</button>
+                <button id="pofileTab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile"><strong>프로필</strong></button>
               </li>
 
               <li class="nav-item">
-                <button id="badgeTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#badge">뱃지 현황</button>
+                <button id="pointTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#point"><strong>포인트</strong></button>
               </li>
 
               <li class="nav-item">
-                <button id="pointTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#point">포인트</button>
+                <button id="trade-statusTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#trade-status"><strong>거래내역</strong></button>
               </li>
 
               <li class="nav-item">
-                <button id="trade-statusTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#trade-status">거래내역</button>
-              </li>
-
-              <li class="nav-item">
-                <button id="profile-changeTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change">개인정보변경</button>
+                <button id="profile-changeTab" class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change"><strong>개인정보변경</strong></button>
               </li>
 
             </ul>
@@ -75,77 +92,69 @@
               <!-- profile start -->
               <div class="tab-pane fade show active profile" id="profile">
                 <p class="card-title" style="margin-left:100px;">Introduction</p>
-                
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label "></div>
-                  <div class="col-lg-9 col-md-8">
+                  <div class="col-lg-9 col-md-8" style="margin-left:100px;">
                   <p class="middle fst-italic">
-                  ${user.userInfo }
+                  <strong>${user.userInfo }</strong>
                 </p>
-                  </div>
+                </div>
+              </div>
+				
+                <p class="card-title" style="margin-left:100px;">Profile Details</p>
+                
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label "><h5>이름 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>${user.userName }</strong></div>
+                </div>
+
+                <div class="row" style="margin-left:100px;">
+                  <div class="col-lg-3 col-md-4 label"><h5>닉네임 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>${user.userNick }</strong></div>
                 </div>
                 
-
-                <p class="card-title" style="margin-left:100px;">Profile Details</p>
-
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label "><h5>Name</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>${user.userName }</strong></div>
-                </div>
-
-                <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h5>닉네임</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>${user.userNick }</strong></div>
+                  <div class="col-lg-3 col-md-4 label" style="margin-top:5px"><h5>메달 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center">
+                  	<img src="${path}/resources/assets/img//gold.jpg" class="rounded" alt="Gold" style="width:5%;">
+                 	<input type="text" class="gold text-center" 
+                 	style="border:none;font-size:12px;width:10%" value="${user.userGoldBadge } 개" readonly>
+                	<img src="${path}/resources/assets/img//silver.jpg" class="rounded" alt="Silver" style="width:5%;">
+               		<input type="text" class="silver text-center" 
+               		style="border:none;font-size:12px;width:10%" value="${user.userSilverBadge } 개" readonly>
+                  	<img src="${path}/resources/assets/img//bronze.jpg" class="rounded" alt="Bronze" style="width:5%;">
+                 	<input type="text" class="bronze text-center" 
+                 	style="border:none;font-size:12px;width:10%" value="${user.userBronzeBadge } 개" readonly>
+                  </div>
                 </div>
 				
 				<div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h5>Point</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>${user.userPoint } 포인트</strong></div>
+                  <div class="col-lg-3 col-md-4 label"><h5>포인트 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>${user.userPoint } 포인트</strong></div>
                 </div>
                 
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h5>평점</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>${average}/5점</strong></div>
+                  <div class="col-lg-3 col-md-4 label"><h5>평점 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>${average}/5점</strong></div>
                 </div>
 				
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h5>E-Mail</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>${user.userEmail }</strong></div>
+                  <div class="col-lg-3 col-md-4 label"><h5>이메일 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>${user.userEmail }</strong></div>
                 </div>
 
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h5>Phone</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</strong></div>
+                  <div class="col-lg-3 col-md-4 label"><h5>연락처 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>${user.userTel.substring(0,3)}-${user.userTel.substring(3,7)}-${user.userTel.substring(7)}</strong></div>
                 </div>
 				
                 <div class="row" style="margin-left:100px;">
-                  <div class="col-lg-3 col-md-4 label"><h5>Address</h5></div>
-                  <div class="col-lg-9 col-md-8"><strong>[${user.userAddr1}] ${user.userAddr2 } / ${user.userAddr3 }</strong></div>
+                  <div class="col-lg-3 col-md-4 label"><h5>주소 : </h5></div>
+                  <div class="col-lg-9 col-md-8 text-center"><strong>[${user.userAddr1}] ${user.userAddr2 } / ${user.userAddr3 }</strong></div>
                 </div>
                 
               </div>
               <!-- End profile start -->
               
-              <!-- badge  Form -->
-              <div class="tab-pane fade badge" id="badge">
-                  <div class="mx-auto">
-                    <img src="${path}/resources/assets/img//gold.jpg" class="rounded" alt="Gold">
-                     <input type="text" class="gold text-center" style="border:none;font-size:xx-large;max-width:5rem" 
-                     value="${user.userGoldBadge } 개" readonly>
-                  </div>
-                  <div class="mx-auto">
-                    <img src="${path}/resources/assets/img//silver.jpg" class="rounded" alt="Silver">
-                   	<input type="text" class="silver text-center" style="border:none;font-size:xx-large;max-width:5rem" 
-                   	value="${user.userSilverBadge } 개" readonly>
-                  </div>
-                  <div class="mx-auto">
-                    <img src="${path}/resources/assets/img//bronze.jpg" class="rounded" alt="Bronze">
-                   	<input type="text" class="bronze text-center" style="border:none;font-size:xx-large;max-width:5rem" 
-                   	value="${user.userBronzeBadge } 개" readonly>
-                  </div>
-              </div>
-              <!-- end badge  Form  -->
-
               <!-- Point Form -->
               <div class="tab-pane fade point pt-3" id="point">
 			      <div class="row mb-3">
@@ -703,7 +712,7 @@ function donateList(){
               <!-- trade-status Form -->
               <div class="tab-pane trade-status fade pt-3" id="trade-status">
               <table class="table">
-                <thead>
+                <thead style="text-align:center;">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">
@@ -726,7 +735,7 @@ function donateList(){
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style="text-align:center;vertical-align:middle;">
                 <c:forEach items="${myList}" var="data" varStatus="i">
                   <tr>
                     <th scope="row">${i.count}</th>
@@ -736,44 +745,44 @@ function donateList(){
                     <td>${data.endPrice}</td>
                     <td><fmt:formatDate value="${data.endDate}" pattern="YYYY-MM-DD HH:mm:ss"/> </td>
                     <c:if test="${data.aucStatus eq 0}">
-                    	<td><a class="badge bg-warning text-dark" style="width:100%"  data-bs-toggle="modal" data-bs-target="#verticalycentered${i.count}">거래중</a></td>
+                    	<td><a class="badge bg-warning text-dark" style="width:80%;margin-top:2px;"  data-bs-toggle="modal" data-bs-target="#verticalycentered${i.count}">거래중</a></td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 1}">
                     	<td>
-                    		<a class="badge bg-success" style="width:100%">거래완료</a>
-                    		<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
+                    		<a class="badge bg-success" style="width:80%;margin-top:2px;">거래완료</a>
+                    		<a class="badge bg-warning text-dark" style="width:80%;margin-top:2px;" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
                     	</td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 2}">
                     	<td>
-                    		<a class="badge bg-success" style="width:100%">거래완료</a>
+                    		<a class="badge bg-success" style="width:80%;margin-top:2px;">거래완료</a>
                     		<c:if test="${data.sellId eq user.userId}">
-                    			<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
+                    			<a class="badge bg-warning text-dark" style="width:80%;margin-top:2px;" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
                     		</c:if>
                     		<c:if test="${data.buyId eq user.userId}">
-                    			<a class="badge bg-success" style="width:100%">평가완료</a>
+                    			<a class="badge bg-success" style="width:80%;margin-top:2px;">평가완료</a>
                     		</c:if>
                     	</td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 3}">
                     	<td>
-                    		<a class="badge bg-success" style="width:100%" >거래완료</a>
+                    		<a class="badge bg-success" style="width:80%;margin-top:2px;" >거래완료</a>
                     		<c:if test="${data.buyId eq user.userId}">
-                    			<a class="badge bg-warning text-dark" style="width:100%" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
+                    			<a class="badge bg-warning text-dark" style="width:80%;margin-top:2px;" data-bs-toggle="modal" data-bs-target="#survey${data.auctionEndNum}">평가하기</a>
                     		</c:if>
                     		<c:if test="${data.sellId eq user.userId}">
-                    			<a class="badge bg-success" style="width:100%">평가완료</a>
+                    			<a class="badge bg-success" style="width:80%;margin-top:2px;">평가완료</a>
                     		</c:if>
                     	</td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 4}">
                  		<td>
-                    		<a class="badge bg-success" style="width:100%">거래완료</a>
-                    		<a class="badge bg-success" style="width:100%">평가완료</a>
+                    		<a class="badge bg-success" style="width:80%;margin-top:2px;">거래완료</a>
+                    		<a class="badge bg-success" style="width:80%;margin-top:2px;">평가완료</a>
                  		</td>
                  	</c:if>
                  	<c:if test="${data.aucStatus eq 5}">
-                 		<td><a class="badge bg-danger" style="width:100%">경매실패</a></td>
+                 		<td><a class="badge bg-danger" style="width:80%;margin-top:2px;">경매실패</a></td>
                  	</c:if>
                   </tr>    
                   <!--tradeCheck Vertically centered Modal -->

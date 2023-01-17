@@ -10,7 +10,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <link href="${path}/resources/assets/css/donation.css" rel="stylesheet">
-
+<link href="https://webfontworld.github.io/kopus/KoPubWorldDotum.css" rel="stylesheet">
 <script>
 	$(function() {
 		const totalDonation=${totalDonation};
@@ -26,7 +26,7 @@
 </body>
 
 
-<main id="main" class="main">
+<main id="main" class="main" style="font-family:KoPubWorldDotum;">
 	<section class="donation-main-section">
 		<div class="donation-main-div">
 			<div>
@@ -41,7 +41,7 @@
 					<span> <img src="${path}/resources/assets/img/donate.png">
 					</span>
 				</div>
-				<p class="donation-main-subtitle">기부 순위를 확인 후, 기부앤테이크로 경매거래에
+				<p class="donation-main-subtitle" style="font-size: 1.2rem;color: white;font-weight:700;">기부 순위를 확인 후, 기부앤테이크로 경매거래에
 					참여해보세요.</p>
 			</div>
 
@@ -50,7 +50,7 @@
 	<br>
 	<section class="donation-ranking-section">
 		<div class="row">
-			<div class="card col-lg-6" style="overflow:scroll;">
+			<div class="card col-lg-6" style="overflow:scroll;background: rgba(30,144,255,0.1);font-weight:bold;">
 				<div>
 					<br>
 					<h1 class="donation-ranking-title">실시간 기부 순위</h1>
@@ -81,7 +81,7 @@
 
 			</div>
 
-			<div class="card col-lg-5 offset-lg-1">
+			<div class="card col-lg-5 offset-lg-1" style="background: rgba(30,144,255,0.1);font-weight:bold;">
 				<br>
 				<h3 class="donation-ranking-title">기부 단체 설명</h3>
 				<p class="donation-main-subtitle">현재 진행중인 기부 단체에 대해 알려드립니다.</p>

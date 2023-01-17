@@ -13,7 +13,7 @@
 <main id="main" class="main">
 	<section class="prod-main-section-top">
 		<div class="prod-main-top">
-			<div class="prod-main-desc">
+			<div class="prod-main-desc" style="margin-left:5%">
 				<h1 class="prod-main-title">상품 목록</h1>
 
 				<p class="text-m">
@@ -28,9 +28,9 @@
 	</section>
 
 	<!-- 카카오맵 지도 위치 -->
-	<div class="map-box">
+	<div class="map-box" style="background-color: rgba(246,249,255)">
 		<div id="map"></div>
-		<a class="mapIcon"> <img class="myLocImg"
+		<a class="mapIcon" > <img class="myLocImg"
 			src="resources/assets/img/myLoc.png"> 내 위치 &nbsp;&nbsp; <img
 			class="LocImg"
 			src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png">
@@ -46,32 +46,32 @@
 					<button class="nav-link active" id="user home-tab"
 						data-bs-toggle="tab" data-bs-target="#all" type="button"
 						role="tab" aria-controls="all" aria-selected="true">
-						<img style="height:49px;" src="resources/assets/img/logo.png"><br>전체</button>
+						<img style="height:49px;" src="resources/assets/img/logo.png"><br><strong>전체</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="donation profile-tab"
 						data-bs-toggle="tab" data-bs-target="#digital" type="button"
 						role="tab" aria-controls="digital" aria-selected="false">
-						<img style="height:49px;" src="resources/assets/img/com.JPG"><br>디지털/가전</button>
+						<img style="height:49px;" src="resources/assets/img/com.JPG"><br><strong>디지털/가전</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="auction contact-tab"
 						data-bs-toggle="tab" data-bs-target="#furniture" type="button"
 						role="tab" aria-controls="furniture" aria-selected="false">
-						<img style="height:49px;" src="resources/assets/img/funi.JPG"><br>가구/인테리어</button>
+						<img style="height:49px;" src="resources/assets/img/funi.JPG"><br><strong>가구/인테리어</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="exchange contact-tab"
 						data-bs-toggle="tab" data-bs-target="#food" type="button"
 						role="tab" aria-controls="food" aria-selected="false">
-						<img style="height:49px;" src="resources/assets/img/life.JPG"><br>생활/가공식품</button>
+						<img style="height:49px;" src="resources/assets/img/life.JPG"><br><strong>생활/가공식품</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<div id="paybtn">
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#cloth" type="button"
 							role="tab" aria-controls="cloth" aria-selected="false">
-							<img style="height:49px;" src="resources/assets/img/cloth.JPG"><br>의류</button>
+							<img style="height:49px;" src="resources/assets/img/cloth.JPG"><br><strong>의류</strong></button>
 					</div>
 				</li>
 				<li class="nav-item" role="presentation">
@@ -79,7 +79,7 @@
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#game" type="button"
 							role="tab" aria-controls="game" aria-selected="false">
-							<img style="height:49px;" src="resources/assets/img/hobby.JPG"><br>게임/취미</button>
+							<img style="height:49px;" src="resources/assets/img/hobby.JPG"><br><strong>게임/취미</strong></button>
 					</div>
 				</li>
 				<li class="nav-item" role="presentation">
@@ -87,7 +87,7 @@
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#book" type="button"
 							role="tab" aria-controls="book" aria-selected="false">
-							<img style="height:49px;" src="resources/assets/img/book.JPG"><br>도서</button>
+							<img style="height:49px;" src="resources/assets/img/book.JPG"><br><strong>도서</strong></button>
 					</div>
 				</li>
 			</ul>

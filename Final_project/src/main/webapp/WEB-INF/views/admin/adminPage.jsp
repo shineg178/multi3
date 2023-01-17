@@ -397,46 +397,46 @@
 <main id="main" class="main">
 	<div class="card">
 		<div class="card-body">
-			<h3 style="margin: 15px 0px;">관리자 페이지</h3>
+			<h3 style="margin: 15px 0px;"><strong>관리자 페이지</strong></h3>
 
 			<!-- Default Tabs -->
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="user home-tab"
 						data-bs-toggle="tab" data-bs-target="#user" type="button"
-						role="tab" aria-controls="user" aria-selected="true">회원관리</button>
+						role="tab" aria-controls="user" aria-selected="true"><strong>회원관리</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="donationOrg profile-tab"
 						data-bs-toggle="tab" data-bs-target="#donationOrg" type="button"
-						role="tab" aria-controls="donationOrg" aria-selected="false">기부단체관리</button>
+						role="tab" aria-controls="donationOrg" aria-selected="false"><strong>기부단체관리</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="donation profile-tab"
 						data-bs-toggle="tab" data-bs-target="#donation" type="button"
-						role="tab" aria-controls="donation" aria-selected="false">기부내역</button>
+						role="tab" aria-controls="donation" aria-selected="false"><strong>기부내역</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="auction contact-tab"
 						data-bs-toggle="tab" data-bs-target="#auction" type="button"
-						role="tab" aria-controls="auction" aria-selected="false">경매관리</button>
+						role="tab" aria-controls="auction" aria-selected="false"><strong>경매관리</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="exchange contact-tab"
 						data-bs-toggle="tab" data-bs-target="#exchange" type="button"
-						role="tab" aria-controls="exchange" aria-selected="false">환불요청</button>
+						role="tab" aria-controls="exchange" aria-selected="false"><strong>환불요청</strong></button>
 				</li>
 				<li class="nav-item" role="presentation">
 					<div id="paybtn">
 						<button class="nav-link" id="payment contact-tab"
 							data-bs-toggle="tab" data-bs-target="#payment" type="button"
-							role="tab" aria-controls="payment" aria-selected="false">결재내역</button>
+							role="tab" aria-controls="payment" aria-selected="false"><strong>결재내역</strong></button>
 					</div>
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="exchange contact-tab"
 						data-bs-toggle="tab" data-bs-target="#report" type="button"
-						role="tab" aria-controls="report" aria-selected="false">신고내역</button>
+						role="tab" aria-controls="report" aria-selected="false"><strong>신고내역</strong></button>
 				</li>
 				
 			</ul>

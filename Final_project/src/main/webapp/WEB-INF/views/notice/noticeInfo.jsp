@@ -35,7 +35,7 @@
 
 <section class="notice-main-section-top">
 		<div class="notice-main-top">
-			<div class="notice-main-desc">
+			<div class="notice-main-desc" style="margin-left:5%">
 				<h1 class="notice-main-title">
 					공지사항
 				</h1>
@@ -53,15 +53,15 @@
 		</div>
 	</section>
 	<br><br>
-	<div id="wrap">
+	<div id="wrap" >
 		<table class="table">
-			<tr class="table-tr1">
-				<td><h4>${notice.getNTitle()}</h4></td>
-				<td style="font-weight:bold">${notice.getNUserId()}</td>
-				<td>${notice.getNDate()}</td>
+			<tr class="table-tr1" >
+				<td style="padding-left:50px;vertical-align:middle;"><h4>${notice.getNTitle()}</h4></td>
+				<td style="font-weight:bold;vertical-align:middle;">${notice.getNUserId()}</td>
+				<td style="vertical-align:middle;">${notice.getNDate()}</td>
 			</tr>
 			<tr class="table-tr2">
-				<td colspan="3">
+				<td colspan="3" style="padding-left:50px">
 				<!-- 업로드파일이 있을 경우 -->
 				<c:if test="${notice.getNImage() ne null}">
 					<img id="nImg" alt="" src="${pageContext.request.contextPath}/resources/Notice_Image/${notice.getNImage()}">

@@ -13,7 +13,7 @@
 <main id="main" class="main">
 	<div class="outer">
 		<div id="joinInfoArea">
-			<form id="joinForm" name="joinForm" method="post" action="${path}/project/login"
+			<form id="joinForm" name="joinForm" method="post" action="${path}/project/joinUser"
 				onsubmit="return join();"> 
 				<br>
 				<h1>회원 가입</h1>

@@ -195,6 +195,5 @@ public class AdminServiceImpl implements AdminService {
 	public int auctionStatusUpdate(int aucNum) {
 		return adminMapper.auctionStatusUpdate(aucNum);
 	}
->>>>>>> branch 'main' of https://github.com/shineg178/multi3.git
 
 }

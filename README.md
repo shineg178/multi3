@@ -27,7 +27,7 @@ ___
 ___
 ## 사용기술 및 개발환경
 <p align="center">
-    <img src = "ForREADME/01.JPG", width="100%">
+    <img src = "forREADME/01.JPG", width="100%">
 </p>
 ___
 ## 주요기능

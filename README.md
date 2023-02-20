@@ -127,9 +127,9 @@ ___
 
 ___
 ## Document
-### 1. 유스케이스
+### 1. UseCase Diagram
 <p align="center">
-    <img src = "ForREADME/usecase.jpg", width="100%">
+    <img src = "forREADME/usecase.JPG", width="100%">
 </p>
 
 ### 2. ERD

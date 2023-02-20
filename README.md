@@ -142,7 +142,7 @@ ___
     <img src = "forREADME/sequence.JPG", width="100%">
 </p>
 
-### 2. E-R Diagram
+### 4. E-R Diagram
 <p align="center">
     <img src = "forREADME/erd.JPG", width="100%">
 </p>

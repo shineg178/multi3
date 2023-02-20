@@ -139,7 +139,8 @@ ___
 
 ### 3. Sequence Diagram
 <p align="center">
-    <img src = "forREADME/sequence.JPG", width="100%">
+    <img src = "forREADME/sequence1.JPG", width="100%">
+    <img src = "forREADME/sequence2.JPG", width="100%">
 </p>
 
 ### 4. E-R Diagram

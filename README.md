@@ -132,7 +132,17 @@ ___
     <img src = "forREADME/usecase.JPG", width="100%">
 </p>
 
-### 2. ERD
+### 2. Class Diagram
 <p align="center">
-    <img src = "ForREADME/erd.png", width="100%">
+    <img src = "forREADME/class.JPG", width="100%">
+</p>
+
+### 3. Sequence Diagram
+<p align="center">
+    <img src = "forREADME/sequence.JPG", width="100%">
+</p>
+
+### 2. E-R Diagram
+<p align="center">
+    <img src = "forREADME/erd.JPG", width="100%">
 </p>

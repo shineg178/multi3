@@ -33,66 +33,66 @@ ___
 ## 주요기능
 **1. 메인화면**
 <p align="center">
-    <img src = "ForREADME/main.JPG", width="100%">
+    <img src = "forREADME/main.JPG", width="100%">
 </p>
 
 **2. 회원가입**
 <p align="center">
-    <img src = "ForREADME/join.JPG", width="100%">
+    <img src = "forREADME/join.JPG", width="100%">
 </p>
 
 **3. 공지사항**
 <p align="center">
-    <img src = "ForREADME/notice01.JPG", width="100%">
+    <img src = "forREADME/notice01.JPG", width="100%">
 </p>
 
 **4. 경매 물품 등록**
 <p align="center">
-    <img src = "ForREADME/addprod.JPG", width="100%">
+    <img src = "forREADME/addprod.JPG", width="100%">
 </p>
 
 **5. 경매 물품 목록**
 <p align="center">
-    <img src = "ForREADME/prodlist.JPG", width="100%">
+    <img src = "forREADME/prodlist.JPG", width="100%">
 </p>
 
 **6. 물품 상세 페이지(경매)**
 <p align="center">
-    <img src = "ForREADME/auction.JPG", width="100%">
+    <img src = "forREADME/auction.JPG", width="100%">
 </p>
 
 **7. 기부 순위, 기부 단체 설명**
 <p align="center">
-    <img src = "ForREADME/donation.JPG", width="100%">
+    <img src = "forREADME/donation.JPG", width="100%">
 </p>
 
 **8. 마이페이지**
 <p align="center">
-    <img src = "ForREADME/mypage01.JPG", width="49%">
-    <img src = "ForREADME/mypage02.JPG", width="49%">
+    <img src = "forREADME/mypage01.JPG", width="49%">
+    <img src = "forREADME/mypage02.JPG", width="49%">
 </p>
 <p align="center">
-    <img src = "ForREADME/mypage03.JPG", width="49%">
-    <img src = "ForREADME/mypage04.JPG", width="49%">
+    <img src = "forREADME/mypage03.JPG", width="49%">
+    <img src = "forREADME/mypage04.JPG", width="49%">
 </p>
 
 **9. 관리자페이지**
 <p align="center">
-    <img src = "ForREADME/admin01.JPG", width="49%">
-    <img src = "ForREADME/admin02.JPG", width="49%">
+    <img src = "forREADME/admin01.JPG", width="49%">
+    <img src = "forREADME/admin02.JPG", width="49%">
 </p>
 <p align="center">
-    <img src = "ForREADME/admin03.JPG", width="49%">
-    <img src = "ForREADME/admin04.JPG", width="49%">
+    <img src = "forREADME/admin03.JPG", width="49%">
+    <img src = "forREADME/admin04.JPG", width="49%">
 </p>
 <p align="center">
-    <img src = "ForREADME/admin05.JPG", width="49%">
-    <img src = "ForREADME/admin06.JPG", width="49%">
+    <img src = "forREADME/admin05.JPG", width="49%">
+    <img src = "forREADME/admin06.JPG", width="49%">
 </p>
 
 **13. 채팅**
 <p align="center">
-    <img src = "ForREADME/chat.JPG", width="100%">
+    <img src = "forREADME/chat.JPG", width="100%">
 </p>
 ___
 ## Document

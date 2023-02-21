@@ -30,6 +30,7 @@ ___
     <img src = "forREADME/01.JPG", width="100%">
 </p>
 ___
+
 ## 주요기능
 
 **1. 메인화면**
@@ -96,6 +97,7 @@ ___
     <img src = "forREADME/chat.JPG", width="100%">
 </p>
 ___
+
 ## Document
 
 ### 1. UseCase Diagram

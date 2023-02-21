@@ -31,100 +31,69 @@ ___
 </p>
 ___
 ## 주요기능
-**1. 회원가입**
+**1. 메인화면**
 <p align="center">
-    <img src = "ForREADME/01.png", width="100%">
+    <img src = "ForREADME/main.JPG", width="100%">
 </p>
 
-**2. 마이페이지**
+**2. 회원가입**
 <p align="center">
-    <img src = "ForREADME/02.png", width="100%">
+    <img src = "ForREADME/join.JPG", width="100%">
 </p>
 
-**3. 프로젝트 목록**
+**3. 공지사항**
 <p align="center">
-    <img src = "ForREADME/03.png", width="100%">
-</p>
-<p align="center">
-    <img src = "ForREADME/04.png", width="100%">
+    <img src = "ForREADME/notice01.JPG", width="100%">
 </p>
 
-**4. 프로젝트 생성**
+**4. 경매 물품 등록**
 <p align="center">
-    <img src = "ForREADME/05.png", width="100%">
+    <img src = "ForREADME/addprod.JPG", width="100%">
 </p>
 
-**5. 프로젝트 상세(일반글)**
+**5. 경매 물품 목록**
 <p align="center">
-    <img src = "ForREADME/06.png", width="100%">
+    <img src = "ForREADME/prodlist.JPG", width="100%">
 </p>
 
-**6. 프로젝트 상세(업무)**
+**6. 물품 상세 페이지(경매)**
 <p align="center">
-    <img src = "ForREADME/07.png", width="100%">
+    <img src = "ForREADME/auction.JPG", width="100%">
 </p>
 
-**7. 프로젝트 상세(일정)**
+**7. 기부 순위, 기부 단체 설명**
 <p align="center">
-    <img src = "ForREADME/08.png", width="100%">
+    <img src = "ForREADME/donation.JPG", width="100%">
 </p>
 
-**8. 프로젝트 상세(할일)**
+**8. 마이페이지**
 <p align="center">
-    <img src = "ForREADME/09.png", width="100%">
+    <img src = "ForREADME/mypage01.JPG", width="49%">
+    <img src = "ForREADME/mypage02.JPG", width="49%">
+</p>
+<p align="center">
+    <img src = "ForREADME/mypage03.JPG", width="49%">
+    <img src = "ForREADME/mypage04.JPG", width="49%">
 </p>
 
-**9. 프로젝트 상세 : 프로젝트 채팅**
+**9. 관리자페이지**
 <p align="center">
-    <img src = "ForREADME/10.png", width="100%">
+    <img src = "ForREADME/admin01.JPG", width="49%">
+    <img src = "ForREADME/admin02.JPG", width="49%">
 </p>
-
-**10. 전체 업무**
 <p align="center">
-    <img src = "ForREADME/11.png", width="100%">
+    <img src = "ForREADME/admin03.JPG", width="49%">
+    <img src = "ForREADME/admin04.JPG", width="49%">
 </p>
-
-**11. 전체 일정**
 <p align="center">
-    <img src = "ForREADME/12.png", width="100%">
-</p>
-
-**12. 파일함**
-<p align="center">
-    <img src = "ForREADME/13.png", width="100%">
+    <img src = "ForREADME/admin05.JPG", width="49%">
+    <img src = "ForREADME/admin06.JPG", width="49%">
 </p>
 
 **13. 채팅**
 <p align="center">
-    <img src = "ForREADME/14.png", width="100%">
+    <img src = "ForREADME/chat.JPG", width="100%">
 </p>
-
-**14. 사용자 정보**
-<p align="center">
-    <img src = "ForREADME/15.png", width="100%">
-</p>
-
-**15. 알림**
-<p align="center">
-    <img src = "ForREADME/16.png", width="100%">
-</p>
-
-**16. 근태관리**
-<p align="center">
-    <img src = "ForREADME/17.png", width="100%">
-</p>
-<p align="center">
-    <img src = "ForREADME/18.png", width="100%">
-</p>
-
-**17. 전자결재**
-<p align="center">
-    <img src = "ForREADME/19.png", width="100%">
-</p>
-<p align="center">
-    <img src = "ForREADME/20.png", width="100%">
-</p>
-
 ___
 ## Document
 ### 1. UseCase Diagram

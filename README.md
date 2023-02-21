@@ -29,6 +29,7 @@ ___
 <p align="center">
     <img src = "forREADME/01.JPG", width="100%">
 </p>
+
 ___
 
 ## 주요기능
@@ -96,6 +97,7 @@ ___
 <p align="center">
     <img src = "forREADME/chat.JPG", width="100%">
 </p>
+
 ___
 
 ## Document

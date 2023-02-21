@@ -31,6 +31,7 @@ ___
 </p>
 ___
 ## 주요기능
+
 **1. 메인화면**
 <p align="center">
     <img src = "forREADME/main.JPG", width="100%">
@@ -96,6 +97,7 @@ ___
 </p>
 ___
 ## Document
+
 ### 1. UseCase Diagram
 <p align="center">
     <img src = "forREADME/usecase.JPG", width="100%">
